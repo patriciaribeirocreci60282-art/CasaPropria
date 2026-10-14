@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#ffffff">
   <meta name="description" content="Encontre casas, apartamentos e terrenos com Patrícia Ribeiro, corretora de imóveis CRECI/SC 60282-F.">
+
   <title>Patrícia Ribeiro | Imóveis e Terrenos</title>
 
   <style>
@@ -13,19 +14,21 @@
       --orange: #e8622a;
       --orange-dark: #c94c19;
       --ink: #242424;
-      --muted: #737373;
+      --muted: #666666;
       --line: #e9e7e4;
       --soft: #f8f6f3;
       --white: #ffffff;
       --radius: 14px;
-      --shadow: 0 12px 35px rgba(36,36,36,.12);
+      --shadow: 0 12px 35px rgba(36, 36, 36, 0.12);
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     html {
       scroll-behavior: smooth;
-      scroll-padding-top: 85px;
+      scroll-padding-top: 100px;
     }
 
     body {
@@ -36,63 +39,92 @@
       line-height: 1.55;
     }
 
-    a { color: inherit; text-decoration: none; }
-    button, input, select { font: inherit; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
 
     .container {
       width: min(1160px, calc(100% - 40px));
       margin: 0 auto;
     }
 
+    /* CABEÇALHO */
+
     .header {
       position: sticky;
       top: 0;
       z-index: 20;
-      background: rgba(255,255,255,.97);
+      background: rgba(255, 255, 255, 0.98);
       border-bottom: 1px solid var(--line);
       backdrop-filter: blur(12px);
     }
 
     .header-inner {
-      min-height: 82px;
+      min-height: 86px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 24px;
+      gap: 25px;
     }
 
-    .brand { display: flex; align-items: center; gap: 12px; }
-
-    .brand-icon {
-      width: 44px;
-      height: 44px;
-      display: grid;
-      place-items: center;
-      border-radius: 12px;
-      background: var(--orange);
-      color: white;
-      font-size: 23px;
+    .brand {
+      display: block;
+      flex: 1;
+      min-width: 0;
+      margin-right: auto;
+      text-align: left;
     }
 
     .brand-name {
       display: block;
+      width: fit-content;
       font-family: Georgia, "Times New Roman", serif;
-      font-size: 23px;
+      font-size: 30px;
       line-height: 1.2;
       font-weight: 700;
+      letter-spacing: -0.6px;
+      color: #242424;
+      text-align: left;
     }
 
     .brand-sub {
       display: block;
-      margin-top: 5px;
-      color: var(--muted);
+      margin-top: 6px;
+      color: #555555;
       font-size: 10px;
-      letter-spacing: .8px;
+      font-weight: 600;
+      letter-spacing: 0.55px;
+      text-align: left;
     }
 
-    .nav { display: flex; align-items: center; gap: 26px; }
-    .nav a { font-size: 14px; font-weight: 600; }
-    .nav a:hover { color: var(--orange); }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 24px;
+    }
+
+    .nav a {
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+
+    .nav a:hover {
+      color: var(--orange-dark);
+    }
 
     .nav .nav-cta {
       padding: 11px 16px;
@@ -101,14 +133,19 @@
       border-radius: 8px;
     }
 
-    /* Imagem como fundo e busca realmente sobreposta */
+    .nav .nav-cta:hover {
+      background: var(--orange-dark);
+    }
+
+    /* ABERTURA E BUSCA */
+
     .hero {
       position: relative;
-      min-height: 470px;
-      display: grid;
-      place-items: center;
-      padding: 55px 20px 70px;
       isolation: isolate;
+      min-height: 475px;
+      display: flex;
+      align-items: center;
+      padding: 54px 20px 65px;
       background: #ded8cf;
     }
 
@@ -117,8 +154,7 @@
       position: absolute;
       inset: 0;
       z-index: -2;
-      background-image:
-        url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000&q=85");
+      background-image: url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000&q=85");
       background-size: cover;
       background-position: center 55%;
     }
@@ -130,21 +166,21 @@
       z-index: -1;
       background: linear-gradient(
         90deg,
-        rgba(22,25,25,.48),
-        rgba(22,25,25,.13)
+        rgba(22, 25, 25, 0.55),
+        rgba(22, 25, 25, 0.14)
       );
     }
 
     .hero-content {
-      width: min(900px, 100%);
-      margin: auto;
+      width: min(940px, 100%);
+      margin: 0 auto;
     }
 
     .hero-copy {
       max-width: 680px;
       margin-bottom: 26px;
-      color: white;
-      text-shadow: 0 2px 12px rgba(0,0,0,.22);
+      color: #ffffff;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
     }
 
     .eyebrow {
@@ -158,7 +194,7 @@
       max-width: 650px;
       margin: 10px 0;
       font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(32px, 5vw, 49px);
+      font-size: clamp(34px, 5vw, 50px);
       font-weight: 500;
       line-height: 1.12;
     }
@@ -171,15 +207,15 @@
 
     .search-panel {
       padding: 23px;
-      background: white;
-      border: 1px solid rgba(255,255,255,.8);
-      border-radius: 16px;
+      background: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 15px;
       box-shadow: var(--shadow);
     }
 
     .search-tabs {
       display: flex;
-      gap: 24px;
+      gap: 25px;
       margin-bottom: 20px;
       border-bottom: 1px solid var(--line);
     }
@@ -190,13 +226,13 @@
       border-bottom: 3px solid transparent;
       background: transparent;
       color: var(--muted);
-      cursor: pointer;
+      font-size: 13px;
       font-weight: 600;
     }
 
     .search-tab.active {
       color: var(--orange-dark);
-      border-color: var(--orange);
+      border-bottom-color: var(--orange);
     }
 
     .search-grid {
@@ -209,12 +245,13 @@
     .field label {
       display: block;
       margin-bottom: 7px;
+      color: #555555;
       font-size: 12px;
       font-weight: 700;
-      color: #555;
     }
 
-    .field input, .field select {
+    .field input,
+    .field select {
       width: 100%;
       min-width: 0;
       height: 47px;
@@ -223,12 +260,13 @@
       border-radius: 8px;
       outline: none;
       color: var(--ink);
-      background: white;
+      background: #ffffff;
     }
 
-    .field input:focus, .field select:focus {
+    .field input:focus,
+    .field select:focus {
       border-color: var(--orange);
-      box-shadow: 0 0 0 3px rgba(232,98,42,.12);
+      box-shadow: 0 0 0 3px rgba(232, 98, 42, 0.12);
     }
 
     .btn {
@@ -241,24 +279,31 @@
       border: 0;
       border-radius: 8px;
       background: var(--orange);
-      color: white;
-      cursor: pointer;
+      color: #ffffff;
       font-weight: 700;
-      transition: background .2s, transform .2s;
+      transition: background 0.2s;
     }
 
-    .btn:hover { background: var(--orange-dark); }
-    .btn:active { transform: translateY(1px); }
+    .btn:hover {
+      background: var(--orange-dark);
+    }
 
-    .section { padding: 58px 0; }
-    .section.soft { background: var(--soft); }
+    /* SEÇÕES */
+
+    .section {
+      padding: 58px 0;
+    }
+
+    .section.soft {
+      background: var(--soft);
+    }
 
     .section-heading {
       display: flex;
       align-items: end;
       justify-content: space-between;
       gap: 18px;
-      margin-bottom: 24px;
+      margin-bottom: 25px;
     }
 
     .section-kicker {
@@ -274,7 +319,7 @@
     .section h2 {
       margin: 0;
       font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(26px, 3vw, 34px);
+      font-size: clamp(27px, 3vw, 35px);
       font-weight: 500;
       line-height: 1.2;
     }
@@ -292,7 +337,7 @@
       font-weight: 700;
     }
 
-    .carousel-wrap { position: relative; }
+    /* CARROSSEL DE IMÓVEIS */
 
     .carousel {
       display: grid;
@@ -311,14 +356,14 @@
       overflow: hidden;
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: white;
+      background: #ffffff;
       scroll-snap-align: start;
-      transition: box-shadow .2s, transform .2s;
+      transition: box-shadow 0.2s, transform 0.2s;
     }
 
     .property-card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 12px 28px rgba(36,36,36,.08);
+      box-shadow: 0 12px 28px rgba(36, 36, 36, 0.08);
     }
 
     .property-image {
@@ -329,14 +374,11 @@
     }
 
     .property-image img {
+      display: block;
       width: 100%;
       height: 100%;
-      display: block;
       object-fit: cover;
-      transition: transform .35s;
     }
-
-    .property-card:hover .property-image img { transform: scale(1.035); }
 
     .tag {
       position: absolute;
@@ -344,20 +386,21 @@
       left: 12px;
       padding: 6px 9px;
       border-radius: 5px;
-      background: white;
+      background: #ffffff;
       color: var(--orange-dark);
       font-size: 10px;
       font-weight: 800;
-      letter-spacing: .4px;
     }
 
-    .property-body { padding: 17px; }
+    .property-body {
+      padding: 17px;
+    }
 
     .property-type {
       color: var(--orange-dark);
       font-size: 11px;
       font-weight: 800;
-      letter-spacing: .8px;
+      letter-spacing: 0.8px;
       text-transform: uppercase;
     }
 
@@ -378,7 +421,7 @@
       flex-wrap: wrap;
       gap: 12px;
       margin-top: 13px;
-      color: #555;
+      color: #555555;
       font-size: 12px;
     }
 
@@ -397,7 +440,10 @@
       font-weight: 750;
     }
 
-    .carousel-controls { display: flex; gap: 8px; }
+    .carousel-controls {
+      display: flex;
+      gap: 8px;
+    }
 
     .circle-btn {
       width: 38px;
@@ -406,9 +452,8 @@
       place-items: center;
       border: 1px solid var(--line);
       border-radius: 50%;
-      background: white;
+      background: #ffffff;
       color: var(--ink);
-      cursor: pointer;
     }
 
     .circle-btn:hover {
@@ -416,18 +461,24 @@
       color: var(--orange-dark);
     }
 
-    .recent-list { display: grid; gap: 17px; }
+    /* LISTA DE ANÚNCIOS RECENTES */
+
+    .recent-list {
+      display: grid;
+      gap: 17px;
+    }
 
     .recent-card {
       display: grid;
-      grid-template-columns: 230px 1fr;
+      grid-template-columns: 230px minmax(0, 1fr);
       overflow: hidden;
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: white;
+      background: #ffffff;
     }
 
     .recent-image {
+      display: block;
       width: 100%;
       height: 100%;
       min-height: 190px;
@@ -443,9 +494,19 @@
       padding: 22px;
     }
 
-    .recent-content h3 { margin: 6px 0; font-size: 19px; }
-    .recent-content .property-price { margin: 12px 0; }
-    .recent-content .property-action { padding-top: 0; border: 0; }
+    .recent-content h3 {
+      margin: 6px 0;
+      font-size: 19px;
+    }
+
+    .recent-content .property-price {
+      margin: 12px 0;
+    }
+
+    .recent-content .property-action {
+      padding-top: 0;
+      border: 0;
+    }
 
     .empty-state {
       padding: 32px;
@@ -455,28 +516,39 @@
       text-align: center;
     }
 
+    [hidden] {
+      display: none !important;
+    }
+
+    /* APRESENTAÇÃO PROFISSIONAL */
+
     .about-strip {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 24px;
-      padding: 28px;
+      padding: 30px;
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: #fff;
+      background: #ffffff;
     }
 
     .about-strip h2 {
       font-family: Georgia, "Times New Roman", serif;
-      font-size: 26px;
+      font-size: 27px;
     }
 
-    .about-strip p { margin-bottom: 0; color: var(--muted); }
+    .about-strip p {
+      margin-bottom: 0;
+      color: var(--muted);
+    }
+
+    /* RODAPÉ */
 
     .footer {
       padding: 32px 0;
       border-top: 1px solid var(--line);
-      background: white;
+      background: #ffffff;
     }
 
     .footer-inner {
@@ -486,7 +558,11 @@
       gap: 18px;
     }
 
-    .footer p { margin: 4px 0; color: var(--muted); font-size: 12px; }
+    .footer p {
+      margin: 4px 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
 
     .whatsapp {
       position: fixed;
@@ -499,54 +575,167 @@
       padding: 13px 17px;
       border-radius: 30px;
       background: #277b50;
-      color: white;
-      box-shadow: 0 5px 20px rgba(0,0,0,.18);
+      color: #ffffff;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.18);
       font-size: 13px;
       font-weight: 700;
     }
 
-    .whatsapp:hover { background: #1e633f; }
-
-    @media (max-width: 850px) {
-      .nav { gap: 14px; }
-      .nav a { font-size: 12px; }
-      .search-grid { grid-template-columns: 1fr 1fr; }
-      .search-grid .btn { width: 100%; }
-      .carousel { grid-auto-columns: minmax(245px, 45%); }
-      .recent-card { grid-template-columns: 190px 1fr; }
+    .whatsapp:hover {
+      background: #1e633f;
     }
 
+    /* TABLETS */
+
+    @media (max-width: 850px) {
+      .header-inner {
+        gap: 16px;
+      }
+
+      .brand-name {
+        font-size: 27px;
+      }
+
+      .nav {
+        gap: 14px;
+      }
+
+      .nav a {
+        font-size: 12px;
+      }
+
+      .search-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .search-grid .btn {
+        width: 100%;
+      }
+
+      .carousel {
+        grid-auto-columns: minmax(245px, 45%);
+      }
+
+      .recent-card {
+        grid-template-columns: 190px minmax(0, 1fr);
+      }
+    }
+
+    /* CELULARES */
+
     @media (max-width: 600px) {
-      .container { width: calc(100% - 28px); }
-      .header-inner { min-height: 72px; }
-      .brand-name { font-size: 19px; }
-      .brand-sub { max-width: 220px; font-size: 9px; }
-      .brand-icon { width: 38px; height: 38px; }
-      .nav { gap: 0; }
-      .nav a:not(.nav-cta) { display: none; }
-      .nav .nav-cta { padding: 10px 12px; }
-      .hero { min-height: 0; padding: 42px 14px; }
-      .hero h1 { font-size: 34px; }
-      .hero-copy p { font-size: 14px; }
-      .search-panel { padding: 16px; }
-      .search-grid { grid-template-columns: 1fr; gap: 12px; }
-      .search-tabs { gap: 20px; }
-      .section { padding: 40px 0; }
-      .section-heading { align-items: flex-start; }
-      .section-heading h2 { font-size: 27px; }
-      .carousel { grid-auto-columns: 82%; gap: 14px; }
-      .recent-card { grid-template-columns: 120px minmax(0,1fr); }
-      .recent-image { min-height: 100%; }
-      .recent-content { padding: 13px; }
-      .recent-content h3 { font-size: 15px; }
-      .recent-content .property-price { font-size: 17px; }
-      .recent-content .property-features { gap: 6px; }
-      .about-strip { align-items: flex-start; flex-direction: column; padding: 22px; }
-      .whatsapp { right: 12px; bottom: 12px; padding: 12px 15px; }
+      .container {
+        width: calc(100% - 28px);
+      }
+
+      .header-inner {
+        min-height: 78px;
+        gap: 8px;
+      }
+
+      .brand-name {
+        font-size: 24px;
+      }
+
+      .brand-sub {
+        max-width: 250px;
+        font-size: 9px;
+        letter-spacing: 0.25px;
+      }
+
+      .nav {
+        gap: 0;
+      }
+
+      .nav a:not(.nav-cta) {
+        display: none;
+      }
+
+      .nav .nav-cta {
+        padding: 10px 11px;
+        font-size: 11px;
+      }
+
+      .hero {
+        min-height: 0;
+        padding: 40px 14px;
+      }
+
+      .hero h1 {
+        font-size: 35px;
+      }
+
+      .hero-copy p {
+        font-size: 14px;
+      }
+
+      .search-panel {
+        padding: 16px;
+      }
+
+      .search-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .search-tabs {
+        gap: 19px;
+      }
+
+      .section {
+        padding: 42px 0;
+      }
+
+      .section-heading {
+        align-items: flex-start;
+      }
+
+      .section-heading h2 {
+        font-size: 27px;
+      }
+
+      .carousel {
+        grid-auto-columns: 82%;
+        gap: 14px;
+      }
+
+      .recent-card {
+        grid-template-columns: 120px minmax(0, 1fr);
+      }
+
+      .recent-content {
+        padding: 13px;
+      }
+
+      .recent-content h3 {
+        font-size: 15px;
+      }
+
+      .recent-content .property-price {
+        font-size: 17px;
+      }
+
+      .recent-content .property-features {
+        gap: 6px;
+      }
+
+      .about-strip {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 22px;
+      }
+
+      .whatsapp {
+        right: 12px;
+        bottom: 12px;
+        padding: 12px 15px;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
+      *,
+      *::before,
+      *::after {
         scroll-behavior: auto !important;
         transition: none !important;
       }
@@ -555,15 +744,17 @@
 </head>
 
 <body>
+
   <header class="header">
     <div class="container header-inner">
+
+      <!-- CABEÇALHO SEM LOGO: NOME À ESQUERDA E EM DESTAQUE -->
       <a class="brand" href="#" aria-label="Página inicial">
-        <a class="brand" href="#" aria-label="Página inicial">
-  <span>
-    <span class="brand-name">Patrícia Ribeiro</span>
-    <span class="brand-sub">CORRETORA DE IMÓVEIS · CRECI/SC 60282-F</span>
-  </span>
-</a>
+        <span class="brand-name">Patrícia Ribeiro</span>
+        <span class="brand-sub">
+          CORRETORA DE IMÓVEIS · CRECI/SC 60282-F
+        </span>
+      </a>
 
       <nav class="nav" aria-label="Navegação principal">
         <a href="#destaques">Comprar</a>
@@ -571,30 +762,46 @@
         <a href="#recentes">Mais recentes</a>
         <a class="nav-cta" href="#contato">Fale comigo</a>
       </nav>
+
     </div>
   </header>
 
   <main>
-    <section class="hero" aria-label="Busca de imóveis">
+
+    <!-- BUSCA SOBREPOSTA À FOTOGRAFIA -->
+    <section class="hero" aria-label="Encontre seu imóvel">
       <div class="hero-content">
+
         <div class="hero-copy">
           <span class="eyebrow">Seu próximo capítulo começa aqui</span>
           <h1>Um lugar para chamar de seu.</h1>
-          <p>Encontre casas, apartamentos e terrenos para realizar seus planos, com atendimento próximo e orientação profissional.</p>
+          <p>
+            Casas, apartamentos e terrenos para realizar seus planos,
+            com atendimento próximo e orientação profissional.
+          </p>
         </div>
 
         <form class="search-panel" id="searchForm">
+
           <div class="search-tabs" aria-label="Finalidade da busca">
-            <button class="search-tab active" type="button" data-purpose="Comprar">Comprar</button>
-            <button class="search-tab" type="button" data-purpose="Alugar">Alugar</button>
-            <button class="search-tab" type="button" data-purpose="Lançamento">Lançamentos</button>
+            <button class="search-tab active" type="button"
+              data-purpose="Comprar">Comprar</button>
+
+            <button class="search-tab" type="button"
+              data-purpose="Alugar">Alugar</button>
+
+            <button class="search-tab" type="button"
+              data-purpose="Lançamento">Lançamentos</button>
           </div>
 
           <div class="search-grid">
+
             <div class="field">
               <label for="location">Onde deseja morar?</label>
-              <input id="location" type="search" placeholder="Cidade ou bairro">
+              <input id="location" type="search"
+                placeholder="Cidade ou bairro">
             </div>
+
             <div class="field">
               <label for="type">Tipo de imóvel</label>
               <select id="type">
@@ -606,6 +813,7 @@
                 <option>Empreendimento</option>
               </select>
             </div>
+
             <div class="field">
               <label for="price">Faixa de preço</label>
               <select id="price">
@@ -616,110 +824,162 @@
                 <option value="1000000">Até R$ 1 milhão</option>
               </select>
             </div>
+
             <button class="btn" type="submit">⌕ Buscar imóveis</button>
+
           </div>
         </form>
       </div>
     </section>
 
+    <!-- DESTAQUES -->
     <section class="section" id="destaques">
       <div class="container">
+
         <div class="section-heading">
           <div>
             <span class="section-kicker">Selecionados para você</span>
             <h2>Imóveis em destaque</h2>
-            <p class="section-desc">Oportunidades que merecem sua atenção.</p>
+            <p class="section-desc">
+              Oportunidades que merecem sua atenção.
+            </p>
           </div>
+
           <div class="carousel-controls">
-            <button class="circle-btn" type="button" data-scroll="left" aria-label="Ver imóveis anteriores">←</button>
-            <button class="circle-btn" type="button" data-scroll="right" aria-label="Ver próximos imóveis">→</button>
+            <button class="circle-btn" type="button"
+              data-scroll="left" aria-label="Imóveis anteriores">←</button>
+
+            <button class="circle-btn" type="button"
+              data-scroll="right" aria-label="Próximos imóveis">→</button>
           </div>
         </div>
 
-        <div class="carousel-wrap">
-          <div class="carousel" id="featuredList">
-            <!-- Os imóveis reais serão inseridos aqui. -->
-          </div>
-          <div class="empty-state" id="featuredEmpty">
-            Os imóveis em destaque aparecerão aqui assim que os anúncios forem cadastrados.
-          </div>
+        <div class="carousel" id="featuredList"></div>
+
+        <div class="empty-state" id="featuredEmpty">
+          Em breve, você encontrará aqui imóveis selecionados.
         </div>
+
       </div>
     </section>
 
+    <!-- LANÇAMENTOS -->
     <section class="section soft" id="lancamentos">
       <div class="container">
+
         <div class="section-heading">
           <div>
             <span class="section-kicker">Novos projetos</span>
             <h2>Lançamentos</h2>
-            <p class="section-desc">Conheça empreendimentos e novas oportunidades.</p>
+            <p class="section-desc">
+              Conheça empreendimentos e novas oportunidades.
+            </p>
           </div>
         </div>
-        <div class="carousel" id="launchList">
-          <!-- Os lançamentos reais serão inseridos aqui. -->
-        </div>
+
+        <div class="carousel" id="launchList"></div>
+
         <div class="empty-state" id="launchEmpty">
-          Os lançamentos serão exibidos aqui quando houver anúncios cadastrados.
+          Os lançamentos serão apresentados aqui quando houver anúncios.
         </div>
+
       </div>
     </section>
 
+    <!-- IMÓVEIS RECENTES -->
     <section class="section" id="recentes">
       <div class="container">
+
         <div class="section-heading">
           <div>
             <span class="section-kicker">Novidades do catálogo</span>
             <h2>Mais recentes</h2>
-            <p class="section-desc">Veja os imóveis adicionados mais recentemente.</p>
+            <p class="section-desc">
+              Veja os imóveis adicionados recentemente.
+            </p>
           </div>
         </div>
+
         <div class="recent-list" id="recentList"></div>
+
         <div class="empty-state" id="recentEmpty">
-          Ainda não há anúncios publicados. Em breve, novas oportunidades estarão disponíveis.
+          Novas oportunidades estarão disponíveis em breve.
         </div>
+
       </div>
     </section>
 
+    <!-- CONTATO -->
     <section class="section soft" id="contato">
       <div class="container">
+
         <div class="about-strip">
           <div>
             <span class="section-kicker">Atendimento profissional</span>
             <h2>Vamos encontrar seu próximo imóvel?</h2>
-            <p>Entre em contato para conversar sobre suas necessidades e as oportunidades disponíveis.</p>
+            <p>
+              Entre em contato para conversar sobre suas necessidades
+              e consultar as oportunidades disponíveis.
+            </p>
           </div>
-          <a class="btn" id="contactButton" href="mailto:SEU_EMAIL_AQUI">Entrar em contato →</a>
+
+          <a class="btn" id="contactButton" href="#contato">
+            Entrar em contato →
+          </a>
         </div>
+
       </div>
     </section>
+
   </main>
 
   <footer class="footer">
     <div class="container footer-inner">
+
       <div>
         <strong>Patrícia Ribeiro</strong>
         <p>Corretora de Imóveis · CRECI/SC 60282-F</p>
       </div>
+
       <div>
         <p>Atendimento imobiliário com clareza e proximidade.</p>
         <p>© <span id="year"></span> · Todos os direitos reservados.</p>
       </div>
+
     </div>
   </footer>
 
-  <!-- Substitua pelo link wa.me com seu número, incluindo o código do país. -->
-  <a class="whatsapp" id="whatsappButton" href="#contato" aria-label="Entre em contato pelo WhatsApp">
+  <!-- CONFIGURE SEU WHATSAPP NO SCRIPT ABAIXO -->
+  <a class="whatsapp" id="whatsappButton"
+    href="#contato" aria-label="Entre em contato">
     <span aria-hidden="true">◉</span> Fale comigo
   </a>
 
   <script>
     /*
       CATÁLOGO DE IMÓVEIS
-      Os anúncios começam vazios intencionalmente.
-      Não exiba imóveis fictícios como se estivessem disponíveis.
-      Depois, os dados poderão vir de um cadastro ou banco de dados.
+
+      O catálogo começa vazio para evitar anúncios fictícios.
+      Os imóveis podem ser inseridos nesta lista posteriormente.
+
+      Exemplo de estrutura para um anúncio real:
+
+      {
+        title: "Casa residencial",
+        type: "Casa",
+        location: "Cidade, SC",
+        price: 450000,
+        bedrooms: 3,
+        area: 120,
+        image: "URL_DA_FOTO_AUTORIZADA",
+        featured: true,
+        launch: false,
+        purpose: "Comprar",
+        publishedAt: "2026-10-14",
+        url: "#contato"
+      }
     */
+
     const properties = [];
 
     const featuredList = document.getElementById("featuredList");
@@ -752,7 +1012,7 @@
 
     function propertyCard(item) {
       const image = item.image || "";
-      const label = item.tag || item.type || "IMÓVEL";
+
       const details = [
         item.bedrooms ? `${item.bedrooms} quartos` : "",
         item.area ? `${item.area} m²` : ""
@@ -761,16 +1021,27 @@
       return `
         <article class="property-card">
           <div class="property-image">
-            ${image ? `<img src="${safe(image)}" alt="${safe(item.title)}" loading="lazy">` : ""}
-            <span class="tag">${safe(label)}</span>
+            ${image
+              ? `<img src="${safe(image)}" alt="${safe(item.title)}" loading="lazy">`
+              : ""}
+            <span class="tag">${safe(item.tag || item.type || "IMÓVEL")}</span>
           </div>
+
           <div class="property-body">
             <span class="property-type">${safe(item.type)}</span>
             <h3>${safe(item.title)}</h3>
             <p class="location">${safe(item.location)}</p>
-            ${details ? `<div class="property-features">${safe(details)}</div>` : ""}
+
+            ${details
+              ? `<div class="property-features">${safe(details)}</div>`
+              : ""}
+
             <p class="property-price">${money(item.price)}</p>
-            <a class="property-action" href="${safe(item.url || "#contato")}">Ver detalhes →</a>
+
+            <a class="property-action"
+              href="${safe(item.url || "#contato")}">
+              Ver detalhes →
+            </a>
           </div>
         </article>
       `;
@@ -778,6 +1049,7 @@
 
     function recentCard(item) {
       const image = item.image || "";
+
       const details = [
         item.bedrooms ? `${item.bedrooms} quartos` : "",
         item.area ? `${item.area} m²` : ""
@@ -786,15 +1058,27 @@
       return `
         <article class="recent-card">
           ${image
-            ? `<img class="recent-image" src="${safe(image)}" alt="${safe(item.title)}" loading="lazy">`
+            ? `<img class="recent-image"
+                src="${safe(image)}"
+                alt="${safe(item.title)}"
+                loading="lazy">`
             : `<div class="recent-image"></div>`}
+
           <div class="recent-content">
             <span class="property-type">${safe(item.type)}</span>
             <h3>${safe(item.title)}</h3>
             <p class="location">${safe(item.location)}</p>
-            ${details ? `<div class="property-features">${safe(details)}</div>` : ""}
+
+            ${details
+              ? `<div class="property-features">${safe(details)}</div>`
+              : ""}
+
             <p class="property-price">${money(item.price)}</p>
-            <a class="property-action" href="${safe(item.url || "#contato")}">Ver detalhes →</a>
+
+            <a class="property-action"
+              href="${safe(item.url || "#contato")}">
+              Ver detalhes →
+            </a>
           </div>
         </article>
       `;
@@ -807,8 +1091,10 @@
     function render(list = properties) {
       const featured = list.filter(item => item.featured);
       const launches = list.filter(item => item.launch);
+
       const recent = [...list].sort((a, b) =>
-        new Date(b.publishedAt || 0) - new Date(a.publishedAt || 0)
+        new Date(b.publishedAt || 0) -
+        new Date(a.publishedAt || 0)
       );
 
       featuredList.innerHTML = featured.map(propertyCard).join("");
@@ -822,9 +1108,10 @@
 
     document.querySelectorAll(".search-tab").forEach(tab => {
       tab.addEventListener("click", () => {
-        document.querySelectorAll(".search-tab").forEach(button =>
-          button.classList.remove("active")
-        );
+        document.querySelectorAll(".search-tab").forEach(button => {
+          button.classList.remove("active");
+        });
+
         tab.classList.add("active");
         purpose = tab.dataset.purpose;
       });
@@ -832,62 +1119,100 @@
 
     document.querySelectorAll("[data-scroll]").forEach(button => {
       button.addEventListener("click", () => {
-        const direction = button.dataset.scroll === "right" ? 1 : -1;
+        const direction =
+          button.dataset.scroll === "right" ? 1 : -1;
+
         featuredList.scrollBy({
-          left: direction * featuredList.clientWidth * .8,
+          left: direction * featuredList.clientWidth * 0.8,
           behavior: "smooth"
         });
       });
     });
 
-    document.getElementById("searchForm").addEventListener("submit", event => {
-      event.preventDefault();
+    document.getElementById("searchForm").addEventListener(
+      "submit",
+      event => {
+        event.preventDefault();
 
-      const location = document.getElementById("location").value
-        .trim().toLocaleLowerCase("pt-BR");
-      const type = document.getElementById("type").value;
-      const price = Number(document.getElementById("price").value || Infinity);
+        const location = document.getElementById("location").value
+          .trim().toLocaleLowerCase("pt-BR");
 
-      const results = properties.filter(item => {
-        const matchesLocation = !location ||
-          String(item.location || "").toLocaleLowerCase("pt-BR").includes(location);
-        const matchesType = !type || item.type === type;
-        const matchesPrice = !Number.isFinite(price) || Number(item.price) <= price;
-        const matchesPurpose = purpose === "Comprar" ||
-          (purpose === "Lançamento" && item.launch) ||
-          (purpose === "Alugar" && item.purpose === "Alugar");
+        const type = document.getElementById("type").value;
 
-        return matchesLocation && matchesType && matchesPrice && matchesPurpose;
-      });
+        const priceValue = document.getElementById("price").value;
+        const price = priceValue ? Number(priceValue) : Infinity;
 
-      document.getElementById("recentes").scrollIntoView({ behavior: "smooth" });
+        const results = properties.filter(item => {
+          const itemLocation =
+            String(item.location || "").toLocaleLowerCase("pt-BR");
 
-      recentList.innerHTML = results.map(recentCard).join("");
-      showEmpty("recentEmpty", results.length === 0);
+          const matchesLocation =
+            !location || itemLocation.includes(location);
 
-      if (results.length === 0) {
-        document.getElementById("recentEmpty").textContent =
-          "Nenhum anúncio corresponde aos filtros. Ajuste sua pesquisa ou entre em contato para consultar outras oportunidades.";
+          const matchesType = !type || item.type === type;
+
+          const matchesPrice =
+            !Number.isFinite(price) || Number(item.price) <= price;
+
+          const matchesPurpose =
+            purpose === "Comprar"
+              ? item.purpose !== "Alugar"
+              : purpose === "Alugar"
+                ? item.purpose === "Alugar"
+                : Boolean(item.launch);
+
+          return matchesLocation &&
+            matchesType &&
+            matchesPrice &&
+            matchesPurpose;
+        });
+
+        recentList.innerHTML = results.map(recentCard).join("");
+        showEmpty("recentEmpty", results.length === 0);
+
+        if (results.length === 0) {
+          document.getElementById("recentEmpty").textContent =
+            "Nenhum anúncio corresponde aos filtros. " +
+            "Ajuste sua pesquisa ou entre em contato para " +
+            "consultar outras oportunidades.";
+        }
+
+        document.getElementById("recentes").scrollIntoView({
+          behavior: "smooth"
+        });
       }
-    });
+    );
 
     /*
-      CONFIGURAÇÃO DE CONTATO:
-      Troque SEU_EMAIL_AQUI pelo seu e-mail profissional.
-      Configure o WhatsApp no formato https://wa.me/55DDDNUMERO.
-    */
-    const whatsappUrl = "";
-    const whatsappButton = document.getElementById("whatsappButton");
+      CONFIGURE O WHATSAPP:
+      Informe o número com código do país, DDD e número,
+      sem espaços, parênteses ou hífen.
 
-    if (whatsappUrl) {
+      Exemplo de formato: 5548999999999
+    */
+
+    const whatsappNumber = "";
+
+    if (whatsappNumber) {
+      const whatsappButton =
+        document.getElementById("whatsappButton");
+
+      const whatsappUrl =
+        "https://wa.me/" + whatsappNumber;
+
       whatsappButton.href = whatsappUrl;
       whatsappButton.target = "_blank";
       whatsappButton.rel = "noopener noreferrer";
+
+      document.getElementById("contactButton").href =
+        whatsappUrl;
     }
 
-    document.getElementById("year").textContent = new Date().getFullYear();
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
 
     render();
   </script>
+
 </body>
 </html>
