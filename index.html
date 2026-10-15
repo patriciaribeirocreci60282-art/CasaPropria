@@ -980,14 +980,33 @@
       }
     */
 
-    const properties = [];
+    let properties = [];
 
     const featuredList = document.getElementById("featuredList");
     const launchList = document.getElementById("launchList");
     const recentList = document.getElementById("recentList");
 
     let purpose = "Comprar";
+async function loadProperties() {
+  try {
+    const response = await fetch("/api/imoveis");
 
+    if (!response.ok) {
+      throw new Error("Falha ao consultar a API");
+    }
+
+    const data = await response.json();
+
+    if (!data.success || !Array.isArray(data.imoveis)) {
+      throw new Error("Resposta inválida da API");
+    }
+
+    properties = data.imoveis;   
+loadProperties();
+  } catch (error) {
+    console.error("Erro ao carregar imóveis:", error);
+  }
+}
     function money(value) {
       if (value === null || value === undefined || value === "") {
         return "Consulte o valor";
