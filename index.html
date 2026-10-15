@@ -3,28 +3,30 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
-  <meta name="description" content="Encontre casas, apartamentos e terrenos com Patrícia Ribeiro, corretora de imóveis CRECI/SC 60282-F.">
+  <meta name="description" content="Encontre casas, apartamentos e terrenos com Patricia Ribeiro, corretora de imóveis CRECI/SC 60282-F.">
 
-  <title>Patrícia Ribeiro | Imóveis e Terrenos</title>
+  <title>Patricia Ribeiro | Imóveis em Santa Catarina</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --orange: #e8622a;
-      --orange-dark: #c94c19;
+      --orange: #E8622A;
+      --orange-dark: #C94C19;
       --ink: #242424;
-      --muted: #666666;
-      --line: #e9e7e4;
-      --soft: #f8f6f3;
-      --white: #ffffff;
-      --radius: 14px;
-      --shadow: 0 12px 35px rgba(36, 36, 36, 0.12);
+      --muted: #707070;
+      --line: #EAE7E3;
+      --soft: #F8F6F3;
+      --white: #FFFFFF;
+      --radius: 12px;
+      --shadow: 0 8px 28px rgba(36,36,36,.07);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     html {
       scroll-behavior: smooth;
@@ -33,244 +35,70 @@
 
     body {
       margin: 0;
-      font-family: Inter, "Segoe UI", Arial, sans-serif;
       color: var(--ink);
       background: var(--white);
+      font-family: "DM Sans", Arial, sans-serif;
       line-height: 1.55;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button,
-    input,
-    select {
-      font: inherit;
-    }
-
-    button {
-      cursor: pointer;
-    }
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; }
+    button, select { cursor: pointer; }
 
     .container {
-      width: min(1160px, calc(100% - 40px));
+      width: min(1160px, calc(100% - 36px));
       margin: 0 auto;
     }
-
-    /* CABEÇALHO */
 
     .header {
       position: sticky;
       top: 0;
-      z-index: 20;
-      background: rgba(255, 255, 255, 0.98);
+      z-index: 10;
+      background: rgba(255,255,255,.97);
       border-bottom: 1px solid var(--line);
       backdrop-filter: blur(12px);
     }
 
     .header-inner {
-      min-height: 86px;
+      min-height: 82px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 25px;
+      gap: 18px;
     }
 
-    .brand {
-      display: block;
-      flex: 1;
-      min-width: 0;
-      margin-right: auto;
-      text-align: left;
-    }
+    .brand { display: block; }
 
     .brand-name {
       display: block;
-      width: fit-content;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 30px;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(25px, 3vw, 34px);
       line-height: 1.2;
-      font-weight: 700;
-      letter-spacing: -0.6px;
-      color: #242424;
-      text-align: left;
+      font-weight: 600;
+      letter-spacing: -.8px;
     }
 
     .brand-sub {
       display: block;
-      margin-top: 6px;
-      color: #555555;
+      margin-top: 5px;
       font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.55px;
-      text-align: left;
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 24px;
-    }
-
-    .nav a {
-      font-size: 13px;
-      font-weight: 600;
-      white-space: nowrap;
-      transition: color 0.2s;
-    }
-
-    .nav a:hover {
-      color: var(--orange-dark);
-    }
-
-    .nav .nav-cta {
-      padding: 11px 16px;
-      background: var(--orange);
-      color: white;
-      border-radius: 8px;
-    }
-
-    .nav .nav-cta:hover {
-      background: var(--orange-dark);
-    }
-
-    /* ABERTURA E BUSCA */
-
-    .hero {
-      position: relative;
-      isolation: isolate;
-      min-height: 475px;
-      display: flex;
-      align-items: center;
-      padding: 54px 20px 65px;
-      background: #ded8cf;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: -2;
-      background-image: url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000&q=85");
-      background-size: cover;
-      background-position: center 55%;
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      background: linear-gradient(
-        90deg,
-        rgba(22, 25, 25, 0.55),
-        rgba(22, 25, 25, 0.14)
-      );
-    }
-
-    .hero-content {
-      width: min(940px, 100%);
-      margin: 0 auto;
-    }
-
-    .hero-copy {
-      max-width: 680px;
-      margin-bottom: 26px;
-      color: #ffffff;
-      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
-    }
-
-    .eyebrow {
-      font-size: 12px;
       font-weight: 700;
-      letter-spacing: 1.7px;
-      text-transform: uppercase;
-    }
-
-    .hero h1 {
-      max-width: 650px;
-      margin: 10px 0;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(34px, 5vw, 50px);
-      font-weight: 500;
-      line-height: 1.12;
-    }
-
-    .hero-copy p {
-      max-width: 540px;
-      margin: 0;
-      font-size: 16px;
-    }
-
-    .search-panel {
-      padding: 23px;
-      background: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.8);
-      border-radius: 15px;
-      box-shadow: var(--shadow);
-    }
-
-    .search-tabs {
-      display: flex;
-      gap: 25px;
-      margin-bottom: 20px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .search-tab {
-      padding: 0 2px 12px;
-      border: 0;
-      border-bottom: 3px solid transparent;
-      background: transparent;
+      letter-spacing: 1px;
       color: var(--muted);
+    }
+
+    .header-contact {
+      display: flex;
+      align-items: center;
+      gap: 18px;
       font-size: 13px;
       font-weight: 600;
     }
 
-    .search-tab.active {
-      color: var(--orange-dark);
-      border-bottom-color: var(--orange);
-    }
+    .header-contact a:hover { color: var(--orange-dark); }
 
-    .search-grid {
-      display: grid;
-      grid-template-columns: 1.3fr 1fr 1fr auto;
-      gap: 12px;
-      align-items: end;
-    }
-
-    .field label {
-      display: block;
-      margin-bottom: 7px;
-      color: #555555;
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .field input,
-    .field select {
-      width: 100%;
-      min-width: 0;
-      height: 47px;
-      padding: 0 12px;
-      border: 1px solid #dedbd7;
-      border-radius: 8px;
-      outline: none;
-      color: var(--ink);
-      background: #ffffff;
-    }
-
-    .field input:focus,
-    .field select:focus {
-      border-color: var(--orange);
-      box-shadow: 0 0 0 3px rgba(232, 98, 42, 0.12);
-    }
-
-    .btn {
-      min-height: 47px;
+    .button {
+      min-height: 46px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -279,98 +107,165 @@
       border: 0;
       border-radius: 8px;
       background: var(--orange);
-      color: #ffffff;
+      color: white;
       font-weight: 700;
-      transition: background 0.2s;
+      transition: background .2s, transform .2s;
     }
 
-    .btn:hover {
+    .button:hover {
       background: var(--orange-dark);
+      transform: translateY(-1px);
     }
 
-    /* SEÇÕES */
-
-    .section {
-      padding: 58px 0;
+    .button-outline {
+      background: white;
+      border: 1px solid var(--line);
+      color: var(--ink);
     }
 
-    .section.soft {
+    .button-outline:hover {
       background: var(--soft);
+      color: var(--ink);
     }
+
+    .search-section {
+      padding: 44px 0 36px;
+      background: var(--soft);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .intro { margin-bottom: 24px; }
+
+    .eyebrow {
+      color: var(--orange-dark);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3 { margin-top: 0; }
+
+    h1, h2 {
+      font-family: "Playfair Display", Georgia, serif;
+      font-weight: 600;
+      letter-spacing: -.5px;
+    }
+
+    h1 {
+      max-width: 700px;
+      margin: 8px 0;
+      font-size: clamp(32px, 5vw, 45px);
+      line-height: 1.15;
+    }
+
+    .intro p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .search-panel {
+      padding: 20px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .search-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr auto;
+      align-items: end;
+      gap: 14px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .field input, .field select, .sort-select {
+      width: 100%;
+      min-width: 0;
+      height: 46px;
+      padding: 0 12px;
+      color: var(--ink);
+      background: white;
+      border: 1px solid #DCD8D3;
+      border-radius: 7px;
+      outline: none;
+    }
+
+    .field input:focus, .field select:focus,
+    .sort-select:focus {
+      border-color: var(--orange);
+      box-shadow: 0 0 0 3px rgba(232,98,42,.12);
+    }
+
+    .search-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .section { padding: 48px 0; }
+    .section + .section { border-top: 1px solid var(--line); }
+    .section.soft { background: var(--soft); }
 
     .section-heading {
       display: flex;
       align-items: end;
       justify-content: space-between;
-      gap: 18px;
-      margin-bottom: 25px;
-    }
-
-    .section-kicker {
-      display: block;
-      margin-bottom: 5px;
-      color: var(--orange-dark);
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 1.4px;
-      text-transform: uppercase;
-    }
-
-    .section h2 {
-      margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(27px, 3vw, 35px);
-      font-weight: 500;
-      line-height: 1.2;
-    }
-
-    .section-desc {
-      margin: 7px 0 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .text-link {
-      flex-shrink: 0;
-      color: var(--orange-dark);
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    /* CARROSSEL DE IMÓVEIS */
-
-    .carousel {
-      display: grid;
-      grid-auto-columns: minmax(260px, 31.5%);
-      grid-auto-flow: column;
       gap: 20px;
-      overflow-x: auto;
-      padding: 2px 2px 16px;
-      scroll-snap-type: x mandatory;
-      scrollbar-width: thin;
-      scrollbar-color: #d4c8be transparent;
+      margin-bottom: 22px;
+    }
+
+    .section-heading h2 {
+      margin: 5px 0 0;
+      font-size: clamp(27px, 3vw, 34px);
+    }
+
+    .section-heading p {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .count {
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .property-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
     }
 
     .property-card {
       min-width: 0;
       overflow: hidden;
+      background: white;
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: #ffffff;
-      scroll-snap-align: start;
-      transition: box-shadow 0.2s, transform 0.2s;
+      transition: box-shadow .2s, transform .2s;
     }
 
     .property-card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 12px 28px rgba(36, 36, 36, 0.08);
+      box-shadow: var(--shadow);
     }
 
     .property-image {
       position: relative;
+      display: grid;
+      place-items: center;
       aspect-ratio: 4 / 3;
       overflow: hidden;
-      background: #eee9e2;
+      background: #EEEAE5;
     }
 
     .property-image img {
@@ -380,362 +275,259 @@
       object-fit: cover;
     }
 
+    .image-placeholder {
+      color: #8C837A;
+      font-size: 13px;
+    }
+
     .tag {
       position: absolute;
       top: 12px;
       left: 12px;
-      padding: 6px 9px;
+      padding: 5px 9px;
+      background: white;
       border-radius: 5px;
-      background: #ffffff;
       color: var(--orange-dark);
       font-size: 10px;
-      font-weight: 800;
+      font-weight: 700;
     }
 
-    .property-body {
-      padding: 17px;
-    }
+    .property-body { padding: 17px; }
 
     .property-type {
       color: var(--orange-dark);
       font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.8px;
+      font-weight: 700;
+      letter-spacing: .8px;
       text-transform: uppercase;
     }
 
     .property-body h3 {
       margin: 6px 0;
       font-size: 17px;
-      font-weight: 650;
+      line-height: 1.4;
     }
 
     .location {
+      min-height: 20px;
       margin: 0;
       color: var(--muted);
       font-size: 13px;
     }
 
-    .property-features {
+    .features {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 13px;
-      color: #555555;
+      gap: 10px;
+      margin-top: 12px;
+      color: #555;
       font-size: 12px;
     }
 
-    .property-price {
-      margin: 15px 0 12px;
-      font-size: 20px;
-      font-weight: 750;
+    .price {
+      margin: 15px 0;
+      font-size: 21px;
+      font-weight: 700;
+      letter-spacing: -.4px;
     }
 
-    .property-action {
+    .property-link {
       display: block;
       padding-top: 12px;
       border-top: 1px solid var(--line);
       color: var(--orange-dark);
       font-size: 13px;
-      font-weight: 750;
+      font-weight: 700;
     }
 
-    .carousel-controls {
+    .property-link:hover { color: var(--ink); }
+
+    .list-toolbar {
       display: flex;
-      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
     }
 
-    .circle-btn {
-      width: 38px;
-      height: 38px;
+    .sort-control {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .sort-select { width: auto; min-width: 185px; }
+
+    .property-list {
       display: grid;
-      place-items: center;
-      border: 1px solid var(--line);
-      border-radius: 50%;
-      background: #ffffff;
-      color: var(--ink);
+      gap: 16px;
     }
 
-    .circle-btn:hover {
-      border-color: var(--orange);
-      color: var(--orange-dark);
-    }
-
-    /* LISTA DE ANÚNCIOS RECENTES */
-
-    .recent-list {
+    .list-card {
       display: grid;
-      gap: 17px;
-    }
-
-    .recent-card {
-      display: grid;
-      grid-template-columns: 230px minmax(0, 1fr);
+      grid-template-columns: 250px minmax(0, 1fr);
       overflow: hidden;
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: #ffffff;
+      background: white;
     }
 
-    .recent-image {
-      display: block;
-      width: 100%;
+    .list-card .property-image {
       height: 100%;
       min-height: 190px;
-      object-fit: cover;
-      background: #eee9e2;
+      aspect-ratio: auto;
     }
 
-    .recent-content {
+    .list-card .property-body {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       justify-content: center;
-      padding: 22px;
+      padding: 20px;
     }
 
-    .recent-content h3 {
-      margin: 6px 0;
-      font-size: 19px;
-    }
-
-    .recent-content .property-price {
-      margin: 12px 0;
-    }
-
-    .recent-content .property-action {
-      padding-top: 0;
-      border: 0;
-    }
+    .list-card .price { margin: 12px 0; }
+    .list-card .property-link { margin-top: 2px; }
 
     .empty-state {
-      padding: 32px;
-      border: 1px dashed #d9d1ca;
+      padding: 30px 18px;
+      border: 1px dashed #D8D0C8;
       border-radius: var(--radius);
       color: var(--muted);
       text-align: center;
+      background: white;
     }
 
-    [hidden] {
-      display: none !important;
+    .contact-section {
+      padding: 38px 0;
+      background: var(--soft);
+      border-top: 1px solid var(--line);
     }
 
-    /* APRESENTAÇÃO PROFISSIONAL */
-
-    .about-strip {
+    .contact-box {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 24px;
-      padding: 30px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: #ffffff;
     }
 
-    .about-strip h2 {
-      font-family: Georgia, "Times New Roman", serif;
+    .contact-box h2 {
+      margin: 0 0 6px;
       font-size: 27px;
     }
 
-    .about-strip p {
-      margin-bottom: 0;
+    .contact-box p {
+      margin: 0;
       color: var(--muted);
+      font-size: 14px;
     }
 
-    /* RODAPÉ */
+    .contact-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
 
     .footer {
-      padding: 32px 0;
+      padding: 25px 0;
       border-top: 1px solid var(--line);
-      background: #ffffff;
     }
 
     .footer-inner {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       flex-wrap: wrap;
-      gap: 18px;
+      gap: 15px;
     }
 
     .footer p {
-      margin: 4px 0;
+      margin: 3px 0;
       color: var(--muted);
       font-size: 12px;
     }
 
-    .whatsapp {
-      position: fixed;
-      right: 22px;
-      bottom: 22px;
-      z-index: 15;
+    .social-links {
       display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .social-links a:hover { color: var(--orange-dark); }
+
+    .whatsapp-float {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 9;
+      display: inline-flex;
       align-items: center;
-      gap: 9px;
+      gap: 8px;
       padding: 13px 17px;
       border-radius: 30px;
-      background: #277b50;
-      color: #ffffff;
-      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.18);
+      background: #23794B;
+      color: white;
+      box-shadow: 0 5px 20px rgba(0,0,0,.16);
       font-size: 13px;
       font-weight: 700;
     }
 
-    .whatsapp:hover {
-      background: #1e633f;
+    .whatsapp-float:hover { background: #185F39; }
+
+    [hidden] { display: none !important; }
+
+    @media (max-width: 900px) {
+      .search-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .property-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .list-card { grid-template-columns: 210px minmax(0, 1fr); }
     }
-
-    /* TABLETS */
-
-    @media (max-width: 850px) {
-      .header-inner {
-        gap: 16px;
-      }
-
-      .brand-name {
-        font-size: 27px;
-      }
-
-      .nav {
-        gap: 14px;
-      }
-
-      .nav a {
-        font-size: 12px;
-      }
-
-      .search-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .search-grid .btn {
-        width: 100%;
-      }
-
-      .carousel {
-        grid-auto-columns: minmax(245px, 45%);
-      }
-
-      .recent-card {
-        grid-template-columns: 190px minmax(0, 1fr);
-      }
-    }
-
-    /* CELULARES */
 
     @media (max-width: 600px) {
-      .container {
-        width: calc(100% - 28px);
-      }
-
-      .header-inner {
-        min-height: 78px;
-        gap: 8px;
-      }
-
-      .brand-name {
-        font-size: 24px;
-      }
-
-      .brand-sub {
-        max-width: 250px;
-        font-size: 9px;
-        letter-spacing: 0.25px;
-      }
-
-      .nav {
-        gap: 0;
-      }
-
-      .nav a:not(.nav-cta) {
-        display: none;
-      }
-
-      .nav .nav-cta {
-        padding: 10px 11px;
-        font-size: 11px;
-      }
-
-      .hero {
-        min-height: 0;
-        padding: 40px 14px;
-      }
-
-      .hero h1 {
-        font-size: 35px;
-      }
-
-      .hero-copy p {
-        font-size: 14px;
-      }
-
-      .search-panel {
-        padding: 16px;
-      }
-
-      .search-grid {
-        grid-template-columns: 1fr;
-        gap: 12px;
-      }
-
-      .search-tabs {
-        gap: 19px;
-      }
-
-      .section {
-        padding: 42px 0;
-      }
-
-      .section-heading {
-        align-items: flex-start;
-      }
-
-      .section-heading h2 {
-        font-size: 27px;
-      }
-
-      .carousel {
-        grid-auto-columns: 82%;
-        gap: 14px;
-      }
-
-      .recent-card {
-        grid-template-columns: 120px minmax(0, 1fr);
-      }
-
-      .recent-content {
-        padding: 13px;
-      }
-
-      .recent-content h3 {
-        font-size: 15px;
-      }
-
-      .recent-content .property-price {
-        font-size: 17px;
-      }
-
-      .recent-content .property-features {
-        gap: 6px;
-      }
-
-      .about-strip {
-        align-items: flex-start;
-        flex-direction: column;
-        padding: 22px;
-      }
-
-      .whatsapp {
-        right: 12px;
-        bottom: 12px;
-        padding: 12px 15px;
-      }
+      .container { width: calc(100% - 28px); }
+      .header-inner { min-height: 76px; gap: 8px; }
+      .brand-name { font-size: 25px; }
+      .brand-sub { font-size: 8px; letter-spacing: .45px; }
+      .header-contact { gap: 10px; }
+      .header-contact .instagram-link { display: none; }
+      .header-contact .button { min-height: 40px; padding: 0 12px; font-size: 12px; }
+      .search-section { padding: 30px 0; }
+      .intro { margin-bottom: 18px; }
+      h1 { font-size: 34px; }
+      .intro p { font-size: 14px; }
+      .search-panel { padding: 14px; }
+      .search-grid { grid-template-columns: 1fr; gap: 12px; }
+      .search-actions .button { width: 100%; }
+      .section { padding: 34px 0; }
+      .section-heading { align-items: flex-start; }
+      .section-heading h2 { font-size: 27px; }
+      .property-grid { grid-template-columns: 1fr; gap: 14px; }
+      .property-grid .property-card { display: grid; grid-template-columns: 42% minmax(0, 1fr); }
+      .property-grid .property-image { height: 100%; min-height: 180px; aspect-ratio: auto; }
+      .property-grid .property-body { padding: 13px; }
+      .property-grid .property-body h3 { font-size: 15px; }
+      .property-grid .price { font-size: 18px; margin: 10px 0; }
+      .property-grid .features { gap: 6px; }
+      .list-toolbar { align-items: flex-start; flex-direction: column; }
+      .sort-control { width: 100%; justify-content: space-between; }
+      .sort-select { flex: 1; min-width: 0; max-width: 230px; }
+      .list-card { grid-template-columns: 120px minmax(0, 1fr); }
+      .list-card .property-image { min-height: 180px; }
+      .list-card .property-body { padding: 12px; }
+      .list-card .property-body h3 { font-size: 15px; }
+      .list-card .price { font-size: 17px; }
+      .list-card .features { gap: 5px; }
+      .contact-box { align-items: flex-start; flex-direction: column; }
+      .contact-box h2 { font-size: 25px; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+      .whatsapp-float { right: 12px; bottom: 12px; padding: 12px 14px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
+      *, *::before, *::after {
         scroll-behavior: auto !important;
         transition: none !important;
       }
@@ -744,62 +536,34 @@
 </head>
 
 <body>
-
   <header class="header">
     <div class="container header-inner">
-
-      <!-- CABEÇALHO SEM LOGO: NOME À ESQUERDA E EM DESTAQUE -->
       <a class="brand" href="#" aria-label="Página inicial">
         <span class="brand-name">Patricia Ribeiro</span>
-        <span class="brand-sub">
-          CORRETORA DE IMÓVEIS · CRECI/SC 60282-F
-        </span>
+        <span class="brand-sub">CORRETORA DE IMÓVEIS · CRECI/SC 60282-F</span>
       </a>
 
-      <nav class="nav" aria-label="Navegação principal">
-        <a href="#destaques">Comprar</a>
-        <a href="#lancamentos">Lançamentos</a>
-        <a href="#recentes">Mais recentes</a>
-        <a class="nav-cta" href="#contato">Fale comigo</a>
+      <nav class="header-contact" aria-label="Contato">
+        <a class="instagram-link" href="https://www.instagram.com/casapropriasc/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a class="button" href="https://wa.me/5548999372934" target="_blank" rel="noopener noreferrer">Fale comigo</a>
       </nav>
-
     </div>
   </header>
 
   <main>
-
-    <!-- BUSCA SOBREPOSTA À FOTOGRAFIA -->
-    <section class="hero" aria-label="Encontre seu imóvel">
-      <div class="hero-content">
-
-        <div class="hero-copy">
-          <span class="eyebrow">Seu próximo capítulo começa aqui</span>
-          <h1>Um lugar para chamar de seu.</h1>
-          <p>
-            Casas, apartamentos e terrenos para realizar seus planos,
-            com atendimento próximo e orientação profissional.
-          </p>
+    <section class="search-section" aria-label="Buscar imóveis">
+      <div class="container">
+        <div class="intro">
+          <span class="eyebrow">Seu próximo imóvel começa aqui</span>
+          <h1>Encontre seu lugar.</h1>
+          <p>Escolha a cidade, defina seu valor e veja os imóveis disponíveis.</p>
         </div>
 
         <form class="search-panel" id="searchForm">
-
-          <div class="search-tabs" aria-label="Finalidade da busca">
-            <button class="search-tab active" type="button"
-              data-purpose="Comprar">Comprar</button>
-
-            <button class="search-tab" type="button"
-              data-purpose="Alugar">Alugar</button>
-
-            <button class="search-tab" type="button"
-              data-purpose="Lançamento">Lançamentos</button>
-          </div>
-
           <div class="search-grid">
-
             <div class="field">
-              <label for="location">Onde deseja morar?</label>
-              <input id="location" type="search"
-                placeholder="Cidade ou bairro">
+              <label for="location">Cidade ou bairro</label>
+              <input id="location" type="search" placeholder="Ex.: Imbituba" autocomplete="off">
             </div>
 
             <div class="field">
@@ -815,204 +579,127 @@
             </div>
 
             <div class="field">
-              <label for="price">Faixa de preço</label>
+              <label for="price">Preço máximo</label>
               <select id="price">
                 <option value="">Qualquer valor</option>
+                <option value="200000">Até R$ 200 mil</option>
                 <option value="300000">Até R$ 300 mil</option>
                 <option value="500000">Até R$ 500 mil</option>
                 <option value="800000">Até R$ 800 mil</option>
                 <option value="1000000">Até R$ 1 milhão</option>
+                <option value="2000000">Até R$ 2 milhões</option>
               </select>
             </div>
 
-            <button class="btn" type="submit">⌕ Buscar imóveis</button>
-
+            <div class="search-actions">
+              <button class="button" type="submit">⌕ Buscar imóveis</button>
+            </div>
           </div>
         </form>
       </div>
     </section>
 
-    <!-- DESTAQUES -->
     <section class="section" id="destaques">
       <div class="container">
-
         <div class="section-heading">
           <div>
-            <span class="section-kicker">Selecionados para você</span>
+            <span class="eyebrow">Escolhas especiais</span>
             <h2>Imóveis em destaque</h2>
-            <p class="section-desc">
-              Oportunidades que merecem sua atenção.
-            </p>
-          </div>
-
-          <div class="carousel-controls">
-            <button class="circle-btn" type="button"
-              data-scroll="left" aria-label="Imóveis anteriores">←</button>
-
-            <button class="circle-btn" type="button"
-              data-scroll="right" aria-label="Próximos imóveis">→</button>
+            <p>Veja primeiro os imóveis selecionados.</p>
           </div>
         </div>
 
-        <div class="carousel" id="featuredList"></div>
-
-        <div class="empty-state" id="featuredEmpty">
-          Em breve, você encontrará aqui imóveis selecionados.
-        </div>
-
+        <div class="property-grid" id="featuredList"></div>
+        <div class="empty-state" id="featuredEmpty">Em breve, novos imóveis em destaque.</div>
       </div>
     </section>
 
-    <!-- LANÇAMENTOS -->
-    <section class="section soft" id="lancamentos">
+    <section class="section soft" id="imoveis">
       <div class="container">
-
         <div class="section-heading">
           <div>
-            <span class="section-kicker">Novos projetos</span>
-            <h2>Lançamentos</h2>
-            <p class="section-desc">
-              Conheça empreendimentos e novas oportunidades.
-            </p>
+            <span class="eyebrow">Encontre sua oportunidade</span>
+            <h2>Todos os imóveis</h2>
+            <p id="resultsMessage">Veja os imóveis disponíveis.</p>
           </div>
         </div>
 
-        <div class="carousel" id="launchList"></div>
+        <div class="list-toolbar">
+          <span class="count" id="propertyCount">Carregando imóveis...</span>
 
-        <div class="empty-state" id="launchEmpty">
-          Os lançamentos serão apresentados aqui quando houver anúncios.
+          <label class="sort-control" for="sort">
+            Ordenar por
+            <select class="sort-select" id="sort">
+              <option value="recent">Mais recentes</option>
+              <option value="low">Menor preço</option>
+              <option value="high">Maior preço</option>
+            </select>
+          </label>
         </div>
 
+        <div class="property-list" id="allProperties"></div>
+        <div class="empty-state" id="allEmpty" hidden>
+          Nenhum imóvel encontrado com esses filtros. Tente mudar a cidade ou o preço.
+        </div>
       </div>
     </section>
 
-    <!-- IMÓVEIS RECENTES -->
-    <section class="section" id="recentes">
-      <div class="container">
-
-        <div class="section-heading">
-          <div>
-            <span class="section-kicker">Novidades do catálogo</span>
-            <h2>Mais recentes</h2>
-            <p class="section-desc">
-              Veja os imóveis adicionados recentemente.
-            </p>
-          </div>
+    <section class="contact-section" id="contato">
+      <div class="container contact-box">
+        <div>
+          <h2>Encontrou algo interessante?</h2>
+          <p>Fale comigo. Vou ajudar você a encontrar seu imóvel.</p>
         </div>
 
-        <div class="recent-list" id="recentList"></div>
-
-        <div class="empty-state" id="recentEmpty">
-          Novas oportunidades estarão disponíveis em breve.
+        <div class="contact-actions">
+          <a class="button" href="https://wa.me/5548999372934" target="_blank" rel="noopener noreferrer">Conversar pelo WhatsApp</a>
+          <a class="button button-outline" href="https://www.instagram.com/casapropriasc/" target="_blank" rel="noopener noreferrer">Ver Instagram</a>
         </div>
-
       </div>
     </section>
-
-    <!-- CONTATO -->
-    <section class="section soft" id="contato">
-      <div class="container">
-
-        <div class="about-strip">
-          <div>
-            <span class="section-kicker">Atendimento profissional</span>
-            <h2>Vamos encontrar seu próximo imóvel?</h2>
-            <p>
-              Entre em contato para conversar sobre suas necessidades
-              e consultar as oportunidades disponíveis.
-            </p>
-          </div>
-
-          <a class="btn" id="contactButton" href="#contato">
-            Entrar em contato →
-          </a>
-        </div>
-
-      </div>
-    </section>
-
   </main>
 
   <footer class="footer">
     <div class="container footer-inner">
-
       <div>
-        <strong>Patrícia Ribeiro</strong>
+        <strong>Patricia Ribeiro</strong>
         <p>Corretora de Imóveis · CRECI/SC 60282-F</p>
+        <p>© <span id="year"></span> Todos os direitos reservados.</p>
       </div>
 
-      <div>
-        <p>Atendimento imobiliário com clareza e proximidade.</p>
-        <p>© <span id="year"></span> · Todos os direitos reservados.</p>
+      <div class="social-links">
+        <a href="https://wa.me/5548999372934" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        <a href="https://www.instagram.com/casapropriasc/" target="_blank" rel="noopener noreferrer">@casapropriasc</a>
       </div>
-
     </div>
   </footer>
 
-  <!-- CONFIGURE SEU WHATSAPP NO SCRIPT ABAIXO -->
-  <a class="whatsapp" id="whatsappButton"
-    href="#contato" aria-label="Entre em contato">
-    <span aria-hidden="true">◉</span> Fale comigo
+  <a class="whatsapp-float" href="https://wa.me/5548999372934" target="_blank" rel="noopener noreferrer" aria-label="Fale comigo pelo WhatsApp">
+    WhatsApp ↗
   </a>
 
   <script>
-    /*
-      CATÁLOGO DE IMÓVEIS
-
-      O catálogo começa vazio para evitar anúncios fictícios.
-      Os imóveis podem ser inseridos nesta lista posteriormente.
-
-      Exemplo de estrutura para um anúncio real:
-
-      {
-        title: "Casa residencial",
-        type: "Casa",
-        location: "Cidade, SC",
-        price: 450000,
-        bedrooms: 3,
-        area: 120,
-        image: "URL_DA_FOTO_AUTORIZADA",
-        featured: true,
-        launch: false,
-        purpose: "Comprar",
-        publishedAt: "2026-10-14",
-        url: "#contato"
-      }
-    */
+    const WHATSAPP = "5548999372934";
 
     let properties = [];
+    let filteredProperties = [];
 
     const featuredList = document.getElementById("featuredList");
-    const launchList = document.getElementById("launchList");
-    const recentList = document.getElementById("recentList");
+    const allProperties = document.getElementById("allProperties");
+    const featuredEmpty = document.getElementById("featuredEmpty");
+    const allEmpty = document.getElementById("allEmpty");
+    const propertyCount = document.getElementById("propertyCount");
+    const resultsMessage = document.getElementById("resultsMessage");
 
-    let purpose = "Comprar";
-async function loadProperties() {
-  try {
-    const response = await fetch("/api/imoveis");
-
-    if (!response.ok) {
-      throw new Error("Falha ao consultar a API");
-    }
-
-    const data = await response.json();
-
-    if (!data.success || !Array.isArray(data.imoveis)) {
-      throw new Error("Resposta inválida da API");
-    }
-
-    properties = data.imoveis;   
-loadProperties();
-  } catch (error) {
-    console.error("Erro ao carregar imóveis:", error);
-  }
-}
     function money(value) {
       if (value === null || value === undefined || value === "") {
         return "Consulte o valor";
       }
 
-      return Number(value).toLocaleString("pt-BR", {
+      const number = Number(value);
+      if (!Number.isFinite(number)) return "Consulte o valor";
+
+      return number.toLocaleString("pt-BR", {
         style: "currency",
         currency: "BRL",
         maximumFractionDigits: 0
@@ -1029,209 +716,169 @@ loadProperties();
       })[char]);
     }
 
-    function propertyCard(item) {
-      const image = item.image || "";
+    function normalized(value) {
+      return String(value ?? "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLocaleLowerCase("pt-BR")
+        .trim();
+    }
 
-      const details = [
+    function details(item) {
+      return [
         item.bedrooms ? `${item.bedrooms} quartos` : "",
+        item.bathrooms ? `${item.bathrooms} banheiros` : "",
+        item.parking ? `${item.parking} vagas` : "",
         item.area ? `${item.area} m²` : ""
-      ].filter(Boolean).join(" · ");
+      ].filter(Boolean);
+    }
+
+    function imageMarkup(item) {
+      if (!item.image) {
+        return '<div class="image-placeholder">Foto em breve</div>';
+      }
+
+      return `<img src="${safe(item.image)}" alt="${safe(item.title || "Imóvel")}" loading="lazy" onerror="this.remove()">`;
+    }
+
+    function contactLink(item) {
+      const message = `Olá, Patricia! Tenho interesse no imóvel: ${item.title || "anúncio do site"}${item.location ? " - " + item.location : ""}. Pode me passar mais informações?`;
+      return `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(message)}`;
+    }
+
+    function propertyCard(item, compact = false) {
+      const tag = item.launch ? "LANÇAMENTO" : (item.type || "IMÓVEL");
+      const features = details(item);
 
       return `
-        <article class="property-card">
+        <article class="${compact ? "property-card" : "list-card"}">
           <div class="property-image">
-            ${image
-              ? `<img src="${safe(image)}" alt="${safe(item.title)}" loading="lazy">`
-              : ""}
-            <span class="tag">${safe(item.tag || item.type || "IMÓVEL")}</span>
+            ${imageMarkup(item)}
+            <span class="tag">${safe(tag)}</span>
           </div>
-
           <div class="property-body">
-            <span class="property-type">${safe(item.type)}</span>
-            <h3>${safe(item.title)}</h3>
-            <p class="location">${safe(item.location)}</p>
-
-            ${details
-              ? `<div class="property-features">${safe(details)}</div>`
-              : ""}
-
-            <p class="property-price">${money(item.price)}</p>
-
-            <a class="property-action"
-              href="${safe(item.url || "#contato")}">
-              Ver detalhes →
+            <span class="property-type">${safe(item.type || "Imóvel")}</span>
+            <h3>${safe(item.title || "Imóvel disponível")}</h3>
+            <p class="location">${safe(item.location || "Consulte a localização")}</p>
+            ${features.length ? `<div class="features">${features.map(safe).join(" · ")}</div>` : ""}
+            <p class="price">${money(item.price)}</p>
+            <a class="property-link" href="${contactLink(item)}" target="_blank" rel="noopener noreferrer">
+              Tenho interesse →
             </a>
           </div>
         </article>
       `;
     }
 
-    function recentCard(item) {
-      const image = item.image || "";
+    function sortItems(items) {
+      const mode = document.getElementById("sort").value;
+      const result = [...items];
 
-      const details = [
-        item.bedrooms ? `${item.bedrooms} quartos` : "",
-        item.area ? `${item.area} m²` : ""
-      ].filter(Boolean).join(" · ");
-
-      return `
-        <article class="recent-card">
-          ${image
-            ? `<img class="recent-image"
-                src="${safe(image)}"
-                alt="${safe(item.title)}"
-                loading="lazy">`
-            : `<div class="recent-image"></div>`}
-
-          <div class="recent-content">
-            <span class="property-type">${safe(item.type)}</span>
-            <h3>${safe(item.title)}</h3>
-            <p class="location">${safe(item.location)}</p>
-
-            ${details
-              ? `<div class="property-features">${safe(details)}</div>`
-              : ""}
-
-            <p class="property-price">${money(item.price)}</p>
-
-            <a class="property-action"
-              href="${safe(item.url || "#contato")}">
-              Ver detalhes →
-            </a>
-          </div>
-        </article>
-      `;
-    }
-
-    function showEmpty(id, show) {
-      document.getElementById(id).hidden = !show;
-    }
-
-    function render(list = properties) {
-      const featured = list.filter(item => item.featured);
-      const launches = list.filter(item => item.launch);
-
-      const recent = [...list].sort((a, b) =>
-        new Date(b.publishedAt || 0) -
-        new Date(a.publishedAt || 0)
-      );
-
-      featuredList.innerHTML = featured.map(propertyCard).join("");
-      launchList.innerHTML = launches.map(propertyCard).join("");
-      recentList.innerHTML = recent.map(recentCard).join("");
-
-      showEmpty("featuredEmpty", featured.length === 0);
-      showEmpty("launchEmpty", launches.length === 0);
-      showEmpty("recentEmpty", recent.length === 0);
-    }
-
-    document.querySelectorAll(".search-tab").forEach(tab => {
-      tab.addEventListener("click", () => {
-        document.querySelectorAll(".search-tab").forEach(button => {
-          button.classList.remove("active");
+      if (mode === "low") {
+        result.sort((a, b) => {
+          const pa = Number(a.price);
+          const pb = Number(b.price);
+          if (!Number.isFinite(pa)) return 1;
+          if (!Number.isFinite(pb)) return -1;
+          return pa - pb;
         });
+      } else if (mode === "high") {
+        result.sort((a, b) => {
+          const pa = Number(a.price);
+          const pb = Number(b.price);
+          if (!Number.isFinite(pa)) return 1;
+          if (!Number.isFinite(pb)) return -1;
+          return pb - pa;
+        });
+      } else {
+        result.sort((a, b) =>
+          new Date(b.publishedAt || 0) - new Date(a.publishedAt || 0)
+        );
+      }
 
-        tab.classList.add("active");
-        purpose = tab.dataset.purpose;
+      return result;
+    }
+
+    function renderFeatured(items) {
+      const featured = items.filter(item => item.featured);
+
+      featuredList.innerHTML = featured.map(item => propertyCard(item, true)).join("");
+      featuredEmpty.hidden = featured.length > 0;
+    }
+
+    function renderAll() {
+      const sorted = sortItems(filteredProperties);
+
+      allProperties.innerHTML = sorted.map(item => propertyCard(item, false)).join("");
+      allEmpty.hidden = sorted.length > 0;
+      propertyCount.textContent = `${sorted.length} ${sorted.length === 1 ? "imóvel encontrado" : "imóveis encontrados"}`;
+    }
+
+    function applyFilters() {
+      const location = normalized(document.getElementById("location").value);
+      const type = document.getElementById("type").value;
+      const maxPriceValue = document.getElementById("price").value;
+      const maxPrice = maxPriceValue ? Number(maxPriceValue) : Infinity;
+
+      filteredProperties = properties.filter(item => {
+        const itemLocation = normalized(item.location);
+        const matchesLocation = !location || itemLocation.includes(location);
+        const matchesType = !type || item.type === type;
+        const hasPrice = item.price !== null && item.price !== undefined && item.price !== "";
+        const matchesPrice = !Number.isFinite(maxPrice) || (hasPrice && Number(item.price) <= maxPrice);
+
+        return matchesLocation && matchesType && matchesPrice;
       });
-    });
 
-    document.querySelectorAll("[data-scroll]").forEach(button => {
-      button.addEventListener("click", () => {
-        const direction =
-          button.dataset.scroll === "right" ? 1 : -1;
+      resultsMessage.textContent = location || type || maxPriceValue
+        ? "Resultados da sua busca."
+        : "Veja os imóveis disponíveis.";
 
-        featuredList.scrollBy({
-          left: direction * featuredList.clientWidth * 0.8,
-          behavior: "smooth"
-        });
+      renderAll();
+
+      document.getElementById("imoveis").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
       });
-    });
+    }
 
-    document.getElementById("searchForm").addEventListener(
-      "submit",
-      event => {
-        event.preventDefault();
+    async function loadProperties() {
+      propertyCount.textContent = "Carregando imóveis...";
 
-        const location = document.getElementById("location").value
-          .trim().toLocaleLowerCase("pt-BR");
+      try {
+        const response = await fetch("/api/imoveis", { cache: "no-store" });
+        if (!response.ok) throw new Error("Falha ao consultar a API");
 
-        const type = document.getElementById("type").value;
-
-        const priceValue = document.getElementById("price").value;
-        const price = priceValue ? Number(priceValue) : Infinity;
-
-        const results = properties.filter(item => {
-          const itemLocation =
-            String(item.location || "").toLocaleLowerCase("pt-BR");
-
-          const matchesLocation =
-            !location || itemLocation.includes(location);
-
-          const matchesType = !type || item.type === type;
-
-          const matchesPrice =
-            !Number.isFinite(price) || Number(item.price) <= price;
-
-          const matchesPurpose =
-            purpose === "Comprar"
-              ? item.purpose !== "Alugar"
-              : purpose === "Alugar"
-                ? item.purpose === "Alugar"
-                : Boolean(item.launch);
-
-          return matchesLocation &&
-            matchesType &&
-            matchesPrice &&
-            matchesPurpose;
-        });
-
-        recentList.innerHTML = results.map(recentCard).join("");
-        showEmpty("recentEmpty", results.length === 0);
-
-        if (results.length === 0) {
-          document.getElementById("recentEmpty").textContent =
-            "Nenhum anúncio corresponde aos filtros. " +
-            "Ajuste sua pesquisa ou entre em contato para " +
-            "consultar outras oportunidades.";
+        const data = await response.json();
+        if (!data.success || !Array.isArray(data.imoveis)) {
+          throw new Error("Resposta inválida da API");
         }
 
-        document.getElementById("recentes").scrollIntoView({
-          behavior: "smooth"
-        });
+        properties = data.imoveis;
+        filteredProperties = [...properties];
+
+        renderFeatured(properties);
+        renderAll();
+      } catch (error) {
+        console.error("Erro ao carregar imóveis:", error);
+        featuredEmpty.textContent = "Não foi possível carregar os destaques agora.";
+        featuredEmpty.hidden = false;
+        propertyCount.textContent = "Não foi possível carregar os imóveis.";
+        allEmpty.textContent = "Tente atualizar a página em alguns instantes.";
+        allEmpty.hidden = false;
       }
-    );
-
-    /*
-      CONFIGURE O WHATSAPP:
-      Informe o número com código do país, DDD e número,
-      sem espaços, parênteses ou hífen.
-
-      Exemplo de formato: 5548999999999
-    */
-
-    const whatsappNumber = "";
-
-    if (whatsappNumber) {
-      const whatsappButton =
-        document.getElementById("whatsappButton");
-
-      const whatsappUrl =
-        "https://wa.me/" + whatsappNumber;
-
-      whatsappButton.href = whatsappUrl;
-      whatsappButton.target = "_blank";
-      whatsappButton.rel = "noopener noreferrer";
-
-      document.getElementById("contactButton").href =
-        whatsappUrl;
     }
 
-    document.getElementById("year").textContent =
-      new Date().getFullYear();
+    document.getElementById("searchForm").addEventListener("submit", event => {
+      event.preventDefault();
+      applyFilters();
+    });
 
-    render();
+    document.getElementById("sort").addEventListener("change", renderAll);
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    loadProperties();
   </script>
-
 </body>
 </html>
