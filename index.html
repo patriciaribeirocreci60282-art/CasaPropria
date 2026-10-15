@@ -4,25 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#242424">
-  <meta name="description" content="Encontre seu próximo imóvel com Patricia Ribeiro, Corretora de Imóveis, CRECI/SC 60282-F.">
-  <title>Patricia Ribeiro | CasaPrópria</title>
+  <meta name="description" content="Encontre seu imóvel com Patricia Ribeiro, Corretora de Imóveis, CRECI/SC 60282-F.">
+  <title>Patricia Ribeiro | Corretora de Imóveis</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root {
       --orange: #E8622A;
       --orange-dark: #C94C19;
-      --forest: #244C38;
+      --forest: #234D38;
       --ink: #242424;
-      --muted: #6C6A65;
-      --line: #EAE6E0;
-      --cream: #F7F5F0;
+      --muted: #73716D;
+      --line: #E9E5DF;
+      --cream: #F8F6F2;
       --white: #FFFFFF;
-      --radius: 14px;
-      --shadow: 0 18px 50px rgba(36,36,36,.10);
+      --radius: 16px;
+      --shadow: 0 18px 55px rgba(20, 25, 20, .13);
     }
 
     * { box-sizing: border-box; }
@@ -37,18 +37,17 @@
       color: var(--ink);
       background: var(--white);
       font-family: "Montserrat", sans-serif;
-      line-height: 1.6;
       -webkit-font-smoothing: antialiased;
     }
 
-    a { color: inherit; text-decoration: none; }
-
     button, input, select { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    a { color: inherit; text-decoration: none; }
     button { cursor: pointer; }
 
     .container {
-      width: min(1160px, calc(100% - 44px));
-      margin: 0 auto;
+      width: min(1200px, calc(100% - 48px));
+      margin: auto;
     }
 
     /* CABEÇALHO */
@@ -56,10 +55,10 @@
     .header {
       position: sticky;
       top: 0;
-      z-index: 50;
+      z-index: 20;
       background: rgba(255,255,255,.97);
-      border-bottom: 1px solid var(--line);
-      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(36,36,36,.08);
+      backdrop-filter: blur(16px);
     }
 
     .header-inner {
@@ -70,30 +69,25 @@
       gap: 24px;
     }
 
-    .brand {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      flex-shrink: 0;
-    }
+    .brand { min-width: 0; }
 
     .brand-name {
-      font-size: clamp(23px, 2.6vw, 32px);
+      display: block;
+      font-size: clamp(21px, 2.5vw, 29px);
       font-weight: 800;
-      letter-spacing: -1.5px;
-      line-height: 1.15;
-      color: var(--ink);
+      letter-spacing: -1.3px;
+      line-height: 1.2;
     }
 
     .brand-name span { color: var(--orange); }
 
     .brand-sub {
+      display: block;
       margin-top: 7px;
+      color: #625F5A;
       font-size: 9px;
       font-weight: 700;
       letter-spacing: 1.05px;
-      text-transform: uppercase;
-      color: var(--muted);
     }
 
     .nav {
@@ -104,32 +98,31 @@
 
     .nav a {
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 600;
       transition: color .2s;
     }
 
     .nav a:hover { color: var(--orange-dark); }
 
-    .nav .nav-cta {
-      padding: 12px 17px;
-      background: var(--orange);
+    .nav .contact-link {
+      padding: 13px 17px;
       color: white;
-      border-radius: 7px;
+      background: var(--orange);
+      border-radius: 8px;
     }
 
-    .nav .nav-cta:hover { background: var(--orange-dark); }
+    .nav .contact-link:hover { background: var(--orange-dark); }
 
-    /* ABERTURA COM FOTOGRAFIA */
+    /* HERO: FOTOGRAFIA + BUSCA */
 
     .hero {
       position: relative;
       isolation: isolate;
-      min-height: 510px;
+      min-height: 680px;
       display: flex;
       align-items: center;
-      padding: 66px 0 105px;
+      padding: 66px 0 76px;
       background: #42483E;
-      color: white;
     }
 
     .hero::before {
@@ -138,9 +131,10 @@
       inset: 0;
       z-index: -2;
       background-image:
-        url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2200&q=90");
+        url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2400&q=90");
+      background-position: center 55%;
       background-size: cover;
-      background-position: center 54%;
+      transform: scale(1.001);
     }
 
     .hero::after {
@@ -150,174 +144,134 @@
       z-index: -1;
       background:
         linear-gradient(90deg,
-          rgba(23,29,24,.78) 0%,
-          rgba(23,29,24,.52) 43%,
-          rgba(23,29,24,.08) 100%),
-        linear-gradient(0deg, rgba(23,29,24,.20), transparent 60%);
+          rgba(19,24,20,.70) 0%,
+          rgba(19,24,20,.48) 45%,
+          rgba(19,24,20,.16) 100%),
+        linear-gradient(0deg,
+          rgba(19,24,20,.32),
+          transparent 50%);
     }
 
-    .hero-content { width: 100%; }
+    .hero-inner { width: 100%; }
 
-    .hero-copy { max-width: 670px; }
+    .hero-copy {
+      max-width: 740px;
+      margin: 0 0 32px;
+      color: white;
+    }
 
     .eyebrow {
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 17px;
-      color: #F4D9C9;
+      gap: 11px;
+      margin-bottom: 19px;
+      color: #F7D9C9;
       font-size: 10px;
-      font-weight: 800;
+      font-weight: 700;
       letter-spacing: 2px;
       text-transform: uppercase;
     }
 
     .eyebrow::before {
       content: "";
-      width: 28px;
+      width: 30px;
       height: 2px;
       background: var(--orange);
     }
 
     .hero h1 {
-      max-width: 650px;
+      max-width: 730px;
       margin: 0;
-      font-size: clamp(38px, 5.5vw, 68px);
-      font-weight: 800;
-      letter-spacing: -3px;
-      line-height: 1.08;
+      font-size: clamp(39px, 5.4vw, 68px);
+      font-weight: 700;
+      line-height: 1.12;
+      letter-spacing: -2.8px;
       text-wrap: balance;
     }
 
-    .hero h1 span { color: #FF986B; }
+    .hero h1 em {
+      color: #FFAD83;
+      font-style: normal;
+    }
 
     .hero-copy p {
-      max-width: 480px;
-      margin: 20px 0 0;
+      max-width: 500px;
+      margin: 19px 0 0;
       color: rgba(255,255,255,.90);
       font-size: 14px;
       line-height: 1.9;
     }
 
-    .hero-note {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      margin-top: 24px;
-      font-size: 11px;
-      font-weight: 600;
-      color: rgba(255,255,255,.92);
-    }
-
-    .hero-note::before {
-      content: "";
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--orange);
-    }
-
-    /* BUSCA */
-
-    .search-wrap {
-      position: relative;
-      z-index: 2;
-      margin-top: -62px;
-    }
-
     .search-panel {
+      width: 100%;
       padding: 25px;
       background: white;
       border: 1px solid rgba(255,255,255,.8);
-      border-radius: 13px;
-      box-shadow: 0 20px 55px rgba(0,0,0,.15);
+      border-radius: 15px;
+      box-shadow: var(--shadow);
     }
 
-    .search-heading {
+    .search-top {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 15px;
+      align-items: center;
+      gap: 12px;
       margin-bottom: 19px;
     }
 
-    .search-heading h2 {
-      margin: 0;
-      font-size: 17px;
+    .search-title {
+      font-size: 15px;
       font-weight: 800;
-      letter-spacing: -.5px;
+      letter-spacing: -.4px;
     }
 
-    .search-heading p {
-      margin: 3px 0 0;
+    .search-hint {
       color: var(--muted);
-      font-size: 11px;
-    }
-
-    .search-tabs {
-      display: flex;
-      gap: 22px;
-      border-bottom: 1px solid var(--line);
-      margin-bottom: 19px;
-    }
-
-    .search-tab {
-      padding: 0 0 12px;
-      border: 0;
-      border-bottom: 3px solid transparent;
-      background: transparent;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .search-tab.active {
-      border-bottom-color: var(--orange);
-      color: var(--orange-dark);
+      font-size: 10px;
     }
 
     .search-grid {
       display: grid;
       grid-template-columns: 1.35fr 1fr 1fr auto;
-      gap: 12px;
       align-items: end;
+      gap: 12px;
     }
 
     .field label {
       display: block;
-      margin-bottom: 7px;
-      color: #494742;
+      margin-bottom: 8px;
+      color: #575550;
       font-size: 10px;
-      font-weight: 800;
+      font-weight: 700;
     }
 
     .field input, .field select {
       width: 100%;
       min-width: 0;
-      height: 48px;
+      height: 49px;
       padding: 0 12px;
-      border: 1px solid #E0DDD7;
-      border-radius: 7px;
-      outline: none;
-      background: #fff;
       color: var(--ink);
+      background: white;
+      border: 1px solid #E3DFD9;
+      border-radius: 8px;
+      outline: none;
       font-size: 12px;
     }
 
     .field input:focus, .field select:focus {
       border-color: var(--orange);
-      box-shadow: 0 0 0 3px rgba(232,98,42,.10);
+      box-shadow: 0 0 0 3px rgba(232,98,42,.11);
     }
 
     .btn {
-      min-height: 48px;
+      min-height: 49px;
       display: inline-flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       gap: 9px;
       padding: 0 20px;
       border: 0;
-      border-radius: 7px;
+      border-radius: 8px;
       background: var(--orange);
       color: white;
       font-size: 12px;
@@ -330,22 +284,24 @@
       transform: translateY(-1px);
     }
 
-    /* CONTEÚDO */
+    .search-btn { white-space: nowrap; }
 
-    .section { padding: 68px 0; }
+    /* LISTAGEM */
+
+    .section { padding: 76px 0; }
     .section.soft { background: var(--cream); }
 
     .section-heading {
       display: flex;
-      align-items: end;
       justify-content: space-between;
-      gap: 20px;
+      align-items: end;
+      gap: 24px;
       margin-bottom: 28px;
     }
 
-    .section-kicker {
+    .kicker {
       display: block;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       color: var(--orange-dark);
       font-size: 10px;
       font-weight: 800;
@@ -355,74 +311,69 @@
 
     .section h2 {
       margin: 0;
-      font-size: clamp(25px, 3.5vw, 36px);
-      font-weight: 800;
-      letter-spacing: -1.3px;
+      font-size: clamp(26px, 3.4vw, 38px);
+      font-weight: 700;
       line-height: 1.2;
+      letter-spacing: -1.4px;
     }
 
     .section-desc {
-      margin: 8px 0 0;
+      margin: 10px 0 0;
       color: var(--muted);
       font-size: 12px;
+      line-height: 1.8;
     }
 
-    .sort-wrap {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--muted);
-      font-size: 11px;
-      font-weight: 600;
-    }
-
-    .sort-wrap select {
-      max-width: 200px;
-      height: 42px;
-      padding: 0 10px;
+    .sort-select {
+      min-height: 43px;
+      max-width: 230px;
+      padding: 0 12px;
       border: 1px solid var(--line);
-      border-radius: 7px;
+      border-radius: 8px;
       background: white;
       color: var(--ink);
       font-size: 11px;
-      font-weight: 700;
     }
 
-    /* CARTÕES */
-
-    .property-grid {
+    .carousel {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 22px;
+      grid-auto-columns: minmax(260px, 31.8%);
+      grid-auto-flow: column;
+      gap: 20px;
+      overflow-x: auto;
+      padding: 3px 2px 17px;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: thin;
     }
 
     .property-card {
       min-width: 0;
       overflow: hidden;
+      background: white;
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: white;
+      scroll-snap-align: start;
       transition: transform .25s, box-shadow .25s;
     }
 
     .property-card:hover {
       transform: translateY(-4px);
-      box-shadow: var(--shadow);
+      box-shadow: 0 15px 35px rgba(36,36,36,.09);
     }
 
     .property-image {
       position: relative;
-      aspect-ratio: 4 / 3;
       overflow: hidden;
-      background: #E9E5DD;
+      aspect-ratio: 4 / 3;
+      background: #E8E4DC;
     }
 
     .property-image img {
-      display: block;
       width: 100%;
       height: 100%;
+      display: block;
       object-fit: cover;
-      transition: transform .4s;
+      transition: transform .5s;
     }
 
     .property-card:hover .property-image img { transform: scale(1.04); }
@@ -431,17 +382,17 @@
       position: absolute;
       top: 13px;
       left: 13px;
-      padding: 7px 10px;
-      border-radius: 4px;
+      padding: 8px 10px;
+      border-radius: 5px;
       background: white;
       color: var(--orange-dark);
       font-size: 9px;
       font-weight: 800;
-      letter-spacing: .4px;
+      letter-spacing: .5px;
       text-transform: uppercase;
     }
 
-    .property-body { padding: 19px; }
+    .property-body { padding: 20px; }
 
     .property-type {
       color: var(--orange-dark);
@@ -452,10 +403,9 @@
     }
 
     .property-body h3 {
-      margin: 7px 0 5px;
+      margin: 8px 0;
       font-size: 15px;
-      font-weight: 800;
-      letter-spacing: -.35px;
+      font-weight: 700;
       line-height: 1.5;
     }
 
@@ -470,273 +420,197 @@
       flex-wrap: wrap;
       gap: 10px;
       margin-top: 13px;
-      color: #55534F;
+      color: #615E59;
       font-size: 10px;
-      font-weight: 600;
     }
 
     .property-price {
-      margin: 16px 0 12px;
-      font-size: 21px;
+      margin: 18px 0 14px;
+      font-size: 20px;
       font-weight: 800;
       letter-spacing: -.6px;
     }
 
     .property-action {
       display: block;
-      padding-top: 13px;
+      padding-top: 14px;
       border-top: 1px solid var(--line);
       color: var(--orange-dark);
       font-size: 11px;
       font-weight: 800;
     }
 
-    .property-action:hover { color: var(--forest); }
+    .recent-list { display: grid; gap: 17px; }
 
-    .empty-state {
-      padding: 32px 20px;
-      border: 1px dashed #D8D1C7;
-      border-radius: 12px;
-      color: var(--muted);
-      text-align: center;
-      font-size: 13px;
+    .recent-card {
+      display: grid;
+      grid-template-columns: 245px minmax(0,1fr);
+      overflow: hidden;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
     }
 
-    .status-message {
-      margin-bottom: 18px;
+    .recent-image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 190px;
+      object-fit: cover;
+      background: #E8E4DC;
+    }
+
+    .recent-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .recent-content h3 {
+      margin: 8px 0;
+      font-size: 17px;
+    }
+
+    .recent-content .property-price {
+      margin: 13px 0;
+    }
+
+    .recent-content .property-action {
+      padding-top: 0;
+      border: 0;
+    }
+
+    .empty-state {
+      padding: 34px 20px;
+      border: 1px dashed #D8D0C6;
+      border-radius: var(--radius);
       color: var(--muted);
       font-size: 12px;
+      line-height: 1.8;
+      text-align: center;
     }
 
     [hidden] { display: none !important; }
 
-    /* CONTATO */
+    /* CONTATO E RODAPÉ */
 
-    .contact-panel {
-      position: relative;
-      overflow: hidden;
+    .contact-strip {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 25px;
-      padding: 36px;
-      border-radius: 14px;
-      background: var(--forest);
-      color: white;
+      padding: 35px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: white;
     }
 
-    .contact-panel::after {
-      content: "";
-      position: absolute;
-      right: -45px;
-      bottom: -100px;
-      width: 230px;
-      height: 230px;
-      border: 1px solid rgba(255,255,255,.13);
-      border-radius: 50%;
-      box-shadow: 0 0 0 30px rgba(255,255,255,.035),
-                  0 0 0 60px rgba(255,255,255,.025);
-      pointer-events: none;
+    .contact-strip h2 {
+      max-width: 540px;
+      font-size: clamp(24px, 3vw, 33px);
     }
 
-    .contact-copy { position: relative; z-index: 1; }
-
-    .contact-panel h2 {
-      max-width: 570px;
-      margin: 0;
-      font-size: clamp(23px, 3vw, 34px);
-      font-weight: 800;
-      letter-spacing: -1px;
-      line-height: 1.25;
-    }
-
-    .contact-panel p {
-      max-width: 510px;
-      margin: 12px 0 0;
-      color: rgba(255,255,255,.78);
+    .contact-strip p {
+      color: var(--muted);
       font-size: 12px;
+      line-height: 1.8;
     }
-
-    .contact-panel .btn {
-      position: relative;
-      z-index: 1;
-      flex-shrink: 0;
-      background: var(--orange);
-    }
-
-    /* RODAPÉ E WHATSAPP */
 
     .footer {
-      padding: 28px 0;
-      border-top: 1px solid var(--line);
+      padding: 29px 0;
       background: white;
+      border-top: 1px solid var(--line);
     }
 
     .footer-inner {
       display: flex;
-      align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      gap: 18px;
+      gap: 20px;
     }
 
-    .footer strong {
-      font-size: 14px;
-      font-weight: 800;
-      letter-spacing: -.3px;
-    }
+    .footer strong { font-size: 13px; }
+    .footer p { margin: 6px 0; color: var(--muted); font-size: 10px; }
 
-    .footer p {
-      margin: 4px 0 0;
-      color: var(--muted);
-      font-size: 10px;
-    }
-
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 18px;
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .footer-links a:hover { color: var(--orange-dark); }
+    .social-link { color: var(--orange-dark); font-weight: 700; }
 
     .whatsapp {
       position: fixed;
-      right: 20px;
-      bottom: 20px;
-      z-index: 40;
+      right: 22px;
+      bottom: 22px;
+      z-index: 15;
       display: flex;
       align-items: center;
       gap: 9px;
-      padding: 13px 17px;
-      border: 2px solid white;
-      border-radius: 40px;
-      background: #244C38;
+      padding: 14px 18px;
       color: white;
-      box-shadow: 0 8px 28px rgba(0,0,0,.20);
+      background: var(--forest);
+      border-radius: 40px;
+      box-shadow: 0 7px 24px rgba(0,0,0,.2);
       font-size: 11px;
       font-weight: 800;
-      transition: transform .2s, background .2s;
+      transition: transform .2s;
     }
 
-    .whatsapp:hover {
-      transform: translateY(-2px);
-      background: #193A2A;
-    }
-
-    .whatsapp-icon { font-size: 17px; }
+    .whatsapp:hover { transform: translateY(-2px); }
 
     @media (max-width: 900px) {
+      .hero { min-height: 0; }
+      .search-grid { grid-template-columns: 1fr 1fr; }
+      .search-btn { width: 100%; }
+      .carousel { grid-auto-columns: minmax(250px, 46%); }
       .nav { gap: 15px; }
-      .nav a { font-size: 11px; }
-      .search-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .property-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .recent-card { grid-template-columns: 190px minmax(0,1fr); }
     }
 
     @media (max-width: 600px) {
       .container { width: calc(100% - 30px); }
 
-      .header-inner {
-        min-height: 76px;
-        gap: 10px;
-      }
-
-      .brand-name { font-size: 23px; letter-spacing: -1px; }
-      .brand-sub { font-size: 8px; letter-spacing: .5px; }
-
+      .header-inner { min-height: 76px; gap: 8px; }
+      .brand-name { font-size: 21px; letter-spacing: -.8px; }
+      .brand-sub { max-width: 235px; font-size: 8px; letter-spacing: .4px; }
       .nav { gap: 0; }
-      .nav a:not(.nav-cta) { display: none; }
-      .nav .nav-cta { padding: 10px 11px; font-size: 10px; }
+      .nav a:not(.contact-link) { display: none; }
+      .nav .contact-link { padding: 11px 12px; font-size: 10px; }
 
       .hero {
-        min-height: 440px;
-        padding: 45px 0 90px;
+        padding: 45px 0 34px;
+        min-height: 0;
       }
 
-      .hero::before { background-position: 60% center; }
-
+      .hero::before { background-position: 57% center; }
       .hero::after {
-        background: linear-gradient(90deg,
-          rgba(23,29,24,.78), rgba(23,29,24,.28));
+        background: linear-gradient(90deg, rgba(19,24,20,.69), rgba(19,24,20,.34)),
+                    linear-gradient(0deg, rgba(19,24,20,.3), transparent);
       }
 
-      .hero h1 {
-        font-size: clamp(37px, 10vw, 52px);
-        letter-spacing: -2px;
-      }
+      .hero-copy { margin-bottom: 26px; }
+      .eyebrow { font-size: 9px; letter-spacing: 1.2px; }
+      .hero h1 { font-size: clamp(38px, 10vw, 50px); letter-spacing: -1.9px; }
+      .hero-copy p { font-size: 12px; line-height: 1.8; }
 
-      .hero-copy p { font-size: 12px; }
-
-      .search-wrap { margin-top: -48px; }
-      .search-panel { padding: 18px 15px; }
-
-      .search-heading h2 { font-size: 15px; }
-      .search-heading p { font-size: 10px; }
-      .search-tabs { gap: 19px; }
-      .search-tab { font-size: 11px; }
-
+      .search-panel { padding: 17px; }
+      .search-top { align-items: flex-start; flex-direction: column; gap: 5px; }
       .search-grid { grid-template-columns: 1fr; gap: 12px; }
-      .search-grid .btn { width: 100%; }
+      .field input, .field select, .btn { height: 47px; min-height: 47px; }
 
-      .section { padding: 47px 0; }
+      .section { padding: 48px 0; }
+      .section-heading { align-items: flex-start; flex-direction: column; gap: 17px; }
+      .section h2 { font-size: 28px; }
+      .carousel { grid-auto-columns: 84%; gap: 14px; }
+      .sort-select { max-width: 100%; width: 100%; }
 
-      .section-heading {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 17px;
-      }
+      .recent-card { grid-template-columns: 112px minmax(0,1fr); }
+      .recent-image { min-height: 100%; }
+      .recent-content { padding: 13px; }
+      .recent-content h3 { font-size: 13px; }
+      .recent-content .property-price { font-size: 15px; margin: 10px 0; }
+      .recent-content .property-features { gap: 5px; font-size: 9px; }
 
-      .property-grid { grid-template-columns: 1fr; gap: 17px; }
-
-      .property-card {
-        display: grid;
-        grid-template-columns: 42% minmax(0, 1fr);
-      }
-
-      .property-image {
-        height: 100%;
-        min-height: 220px;
-        aspect-ratio: auto;
-      }
-
-      .property-body { padding: 14px 12px; }
-      .property-body h3 { font-size: 13px; }
-      .property-price { font-size: 17px; }
-      .property-features { gap: 6px; font-size: 9px; }
-
-      .sort-wrap {
-        width: 100%;
-        justify-content: space-between;
-      }
-
-      .sort-wrap select { max-width: 65%; }
-
-      .contact-panel {
-        align-items: flex-start;
-        flex-direction: column;
-        padding: 25px 21px;
-      }
-
-      .footer-inner {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .whatsapp {
-        right: 12px;
-        bottom: 12px;
-        padding: 11px 14px;
-      }
-    }
-
-    @media (max-width: 370px) {
-      .brand-name { font-size: 20px; }
-      .brand-sub { font-size: 7px; }
-      .nav .nav-cta { padding: 9px 8px; }
-      .property-card { grid-template-columns: 38% minmax(0, 1fr); }
-      .property-body { padding: 11px 9px; }
+      .contact-strip { align-items: flex-start; flex-direction: column; padding: 23px; }
+      .whatsapp { right: 12px; bottom: 12px; padding: 13px 15px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -751,99 +625,82 @@
 <body>
   <header class="header">
     <div class="container header-inner">
-      <a class="brand" href="#" aria-label="Página inicial CasaPrópria">
+      <a class="brand" href="#" aria-label="Página inicial">
         <span class="brand-name">Patricia <span>Ribeiro</span></span>
-        <span class="brand-sub">Corretora de Imóveis · CRECI/SC 60282-F</span>
+        <span class="brand-sub">CORRETORA DE IMÓVEIS · CRECI/SC 60282-F</span>
       </a>
 
       <nav class="nav" aria-label="Navegação principal">
         <a href="#destaques">Destaques</a>
         <a href="#imoveis">Todos os imóveis</a>
-        <a class="nav-cta" href="#contato">Fale comigo ↗</a>
+        <a href="#contato" class="contact-link">Fale comigo ↗</a>
       </nav>
     </div>
   </header>
 
   <main>
-    <section class="hero">
-      <div class="container hero-content">
+    <section class="hero" aria-label="Busca de imóveis">
+      <div class="container hero-inner">
         <div class="hero-copy">
-          <span class="eyebrow">Um novo capítulo começa em casa</span>
-          <h1>Sua casa própria <span>começa aqui.</span></h1>
-          <p>
-            Encontre um lugar com a sua cara. Explore casas, apartamentos
-            e terrenos no Sul de Santa Catarina.
-          </p>
-          <span class="hero-note">Atendimento próximo, do primeiro passo à chave.</span>
+          <span class="eyebrow">Um novo jeito de encontrar seu lugar</span>
+          <h1>Sua casa própria <em>começa aqui.</em></h1>
+          <p>Encontre um lugar para viver suas próximas histórias. Explore casas, apartamentos e terrenos no Sul de Santa Catarina.</p>
         </div>
+
+        <form class="search-panel" id="searchForm">
+          <div class="search-top">
+            <span class="search-title">Encontre seu imóvel</span>
+            <span class="search-hint">Uma busca simples, do seu jeito.</span>
+          </div>
+
+          <div class="search-grid">
+            <div class="field">
+              <label for="location">Cidade ou bairro</label>
+              <input id="location" type="search" placeholder="Ex.: Criciúma">
+            </div>
+
+            <div class="field">
+              <label for="type">Tipo de imóvel</label>
+              <select id="type">
+                <option value="">Todos os tipos</option>
+                <option>Casa</option>
+                <option>Apartamento</option>
+                <option>Terreno</option>
+                <option>Sobrado</option>
+                <option>Empreendimento</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="price">Preço máximo</label>
+              <select id="price">
+                <option value="">Qualquer valor</option>
+                <option value="300000">Até R$ 300 mil</option>
+                <option value="500000">Até R$ 500 mil</option>
+                <option value="800000">Até R$ 800 mil</option>
+                <option value="1000000">Até R$ 1 milhão</option>
+              </select>
+            </div>
+
+            <button class="btn search-btn" type="submit">⌕ Buscar imóveis</button>
+          </div>
+        </form>
       </div>
     </section>
-
-    <div class="container search-wrap">
-      <form class="search-panel" id="searchForm">
-        <div class="search-heading">
-          <div>
-            <h2>Encontre seu imóvel</h2>
-            <p>Escolha o que procura e veja as oportunidades.</p>
-          </div>
-        </div>
-
-        <div class="search-tabs" aria-label="Finalidade">
-          <button class="search-tab active" type="button" data-purpose="Comprar">Comprar</button>
-          <button class="search-tab" type="button" data-purpose="Alugar">Alugar</button>
-          <button class="search-tab" type="button" data-purpose="Lançamento">Lançamentos</button>
-        </div>
-
-        <div class="search-grid">
-          <div class="field">
-            <label for="location">Cidade ou bairro</label>
-            <input id="location" type="search" placeholder="Ex.: Criciúma, Içara...">
-          </div>
-
-          <div class="field">
-            <label for="type">Tipo de imóvel</label>
-            <select id="type">
-              <option value="">Todos os tipos</option>
-              <option value="Casa">Casa</option>
-              <option value="Apartamento">Apartamento</option>
-              <option value="Terreno">Terreno</option>
-              <option value="Sobrado">Sobrado</option>
-              <option value="Empreendimento">Empreendimento</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="price">Preço máximo</label>
-            <select id="price">
-              <option value="">Qualquer valor</option>
-              <option value="200000">Até R$ 200 mil</option>
-              <option value="300000">Até R$ 300 mil</option>
-              <option value="500000">Até R$ 500 mil</option>
-              <option value="800000">Até R$ 800 mil</option>
-              <option value="1000000">Até R$ 1 milhão</option>
-              <option value="2000000">Até R$ 2 milhões</option>
-            </select>
-          </div>
-
-          <button class="btn" type="submit">⌕ Buscar imóveis</button>
-        </div>
-      </form>
-    </div>
 
     <section class="section" id="destaques">
       <div class="container">
         <div class="section-heading">
           <div>
-            <span class="section-kicker">Uma seleção especial</span>
+            <span class="kicker">Escolhas especiais</span>
             <h2>Imóveis em destaque</h2>
-            <p class="section-desc">Oportunidades que merecem ser descobertas.</p>
+            <p class="section-desc">Oportunidades selecionadas para você.</p>
           </div>
         </div>
 
-        <div class="status-message" id="featuredStatus" hidden></div>
-        <div class="property-grid" id="featuredList"></div>
-        <div class="empty-state" id="featuredEmpty" hidden>
-          Ainda não há imóveis em destaque. Volte em breve para conhecer as novidades.
+        <div class="carousel" id="featuredList"></div>
+        <div class="empty-state" id="featuredEmpty">
+          Os imóveis em destaque aparecerão aqui assim que forem publicados.
         </div>
       </div>
     </section>
@@ -852,48 +709,34 @@
       <div class="container">
         <div class="section-heading">
           <div>
-            <span class="section-kicker">Encontre o lugar certo</span>
+            <span class="kicker">Encontre novas possibilidades</span>
             <h2>Todos os imóveis</h2>
-            <p class="section-desc" id="resultsDescription">
-              Explore os anúncios disponíveis.
-            </p>
+            <p class="section-desc" id="resultsCaption">Veja as oportunidades disponíveis.</p>
           </div>
 
-          <div class="sort-wrap">
-            <label for="sort">Ordenar por</label>
-            <select id="sort">
-              <option value="recent">Mais recentes</option>
-              <option value="low">Menor preço</option>
-              <option value="high">Maior preço</option>
-            </select>
-          </div>
+          <select id="sortOrder" class="sort-select" aria-label="Ordenar imóveis">
+            <option value="recent">Mais recentes</option>
+            <option value="low">Menor preço</option>
+            <option value="high">Maior preço</option>
+          </select>
         </div>
 
-        <div class="status-message" id="allStatus" hidden></div>
-        <div class="property-grid" id="allList"></div>
-        <div class="empty-state" id="allEmpty" hidden>
-          Não encontramos imóveis com esses critérios.
-          Experimente mudar a busca ou fale comigo para receber ajuda.
+        <div class="recent-list" id="recentList"></div>
+        <div class="empty-state" id="recentEmpty">
+          Ainda não há imóveis publicados. Volte em breve para conhecer as novas oportunidades.
         </div>
       </div>
     </section>
 
     <section class="section" id="contato">
       <div class="container">
-        <div class="contact-panel">
-          <div class="contact-copy">
-            <span class="section-kicker" style="color:#FFB18F">Vamos conversar?</span>
-            <h2>O próximo capítulo da sua vida pode começar com uma chave.</h2>
-            <p>
-              Conte o que você procura. Vou ajudar você a encontrar
-              opções que façam sentido para seus planos.
-            </p>
+        <div class="contact-strip">
+          <div>
+            <span class="kicker">Vamos conversar?</span>
+            <h2>O próximo capítulo pode começar com uma boa escolha.</h2>
+            <p>Conte comigo para encontrar o imóvel ideal para você.</p>
           </div>
-          <a class="btn" id="contactButton"
-             href="https://wa.me/5548999372934"
-             target="_blank" rel="noopener noreferrer">
-            Falar pelo WhatsApp ↗
-          </a>
+          <a class="btn" id="contactButton" href="https://wa.me/5548999372934" target="_blank" rel="noopener noreferrer">Fale comigo ↗</a>
         </div>
       </div>
     </section>
@@ -904,53 +747,26 @@
       <div>
         <strong>Patricia Ribeiro</strong>
         <p>Corretora de Imóveis · CRECI/SC 60282-F</p>
-        <p>© <span id="year"></span> · Todos os direitos reservados.</p>
       </div>
-
-      <div class="footer-links">
-        <a href="#destaques">Destaques</a>
-        <a href="#imoveis">Imóveis</a>
-        <a href="https://www.instagram.com/casapropriasc/"
-           target="_blank" rel="noopener noreferrer">Instagram ↗</a>
+      <div>
+        <p>Atendimento no Sul de Santa Catarina.</p>
+        <p><a class="social-link" href="https://www.instagram.com/casapropriasc/" target="_blank" rel="noopener noreferrer">Instagram @CASAPROPRIASC ↗</a></p>
+        <p>© <span id="year"></span> Todos os direitos reservados.</p>
       </div>
     </div>
   </footer>
 
-  <a class="whatsapp"
-     href="https://wa.me/5548999372934"
-     target="_blank" rel="noopener noreferrer"
-     aria-label="Fale comigo pelo WhatsApp">
-    <span class="whatsapp-icon" aria-hidden="true">◉</span>
-    Fale comigo
+  <a class="whatsapp" href="https://wa.me/5548999372934" target="_blank" rel="noopener noreferrer" aria-label="Conversar pelo WhatsApp">
+    <span aria-hidden="true">✳</span> WhatsApp
   </a>
 
   <script>
-    /*
-      CasaPrópria — catálogo dinâmico
-
-      Espera que GET /api/imoveis retorne:
-      { "success": true, "imoveis": [...] }
-
-      Campos compatíveis com a tabela D1:
-      id, titulo, tipo, finalidade, descricao, cidade, bairro,
-      preco, area_m2, quartos, banheiros, vagas, foto_url,
-      destaque, lancamento, status, data_cadastro.
-
-      Não são criados anúncios fictícios.
-    */
-
-    const API_URL = "/api/imoveis";
-
     const featuredList = document.getElementById("featuredList");
-    const allList = document.getElementById("allList");
-    const featuredEmpty = document.getElementById("featuredEmpty");
-    const allEmpty = document.getElementById("allEmpty");
-    const featuredStatus = document.getElementById("featuredStatus");
-    const allStatus = document.getElementById("allStatus");
-    const resultsDescription = document.getElementById("resultsDescription");
+    const recentList = document.getElementById("recentList");
+    const sortOrder = document.getElementById("sortOrder");
 
     let properties = [];
-    let filteredProperties = null;
+    let filteredProperties = [];
     let purpose = "Comprar";
 
     function money(value) {
@@ -958,10 +774,7 @@
         return "Consulte o valor";
       }
 
-      const amount = Number(value);
-      if (!Number.isFinite(amount)) return "Consulte o valor";
-
-      return amount.toLocaleString("pt-BR", {
+      return Number(value).toLocaleString("pt-BR", {
         style: "currency",
         currency: "BRL",
         maximumFractionDigits: 0
@@ -978,249 +791,197 @@
       })[char]);
     }
 
-    function truthyFlag(value) {
-      return value === true || value === 1 ||
-        value === "1" || value === "true";
-    }
-
-    function propertyLocation(item) {
-      return [item.bairro, item.cidade].filter(Boolean).join(", ") ||
-        item.localizacao || item.location || "Consulte a localização";
-    }
-
-    function propertyPrice(item) {
-      return item.preco ?? item.price ?? null;
-    }
-
-    function propertyTitle(item) {
-      return item.titulo || item.title || "Imóvel disponível";
-    }
-
-    function propertyType(item) {
-      return item.tipo || item.type || "Imóvel";
-    }
-
-    function propertyImage(item) {
-      return item.foto_url || item.image || item.foto || "";
-    }
-
-    function propertyDate(item) {
-      return item.data_cadastro || item.publishedAt || item.created_at || "";
-    }
-
-    function propertyPurpose(item) {
-      return String(item.finalidade || item.purpose || "Venda")
-        .toLocaleLowerCase("pt-BR");
-    }
-
-    function isPublished(item) {
-      const status = String(item.status || "Publicado")
-        .toLocaleLowerCase("pt-BR");
-      return ["publicado", "disponível", "disponivel", "ativo"].includes(status);
+    // Converte os nomes das colunas D1 para os nomes usados nos cartões.
+    function normalizeProperty(item) {
+      return {
+        ...item,
+        title: item.titulo ?? item.title ?? "",
+        type: item.tipo ?? item.type ?? "",
+        purpose: item.finalidade ?? item.purpose ?? "Venda",
+        location: [item.bairro, item.cidade].filter(Boolean).join(", ") ||
+                  item.location || item.cidade || "",
+        price: item.preco ?? item.price ?? null,
+        bedrooms: item.quartos ?? item.bedrooms ?? 0,
+        bathrooms: item.banheiros ?? item.bathrooms ?? 0,
+        parking: item.vagas ?? item.parking ?? 0,
+        area: item.area_m2 ?? item.area ?? 0,
+        image: item.foto_url ?? item.image ?? "",
+        featured: Boolean(Number(item.destaque ?? item.featured ?? 0)),
+        launch: Boolean(Number(item.lancamento ?? item.launch ?? 0)),
+        status: item.status ?? "Publicado",
+        publishedAt: item.data_cadastro ?? item.publishedAt ?? "",
+        url: item.url ?? "#contato"
+      };
     }
 
     function propertyCard(item) {
-      const title = propertyTitle(item);
-      const image = propertyImage(item);
-      const type = propertyType(item);
-      const location = propertyLocation(item);
-      const price = propertyPrice(item);
-      const bedrooms = item.quartos ?? item.bedrooms;
-      const area = item.area_m2 ?? item.area;
-      const bathrooms = item.banheiros ?? item.bathrooms;
-      const parking = item.vagas ?? item.parking;
-      const featured = truthyFlag(item.destaque ?? item.featured);
-      const launch = truthyFlag(item.lancamento ?? item.launch);
-
       const details = [
-        bedrooms ? `${bedrooms} quartos` : "",
-        bathrooms ? `${bathrooms} banheiros` : "",
-        parking ? `${parking} vagas` : "",
-        area ? `${area} m²` : ""
-      ].filter(Boolean);
+        item.bedrooms ? `${item.bedrooms} quartos` : "",
+        item.bathrooms ? `${item.bathrooms} banheiros` : "",
+        item.area ? `${item.area} m²` : ""
+      ].filter(Boolean).join(" · ");
 
-      const tag = launch ? "Lançamento" : featured ? "Destaque" : type;
+      const image = item.image
+        ? `<img src="${safe(item.image)}" alt="${safe(item.title)}" loading="lazy">`
+        : "";
 
       return `
         <article class="property-card">
           <div class="property-image">
-            ${image
-              ? `<img src="${safe(image)}" alt="${safe(title)}" loading="lazy"
-                   onerror="this.style.display='none'">`
-              : ""}
-            <span class="tag">${safe(tag)}</span>
+            ${image}
+            <span class="tag">${safe(item.launch ? "Lançamento" : item.type || "Imóvel")}</span>
           </div>
           <div class="property-body">
-            <span class="property-type">${safe(type)}</span>
-            <h3>${safe(title)}</h3>
-            <p class="location">⌖ ${safe(location)}</p>
-            ${details.length
-              ? `<div class="property-features">${details.map(safe).join(" · ")}</div>`
-              : ""}
-            <p class="property-price">${money(price)}</p>
-            <a class="property-action"
-               href="${makeWhatsAppLink(item)}"
-               target="_blank" rel="noopener noreferrer">
-              Tenho interesse neste imóvel →
-            </a>
+            <span class="property-type">${safe(item.type)}</span>
+            <h3>${safe(item.title)}</h3>
+            <p class="location">${safe(item.location)}</p>
+            ${details ? `<div class="property-features">${safe(details)}</div>` : ""}
+            <p class="property-price">${money(item.price)}</p>
+            <a class="property-action" href="${safe(item.url)}">Tenho interesse →</a>
           </div>
         </article>`;
     }
 
-    function makeWhatsAppLink(item) {
-      const number = "5548999372934";
-      const message = `Olá, Patricia! Tenho interesse no imóvel: ${propertyTitle(item)}${propertyLocation(item) ? " — " + propertyLocation(item) : ""}. Poderia me passar mais informações?`;
-      return "https://wa.me/" + number + "?text=" + encodeURIComponent(message);
+    function recentCard(item) {
+      const details = [
+        item.bedrooms ? `${item.bedrooms} quartos` : "",
+        item.area ? `${item.area} m²` : ""
+      ].filter(Boolean).join(" · ");
+
+      const image = item.image
+        ? `<img class="recent-image" src="${safe(item.image)}" alt="${safe(item.title)}" loading="lazy">`
+        : `<div class="recent-image"></div>`;
+
+      return `
+        <article class="recent-card">
+          ${image}
+          <div class="recent-content">
+            <span class="property-type">${safe(item.type)}</span>
+            <h3>${safe(item.title)}</h3>
+            <p class="location">${safe(item.location)}</p>
+            ${details ? `<div class="property-features">${safe(details)}</div>` : ""}
+            <p class="property-price">${money(item.price)}</p>
+            <a class="property-action" href="${safe(item.url)}">Tenho interesse →</a>
+          </div>
+        </article>`;
     }
 
-    function setMessage(element, message) {
-      element.textContent = message;
-      element.hidden = !message;
+    function showEmpty(id, show) {
+      document.getElementById(id).hidden = !show;
     }
 
     function sortProperties(list) {
-      const sort = document.getElementById("sort").value;
-      const result = [...list];
+      const sorted = [...list];
 
-      if (sort === "low") {
-        result.sort((a, b) => {
-          const pa = Number(propertyPrice(a));
-          const pb = Number(propertyPrice(b));
-          if (!Number.isFinite(pa)) return 1;
-          if (!Number.isFinite(pb)) return -1;
-          return pa - pb;
+      if (sortOrder.value === "low") {
+        sorted.sort((a, b) => {
+          if (a.price == null) return 1;
+          if (b.price == null) return -1;
+          return Number(a.price) - Number(b.price);
         });
-      } else if (sort === "high") {
-        result.sort((a, b) => {
-          const pa = Number(propertyPrice(a));
-          const pb = Number(propertyPrice(b));
-          if (!Number.isFinite(pa)) return 1;
-          if (!Number.isFinite(pb)) return -1;
-          return pb - pa;
+      } else if (sortOrder.value === "high") {
+        sorted.sort((a, b) => {
+          if (a.price == null) return 1;
+          if (b.price == null) return -1;
+          return Number(b.price) - Number(a.price);
         });
       } else {
-        result.sort((a, b) =>
-          new Date(propertyDate(b) || 0) -
-          new Date(propertyDate(a) || 0)
+        sorted.sort((a, b) =>
+          new Date(b.publishedAt || 0) - new Date(a.publishedAt || 0)
         );
       }
 
-      return result;
+      return sorted;
     }
 
     function render() {
-      const published = properties.filter(isPublished);
-      const featured = published.filter(item =>
-        truthyFlag(item.destaque ?? item.featured)
+      const published = properties.filter(item =>
+        String(item.status).toLowerCase() === "publicado"
       );
 
-      const list = filteredProperties === null
-        ? published
-        : filteredProperties;
+      const featured = published.filter(item => item.featured);
+      const ordered = sortProperties(filteredProperties);
 
       featuredList.innerHTML = featured.map(propertyCard).join("");
-      allList.innerHTML = sortProperties(list).map(propertyCard).join("");
+      recentList.innerHTML = ordered.map(recentCard).join("");
 
-      featuredEmpty.hidden = featured.length > 0;
-      allEmpty.hidden = list.length > 0;
+      showEmpty("featuredEmpty", featured.length === 0);
+      showEmpty("recentEmpty", ordered.length === 0);
 
-      resultsDescription.textContent =
-        `${list.length} ${list.length === 1 ? "imóvel encontrado" : "imóveis encontrados"}.`;
-
-      if (featured.length === 0) {
-        featuredEmpty.textContent =
-          "Ainda não há imóveis em destaque. Novas oportunidades aparecerão aqui.";
-      }
+      document.getElementById("resultsCaption").textContent =
+        `${ordered.length} ${ordered.length === 1 ? "imóvel encontrado" : "imóveis encontrados"}.`;
     }
 
     async function loadProperties() {
-      setMessage(featuredStatus, "");
-      setMessage(allStatus, "");
-
       try {
-        const response = await fetch(API_URL, {
+        const response = await fetch("/api/imoveis", {
           headers: { "Accept": "application/json" }
         });
 
         if (!response.ok) {
-          throw new Error("A API respondeu com status " + response.status);
+          throw new Error("Não foi possível carregar os imóveis.");
         }
 
         const data = await response.json();
 
-        if (Array.isArray(data)) {
-          properties = data;
-        } else if (Array.isArray(data.imoveis)) {
-          properties = data.imoveis;
-        } else if (Array.isArray(data.properties)) {
-          properties = data.properties;
-        } else {
-          throw new Error("Formato de resposta não reconhecido.");
+        // Aceita tanto uma lista direta quanto { success: true, imoveis: [] }.
+        const list = Array.isArray(data) ? data : data.imoveis;
+
+        if (!Array.isArray(list)) {
+          throw new Error("Formato de resposta da API não reconhecido.");
         }
+
+        properties = list.map(normalizeProperty);
+        filteredProperties = properties.filter(item =>
+          String(item.status).toLowerCase() === "publicado"
+        );
 
         render();
       } catch (error) {
-        console.error("Não foi possível carregar os imóveis:", error);
-
-        properties = [];
-        render();
-
-        const message =
-          "Não foi possível carregar os anúncios agora. Tente novamente em instantes ou fale comigo pelo WhatsApp.";
-
-        setMessage(featuredStatus, message);
-        setMessage(allStatus, message);
+        console.error("Erro ao carregar catálogo:", error);
+        document.getElementById("resultsCaption").textContent =
+          "Não foi possível atualizar os imóveis agora.";
+        showEmpty("featuredEmpty", true);
+        showEmpty("recentEmpty", true);
+        document.getElementById("featuredEmpty").textContent =
+          "Não foi possível carregar os destaques. Tente novamente mais tarde.";
+        document.getElementById("recentEmpty").textContent =
+          "Não foi possível carregar os imóveis. Tente novamente mais tarde.";
       }
     }
-
-    document.querySelectorAll(".search-tab").forEach(tab => {
-      tab.addEventListener("click", () => {
-        document.querySelectorAll(".search-tab").forEach(button =>
-          button.classList.remove("active")
-        );
-
-        tab.classList.add("active");
-        purpose = tab.dataset.purpose;
-      });
-    });
 
     document.getElementById("searchForm").addEventListener("submit", event => {
       event.preventDefault();
 
       const location = document.getElementById("location").value
         .trim().toLocaleLowerCase("pt-BR");
+
       const type = document.getElementById("type").value;
       const priceValue = document.getElementById("price").value;
       const maxPrice = priceValue ? Number(priceValue) : Infinity;
 
       filteredProperties = properties.filter(item => {
-        if (!isPublished(item)) return false;
+        if (String(item.status).toLowerCase() !== "publicado") return false;
 
-        const itemLocation = propertyLocation(item)
+        const itemLocation = String(item.location || "")
           .toLocaleLowerCase("pt-BR");
-        const itemType = propertyType(item);
-        const itemPrice = Number(propertyPrice(item));
-        const itemPurpose = propertyPurpose(item);
 
-        const matchesLocation =
-          !location || itemLocation.includes(location);
-        const matchesType = !type || itemType === type;
-        const matchesPrice =
-          !Number.isFinite(maxPrice) ||
-          (Number.isFinite(itemPrice) && itemPrice <= maxPrice);
+        const matchesLocation = !location || itemLocation.includes(location);
+        const matchesType = !type || item.type === type;
+        const matchesPrice = item.price == null ||
+          !Number.isFinite(maxPrice) || Number(item.price) <= maxPrice;
 
-        let matchesPurpose = true;
+        const matchesPurpose = purpose === "Comprar"
+          ? !["alugar", "locação", "locacao"].includes(
+              String(item.purpose).toLowerCase()
+            )
+          : purpose === "Alugar"
+            ? ["alugar", "locação", "locacao"].includes(
+                String(item.purpose).toLowerCase()
+              )
+            : item.launch;
 
-        if (purpose === "Comprar") {
-          matchesPurpose = !itemPurpose.includes("alug");
-        } else if (purpose === "Alugar") {
-          matchesPurpose = itemPurpose.includes("alug");
-        } else {
-          matchesPurpose = truthyFlag(item.lancamento ?? item.launch);
-        }
-
-        return matchesLocation && matchesType &&
-          matchesPrice && matchesPurpose;
+        return matchesLocation && matchesType && matchesPrice && matchesPurpose;
       });
 
       render();
@@ -1230,7 +991,8 @@
       });
     });
 
-    document.getElementById("sort").addEventListener("change", render);
+    sortOrder.addEventListener("change", render);
+
     document.getElementById("year").textContent = new Date().getFullYear();
 
     loadProperties();
