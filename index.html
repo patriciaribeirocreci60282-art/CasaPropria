@@ -3,14 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#FFFFFF">
   <meta name="description" content="Encontre casas, apartamentos e terrenos com Patricia Ribeiro, Corretora de Imóveis, CRECI/SC 60282-F.">
-
-  <title>Patricia Ribeiro | CasaPrópria</title>
+  <title>CasaPrópria | Patricia Ribeiro</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -18,34 +17,33 @@
       --orange-dark: #C94C19;
       --forest: #294B38;
       --ink: #242424;
-      --muted: #73716D;
-      --line: #EAE7E2;
+      --muted: #74716B;
+      --line: #E8E4DE;
       --soft: #F7F5F1;
       --white: #FFFFFF;
-      --radius: 12px;
-      --shadow: 0 12px 36px rgba(27, 30, 25, .12);
+      --radius: 10px;
+      --shadow: 0 14px 40px rgba(30, 30, 25, .13);
     }
 
     * { box-sizing: border-box; }
 
     html {
       scroll-behavior: smooth;
-      scroll-padding-top: 100px;
+      scroll-padding-top: 90px;
     }
 
     body {
       margin: 0;
-      font-family: "DM Sans", sans-serif;
       color: var(--ink);
       background: var(--white);
+      font-family: "DM Sans", sans-serif;
       line-height: 1.55;
     }
 
     a { color: inherit; text-decoration: none; }
     button, input, select { font: inherit; }
     button { cursor: pointer; }
-
-    img { max-width: 100%; }
+    [hidden] { display: none !important; }
 
     .container {
       width: min(1440px, calc(100% - 64px));
@@ -66,30 +64,31 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 30px;
+      gap: 28px;
     }
 
     .brand {
-      min-width: 0;
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 4px;
+      min-width: 0;
     }
 
     .brand-name {
       font-family: "Montserrat", sans-serif;
-      font-size: clamp(22px, 2.2vw, 29px);
-      font-weight: 800;
-      letter-spacing: -1.2px;
-      line-height: 1.2;
+      font-size: clamp(23px, 2.2vw, 28px);
+      font-weight: 500;
+      letter-spacing: -.8px;
+      line-height: 1.25;
+      color: #242424;
     }
 
     .brand-sub {
-      color: #66615B;
+      color: #68645F;
       font-family: "Montserrat", sans-serif;
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: .65px;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 1px;
     }
 
     .nav {
@@ -110,32 +109,32 @@
     .nav .nav-cta {
       padding: 12px 18px;
       background: var(--orange);
-      border-radius: 6px;
       color: #fff;
+      border-radius: 5px;
     }
 
     .nav .nav-cta:hover { background: var(--orange-dark); }
 
-    /* IMAGEM PRINCIPAL E BUSCA */
+    /* FOTOGRAFIA PRINCIPAL */
 
     .hero {
       position: relative;
       isolation: isolate;
-      min-height: 580px;
+      min-height: 590px;
       display: flex;
       align-items: center;
       padding: 65px 0 120px;
-      background: #45483D;
+      background: #484A40;
     }
 
     .hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-  background-image: url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2400&q=90");
-  background-size: cover;
-  background-position: center 55%;
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background-image: url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2400&q=90");
+      background-size: cover;
+      background-position: center 55%;
     }
 
     .hero::after {
@@ -145,9 +144,9 @@
       z-index: -1;
       background: linear-gradient(
         90deg,
-        rgba(18, 23, 19, .70) 0%,
-        rgba(18, 23, 19, .40) 48%,
-        rgba(18, 23, 19, .12) 100%
+        rgba(25, 30, 25, 0.66) 0%,
+        rgba(25, 30, 25, 0.38) 52%,
+        rgba(25, 30, 25, 0.10) 100%
       );
     }
 
@@ -157,36 +156,40 @@
       color: #fff;
     }
 
-    .hero-copy { max-width: 730px; }
+    .hero-copy { max-width: 740px; }
 
     .eyebrow {
       display: inline-block;
-      margin-bottom: 14px;
+      margin-bottom: 15px;
       font-family: "Montserrat", sans-serif;
-      font-size: 11px;
-      font-weight: 700;
+      font-size: 10px;
+      font-weight: 600;
       letter-spacing: 2px;
       text-transform: uppercase;
     }
 
     .hero h1 {
       max-width: 720px;
-      margin: 0 0 18px;
+      margin: 0 0 20px;
       font-family: "Montserrat", sans-serif;
-      font-size: clamp(36px, 5.3vw, 66px);
-      font-weight: 700;
-      line-height: 1.08;
-      letter-spacing: -2px;
-      text-shadow: 0 3px 22px rgba(0, 0, 0, .25);
+      font-size: clamp(37px, 5.1vw, 64px);
+      font-weight: 600;
+      line-height: 1.12;
+      letter-spacing: -1.5px;
+      color: #fff;
+      text-shadow: 0 2px 18px rgba(0, 0, 0, .30);
     }
 
     .hero-copy p {
-      max-width: 510px;
+      max-width: 520px;
       margin: 0;
-      color: rgba(255,255,255,.95);
+      color: rgba(255,255,255,.96);
       font-size: 16px;
       line-height: 1.8;
+      text-shadow: 0 1px 10px rgba(0,0,0,.2);
     }
+
+    /* BUSCA SOBRE A FOTOGRAFIA */
 
     .search-wrap {
       position: relative;
@@ -198,8 +201,8 @@
     .search-panel {
       padding: 25px 28px 28px;
       background: #fff;
-      border: 1px solid rgba(255,255,255,.85);
-      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,.9);
+      border-radius: 9px;
       box-shadow: 0 18px 55px rgba(0,0,0,.19);
     }
 
@@ -215,9 +218,9 @@
       padding: 0 2px 13px;
       border: 0;
       background: transparent;
-      color: #777;
+      color: #77716B;
       font-family: "Montserrat", sans-serif;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
     }
 
@@ -247,7 +250,7 @@
       margin-bottom: 8px;
       font-family: "Montserrat", sans-serif;
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 600;
     }
 
     .field input,
@@ -276,14 +279,14 @@
       align-items: center;
       justify-content: center;
       gap: 9px;
-      padding: 0 23px;
+      padding: 0 22px;
       border: 0;
       border-radius: 5px;
       background: var(--orange);
       color: #fff;
       font-family: "Montserrat", sans-serif;
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 600;
       transition: background .2s, transform .2s;
     }
 
@@ -292,18 +295,14 @@
       transform: translateY(-1px);
     }
 
-    /* FAIXA VISUAL */
-
     .accent-strip {
-      height: 8px;
-      margin-top: 0;
+      height: 7px;
       background: var(--orange);
     }
 
     /* SEÇÕES */
 
-    .section { padding: 76px 0; }
-
+    .section { padding: 72px 0; }
     .section.soft { background: var(--soft); }
 
     .section-heading {
@@ -320,7 +319,7 @@
       color: var(--orange-dark);
       font-family: "Montserrat", sans-serif;
       font-size: 10px;
-      font-weight: 800;
+      font-weight: 700;
       letter-spacing: 1.7px;
       text-transform: uppercase;
     }
@@ -329,9 +328,9 @@
       margin: 0;
       font-family: "Montserrat", sans-serif;
       font-size: clamp(25px, 3vw, 35px);
-      font-weight: 700;
-      line-height: 1.2;
-      letter-spacing: -.9px;
+      font-weight: 600;
+      line-height: 1.25;
+      letter-spacing: -.7px;
     }
 
     .section-desc {
@@ -346,8 +345,6 @@
       font-weight: 700;
       white-space: nowrap;
     }
-
-    /* FILTROS DA LISTAGEM */
 
     .listing-toolbar {
       display: flex;
@@ -381,7 +378,7 @@
       outline-color: var(--orange);
     }
 
-    /* CARTÕES DE IMÓVEIS */
+    /* IMÓVEIS */
 
     .property-grid {
       display: grid;
@@ -440,7 +437,7 @@
       color: var(--orange-dark);
       font-family: "Montserrat", sans-serif;
       font-size: 9px;
-      font-weight: 800;
+      font-weight: 700;
       letter-spacing: .5px;
       text-transform: uppercase;
     }
@@ -451,7 +448,7 @@
       color: var(--orange-dark);
       font-family: "Montserrat", sans-serif;
       font-size: 10px;
-      font-weight: 800;
+      font-weight: 700;
       letter-spacing: 1px;
       text-transform: uppercase;
     }
@@ -460,7 +457,7 @@
       margin: 7px 0;
       font-family: "Montserrat", sans-serif;
       font-size: 16px;
-      font-weight: 700;
+      font-weight: 600;
       line-height: 1.45;
     }
 
@@ -483,8 +480,8 @@
       margin: 17px 0 14px;
       font-family: "Montserrat", sans-serif;
       font-size: 21px;
-      font-weight: 800;
-      letter-spacing: -.5px;
+      font-weight: 700;
+      letter-spacing: -.4px;
     }
 
     .property-action {
@@ -503,7 +500,7 @@
       border: 1px dashed #D8D0C6;
       border-radius: var(--radius);
       color: var(--muted);
-      background: rgba(255,255,255,.6);
+      background: rgba(255,255,255,.65);
       text-align: center;
       font-size: 14px;
     }
@@ -523,8 +520,6 @@
       text-align: center;
     }
 
-    [hidden] { display: none !important; }
-
     /* CONTATO */
 
     .contact-strip {
@@ -542,7 +537,7 @@
       max-width: 580px;
       font-family: "Montserrat", sans-serif;
       font-size: clamp(23px, 3vw, 31px);
-      font-weight: 700;
+      font-weight: 600;
       line-height: 1.3;
     }
 
@@ -572,6 +567,7 @@
     .footer strong {
       font-family: "Montserrat", sans-serif;
       font-size: 14px;
+      font-weight: 600;
     }
 
     .footer p {
@@ -651,20 +647,14 @@
       }
 
       .brand-name {
-  font-family: "Montserrat", sans-serif;
-  font-size: clamp(23px, 2.2vw, 28px);
-  font-weight: 500;
-  letter-spacing: -0.8px;
-  line-height: 1.25;
-  color: #242424;
-}
+        font-size: 22px;
+        letter-spacing: -.6px;
+      }
 
-.brand-sub {
-  color: #68645F;
-  font-family: "Montserrat", sans-serif;
-  font-size: 9px;
-  font-weight: 500;
-  letter-spacing: 1px;
+      .brand-sub {
+        max-width: 255px;
+        font-size: 8px;
+        letter-spacing: .35px;
       }
 
       .nav { gap: 0; }
@@ -682,25 +672,14 @@
         padding: 60px 0 120px;
       }
 
-      .hero::before {
-        background-position: 58% center;
-      }
+      .hero::before { background-position: 58% center; }
 
       .hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(
-    90deg,
-    rgba(25, 30, 25, 0.66) 0%,
-    rgba(25, 30, 25, 0.38) 52%,
-    rgba(25, 30, 25, 0.10) 100%
-  );.hero h1 {
-  font-weight: 600;
-  letter-spacing: -1.5px;
-  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.30);
-}
+        background: linear-gradient(
+          90deg,
+          rgba(25,30,25,.70),
+          rgba(25,30,25,.30)
+        );
       }
 
       .hero-content,
@@ -708,11 +687,10 @@
 
       .hero h1 {
         font-size: clamp(35px, 9vw, 46px);
-        letter-spacing: -1.3px;
+        letter-spacing: -1.1px;
       }
 
       .hero-copy p { font-size: 14px; }
-
       .eyebrow { font-size: 9px; }
 
       .search-wrap { margin-top: -86px; }
@@ -744,7 +722,6 @@
       }
 
       .section h2 { font-size: 25px; }
-
       .section-desc { font-size: 13px; }
 
       .property-grid {
@@ -753,7 +730,6 @@
       }
 
       .property-image { aspect-ratio: 5 / 3; }
-
       .property-body { padding: 17px; }
 
       .listing-toolbar {
@@ -943,8 +919,7 @@
               o lugar certo para começar uma nova história.
             </p>
           </div>
-          <a class="btn" id="contactButton"
-             href="https://wa.me/5548999372934"
+          <a class="btn" href="https://wa.me/5548999372934"
              target="_blank" rel="noopener noreferrer">
             Fale comigo pelo WhatsApp →
           </a>
@@ -987,18 +962,16 @@
 
   <script>
     /*
-      INTEGRAÇÃO COM O CATÁLOGO EXISTENTE
-
-      A página consulta /api/imoveis.
-      A API deve continuar ligada ao banco D1 (binding DB).
+      A interface consulta /api/imoveis.
+      Mantenha a rota existente ligada ao binding DB (D1).
 
       Formato esperado:
       { "success": true, "imoveis": [...] }
 
-      Campos utilizados:
-      id, titulo, tipo, finalidade, descricao, cidade, bairro,
-      endereco, preco, area_m2, quartos, banheiros, vagas,
-      foto_url, destaque, lancamento, status, data_cadastro.
+      Campos usados:
+      id, titulo, tipo, finalidade, cidade, bairro, endereco,
+      preco, area_m2, quartos, banheiros, vagas, foto_url,
+      destaque, lancamento, status, data_cadastro.
     */
 
     const API_URL = "/api/imoveis";
@@ -1037,7 +1010,6 @@
       }
 
       const number = Number(value);
-
       if (!Number.isFinite(number)) return "Consulte o valor";
 
       return number.toLocaleString("pt-BR", {
@@ -1052,29 +1024,24 @@
         value === "1" || value === "true";
     }
 
-    function isLaunch(item) {
-      return isTrue(item.lancamento);
-    }
-
     function isFeatured(item) {
       return isTrue(item.destaque);
     }
 
+    function isLaunch(item) {
+      return isTrue(item.lancamento);
+    }
+
     function purposeMatches(item) {
-      const finalidade = text(item.finalidade).toLocaleLowerCase("pt-BR");
+      const value = text(item.finalidade).toLocaleLowerCase("pt-BR");
 
       if (purpose === "Lançamento") return isLaunch(item);
 
       if (purpose === "Alugar") {
-        return finalidade === "alugar" ||
-          finalidade === "aluguel" ||
-          finalidade === "locação" ||
-          finalidade === "locacao";
+        return ["alugar", "aluguel", "locação", "locacao"].includes(value);
       }
 
-      return finalidade === "" ||
-        finalidade === "venda" ||
-        finalidade === "comprar";
+      return value === "" || ["venda", "comprar"].includes(value);
     }
 
     function locationOf(item) {
@@ -1087,38 +1054,28 @@
     function propertyDetails(item) {
       const details = [];
 
-      if (item.quartos !== null && item.quartos !== undefined &&
-          item.quartos !== "" && Number(item.quartos) > 0) {
+      if (Number(item.quartos) > 0)
         details.push(`<span>${escapeHTML(item.quartos)} quartos</span>`);
-      }
 
-      if (item.banheiros !== null && item.banheiros !== undefined &&
-          item.banheiros !== "" && Number(item.banheiros) > 0) {
+      if (Number(item.banheiros) > 0)
         details.push(`<span>${escapeHTML(item.banheiros)} banheiros</span>`);
-      }
 
-      if (item.vagas !== null && item.vagas !== undefined &&
-          item.vagas !== "" && Number(item.vagas) > 0) {
+      if (Number(item.vagas) > 0)
         details.push(`<span>${escapeHTML(item.vagas)} vagas</span>`);
-      }
 
-      if (item.area_m2 !== null && item.area_m2 !== undefined &&
-          item.area_m2 !== "" && Number(item.area_m2) > 0) {
+      if (Number(item.area_m2) > 0)
         details.push(`<span>${escapeHTML(item.area_m2)} m²</span>`);
-      }
 
       return details.join("");
     }
 
     function detailURL(item) {
-      // Mantém o destino simples enquanto não existir uma página
-      // individual de detalhes para cada imóvel.
+      const message = "Olá, Patricia! Gostaria de saber mais sobre o imóvel: " +
+        text(item.titulo) +
+        (item.id !== undefined ? " (código " + item.id + ")" : "");
+
       return "https://wa.me/" + WHATSAPP_NUMBER +
-        "?text=" + encodeURIComponent(
-          "Olá, Patricia! Gostaria de saber mais sobre o imóvel: " +
-          text(item.titulo) +
-          (item.id !== undefined ? " (código " + item.id + ")" : "")
-        );
+        "?text=" + encodeURIComponent(message);
     }
 
     function propertyCard(item) {
@@ -1129,10 +1086,7 @@
         isFeatured(item) ? "Destaque" : type;
 
       const imageHTML = image
-        ? `<img src="${escapeHTML(image)}"
-               alt="${escapeHTML(title)}"
-               loading="lazy"
-               onerror="this.remove()">`
+        ? `<img src="${escapeHTML(image)}" alt="${escapeHTML(title)}" loading="lazy" onerror="this.remove()">`
         : `<div class="property-placeholder">Foto em breve</div>`;
 
       return `
@@ -1141,20 +1095,15 @@
             ${imageHTML}
             <span class="tag">${escapeHTML(tag)}</span>
           </div>
-
           <div class="property-body">
             <span class="property-type">${escapeHTML(type)}</span>
             <h3>${escapeHTML(title)}</h3>
             <p class="location">${escapeHTML(locationOf(item))}</p>
-
             ${propertyDetails(item)
               ? `<div class="property-features">${propertyDetails(item)}</div>`
               : ""}
-
             <p class="property-price">${money(item.preco)}</p>
-
-            <a class="property-action"
-               href="${detailURL(item)}"
+            <a class="property-action" href="${detailURL(item)}"
                target="_blank" rel="noopener noreferrer">
               Consultar imóvel <span aria-hidden="true">→</span>
             </a>
@@ -1172,21 +1121,15 @@
       const mode = document.getElementById("sort").value;
       const result = [...list];
 
-      if (mode === "menor") {
+      if (mode === "menor" || mode === "maior") {
         result.sort((a, b) => {
           const pa = Number(a.preco);
           const pb = Number(b.preco);
+
           if (!Number.isFinite(pa)) return 1;
           if (!Number.isFinite(pb)) return -1;
-          return pa - pb;
-        });
-      } else if (mode === "maior") {
-        result.sort((a, b) => {
-          const pa = Number(a.preco);
-          const pb = Number(b.preco);
-          if (!Number.isFinite(pa)) return 1;
-          if (!Number.isFinite(pb)) return -1;
-          return pb - pa;
+
+          return mode === "menor" ? pa - pb : pb - pa;
         });
       } else {
         result.sort((a, b) => {
@@ -1214,14 +1157,12 @@
           item.cidade, item.bairro, item.endereco
         ].map(text).join(" ").toLocaleLowerCase("pt-BR");
 
-        const matchesLocation = !location ||
-          combinedLocation.includes(location);
-
+        const matchesLocation = !location || combinedLocation.includes(location);
         const matchesType = !type ||
           text(item.tipo).toLocaleLowerCase("pt-BR") === type;
 
         const itemPrice = Number(item.preco);
-        const matchesPrice = !Number.isFinite(maxPrice) ||
+        const matchesPrice = maxPrice === Infinity ||
           (Number.isFinite(itemPrice) && itemPrice <= maxPrice);
 
         return matchesLocation && matchesType &&
@@ -1230,20 +1171,17 @@
     }
 
     function render() {
-      const activeProperties = hasSearched
-        ? filterProperties(properties)
-        : properties.filter(item => {
-            const status = text(item.status).toLocaleLowerCase("pt-BR");
-            return !status || status === "publicado";
-          });
-
-      const published = activeProperties.filter(item => {
+      const published = properties.filter(item => {
         const status = text(item.status).toLocaleLowerCase("pt-BR");
         return !status || status === "publicado";
       });
 
-      const featured = published.filter(isFeatured);
-      const sorted = sortProperties(published);
+      const active = hasSearched
+        ? filterProperties(published)
+        : published;
+
+      const featured = active.filter(isFeatured);
+      const sorted = sortProperties(active);
 
       featuredList.innerHTML = featured.map(propertyCard).join("");
       allList.innerHTML = sorted.map(propertyCard).join("");
@@ -1286,19 +1224,13 @@
           throw new Error("Formato de resposta da API não reconhecido.");
         }
 
-        // A API pode devolver apenas imóveis publicados ou também
-        // rascunhos. A interface exibe somente status Publicado.
-        properties = properties.filter(item => {
-          const status = text(item.status).toLocaleLowerCase("pt-BR");
-          return !status || status === "publicado";
-        });
-
         render();
       } catch (error) {
         console.error("Erro ao carregar imóveis:", error);
 
         featuredList.innerHTML = "";
         allList.innerHTML = "";
+
         featuredEmpty.hidden = false;
         allEmpty.hidden = false;
 
@@ -1311,7 +1243,7 @@
           "Verifique a API /api/imoveis e a conexão com o banco D1.";
 
         resultsCount.textContent = "Catálogo indisponível";
-        setStatus("A apresentação do site continua disponível, mas os anúncios dependem da API.");
+        setStatus("O site continua disponível, mas os anúncios dependem da API.");
       }
     }
 
@@ -1338,9 +1270,6 @@
     });
 
     document.getElementById("sort").addEventListener("change", render);
-
-    document.getElementById("contactButton").href =
-      "https://wa.me/" + WHATSAPP_NUMBER;
 
     loadProperties();
   </script>
