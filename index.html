@@ -21,7 +21,6 @@
       --line: #E7E2DA;
       --cream: #F7F5F1;
       --white: #FFFFFF;
-      --green: #294B38;
       --shadow: 0 16px 45px rgba(27, 31, 24, .14);
     }
 
@@ -47,17 +46,15 @@
       font: inherit;
     }
 
-    button, a, input, select {
-      -webkit-tap-highlight-color: transparent;
-    }
-
     a {
       color: inherit;
       text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
     }
 
     button {
       cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
     }
 
     img {
@@ -73,12 +70,12 @@
       margin-inline: auto;
     }
 
-    /* CABEÇALHO */
+    /* CABEÇALHO E LOGO */
 
     .header {
       position: relative;
       z-index: 10;
-      background: var(--white);
+      background: #FFFFFF;
       border-bottom: 1px solid var(--line);
     }
 
@@ -97,22 +94,23 @@
       min-width: 0;
     }
 
-    .brand-symbol,
+    .brand-symbol {
+      width: 64px;
+      height: 64px;
+      flex: 0 0 64px;
+      color: var(--orange);
+    }
+
     .brand-logo {
       display: block;
-      width: 46px;
-      height: 46px;
-      flex: 0 0 46px;
       object-fit: contain;
-      color: var(--orange);
       background: transparent;
     }
 
     .brand-text {
       display: flex;
       flex-direction: column;
-      gap: 5px;
-      min-width: 0;
+      gap: 3px;
     }
 
     .brand-name {
@@ -150,13 +148,13 @@
     .nav .nav-cta {
       padding: 13px 20px;
       background: var(--orange);
-      color: var(--white);
+      color: #FFFFFF;
       border-radius: 5px;
     }
 
     .nav .nav-cta:hover {
       background: var(--orange-dark);
-      color: var(--white);
+      color: #FFFFFF;
     }
 
     /* IMAGEM PRINCIPAL */
@@ -204,16 +202,15 @@
 
     .hero h1 {
       margin: 0;
-      color: var(--white);
+      color: #FFFFFF;
       font-size: clamp(38px, 5.5vw, 72px);
       font-weight: 600;
       line-height: 1.18;
       letter-spacing: -1.5px;
-      text-align: center;
       text-shadow: 0 3px 24px rgba(0, 0, 0, .7);
     }
 
-    /* BUSCA */
+    /* BUSCA SOBRE A IMAGEM */
 
     .search-wrap {
       position: relative;
@@ -224,7 +221,7 @@
 
     .search-panel {
       padding: 30px;
-      background: var(--white);
+      background: #FFFFFF;
       border: 1px solid rgba(255, 255, 255, .9);
       border-radius: 8px;
       box-shadow: 0 18px 55px rgba(0, 0, 0, .2);
@@ -291,7 +288,7 @@
       border-radius: 5px;
       outline: none;
       color: var(--ink);
-      background: var(--white);
+      background: #FFFFFF;
       font-size: 16px;
     }
 
@@ -316,7 +313,7 @@
       border: 0;
       border-radius: 5px;
       background: var(--orange);
-      color: var(--white);
+      color: #FFFFFF;
       font-size: 16px;
       font-weight: 700;
       white-space: nowrap;
@@ -331,7 +328,6 @@
     .accent-strip {
       width: 100%;
       height: 16px;
-      margin: 0;
       background: var(--orange);
     }
 
@@ -414,13 +410,13 @@
       padding: 0 12px;
       border: 1px solid var(--line);
       border-radius: 5px;
-      background: var(--white);
+      background: #FFFFFF;
       color: var(--ink);
       font-size: 16px;
       outline-color: var(--orange);
     }
 
-    /* IMÓVEIS */
+    /* CARDS DOS IMÓVEIS */
 
     .property-grid {
       display: grid;
@@ -433,7 +429,7 @@
       overflow: hidden;
       border: 1px solid var(--line);
       border-radius: 8px;
-      background: var(--white);
+      background: #FFFFFF;
       transition: box-shadow .2s ease, transform .2s ease;
     }
 
@@ -475,7 +471,7 @@
       left: 14px;
       padding: 8px 12px;
       border-radius: 3px;
-      background: var(--white);
+      background: #FFFFFF;
       color: var(--orange-dark);
       font-size: 16px;
       font-weight: 700;
@@ -572,7 +568,7 @@
       padding: 42px;
       border: 1px solid var(--line);
       border-radius: 8px;
-      background: var(--white);
+      background: #FFFFFF;
     }
 
     .contact-strip h2 {
@@ -595,7 +591,7 @@
     .footer {
       padding: 38px 0;
       border-top: 1px solid var(--line);
-      background: var(--white);
+      background: #FFFFFF;
     }
 
     .footer-inner {
@@ -632,7 +628,7 @@
       color: var(--orange-dark);
     }
 
-    /* WHATSAPP LARANJA */
+    /* WHATSAPP FLUTUANTE LARANJA */
 
     .whatsapp {
       position: fixed;
@@ -648,7 +644,7 @@
       border: 2px solid rgba(255, 255, 255, .35);
       border-radius: 50px;
       background: var(--orange);
-      color: var(--white);
+      color: #FFFFFF;
       box-shadow: 0 8px 28px rgba(100, 43, 17, .28);
       font-size: 16px;
       font-weight: 700;
@@ -657,7 +653,7 @@
 
     .whatsapp:hover {
       background: var(--orange-dark);
-      color: var(--white);
+      color: #FFFFFF;
       transform: translateY(-3px);
     }
 
@@ -723,11 +719,10 @@
         gap: 8px;
       }
 
-      .brand-symbol,
-      .brand-logo {
-        width: 36px;
-        height: 36px;
-        flex-basis: 36px;
+      .brand-symbol {
+        width: 48px;
+        height: 48px;
+        flex-basis: 48px;
       }
 
       .brand-name {
@@ -925,22 +920,25 @@
 
 <body>
 
+  <!-- CABEÇALHO -->
   <header class="header">
     <div class="container header-inner">
 
       <a class="brand" href="#" aria-label="Página inicial CasaPrópria">
+
+        <!-- LOGO: arquivo na mesma pasta do index.html -->
         <img
           class="brand-symbol brand-logo"
-          src="logo_casapropria_transparente.png"
+          src="./Gemini_Generated_Image_9wawnj9wawnj9waw.jfif"
           alt="Logo CasaPrópria"
-          width="46"
-          height="46"
+          onerror="this.style.display='none'"
         >
 
         <span class="brand-text">
           <span class="brand-name">Patricia Ribeiro</span>
           <span class="brand-sub">Corretora de Imóveis · CRECI/SC 60282-F</span>
         </span>
+
       </a>
 
       <nav class="nav" aria-label="Navegação principal">
@@ -954,12 +952,14 @@
 
   <main>
 
+    <!-- IMAGEM PRINCIPAL -->
     <section class="hero" aria-label="Encontre seu imóvel">
       <div class="hero-content">
         <h1>Encontre seu imóvel</h1>
       </div>
     </section>
 
+    <!-- BUSCA -->
     <div class="search-wrap">
       <form class="search-panel" id="searchForm">
 
@@ -1031,6 +1031,7 @@
 
     <div class="accent-strip" aria-hidden="true"></div>
 
+    <!-- DESTAQUES -->
     <section class="section" id="destaques">
       <div class="container">
 
@@ -1058,6 +1059,7 @@
       </div>
     </section>
 
+    <!-- TODOS OS IMÓVEIS -->
     <section class="section soft" id="imoveis">
       <div class="container">
 
@@ -1100,6 +1102,7 @@
       </div>
     </section>
 
+    <!-- CONTATO -->
     <section class="section" id="contato">
       <div class="container">
         <div class="contact-strip">
@@ -1115,8 +1118,7 @@
 
           <a class="btn"
              href="https://wa.me/5548999372934"
-             target="_blank"
-             rel="noopener noreferrer">
+             target="_blank" rel="noopener noreferrer">
             Fale comigo pelo WhatsApp →
           </a>
 
@@ -1126,6 +1128,7 @@
 
   </main>
 
+  <!-- RODAPÉ -->
   <footer class="footer">
     <div class="container footer-inner">
 
@@ -1148,6 +1151,7 @@
     </div>
   </footer>
 
+  <!-- WHATSAPP FLUTUANTE LARANJA -->
   <a class="whatsapp"
      href="https://wa.me/5548999372934"
      target="_blank"
@@ -1175,10 +1179,12 @@
       { "success": true, "imoveis": [...] }
       ou uma lista JSON direta.
 
-      Campos:
+      Campos esperados:
       id, titulo, tipo, finalidade, cidade, bairro, endereco,
       preco, area_m2, quartos, banheiros, vagas, foto_url,
       destaque, lancamento, status e data_cadastro.
+
+      Ajuste o endpoint e os campos conforme sua API.
     */
 
     const API_URL = "/api/imoveis";
@@ -1253,9 +1259,7 @@
       }
 
       if (purpose === "Alugar") {
-        return [
-          "alugar", "aluguel", "locação", "locacao"
-        ].includes(value);
+        return ["alugar", "aluguel", "locação", "locacao"].includes(value);
       }
 
       return value === "" || ["venda", "comprar"].includes(value);
@@ -1314,11 +1318,10 @@
           : type;
 
       const imageHTML = image
-        ? `<img
-             src="${escapeHTML(image)}"
-             alt="${escapeHTML(title)}"
-             loading="lazy"
-             onerror="this.style.display='none'">`
+        ? `<img src="${escapeHTML(image)}"
+                alt="${escapeHTML(title)}"
+                loading="lazy"
+                onerror="this.style.display='none'">`
         : `<div class="property-placeholder">Foto em breve</div>`;
 
       const details = propertyDetails(item);
@@ -1332,7 +1335,9 @@
 
           <div class="property-body">
             <span class="property-type">${escapeHTML(type)}</span>
+
             <h3>${escapeHTML(title)}</h3>
+
             <p class="location">${escapeHTML(locationOf(item))}</p>
 
             ${details
@@ -1398,15 +1403,16 @@
 
       return list.filter(item => {
         const combinedLocation = [
-          item.cidade, item.bairro, item.endereco
+          item.cidade,
+          item.bairro,
+          item.endereco
         ].map(text).join(" ").toLocaleLowerCase("pt-BR");
 
         const matchesLocation =
           !location || combinedLocation.includes(location);
 
         const matchesType =
-          !type ||
-          text(item.tipo).toLocaleLowerCase("pt-BR") === type;
+          !type || text(item.tipo).toLocaleLowerCase("pt-BR") === type;
 
         const itemPrice = Number(item.preco);
 
