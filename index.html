@@ -78,7 +78,7 @@
     .header {
       position: relative;
       z-index: 10;
-      background: #FFFFFF;
+      background: var(--white);
       border-bottom: 1px solid var(--line);
     }
 
@@ -97,17 +97,22 @@
       min-width: 0;
     }
 
-    .brand-symbol {
+    .brand-symbol,
+    .brand-logo {
+      display: block;
       width: 46px;
       height: 46px;
       flex: 0 0 46px;
+      object-fit: contain;
       color: var(--orange);
+      background: transparent;
     }
 
     .brand-text {
       display: flex;
       flex-direction: column;
       gap: 5px;
+      min-width: 0;
     }
 
     .brand-name {
@@ -145,13 +150,13 @@
     .nav .nav-cta {
       padding: 13px 20px;
       background: var(--orange);
-      color: #FFFFFF;
+      color: var(--white);
       border-radius: 5px;
     }
 
     .nav .nav-cta:hover {
       background: var(--orange-dark);
-      color: #FFFFFF;
+      color: var(--white);
     }
 
     /* IMAGEM PRINCIPAL */
@@ -199,7 +204,7 @@
 
     .hero h1 {
       margin: 0;
-      color: #FFFFFF;
+      color: var(--white);
       font-size: clamp(38px, 5.5vw, 72px);
       font-weight: 600;
       line-height: 1.18;
@@ -208,7 +213,7 @@
       text-shadow: 0 3px 24px rgba(0, 0, 0, .7);
     }
 
-    /* BUSCA SOBRE A IMAGEM */
+    /* BUSCA */
 
     .search-wrap {
       position: relative;
@@ -219,7 +224,7 @@
 
     .search-panel {
       padding: 30px;
-      background: #FFFFFF;
+      background: var(--white);
       border: 1px solid rgba(255, 255, 255, .9);
       border-radius: 8px;
       box-shadow: 0 18px 55px rgba(0, 0, 0, .2);
@@ -286,7 +291,7 @@
       border-radius: 5px;
       outline: none;
       color: var(--ink);
-      background: #FFFFFF;
+      background: var(--white);
       font-size: 16px;
     }
 
@@ -311,7 +316,7 @@
       border: 0;
       border-radius: 5px;
       background: var(--orange);
-      color: #FFFFFF;
+      color: var(--white);
       font-size: 16px;
       font-weight: 700;
       white-space: nowrap;
@@ -409,13 +414,13 @@
       padding: 0 12px;
       border: 1px solid var(--line);
       border-radius: 5px;
-      background: #FFFFFF;
+      background: var(--white);
       color: var(--ink);
       font-size: 16px;
       outline-color: var(--orange);
     }
 
-    /* CARDS DOS IMÓVEIS */
+    /* IMÓVEIS */
 
     .property-grid {
       display: grid;
@@ -428,7 +433,7 @@
       overflow: hidden;
       border: 1px solid var(--line);
       border-radius: 8px;
-      background: #FFFFFF;
+      background: var(--white);
       transition: box-shadow .2s ease, transform .2s ease;
     }
 
@@ -470,7 +475,7 @@
       left: 14px;
       padding: 8px 12px;
       border-radius: 3px;
-      background: #FFFFFF;
+      background: var(--white);
       color: var(--orange-dark);
       font-size: 16px;
       font-weight: 700;
@@ -567,7 +572,7 @@
       padding: 42px;
       border: 1px solid var(--line);
       border-radius: 8px;
-      background: #FFFFFF;
+      background: var(--white);
     }
 
     .contact-strip h2 {
@@ -590,7 +595,7 @@
     .footer {
       padding: 38px 0;
       border-top: 1px solid var(--line);
-      background: #FFFFFF;
+      background: var(--white);
     }
 
     .footer-inner {
@@ -627,7 +632,7 @@
       color: var(--orange-dark);
     }
 
-    /* BOTÃO FLUTUANTE DO WHATSAPP - LARANJA */
+    /* WHATSAPP LARANJA */
 
     .whatsapp {
       position: fixed;
@@ -643,7 +648,7 @@
       border: 2px solid rgba(255, 255, 255, .35);
       border-radius: 50px;
       background: var(--orange);
-      color: #FFFFFF;
+      color: var(--white);
       box-shadow: 0 8px 28px rgba(100, 43, 17, .28);
       font-size: 16px;
       font-weight: 700;
@@ -652,7 +657,7 @@
 
     .whatsapp:hover {
       background: var(--orange-dark);
-      color: #FFFFFF;
+      color: var(--white);
       transform: translateY(-3px);
     }
 
@@ -718,7 +723,8 @@
         gap: 8px;
       }
 
-      .brand-symbol {
+      .brand-symbol,
+      .brand-logo {
         width: 36px;
         height: 36px;
         flex-basis: 36px;
@@ -919,49 +925,22 @@
 
 <body>
 
-  <!-- CABEÇALHO -->
   <header class="header">
     <div class="container header-inner">
 
       <a class="brand" href="#" aria-label="Página inicial CasaPrópria">
-
-        <!-- Símbolo provisório de casa com lupa -->
-        <svg class="brand-symbol"
-             xmlns="http://www.w3.org/2000/svg"
-             viewBox="0 0 100 100"
-             role="img"
-             aria-label="Símbolo de casa com lupa">
-
-          <path d="M10 44 L41 18 L68 41"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="5"
-                stroke-linecap="round"
-                stroke-linejoin="round"/>
-
-          <path d="M20 39 V78 H57 V56"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="5"
-                stroke-linecap="round"
-                stroke-linejoin="round"/>
-
-          <circle cx="68" cy="59" r="15"
-                  fill="#FFFFFF"
-                  stroke="currentColor"
-                  stroke-width="5"/>
-
-          <path d="M79 70 L91 82"
-                stroke="currentColor"
-                stroke-width="6"
-                stroke-linecap="round"/>
-        </svg>
+        <img
+          class="brand-symbol brand-logo"
+          src="logo_casapropria_transparente.png"
+          alt="Logo CasaPrópria"
+          width="46"
+          height="46"
+        >
 
         <span class="brand-text">
           <span class="brand-name">Patricia Ribeiro</span>
           <span class="brand-sub">Corretora de Imóveis · CRECI/SC 60282-F</span>
         </span>
-
       </a>
 
       <nav class="nav" aria-label="Navegação principal">
@@ -975,37 +954,28 @@
 
   <main>
 
-    <!-- IMAGEM PRINCIPAL -->
     <section class="hero" aria-label="Encontre seu imóvel">
       <div class="hero-content">
         <h1>Encontre seu imóvel</h1>
       </div>
     </section>
 
-    <!-- BUSCA -->
     <div class="search-wrap">
-
       <form class="search-panel" id="searchForm">
 
         <div class="search-tabs" aria-label="Finalidade do imóvel">
-          <button type="button"
-                  class="search-tab active"
-                  data-purpose="Comprar"
-                  aria-pressed="true">
+          <button type="button" class="search-tab active"
+                  data-purpose="Comprar" aria-pressed="true">
             Comprar
           </button>
 
-          <button type="button"
-                  class="search-tab"
-                  data-purpose="Alugar"
-                  aria-pressed="false">
+          <button type="button" class="search-tab"
+                  data-purpose="Alugar" aria-pressed="false">
             Alugar
           </button>
 
-          <button type="button"
-                  class="search-tab"
-                  data-purpose="Lançamento"
-                  aria-pressed="false">
+          <button type="button" class="search-tab"
+                  data-purpose="Lançamento" aria-pressed="false">
             Lançamentos
           </button>
         </div>
@@ -1014,8 +984,7 @@
 
           <div class="field">
             <label for="location">Cidade ou bairro</label>
-            <input id="location"
-                   type="search"
+            <input id="location" type="search"
                    placeholder="Ex.: Criciúma, Içara..."
                    autocomplete="off">
           </div>
@@ -1046,17 +1015,12 @@
           </div>
 
           <button class="btn" type="submit">
-            <svg width="21" height="21"
-                 viewBox="0 0 24 24"
-                 fill="none"
-                 aria-hidden="true">
+            <svg width="21" height="21" viewBox="0 0 24 24"
+                 fill="none" aria-hidden="true">
               <circle cx="10.8" cy="10.8" r="6.8"
-                      stroke="currentColor"
-                      stroke-width="2"/>
-              <path d="m16 16 4.5 4.5"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"/>
+                      stroke="currentColor" stroke-width="2"/>
+              <path d="m16 16 4.5 4.5" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round"/>
             </svg>
             Buscar imóveis
           </button>
@@ -1067,7 +1031,6 @@
 
     <div class="accent-strip" aria-hidden="true"></div>
 
-    <!-- DESTAQUES -->
     <section class="section" id="destaques">
       <div class="container">
 
@@ -1095,7 +1058,6 @@
       </div>
     </section>
 
-    <!-- TODOS OS IMÓVEIS -->
     <section class="section soft" id="imoveis">
       <div class="container">
 
@@ -1110,21 +1072,18 @@
         </div>
 
         <div class="listing-toolbar">
-
           <span class="results-count" id="resultsCount">
             Carregando imóveis...
           </span>
 
           <label class="sort-control" for="sort">
             Ordenar por
-
             <select id="sort">
               <option value="recentes">Mais recentes</option>
               <option value="menor">Menor preço</option>
               <option value="maior">Maior preço</option>
             </select>
           </label>
-
         </div>
 
         <div class="property-grid" id="allList"></div>
@@ -1135,22 +1094,19 @@
           outras oportunidades.
         </div>
 
-        <p class="status-message" id="statusMessage" role="status" hidden></p>
+        <p class="status-message" id="statusMessage"
+           role="status" hidden></p>
 
       </div>
     </section>
 
-    <!-- CONTATO -->
     <section class="section" id="contato">
       <div class="container">
-
         <div class="contact-strip">
 
           <div>
             <span class="section-kicker">Atendimento profissional</span>
-
             <h2>Vamos encontrar seu próximo imóvel?</h2>
-
             <p>
               Conte o que você procura. Será um prazer ajudar você a encontrar
               o lugar certo para começar uma nova história.
@@ -1170,7 +1126,6 @@
 
   </main>
 
-  <!-- RODAPÉ -->
   <footer class="footer">
     <div class="container footer-inner">
 
@@ -1185,8 +1140,7 @@
         <a href="#imoveis">Imóveis</a>
         <a href="#contato">Contato</a>
         <a href="https://wa.me/5548999372934"
-           target="_blank"
-           rel="noopener noreferrer">
+           target="_blank" rel="noopener noreferrer">
           WhatsApp
         </a>
       </div>
@@ -1194,21 +1148,16 @@
     </div>
   </footer>
 
-  <!-- BOTÃO FLUTUANTE LARANJA DO WHATSAPP -->
   <a class="whatsapp"
      href="https://wa.me/5548999372934"
      target="_blank"
      rel="noopener noreferrer"
      aria-label="Fale comigo pelo WhatsApp">
 
-    <svg viewBox="0 0 24 24"
-         fill="none"
-         aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path d="M20.2 11.7a8.2 8.2 0 0 1-12.1 7.2L3 20l1.2-4.8a8.2 8.2 0 1 1 16-3.5Z"
-            stroke="currentColor"
-            stroke-width="1.8"
+            stroke="currentColor" stroke-width="1.8"
             stroke-linejoin="round"/>
-
       <path d="M8.1 7.9c.2-.5.5-.5.8-.5h.4c.2 0 .4.1.5.4l.7 1.7c.1.2 0 .4-.1.6l-.5.6c-.2.2-.2.4-.1.6.5.9 1.2 1.6 2.1 2.1.2.1.4.1.6-.1l.7-.8c.2-.2.4-.2.6-.1l1.6.8c.3.1.4.3.4.5 0 .3-.2 1.1-.7 1.5-.5.5-1.2.7-1.9.6-1-.1-2.3-.7-3.6-1.8-1.2-1.1-2.1-2.4-2.4-3.5-.3-1 .1-2 .9-2.6Z"
             fill="currentColor"/>
     </svg>
@@ -1220,18 +1169,16 @@
     /*
       CATÁLOGO DINÂMICO
 
-      Endpoint configurado: /api/imoveis
+      Endpoint: /api/imoveis
 
       Formatos aceitos:
       { "success": true, "imoveis": [...] }
       ou uma lista JSON direta.
 
-      Campos esperados:
+      Campos:
       id, titulo, tipo, finalidade, cidade, bairro, endereco,
       preco, area_m2, quartos, banheiros, vagas, foto_url,
       destaque, lancamento, status e data_cadastro.
-
-      Ajuste o endpoint e os campos conforme sua API existente.
     */
 
     const API_URL = "/api/imoveis";
@@ -1307,15 +1254,11 @@
 
       if (purpose === "Alugar") {
         return [
-          "alugar",
-          "aluguel",
-          "locação",
-          "locacao"
+          "alugar", "aluguel", "locação", "locacao"
         ].includes(value);
       }
 
-      return value === "" ||
-        ["venda", "comprar"].includes(value);
+      return value === "" || ["venda", "comprar"].includes(value);
     }
 
     function locationOf(item) {
@@ -1331,27 +1274,19 @@
       const details = [];
 
       if (Number(item.quartos) > 0) {
-        details.push(
-          `<span>${escapeHTML(item.quartos)} quartos</span>`
-        );
+        details.push(`<span>${escapeHTML(item.quartos)} quartos</span>`);
       }
 
       if (Number(item.banheiros) > 0) {
-        details.push(
-          `<span>${escapeHTML(item.banheiros)} banheiros</span>`
-        );
+        details.push(`<span>${escapeHTML(item.banheiros)} banheiros</span>`);
       }
 
       if (Number(item.vagas) > 0) {
-        details.push(
-          `<span>${escapeHTML(item.vagas)} vagas</span>`
-        );
+        details.push(`<span>${escapeHTML(item.vagas)} vagas</span>`);
       }
 
       if (Number(item.area_m2) > 0) {
-        details.push(
-          `<span>${escapeHTML(item.area_m2)} m²</span>`
-        );
+        details.push(`<span>${escapeHTML(item.area_m2)} m²</span>`);
       }
 
       return details.join("");
@@ -1361,9 +1296,7 @@
       const message =
         "Olá, Patricia! Gostaria de saber mais sobre o imóvel: " +
         text(item.titulo) +
-        (item.id !== undefined
-          ? " (código " + item.id + ")"
-          : "");
+        (item.id !== undefined ? " (código " + item.id + ")" : "");
 
       return "https://wa.me/" + WHATSAPP_NUMBER +
         "?text=" + encodeURIComponent(message);
@@ -1388,6 +1321,8 @@
              onerror="this.style.display='none'">`
         : `<div class="property-placeholder">Foto em breve</div>`;
 
+      const details = propertyDetails(item);
+
       return `
         <article class="property-card">
           <div class="property-image">
@@ -1396,25 +1331,15 @@
           </div>
 
           <div class="property-body">
-            <span class="property-type">
-              ${escapeHTML(type)}
-            </span>
-
+            <span class="property-type">${escapeHTML(type)}</span>
             <h3>${escapeHTML(title)}</h3>
+            <p class="location">${escapeHTML(locationOf(item))}</p>
 
-            <p class="location">
-              ${escapeHTML(locationOf(item))}
-            </p>
-
-            ${propertyDetails(item)
-              ? `<div class="property-features">
-                   ${propertyDetails(item)}
-                 </div>`
+            ${details
+              ? `<div class="property-features">${details}</div>`
               : ""}
 
-            <p class="property-price">
-              ${money(item.preco)}
-            </p>
+            <p class="property-price">${money(item.preco)}</p>
 
             <a class="property-action"
                href="${detailURL(item)}"
@@ -1452,7 +1377,6 @@
         result.sort((a, b) => {
           const dateA = Date.parse(a.data_cadastro || "") || 0;
           const dateB = Date.parse(b.data_cadastro || "") || 0;
-
           return dateB - dateA;
         });
       }
@@ -1474,9 +1398,7 @@
 
       return list.filter(item => {
         const combinedLocation = [
-          item.cidade,
-          item.bairro,
-          item.endereco
+          item.cidade, item.bairro, item.endereco
         ].map(text).join(" ").toLocaleLowerCase("pt-BR");
 
         const matchesLocation =
@@ -1490,10 +1412,7 @@
 
         const matchesPrice =
           maxPrice === Infinity ||
-          (
-            Number.isFinite(itemPrice) &&
-            itemPrice <= maxPrice
-          );
+          (Number.isFinite(itemPrice) && itemPrice <= maxPrice);
 
         return matchesLocation &&
           matchesType &&
@@ -1505,7 +1424,6 @@
     function render() {
       const published = properties.filter(item => {
         const status = text(item.status).toLocaleLowerCase("pt-BR");
-
         return !status || status === "publicado";
       });
 
@@ -1516,11 +1434,8 @@
       const featured = active.filter(isFeatured);
       const sorted = sortProperties(active);
 
-      featuredList.innerHTML =
-        featured.map(propertyCard).join("");
-
-      allList.innerHTML =
-        sorted.map(propertyCard).join("");
+      featuredList.innerHTML = featured.map(propertyCard).join("");
+      allList.innerHTML = sorted.map(propertyCard).join("");
 
       featuredEmpty.hidden = featured.length > 0;
       allEmpty.hidden = sorted.length > 0;
@@ -1542,16 +1457,12 @@
       try {
         const response = await fetch(API_URL, {
           method: "GET",
-          headers: {
-            "Accept": "application/json"
-          },
+          headers: { "Accept": "application/json" },
           cache: "no-store"
         });
 
         if (!response.ok) {
-          throw new Error(
-            "A API retornou HTTP " + response.status
-          );
+          throw new Error("A API retornou HTTP " + response.status);
         }
 
         const data = await response.json();
@@ -1561,9 +1472,7 @@
         } else if (data && Array.isArray(data.imoveis)) {
           properties = data.imoveis;
         } else {
-          throw new Error(
-            "Formato de resposta da API não reconhecido."
-          );
+          throw new Error("Formato de resposta da API não reconhecido.");
         }
 
         render();
@@ -1587,9 +1496,7 @@
 
         resultsCount.textContent = "Catálogo indisponível";
 
-        setStatus(
-          "Os anúncios dependem da disponibilidade da API."
-        );
+        setStatus("Os anúncios dependem da disponibilidade da API.");
       }
     }
 
