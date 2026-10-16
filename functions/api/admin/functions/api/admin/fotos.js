@@ -3,6 +3,9 @@ import { requireAdmin } from "./auth.js";
 const PUBLIC_URL =
   "https://pub-0d961880c43e4ed59f5117c94ea18f93.r2.dev";
 
+const MAX_FOTOS = 5;
+const MAX_BYTES = 5 * 1024 * 1024;
+
 function json(data, status = 200) {
   return Response.json(data, {
     status,
@@ -42,15 +45,16 @@ export async function onRequestPost({ request, env }) {
   const auth = await requireAdmin(request, env);
   if (!auth.ok) return auth.response;
 
-  if (!env.FOTOS_BUCKET) {
+  if (!env.DB || !env.FOTOS_BUCKET) {
     return json({
-      error: "O bucket FOTOS_BUCKET não está associado à aplicação."
+      error: "Verifique as associações DB e FOTOS_BUCKET."
     }, 500);
   }
 
   const contentType = request.headers.get("Content-Type") || "";
+
   if (!contentType.toLowerCase().includes("multipart/form-data")) {
-    return json({ error: "Envie as fotos pelo formulário." }, 415);
+    return json({ error: "Envie as imagens pelo formulário." }, 415);
   }
 
   let form;
@@ -61,31 +65,56 @@ export async function onRequestPost({ request, env }) {
     return json({ error: "Não foi possível ler os arquivos enviados." }, 400);
   }
 
-  const idImovel = validId(form.get("idImovel"));
+  const imovelId = validId(form.get("idImovel"));
   const fotos = form.getAll("fotos");
 
-  if (!idImovel) {
+  if (!imovelId) {
     return json({
-      error: "Salve o imóvel primeiro para obter seu código."
+      error: "Código de imóvel inválido. Salve o imóvel primeiro."
     }, 400);
   }
 
-  if (fotos.length < 1 || fotos.length > 5) {
-    return json({ error: "Selecione de 1 a 5 fotos por envio." }, 400);
+  if (
+    fotos.length < 1 ||
+    fotos.length > MAX_FOTOS ||
+    fotos.some(foto => typeof foto.arrayBuffer !== "function")
+  ) {
+    return json({ error: "Selecione de 1 a 5 imagens." }, 400);
+  }
+
+  try {
+    const imovel = await env.DB.prepare(
+      "SELECT id FROM imoveis WHERE id = ?"
+    ).bind(imovelId).first();
+
+    if (!imovel) {
+      return json({ error: "Imóvel não encontrado no D1." }, 404);
+    }
+
+    const contagem = await env.DB.prepare(
+      "SELECT COUNT(*) AS total FROM fotos_imoveis WHERE imovel_id = ?"
+    ).bind(imovelId).first();
+
+    if (Number(contagem?.total || 0) + fotos.length > MAX_FOTOS) {
+      return json({
+        error: `Este imóvel já tem ${contagem?.total || 0} foto(s). O limite total é de 5.`
+      }, 400);
+    }
+  } catch {
+    return json({ error: "Não foi possível consultar o imóvel e suas fotos." }, 500);
   }
 
   const salvas = [];
 
   try {
-    for (const foto of fotos) {
-      if (
-        typeof foto.arrayBuffer !== "function" ||
-        !["image/jpeg", "image/png"].includes(foto.type)
-      ) {
+    for (let i = 0; i < fotos.length; i++) {
+      const foto = fotos[i];
+
+      if (!["image/jpeg", "image/png"].includes(foto.type)) {
         throw new Error("Envie somente imagens JPG ou PNG.");
       }
 
-      if (foto.size <= 0 || foto.size > 5 * 1024 * 1024) {
+      if (foto.size <= 0 || foto.size > MAX_BYTES) {
         throw new Error("Cada foto deve ter no máximo 5 MB.");
       }
 
@@ -96,8 +125,8 @@ export async function onRequestPost({ request, env }) {
       }
 
       const extensao = foto.type === "image/png" ? "png" : "jpg";
-      const chave =
-        `imoveis/${idImovel}/${crypto.randomUUID()}.${extensao}`;
+      const chave = `imoveis/${imovelId}/${crypto.randomUUID()}.${extensao}`;
+      const url = `${PUBLIC_URL}/${chave}`;
 
       await env.FOTOS_BUCKET.put(chave, bytes, {
         httpMetadata: {
@@ -106,29 +135,48 @@ export async function onRequestPost({ request, env }) {
         }
       });
 
-      salvas.push({
+      salvas.push({ chave, url, tipo: foto.type, tamanho: foto.size });
+
+      const resultado = await env.DB.prepare(`
+        INSERT INTO fotos_imoveis
+          (imovel_id, chave_r2, url, tipo, tamanho, ordem)
+        VALUES (?, ?, ?, ?, ?, ?)
+      `).bind(
+        imovelId,
         chave,
-        url: `${PUBLIC_URL}/${chave}`,
-        tipo: foto.type,
-        tamanho: foto.size
-      });
+        url,
+        foto.type,
+        foto.size,
+        (Number(i) + 1)
+      ).run();
+
+      salvas[salvas.length - 1].registroId =
+        resultado.meta?.last_row_id;
     }
 
     return json({
       success: true,
-      message: "Fotos enviadas para o R2.",
-      idImovel,
-      fotos: salvas
+      message: "Fotos enviadas e registradas com sucesso.",
+      idImovel: imovelId,
+      fotos: salvas.map(foto => ({
+        url: foto.url,
+        tipo: foto.tipo,
+        tamanho: foto.tamanho
+      }))
     }, 201);
   } catch (error) {
-    await Promise.all(
-      salvas.map(foto =>
-        env.FOTOS_BUCKET.delete(foto.chave).catch(() => {})
-      )
-    );
+    await Promise.all(salvas.map(async foto => {
+      if (foto.registroId) {
+        await env.DB.prepare(
+          "DELETE FROM fotos_imoveis WHERE id = ?"
+        ).bind(foto.registroId).run().catch(() => {});
+      }
+
+      await env.FOTOS_BUCKET.delete(foto.chave).catch(() => {});
+    }));
 
     return json({
-      error: error.message || "Não foi possível enviar as fotos."
+      error: error.message || "Não foi possível salvar as fotos."
     }, 400);
   }
 }
