@@ -7,7 +7,6 @@
 <title>Painel Administrativo | CasaPrópria</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-
 <style>
 :root {
   --orange:#E8622A;--dark:#C94C19;--ink:#262823;
@@ -34,16 +33,16 @@ p{color:var(--muted)}
 .field.full{grid-column:1/-1}
 label{display:block;margin-bottom:6px;font-weight:700;font-size:13px}
 input,select,textarea{display:block;width:100%;min-height:46px;padding:10px 12px;border:1px solid #DCD7CF;border-radius:5px;background:white;color:var(--ink)}
-input[type=checkbox]{width:18px;min-height:18px;height:18px}
-input:focus,select:focus,textarea:focus{outline:2px solid #E8622A33;border-color:var(--orange)}
 textarea{min-height:110px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid #E8622A33;border-color:var(--orange)}
+input[type=checkbox]{width:18px;min-height:18px;height:18px;accent-color:var(--orange)}
+input[type=file]{padding:8px}
 .btn{display:inline-flex;justify-content:center;align-items:center;gap:6px;min-height:43px;padding:9px 15px;border:0;border-radius:5px;background:var(--orange);color:white;font-weight:700;text-decoration:none}
 .btn:hover{background:var(--dark)}
 .btn:disabled{opacity:.6;cursor:wait}
 .btn-secondary{background:white;color:var(--ink);border:1px solid var(--line)}
 .btn-secondary:hover{background:var(--cream)}
 .btn-danger{background:var(--red)}
-.btn-danger:hover{background:#8E1B13}
 .top-actions,.actions{display:flex;gap:8px;flex-wrap:wrap}
 .message{padding:11px 13px;margin:14px 0;border-radius:5px;background:#F0F0F0;overflow-wrap:anywhere}
 .message.error{background:#FDECEC;color:var(--red)}
@@ -52,7 +51,7 @@ textarea{min-height:110px;resize:vertical}
 .check-row label{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:500}
 .help{display:block;color:var(--muted);font-size:12px;margin-top:5px}
 .preview{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
-.preview img,.photo-card img{display:block;width:130px;height:100px;object-fit:cover;border:1px solid var(--line);border-radius:6px}
+.preview img{display:block;width:130px;height:100px;object-fit:cover;border:1px solid var(--line);border-radius:6px}
 .toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}
 .property-list{display:grid;gap:12px}
 .property{padding:15px;border:1px solid var(--line);border-radius:7px;display:flex;justify-content:space-between;align-items:center;gap:14px}
@@ -65,11 +64,6 @@ textarea{min-height:110px;resize:vertical}
 .status.draft{background:#FFF0D9;color:#875400}
 .property-actions{display:flex;gap:7px;flex-wrap:wrap;flex-shrink:0}
 .property-actions .btn{font-size:12px;padding:7px 10px;min-height:36px}
-.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-top:14px}
-.photo-card{min-width:0;border:1px solid var(--line);border-radius:7px;padding:8px}
-.photo-card img{width:100%;height:120px}
-.photo-card p{font-size:11px;overflow-wrap:anywhere}
-.photo-card .btn{width:100%;font-size:12px;padding:6px}
 .empty{padding:22px;text-align:center;border:1px dashed #D8D0C6;border-radius:7px;color:var(--muted)}
 footer{padding:24px 16px;border-top:1px solid var(--line);text-align:center;color:var(--muted);font-size:12px}
 @media(max-width:680px){
@@ -77,7 +71,8 @@ footer{padding:24px 16px;border-top:1px solid var(--line);text-align:center;colo
  .field-grid{grid-template-columns:1fr}.field.full{grid-column:auto}
  .header-inner{min-height:64px}.brand{font-size:19px}
  .property{align-items:stretch;flex-direction:column}
- .property-actions .btn{flex:1}.top-actions .btn{padding:8px 10px;font-size:12px}
+ .property-actions .btn{flex:1}
+ .top-actions .btn{padding:8px 10px;font-size:12px}
 }
 </style>
 </head>
@@ -93,145 +88,144 @@ footer{padding:24px 16px;border-top:1px solid var(--line);text-align:center;colo
 </header>
 
 <main>
-<section id="loginSection" class="login-wrap panel">
-  <h1>Área administrativa</h1>
-  <p>Entre para gerenciar os imóveis da CasaPrópria.</p>
-  <form id="loginForm">
-    <label for="password">Senha administrativa</label>
-    <input id="password" type="password" autocomplete="current-password" required maxlength="1024" placeholder="Digite sua senha">
-    <button class="btn" id="loginButton" type="submit" style="width:100%;margin-top:16px">Entrar no painel</button>
-  </form>
-  <div id="loginMessage" class="message" role="status" hidden></div>
-</section>
-
-<section id="adminSection" hidden>
-  <div style="margin-bottom:22px">
-    <h1>Gerenciar imóveis</h1>
-    <p>Cadastre, edite, publique e gerencie as fotos dos anúncios.</p>
-  </div>
-
-  <section class="panel" id="editorPanel">
-    <h2 id="formTitle">Cadastrar novo imóvel</h2>
-    <p id="editNotice" hidden>Você está editando um imóvel existente.</p>
-
-    <form id="propertyForm">
-      <input type="hidden" id="editingId">
-      <div class="field-grid">
-        <div class="field">
-          <label for="titulo">Título do imóvel *</label>
-          <input id="titulo" required maxlength="150" placeholder="Ex.: Casa com 3 quartos">
-        </div>
-        <div class="field">
-          <label for="tipo">Tipo de imóvel *</label>
-          <select id="tipo" required>
-            <option value="">Selecione</option>
-            <option>Casa</option><option>Apartamento</option>
-            <option>Terreno</option><option>Empreendimento</option>
-            <option>Comercial</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="finalidade">Finalidade</label>
-          <select id="finalidade">
-            <option value="Venda">Comprar / Venda</option>
-            <option value="Lançamento">Lançamento</option>
-            <option value="Aluguel">Aluguel</option>
-            <option value="Locação">Locação</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="preco">Preço em reais</label>
-          <input id="preco" type="number" min="0" step="0.01" placeholder="Ex.: 350000">
-        </div>
-        <div class="field">
-          <label for="cidade">Cidade</label>
-          <input id="cidade" maxlength="100" placeholder="Ex.: Criciúma">
-        </div>
-        <div class="field">
-          <label for="bairro">Bairro</label>
-          <input id="bairro" maxlength="100">
-        </div>
-        <div class="field full">
-          <label for="endereco">Endereço (opcional)</label>
-          <input id="endereco" maxlength="250">
-        </div>
-        <div class="field">
-          <label for="area_m2">Área em m²</label>
-          <input id="area_m2" type="number" min="0" step="0.01">
-        </div>
-        <div class="field">
-          <label for="quartos">Número de quartos</label>
-          <input id="quartos" type="number" min="0" step="1">
-        </div>
-        <div class="field">
-          <label for="banheiros">Número de banheiros</label>
-          <input id="banheiros" type="number" min="0" step="1">
-        </div>
-        <div class="field">
-          <label for="vagas">Vagas de garagem</label>
-          <input id="vagas" type="number" min="0" step="1">
-        </div>
-        <div class="field full">
-          <label for="fotoArquivo">Fotos do imóvel (PNG ou JPG/JPEG)</label>
-          <input id="fotoArquivo" type="file" accept="image/png,image/jpeg" multiple>
-          <small class="help">Selecione até 5 fotos no total por imóvel. Cada foto pode ter até 5 MB. O envio é feito ao R2 e os registros são guardados no D1.</small>
-          <div id="fotoPreview" class="preview" hidden></div>
-        </div>
-        <div class="field full">
-          <label for="foto_url">URL da foto de capa (opcional)</label>
-          <input id="foto_url" type="url" maxlength="2000" placeholder="https://...">
-          <small class="help">Se você enviar fotos pelo campo acima, a primeira foto será usada como capa quando não houver URL informada.</small>
-        </div>
-        <div class="field full">
-          <label for="descricao">Descrição do imóvel</label>
-          <textarea id="descricao" maxlength="5000" placeholder="Descreva os detalhes do imóvel"></textarea>
-        </div>
-      </div>
-
-      <div class="check-row">
-        <label><input id="destaque" type="checkbox"> Mostrar em destaque</label>
-        <label><input id="lancamento" type="checkbox"> Marcar como lançamento</label>
-      </div>
-      <div class="field" style="max-width:360px;margin-bottom:18px">
-        <label for="status">Publicação</label>
-        <select id="status">
-          <option value="Publicado">Publicado no site</option>
-          <option value="Rascunho">Salvar como rascunho</option>
-        </select>
-      </div>
-      <div class="actions">
-        <button class="btn" id="saveButton" type="submit">Cadastrar imóvel</button>
-        <button class="btn btn-secondary" id="cancelEditButton" type="button" hidden>Cancelar edição</button>
-        <button class="btn btn-secondary" id="clearButton" type="button">Limpar formulário</button>
-      </div>
-      <div id="formMessage" class="message" role="status" hidden></div>
+  <section id="loginSection" class="login-wrap panel">
+    <h1>Área administrativa</h1>
+    <p>Entre para gerenciar os imóveis da CasaPrópria.</p>
+    <form id="loginForm">
+      <label for="password">Senha administrativa</label>
+      <input id="password" type="password" autocomplete="current-password" required maxlength="1024" placeholder="Digite sua senha">
+      <button class="btn" id="loginButton" type="submit" style="width:100%;margin-top:16px">Entrar no painel</button>
     </form>
+    <div id="loginMessage" class="message" role="status" hidden></div>
+  </section>
 
-    <section id="photoManager" hidden style="margin-top:28px">
-      <h2>Fotos já cadastradas</h2>
-      <p id="photoCount">Carregando fotos...</p>
-      <div id="photoMessage" class="message" role="status" hidden></div>
-      <div id="photoGallery" class="gallery"></div>
+  <section id="adminSection" hidden>
+    <div style="margin-bottom:22px">
+      <h1>Gerenciar imóveis</h1>
+      <p>Cadastre, edite, publique e exclua seus anúncios.</p>
+    </div>
+
+    <section class="panel" id="editorPanel">
+      <h2 id="formTitle">Cadastrar novo imóvel</h2>
+      <p id="editNotice" hidden>Você está editando um imóvel existente.</p>
+
+      <form id="propertyForm">
+        <input type="hidden" id="editingId">
+
+        <div class="field-grid">
+          <div class="field">
+            <label for="titulo">Título do imóvel *</label>
+            <input id="titulo" required maxlength="150" placeholder="Ex.: Casa com 3 quartos">
+          </div>
+          <div class="field">
+            <label for="tipo">Tipo de imóvel *</label>
+            <select id="tipo" required>
+              <option value="">Selecione</option>
+              <option>Casa</option>
+              <option>Apartamento</option>
+              <option>Terreno</option>
+              <option>Empreendimento</option>
+              <option>Comercial</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="finalidade">Finalidade</label>
+            <select id="finalidade">
+              <option value="Venda">Comprar / Venda</option>
+              <option value="Lançamento">Lançamento</option>
+              <option value="Aluguel">Aluguel</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="preco">Preço em reais</label>
+            <input id="preco" type="number" min="0" step="0.01" placeholder="350000">
+          </div>
+          <div class="field">
+            <label for="cidade">Cidade</label>
+            <input id="cidade" maxlength="100">
+          </div>
+          <div class="field">
+            <label for="bairro">Bairro</label>
+            <input id="bairro" maxlength="100">
+          </div>
+          <div class="field full">
+            <label for="endereco">Endereço (opcional)</label>
+            <input id="endereco" maxlength="250">
+          </div>
+          <div class="field">
+            <label for="area_m2">Área em m²</label>
+            <input id="area_m2" type="number" min="0" step="0.01">
+          </div>
+          <div class="field">
+            <label for="quartos">Número de quartos</label>
+            <input id="quartos" type="number" min="0" step="1">
+          </div>
+          <div class="field">
+            <label for="banheiros">Número de banheiros</label>
+            <input id="banheiros" type="number" min="0" step="1">
+          </div>
+          <div class="field">
+            <label for="vagas">Vagas de garagem</label>
+            <input id="vagas" type="number" min="0" step="1">
+          </div>
+
+          <div class="field full">
+            <label for="fotoArquivo">Fotos do imóvel (PNG ou JPG/JPEG)</label>
+            <input id="fotoArquivo" type="file" accept="image/png,image/jpeg" multiple>
+            <small class="help">Selecione até 5 fotos no total por imóvel. Máximo de 5 MB por foto. Os arquivos serão enviados ao R2; seus dados serão registrados no D1.</small>
+            <div id="fotoPreview" class="preview" hidden></div>
+          </div>
+
+          <div class="field full">
+            <label for="foto_url">Ou endereço de uma foto existente (URL)</label>
+            <input id="foto_url" type="url" maxlength="2000" placeholder="https://...">
+            <small class="help">Se enviar arquivos, a primeira foto enviada será usada como foto principal.</small>
+          </div>
+          <div class="field full">
+            <label for="descricao">Descrição do imóvel</label>
+            <textarea id="descricao" maxlength="5000" placeholder="Descreva os detalhes do imóvel"></textarea>
+          </div>
+        </div>
+
+        <div class="check-row">
+          <label><input id="destaque" type="checkbox"> Mostrar em destaque</label>
+          <label><input id="lancamento" type="checkbox"> Marcar como lançamento</label>
+        </div>
+
+        <div class="field" style="max-width:360px;margin-bottom:18px">
+          <label for="status">Publicação</label>
+          <select id="status">
+            <option value="Publicado">Publicado no site</option>
+            <option value="Rascunho">Salvar como rascunho</option>
+          </select>
+        </div>
+
+        <div class="actions">
+          <button class="btn" id="saveButton" type="submit">Cadastrar imóvel</button>
+          <button class="btn btn-secondary" id="cancelEditButton" type="button" hidden>Cancelar edição</button>
+          <button class="btn btn-secondary" id="clearButton" type="button">Limpar formulário</button>
+        </div>
+        <div id="formMessage" class="message" role="status" hidden></div>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div class="toolbar">
+        <div>
+          <h2 style="margin-bottom:4px">Imóveis cadastrados</h2>
+          <p id="propertyCount" style="margin:0">Carregando...</p>
+        </div>
+        <button class="btn btn-secondary" id="refreshButton" type="button">Atualizar lista</button>
+      </div>
+      <div class="field" style="margin-bottom:15px">
+        <label for="filterProperties">Buscar imóvel por código, título ou cidade</label>
+        <input id="filterProperties" type="search" placeholder="Ex.: 125, casa ou Criciúma">
+      </div>
+      <div id="listMessage" class="message" role="status" hidden></div>
+      <div id="propertyList" class="property-list"></div>
+      <div id="emptyList" class="empty" hidden>Nenhum imóvel encontrado.</div>
     </section>
   </section>
-
-  <section class="panel">
-    <div class="toolbar">
-      <div>
-        <h2 style="margin-bottom:4px">Imóveis cadastrados</h2>
-        <p id="propertyCount" style="margin:0">Carregando...</p>
-      </div>
-      <button class="btn btn-secondary" id="refreshButton" type="button">Atualizar lista</button>
-    </div>
-    <div class="field" style="margin-bottom:15px">
-      <label for="filterProperties">Buscar imóvel por código, título ou cidade</label>
-      <input id="filterProperties" type="search" placeholder="Ex.: 125, casa ou Criciúma">
-    </div>
-    <div id="listMessage" class="message" role="status" hidden></div>
-    <div id="propertyList" class="property-list"></div>
-    <div id="emptyList" class="empty" hidden>Nenhum imóvel encontrado.</div>
-  </section>
-</section>
 </main>
 
 <footer>CasaPrópria · Patricia Ribeiro · Painel administrativo</footer>
@@ -267,8 +261,8 @@ async function apiRequest(url, options = {}) {
   };
 
   const response = await fetch(url, {
-    credentials:"same-origin",
-    cache:"no-store",
+    credentials: "same-origin",
+    cache: "no-store",
     ...options,
     headers
   });
@@ -295,7 +289,9 @@ function showLogin() {
 }
 
 function money(value) {
-  if (value === null || value === undefined || value === "") return "Valor a consultar";
+  if (value === null || value === undefined || value === "") {
+    return "Valor a consultar";
+  }
   const n = Number(value);
   if (!Number.isFinite(n)) return "Valor a consultar";
   return n.toLocaleString("pt-BR", {
@@ -401,48 +397,54 @@ function clearPreviews() {
   $("fotoPreview").hidden = true;
 }
 
-$("fotoArquivo").addEventListener("change", () => {
+function renderFilePreviews() {
   clearPreviews();
-  const files = Array.from($("fotoArquivo").files);
 
-  if (files.length > 5) {
-    $("fotoArquivo").value = "";
-    showMessage("formMessage", "Selecione no máximo 5 fotos por envio.", "error");
-    return;
-  }
-
-  for (const file of files) {
-    if (!["image/png", "image/jpeg"].includes(file.type)) {
-      $("fotoArquivo").value = "";
-      clearPreviews();
-      showMessage("formMessage", "Use somente imagens PNG ou JPG/JPEG.", "error");
-      return;
-    }
-    if (file.size > 5 * 1024 * 1024) {
-      $("fotoArquivo").value = "";
-      clearPreviews();
-      showMessage("formMessage", `A foto "${file.name}" ultrapassa 5 MB.`, "error");
-      return;
-    }
-  }
-
-  for (const file of files) {
+  for (const file of $("fotoArquivo").files) {
     const url = URL.createObjectURL(file);
     previewUrls.push(url);
+
     const img = document.createElement("img");
     img.src = url;
     img.alt = file.name;
     $("fotoPreview").append(img);
   }
 
-  $("fotoPreview").hidden = files.length === 0;
-  if (files.length) {
-    showMessage("formMessage", `${files.length} foto(s) selecionada(s).`);
+  $("fotoPreview").hidden = previewUrls.length === 0;
+}
+
+$("fotoArquivo").addEventListener("change", () => {
+  const files = Array.from($("fotoArquivo").files);
+
+  if (files.length > 5) {
+    $("fotoArquivo").value = "";
+    clearPreviews();
+    showMessage("formMessage", "Selecione no máximo 5 fotos por envio.", "error");
+    return;
   }
+
+  const invalid = files.find(file =>
+    !["image/png", "image/jpeg"].includes(file.type) ||
+    file.size > 5 * 1024 * 1024 ||
+    file.size === 0
+  );
+
+  if (invalid) {
+    $("fotoArquivo").value = "";
+    clearPreviews();
+    showMessage(
+      "formMessage",
+      "Use imagens PNG ou JPG/JPEG válidas, de até 5 MB cada.",
+      "error"
+    );
+    return;
+  }
+
+  showMessage("formMessage", "");
+  renderFilePreviews();
 });
 
 function startEdit(item) {
-  resetEditor(false);
   $("editingId").value = item.id;
   $("formTitle").textContent = `Editar imóvel — ${displayCode(item)}`;
   $("editNotice").hidden = false;
@@ -456,223 +458,52 @@ function startEdit(item) {
     $(field).value = item[field] ?? "";
   }
 
-  $("destaque").checked = [true,1,"1"].includes(item.destaque);
-  $("lancamento").checked = [true,1,"1"].includes(item.lancamento);
-  $("photoManager").hidden = false;
-  loadPhotos(item.id);
+  $("destaque").checked =
+    item.destaque === true || item.destaque === 1 || item.destaque === "1";
+  $("lancamento").checked =
+    item.lancamento === true || item.lancamento === 1 || item.lancamento === "1";
 
-  showMessage("formMessage", `Editando ${displayCode(item)}.`, "success");
+  $("fotoArquivo").value = "";
+  clearPreviews();
+
+  showMessage(
+    "formMessage",
+    `Editando ${displayCode(item)}. Para adicionar fotos, selecione os novos arquivos.`,
+    "success"
+  );
   $("editorPanel").scrollIntoView({behavior:"smooth",block:"start"});
 }
 
-function resetEditor(clearMessage = true) {
+function resetEditor() {
   $("propertyForm").reset();
   $("editingId").value = "";
   $("formTitle").textContent = "Cadastrar novo imóvel";
   $("editNotice").hidden = true;
   $("saveButton").textContent = "Cadastrar imóvel";
   $("cancelEditButton").hidden = true;
-  $("photoManager").hidden = true;
-  $("photoGallery").replaceChildren();
-  $("photoCount").textContent = "";
   clearPreviews();
-  if (clearMessage) showMessage("formMessage", "");
+  showMessage("formMessage", "");
 }
 
-async function loadPhotos(propertyId) {
-  $("photoGallery").replaceChildren();
-  $("photoCount").textContent = "Carregando fotos...";
-  showMessage("photoMessage", "");
-
-  try {
-    const data = await apiRequest(
-      `${API.photos}?imovel_id=${encodeURIComponent(propertyId)}`
-    );
-    const fotos = Array.isArray(data.fotos) ? data.fotos : [];
-    $("photoCount").textContent = `${fotos.length} de 5 fotos cadastradas`;
-
-    if (!fotos.length) {
-      $("photoCount").textContent = "Nenhuma foto cadastrada. Você pode enviar fotos acima.";
-      return;
-    }
-
-    for (const foto of fotos) {
-      const card = document.createElement("div");
-      card.className = "photo-card";
-
-      const img = document.createElement("img");
-      img.src = foto.url;
-      img.alt = `Foto ${foto.ordem || ""} do imóvel`;
-      img.loading = "lazy";
-
-      const details = document.createElement("p");
-      details.textContent = `Foto ${foto.ordem || ""} · ${Math.max(1, Math.round((foto.tamanho || 0) / 1024))} KB`;
-
-      const remove = document.createElement("button");
-      remove.className = "btn btn-danger";
-      remove.type = "button";
-      remove.textContent = "Excluir foto";
-      remove.addEventListener("click", () => deletePhoto(foto));
-
-      card.append(img, details, remove);
-      $("photoGallery").append(card);
-    }
-  } catch (error) {
-    $("photoCount").textContent = "Não foi possível carregar as fotos.";
-    showMessage("photoMessage", error.message, "error");
-  }
-}
-
-async function deletePhoto(photo) {
-  if (!confirm("Deseja excluir esta foto do R2 e seu registro no D1?")) return;
-
-  try {
-    await apiRequest(`${API.photos}?id=${encodeURIComponent(photo.id)}`, {
-      method:"DELETE"
-    });
-    showMessage("photoMessage", "Foto excluída com sucesso.", "success");
-    const propertyId = $("editingId").value;
-    if (propertyId) await loadPhotos(propertyId);
-  } catch (error) {
-    showMessage("photoMessage", error.message, "error");
-  }
-}
-
-async function uploadPhotos(propertyId, files) {
-  if (!files.length) return [];
-
+async function uploadPhotos(imovelId, files) {
   const formData = new FormData();
-  formData.append("imovel_id", String(propertyId));
-  for (const file of files) formData.append("fotos", file);
+  formData.append("imovel_id", String(imovelId));
+
+  for (const file of files) {
+    formData.append("fotos", file, file.name);
+  }
 
   const data = await apiRequest(API.photos, {
-    method:"POST",
-    body:formData
+    method: "POST",
+    body: formData
   });
 
-  if (!Array.isArray(data.fotos)) {
-    throw new Error("O servidor não retornou as fotos enviadas.");
+  if (!Array.isArray(data.fotos) || data.fotos.length !== files.length) {
+    throw new Error("O servidor não confirmou todas as fotos enviadas.");
   }
+
   return data.fotos;
 }
-
-function propertyPayload() {
-  const numberValue = id => {
-    const value = $(id).value;
-    return value === "" ? null : Number(value);
-  };
-
-  return {
-    titulo:$("titulo").value.trim(),
-    tipo:$("tipo").value,
-    finalidade:$("finalidade").value,
-    preco:numberValue("preco"),
-    cidade:$("cidade").value.trim(),
-    bairro:$("bairro").value.trim(),
-    endereco:$("endereco").value.trim(),
-    area_m2:numberValue("area_m2"),
-    quartos:numberValue("quartos"),
-    banheiros:numberValue("banheiros"),
-    vagas:numberValue("vagas"),
-    foto_url:$("foto_url").value.trim(),
-    descricao:$("descricao").value.trim(),
-    destaque:$("destaque").checked,
-    lancamento:$("lancamento").checked,
-    status:$("status").value
-  };
-}
-
-$("propertyForm").addEventListener("submit", async event => {
-  event.preventDefault();
-
-  const button = $("saveButton");
-  button.disabled = true;
-  const originalId = $("editingId").value;
-  let propertyId = originalId ? Number(originalId) : null;
-
-  try {
-    const files = Array.from($("fotoArquivo").files);
-    const payload = propertyPayload();
-
-    if (files.length > 5) throw new Error("Selecione no máximo 5 fotos.");
-    for (const file of files) {
-      if (!["image/png","image/jpeg"].includes(file.type)) {
-        throw new Error("Use somente imagens PNG ou JPG/JPEG.");
-      }
-      if (file.size > 5 * 1024 * 1024) {
-        throw new Error(`A foto "${file.name}" ultrapassa 5 MB.`);
-      }
-    }
-
-    button.textContent = "Salvando imóvel...";
-
-    const result = await apiRequest(API.properties, {
-      method:propertyId ? "PUT" : "POST",
-      body:JSON.stringify(propertyId ? {...payload,id:propertyId} : payload)
-    });
-
-    if (!propertyId) {
-      propertyId = result.id ?? result.codigo;
-      if (!Number.isSafeInteger(Number(propertyId)) || Number(propertyId) < 1) {
-        throw new Error("O imóvel foi enviado, mas a API não retornou seu código. Atualize a lista antes de tentar novamente.");
-      }
-      propertyId = Number(propertyId);
-      $("editingId").value = String(propertyId);
-    }
-
-    let uploaded = [];
-    if (files.length) {
-      button.textContent = "Enviando fotos para o R2...";
-      uploaded = await uploadPhotos(propertyId, files);
-      $("fotoArquivo").value = "";
-      clearPreviews();
-    }
-
-    // Se ainda não houver capa, usa a primeira foto enviada.
-    if (!payload.foto_url && uploaded.length) {
-      button.textContent = "Atualizando foto de capa...";
-      payload.foto_url = uploaded[0].url;
-      await apiRequest(API.properties, {
-        method:"PUT",
-        body:JSON.stringify({...payload,id:propertyId})
-      });
-      $("foto_url").value = uploaded[0].url;
-    }
-
-    showMessage(
-      "formMessage",
-      `Imóvel ${propertyId} salvo com sucesso.${uploaded.length ? ` ${uploaded.length} foto(s) enviada(s) ao R2 e registrada(s) no D1.` : ""}`,
-      "success"
-    );
-
-    await loadProperties();
-
-    if (originalId) {
-      $("photoManager").hidden = false;
-      await loadPhotos(propertyId);
-    } else if (uploaded.length) {
-      $("photoManager").hidden = false;
-      await loadPhotos(propertyId);
-    }
-
-    $("formTitle").textContent = `Editar imóvel — Código ${propertyId}`;
-    $("editNotice").hidden = false;
-    $("cancelEditButton").hidden = false;
-    $("saveButton").textContent = "Salvar alterações";
-    $("editorPanel").scrollIntoView({behavior:"smooth",block:"start"});
-  } catch (error) {
-    showMessage("formMessage", error.message || "Não foi possível salvar o imóvel.", "error");
-    if (propertyId) {
-      $("editingId").value = String(propertyId);
-      $("photoManager").hidden = false;
-      await loadPhotos(propertyId);
-    }
-    await loadProperties();
-  } finally {
-    button.disabled = false;
-    button.textContent = $("editingId").value ? "Salvar alterações" : "Cadastrar imóvel";
-  }
-});
 
 async function deleteProperty(item) {
   if (item.id == null) {
@@ -686,23 +517,151 @@ async function deleteProperty(item) {
 
   try {
     await apiRequest(`${API.properties}?id=${encodeURIComponent(item.id)}`, {
-      method:"DELETE"
+      method: "DELETE"
     });
+
     if ($("editingId").value === String(item.id)) resetEditor();
-    showMessage("listMessage", `${displayCode(item)} excluído.`, "success");
+
+    showMessage(
+      "listMessage",
+      "Imóvel excluído. Se houver fotos no R2, confirme a remoção delas separadamente.",
+      "success"
+    );
     await loadProperties();
   } catch (error) {
     showMessage("listMessage", error.message, "error");
   }
 }
 
-$("clearButton").addEventListener("click", () => resetEditor());
-$("cancelEditButton").addEventListener("click", () => resetEditor());
+function numberValue(id) {
+  const value = $(id).value;
+  return value === "" ? null : Number(value);
+}
+
+function propertyPayload(photoUrl) {
+  return {
+    titulo: $("titulo").value.trim(),
+    tipo: $("tipo").value,
+    finalidade: $("finalidade").value,
+    preco: numberValue("preco"),
+    cidade: $("cidade").value.trim(),
+    bairro: $("bairro").value.trim(),
+    endereco: $("endereco").value.trim(),
+    area_m2: numberValue("area_m2"),
+    quartos: numberValue("quartos"),
+    banheiros: numberValue("banheiros"),
+    vagas: numberValue("vagas"),
+    foto_url: photoUrl,
+    descricao: $("descricao").value.trim(),
+    destaque: $("destaque").checked,
+    lancamento: $("lancamento").checked,
+    status: $("status").value
+  };
+}
+
+$("propertyForm").addEventListener("submit", async event => {
+  event.preventDefault();
+
+  const button = $("saveButton");
+  const files = Array.from($("fotoArquivo").files);
+  const editingId = $("editingId").value;
+  let savedPropertyId = editingId ? Number(editingId) : null;
+
+  button.disabled = true;
+  showMessage("formMessage", "");
+
+  try {
+    if (files.length > 5) {
+      throw new Error("Selecione no máximo 5 fotos.");
+    }
+
+    for (const file of files) {
+      if (
+        !["image/png", "image/jpeg"].includes(file.type) ||
+        file.size === 0 ||
+        file.size > 5 * 1024 * 1024
+      ) {
+        throw new Error("Cada foto deve ser PNG ou JPG/JPEG, com até 5 MB.");
+      }
+    }
+
+    // 1. Salva os dados do imóvel no D1.
+    button.textContent = "Salvando imóvel...";
+
+    const initialPayload = propertyPayload($("foto_url").value.trim());
+    const result = await apiRequest(
+      editingId
+        ? `${API.properties}?id=${encodeURIComponent(editingId)}`
+        : API.properties,
+      {
+        method: editingId ? "PUT" : "POST",
+        body: JSON.stringify(initialPayload)
+      }
+    );
+
+    if (!savedPropertyId) {
+      savedPropertyId = Number(result.id ?? result.codigo);
+    }
+
+    if (!Number.isSafeInteger(savedPropertyId) || savedPropertyId < 1) {
+      throw new Error(
+        "O imóvel foi enviado, mas a API não retornou seu código. Verifique o D1 antes de tentar cadastrar novamente."
+      );
+    }
+
+    // 2. Envia as fotos para o R2 e registra seus dados no D1.
+    if (files.length) {
+      button.textContent = "Enviando fotos para o R2...";
+
+      const uploaded = await uploadPhotos(savedPropertyId, files);
+
+      // 3. Define a primeira foto enviada como foto principal do imóvel.
+      const firstPhotoUrl = uploaded[0]?.url;
+
+      if (firstPhotoUrl) {
+        button.textContent = "Atualizando foto principal...";
+
+        await apiRequest(
+          `${API.properties}?id=${encodeURIComponent(savedPropertyId)}`,
+          {
+            method: "PUT",
+            body: JSON.stringify(propertyPayload(firstPhotoUrl))
+          }
+        );
+      }
+    }
+
+    const finalMessage = files.length
+      ? `Imóvel ${savedPropertyId} salvo e ${files.length} foto(s) enviada(s) para o R2 e registrada(s) no D1.`
+      : `Imóvel ${savedPropertyId} salvo com sucesso no D1.`;
+
+    resetEditor();
+    showMessage("formMessage", finalMessage, "success");
+    await loadProperties();
+
+  } catch (error) {
+    showMessage(
+      "formMessage",
+      `${error.message} Se o imóvel já tiver sido salvo, confira a lista antes de tentar cadastrá-lo novamente.`,
+      "error"
+    );
+    await loadProperties();
+  } finally {
+    button.disabled = false;
+    button.textContent = $("editingId").value
+      ? "Salvar alterações"
+      : "Cadastrar imóvel";
+  }
+});
+
+$("clearButton").addEventListener("click", resetEditor);
+$("cancelEditButton").addEventListener("click", resetEditor);
 $("refreshButton").addEventListener("click", loadProperties);
 $("filterProperties").addEventListener("input", () => renderProperties(properties));
 
 $("loginForm").addEventListener("submit", async event => {
   event.preventDefault();
+
   const button = $("loginButton");
   button.disabled = true;
   button.textContent = "Verificando...";
@@ -710,9 +669,10 @@ $("loginForm").addEventListener("submit", async event => {
 
   try {
     await apiRequest(API.login, {
-      method:"POST",
-      body:JSON.stringify({password:$("password").value})
+      method: "POST",
+      body: JSON.stringify({password: $("password").value})
     });
+
     $("password").value = "";
     showAdmin();
     await loadProperties();
