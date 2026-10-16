@@ -51,21 +51,21 @@
       margin-inline: auto;
     }
 
-    /* CABEÇALHO COMPACTO */
+    /* CABEÇALHO */
 
     .header {
       position: relative;
-      z-index: 20;
+      z-index: 100;
       background: var(--white);
       border-bottom: 1px solid var(--line);
     }
 
     .header-inner {
-      min-height: 66px;
+      min-height: 76px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
+      gap: 24px;
     }
 
     .brand {
@@ -76,7 +76,8 @@
       flex-shrink: 1;
     }
 
-    /* LOGO REDUZIDA: APROXIMADAMENTE 1 CM */
+    /* LOGO ORIGINAL PRESERVADA */
+
     .header .brand img.brand-logo {
       display: block;
       width: 45px !important;
@@ -108,33 +109,125 @@
 
     .brand-sub {
       color: var(--muted);
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 500;
-      line-height: 1.3;
+      line-height: 1.4;
     }
+
+    /* MENU PRINCIPAL */
 
     .nav {
       display: flex;
       align-items: center;
-      gap: 24px;
+      justify-content: flex-end;
+      gap: 25px;
     }
 
-    .nav a {
-      font-size: 16px;
-      font-weight: 600;
+    .nav a,
+    .nav-button {
+      font-family: "Montserrat", sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .35px;
       white-space: nowrap;
     }
 
-    .nav a:hover { color: var(--orange-dark); }
+    .nav > a:not(.nav-login),
+    .nav-button {
+      color: var(--ink);
+      transition: color .2s ease;
+    }
+
+    .nav > a:not(.nav-login):hover,
+    .nav-button:hover,
+    .nav-item:hover > .nav-button,
+    .nav-item:focus-within > .nav-button {
+      color: var(--orange-dark);
+    }
+
+    .nav-item {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 12px 0;
+      border: 0;
+      background: transparent;
+    }
+
+    .nav-chevron {
+      width: 12px;
+      height: 12px;
+      transition: transform .2s ease;
+    }
+
+    .nav-item:hover .nav-chevron,
+    .nav-item:focus-within .nav-chevron,
+    .nav-item.expanded .nav-chevron {
+      transform: rotate(180deg);
+    }
+
+    /* SUBMENU COM TIPOS DE IMÓVEIS */
+
+    .submenu {
+      position: absolute;
+      top: 100%;
+      left: -18px;
+      z-index: 110;
+      width: 225px;
+      padding: 9px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--white);
+      box-shadow: 0 15px 35px rgba(0,0,0,.12);
+      display: none;
+    }
+
+    .nav-item:hover .submenu,
+    .nav-item:focus-within .submenu,
+    .nav-item.expanded .submenu {
+      display: block;
+    }
+
+    .submenu a {
+      display: block;
+      padding: 11px 13px;
+      border-radius: 4px;
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0;
+      white-space: normal;
+      transition: color .2s ease, background .2s ease;
+    }
+
+    .submenu a:hover,
+    .submenu a:focus-visible {
+      color: var(--orange-dark);
+      background: var(--cream);
+    }
 
     .nav .nav-login {
-      padding: 9px 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 21px;
+      border: 1px solid var(--orange);
       border-radius: 5px;
       background: var(--orange);
       color: white;
+      transition: background .2s ease, border-color .2s ease;
     }
 
     .nav .nav-login:hover {
+      border-color: var(--orange-dark);
       background: var(--orange-dark);
       color: white;
     }
@@ -152,7 +245,10 @@
       color: var(--ink);
     }
 
-    .menu-toggle svg { width: 25px; height: 25px; }
+    .menu-toggle svg {
+      width: 25px;
+      height: 25px;
+    }
 
     /* IMAGEM PRINCIPAL */
 
@@ -270,7 +366,8 @@
       font-weight: 600;
     }
 
-    .field input, .field select {
+    .field input,
+    .field select {
       width: 100%;
       min-width: 0;
       height: 52px;
@@ -283,7 +380,8 @@
       font-size: 16px;
     }
 
-    .field input:focus, .field select:focus {
+    .field input:focus,
+    .field select:focus {
       border-color: var(--orange);
       box-shadow: 0 0 0 3px rgba(232,98,42,.12);
     }
@@ -362,7 +460,10 @@
       margin-bottom: 24px;
     }
 
-    .results-count { color: var(--muted); font-size: 16px; }
+    .results-count {
+      color: var(--muted);
+      font-size: 16px;
+    }
 
     .sort-control {
       display: flex;
@@ -524,8 +625,16 @@
       gap: 20px;
     }
 
-    .footer strong { font-size: 19px; font-weight: 600; }
-    .footer p { margin: 6px 0; color: var(--muted); font-size: 16px; }
+    .footer strong {
+      font-size: 19px;
+      font-weight: 600;
+    }
+
+    .footer p {
+      margin: 6px 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
 
     .footer-links {
       display: flex;
@@ -533,9 +642,12 @@
       gap: 18px;
     }
 
-    .footer-links a { font-size: 16px; font-weight: 600; }
+    .footer-links a {
+      font-size: 16px;
+      font-weight: 600;
+    }
 
-    /* WHATSAPP LARANJA */
+    /* WHATSAPP */
 
     .whatsapp {
       position: fixed;
@@ -558,14 +670,34 @@
     }
 
     .whatsapp:hover { background: var(--orange-dark); }
-    .whatsapp svg { width: 23px; height: 23px; flex: 0 0 23px; }
+
+    .whatsapp svg {
+      width: 23px;
+      height: 23px;
+      flex: 0 0 23px;
+    }
 
     /* TABLETS */
 
     @media (max-width: 1100px) {
-      .search-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .header-inner { gap: 14px; }
+      .nav { gap: 15px; }
+      .nav a, .nav-button {
+        font-size: 12px;
+      }
+
+      .nav .nav-login { padding-inline: 14px; }
+
+      .search-grid {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+      }
+
       .search-grid .btn { width: 100%; }
-      .property-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+
+      .property-grid {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+      }
+
       .section { padding: 55px 0; }
     }
 
@@ -579,7 +711,10 @@
         gap: 8px;
       }
 
-      .brand { gap: 7px; flex: 1; }
+      .brand {
+        gap: 7px;
+        flex: 1;
+      }
 
       .header .brand img.brand-logo {
         width: 45px !important;
@@ -591,10 +726,14 @@
         flex: 0 0 45px !important;
       }
 
-      .brand-name { font-size: 19px; letter-spacing: -.4px; }
+      .brand-name {
+        font-size: 19px;
+        letter-spacing: -.4px;
+      }
+
       .brand-sub {
-        font-size: 16px;
-        line-height: 1.25;
+        font-size: 13px;
+        line-height: 1.3;
       }
 
       .menu-toggle { display: inline-flex; }
@@ -608,6 +747,7 @@
         padding: 12px 20px 20px;
         flex-direction: column;
         align-items: stretch;
+        justify-content: flex-start;
         gap: 0;
         background: white;
         border-bottom: 1px solid var(--line);
@@ -615,27 +755,116 @@
       }
 
       .nav.open { display: flex; }
-      .nav a { display: block; padding: 13px 8px; white-space: normal; }
-      .nav .nav-login { margin-top: 8px; text-align: center; }
 
-      .hero { min-height: 420px; padding: 50px 14px 95px; }
+      .nav > a:not(.nav-login),
+      .nav-button {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        padding: 14px 8px;
+        border-bottom: 1px solid #F0ECE6;
+        text-align: left;
+        font-size: 14px;
+      }
+
+      .nav-item {
+        display: block;
+        width: 100%;
+      }
+
+      /* No celular, o submenu abre por toque. */
+
+      .submenu {
+        position: static;
+        width: 100%;
+        padding: 5px 0 8px 12px;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+        background: #FAF9F6;
+      }
+
+      .nav-item:hover .submenu,
+      .nav-item:focus-within .submenu {
+        display: none;
+      }
+
+      .nav-item.expanded .submenu {
+        display: block;
+      }
+
+      .submenu a {
+        padding: 11px 13px;
+        font-size: 14px;
+      }
+
+      .nav .nav-login {
+        display: flex;
+        margin-top: 14px;
+        min-height: 46px;
+        justify-content: center;
+        text-align: center;
+        font-size: 14px;
+      }
+
+      .hero {
+        min-height: 420px;
+        padding: 50px 14px 95px;
+      }
+
       .hero::before { background-position: 58% center; }
-      .hero h1 { font-size: clamp(35px,9vw,46px); letter-spacing: -.8px; }
 
-      .search-wrap { width: calc(100% - 28px); margin-top: -72px; }
+      .hero h1 {
+        font-size: clamp(35px,9vw,46px);
+        letter-spacing: -.8px;
+      }
+
+      .search-wrap {
+        width: calc(100% - 28px);
+        margin-top: -72px;
+      }
+
       .search-panel { padding: 22px 16px; }
-      .search-tabs { gap: 18px; margin-bottom: 20px; }
-      .search-grid { grid-template-columns: 1fr; gap: 16px; }
+
+      .search-tabs {
+        gap: 18px;
+        margin-bottom: 20px;
+      }
+
+      .search-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
 
       .section { padding: 45px 0; }
-      .section-heading { align-items: flex-start; flex-direction: column; gap: 12px; }
-      .property-grid { grid-template-columns: 1fr; gap: 20px; }
 
-      .listing-toolbar { align-items: stretch; flex-direction: column; }
-      .sort-control { align-items: flex-start; flex-direction: column; }
+      .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .property-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .listing-toolbar {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .sort-control {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
       .sort-control select { width: 100%; }
 
-      .footer-inner { align-items: flex-start; flex-direction: column; }
+      .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
 
       .whatsapp {
         right: 12px;
@@ -647,14 +876,16 @@
 
     @media (max-width: 380px) {
       .brand-name { font-size: 18px; }
-      .brand-sub { font-size: 16px; }
+      .brand-sub { font-size: 12px; }
       .brand { gap: 5px; }
       .header-inner { gap: 5px; }
+
       .menu-toggle {
         width: 40px;
         height: 40px;
         flex-basis: 40px;
       }
+
       .search-tabs { gap: 12px; }
     }
 
@@ -670,13 +901,15 @@
 <body>
   <header class="header">
     <div class="container header-inner">
+
+      <!-- LOGO: CAMINHO ORIGINAL MANTIDO -->
       <a class="brand" href="#" aria-label="Página inicial CasaPrópria">
         <img
           class="brand-logo"
           src="./Gemini_Generated_Image_9wawnj9wawnj9waw-removebg-preview%20(1).png"
           alt="Logo CasaPrópria"
-          width="10"
-          height="10"
+          width="45"
+          height="45"
         >
         <span class="brand-text">
           <span class="brand-name">Patricia Ribeiro</span>
@@ -691,17 +924,67 @@
         aria-label="Abrir menu"
         aria-expanded="false"
         aria-controls="mainNav"
-    >
+      >
         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M4 6h16M4 12h16M4 18h16"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path
+            d="M4 6h16M4 12h16M4 18h16"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
         </svg>
       </button>
 
       <nav class="nav" id="mainNav" aria-label="Navegação principal">
-        <a href="#destaques">Destaques</a>
-        <a href="#imoveis">Todos os imóveis</a>
-        <a href="admin.html" class="nav-login">Entrar</a>
+
+        <!-- COMPRAR: SUBMENU -->
+        <div class="nav-item" id="buyMenu">
+          <button
+            class="nav-button"
+            id="buyMenuButton"
+            type="button"
+            aria-expanded="false"
+            aria-controls="buySubmenu"
+          >
+            COMPRAR
+            <svg class="nav-chevron" viewBox="0 0 12 12"
+              fill="none" aria-hidden="true">
+              <path
+                d="m2 4 4 4 4-4"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+
+          <div class="submenu" id="buySubmenu">
+            <a href="#imoveis" data-property-type="">Todos os imóveis</a>
+            <a href="#imoveis" data-property-type="Casa">Casas</a>
+            <a href="#imoveis" data-property-type="Apartamento">Apartamentos</a>
+            <a href="#imoveis" data-property-type="Terreno">Terrenos</a>
+            <a href="#imoveis" data-property-type="Sobrado">Sobrados</a>
+            <a href="#imoveis" data-property-type="Empreendimento">Empreendimentos</a>
+          </div>
+        </div>
+
+        <!-- CONSTRUIR: CONTATO PELO WHATSAPP -->
+        <a
+          href="https://wa.me/5548999372934?text=Ol%C3%A1%2C%20Patricia!%20Gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20constru%C3%A7%C3%A3o."
+          target="_blank"
+          rel="noopener noreferrer"
+        >CONSTRUIR</a>
+
+        <!-- FINANCIAMENTO CAIXA: CONTATO PELO WHATSAPP -->
+        <a
+          href="https://wa.me/5548999372934?text=Ol%C3%A1%2C%20Patricia!%20Gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20financiamento%20habitacional%20pela%20Caixa."
+          target="_blank"
+          rel="noopener noreferrer"
+        >FINANCIAMENTO CAIXA</a>
+
+        <!-- ENTRAR: PAINEL ADMINISTRATIVO ORIGINAL -->
+        <a href="admin.html" class="nav-login">ENTRAR</a>
       </nav>
     </div>
   </header>
@@ -716,19 +999,37 @@
     <div class="search-wrap">
       <form class="search-panel" id="searchForm">
         <div class="search-tabs" aria-label="Finalidade do imóvel">
-          <button type="button" class="search-tab active"
-            data-purpose="Comprar" aria-pressed="true">Comprar</button>
-          <button type="button" class="search-tab"
-            data-purpose="Alugar" aria-pressed="false">Alugar</button>
-          <button type="button" class="search-tab"
-            data-purpose="Lançamento" aria-pressed="false">Lançamentos</button>
+          <button
+            type="button"
+            class="search-tab active"
+            data-purpose="Comprar"
+            aria-pressed="true"
+          >Comprar</button>
+
+          <button
+            type="button"
+            class="search-tab"
+            data-purpose="Alugar"
+            aria-pressed="false"
+          >Alugar</button>
+
+          <button
+            type="button"
+            class="search-tab"
+            data-purpose="Lançamento"
+            aria-pressed="false"
+          >Lançamentos</button>
         </div>
 
         <div class="search-grid">
           <div class="field">
             <label for="location">Cidade ou bairro</label>
-            <input id="location" type="search"
-              placeholder="Ex.: Criciúma, Içara..." autocomplete="off">
+            <input
+              id="location"
+              type="search"
+              placeholder="Ex.: Criciúma, Içara..."
+              autocomplete="off"
+            >
           </div>
 
           <div class="field">
@@ -757,12 +1058,26 @@
           </div>
 
           <button class="btn" type="submit">
-            <svg width="21" height="21" viewBox="0 0 24 24"
-              fill="none" aria-hidden="true">
-              <circle cx="10.8" cy="10.8" r="6.8"
-                stroke="currentColor" stroke-width="2"/>
-              <path d="m16 16 4.5 4.5" stroke="currentColor"
-                stroke-width="2" stroke-linecap="round"/>
+            <svg
+              width="21"
+              height="21"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <circle
+                cx="10.8"
+                cy="10.8"
+                r="6.8"
+                stroke="currentColor"
+                stroke-width="2"
+              />
+              <path
+                d="m16 16 4.5 4.5"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
             </svg>
             Buscar imóveis
           </button>
@@ -778,12 +1093,18 @@
           <div>
             <span class="section-kicker">Selecionados para você</span>
             <h2>Imóveis em destaque</h2>
-            <p class="section-desc">Oportunidades que merecem sua atenção.</p>
+            <p class="section-desc">
+              Oportunidades que merecem sua atenção.
+            </p>
           </div>
-          <a class="text-link" href="#imoveis">Ver todos os imóveis →</a>
+
+          <a class="text-link" href="#imoveis">
+            Ver todos os imóveis →
+          </a>
         </div>
 
         <div class="property-grid" id="featuredList"></div>
+
         <div class="empty-state" id="featuredEmpty" hidden>
           <strong>Em breve, novidades para você.</strong>
           Os imóveis em destaque aparecerão aqui quando forem publicados.
@@ -797,12 +1118,17 @@
           <div>
             <span class="section-kicker">Encontre seu lugar</span>
             <h2>Todos os imóveis</h2>
-            <p class="section-desc">Explore as oportunidades disponíveis.</p>
+            <p class="section-desc">
+              Explore as oportunidades disponíveis.
+            </p>
           </div>
         </div>
 
         <div class="listing-toolbar">
-          <span class="results-count" id="resultsCount">Carregando imóveis...</span>
+          <span class="results-count" id="resultsCount">
+            Carregando imóveis...
+          </span>
+
           <label class="sort-control" for="sort">
             Ordenar por
             <select id="sort">
@@ -814,10 +1140,12 @@
         </div>
 
         <div class="property-grid" id="allList"></div>
+
         <div class="empty-state" id="allEmpty" hidden>
           <strong>Nenhum imóvel encontrado.</strong>
           Experimente alterar os filtros ou entre em contato para consultar outras oportunidades.
         </div>
+
         <p class="status-message" id="statusMessage" role="status" hidden></p>
       </div>
     </section>
@@ -830,25 +1158,37 @@
         <p>Corretora de Imóveis · CRECI/SC 60282-F</p>
         <p>© <span id="year"></span> · Todos os direitos reservados.</p>
       </div>
+
       <div class="footer-links">
         <a href="#destaques">Destaques</a>
         <a href="#imoveis">Imóveis</a>
-        <a href="https://wa.me/5548999372934"
-          target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        <a
+          href="https://wa.me/5548999372934"
+          target="_blank"
+          rel="noopener noreferrer"
+        >WhatsApp</a>
       </div>
     </div>
   </footer>
 
-  <a class="whatsapp"
+  <a
+    class="whatsapp"
     href="https://wa.me/5548999372934"
     target="_blank"
     rel="noopener noreferrer"
-    aria-label="Fale comigo pelo WhatsApp">
+    aria-label="Fale comigo pelo WhatsApp"
+  >
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M20.2 11.7a8.2 8.2 0 0 1-12.1 7.2L3 20l1.2-4.8a8.2 8.2 0 1 1 16-3.5Z"
-        stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
-      <path d="M8.1 7.9c.2-.5.5-.5.8-.5h.4c.2 0 .4.1.5.4l.7 1.7c.1.2 0 .4-.1.6l-.5.6c-.2.2-.2.4-.1.6.5.9 1.2 1.6 2.1 2.1.2.1.4.1.6-.1l.7-.8c.2-.2.4-.2.6-.1l1.6.8c.3.1.4.3.4.5 0 .3-.2 1.1-.7 1.5-.5.5-1.2.7-1.9.6-1-.1-2.3-.7-3.6-1.8-1.2-1.1-2.1-2.4-2.4-3.5-.3-1 .1-2 .9-2.6Z"
-        fill="currentColor"/>
+      <path
+        d="M20.2 11.7a8.2 8.2 0 0 1-12.1 7.2L3 20l1.2-4.8a8.2 8.2 0 1 1 16-3.5Z"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M8.1 7.9c.2-.5.5-.5.8-.5h.4c.2 0 .4.1.5.4l.7 1.7c.1.2 0 .4-.1.6l-.5.6c-.2.2-.2.4-.1.6.5.9 1.2 1.6 2.1 2.1.2.1.4.1.6-.1l.7-.8c.2-.2.4-.2.6-.1l1.6.8c.3.1.4.3.4.5 0 .3-.2 1.1-.7 1.5-.5.5-1.2.7-1.9.6-1-.1-2.3-.7-3.6-1.8-1.2-1.1-2.1-2.4-2.4-3.5-.3-1 .1-2 .9-2.6Z"
+        fill="currentColor"
+      />
     </svg>
     Fale comigo
   </a>
@@ -868,23 +1208,61 @@
     let purpose = "Comprar";
     let hasSearched = false;
 
-    document.getElementById("year").textContent = new Date().getFullYear();
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    /* MENU PRINCIPAL E MENU DO CELULAR */
 
     const menuToggle = document.getElementById("menuToggle");
     const mainNav = document.getElementById("mainNav");
+    const buyMenu = document.getElementById("buyMenu");
+    const buyMenuButton = document.getElementById("buyMenuButton");
+
+    function closeBuyMenu() {
+      buyMenu.classList.remove("expanded");
+      buyMenuButton.setAttribute("aria-expanded", "false");
+    }
+
+    function closeMobileMenu() {
+      mainNav.classList.remove("open");
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-label", "Abrir menu");
+      closeBuyMenu();
+    }
 
     menuToggle.addEventListener("click", () => {
       const isOpen = mainNav.classList.toggle("open");
+
       menuToggle.setAttribute("aria-expanded", String(isOpen));
-      menuToggle.setAttribute("aria-label", isOpen ? "Fechar menu" : "Abrir menu");
+      menuToggle.setAttribute(
+        "aria-label",
+        isOpen ? "Fechar menu" : "Abrir menu"
+      );
+
+      if (!isOpen) closeBuyMenu();
     });
 
-    mainNav.querySelectorAll("a").forEach(link => {
-      link.addEventListener("click", () => {
-        mainNav.classList.remove("open");
-        menuToggle.setAttribute("aria-expanded", "false");
-        menuToggle.setAttribute("aria-label", "Abrir menu");
-      });
+    buyMenuButton.addEventListener("click", () => {
+      const isExpanded = buyMenu.classList.toggle("expanded");
+
+      buyMenuButton.setAttribute(
+        "aria-expanded",
+        String(isExpanded)
+      );
+    });
+
+    /* FECHA O SUBMENU AO CLICAR FORA DELE */
+
+    document.addEventListener("click", event => {
+      if (!buyMenu.contains(event.target)) {
+        closeBuyMenu();
+      }
+    });
+
+    /* FECHA O MENU AO USAR LINKS DE NAVEGAÇÃO */
+
+    mainNav.querySelectorAll("a:not([data-property-type])").forEach(link => {
+      link.addEventListener("click", closeMobileMenu);
     });
 
     function text(value) {
@@ -893,8 +1271,11 @@
 
     function escapeHTML(value) {
       return String(value ?? "").replace(/[&<>"']/g, char => ({
-        "&": "&amp;", "<": "&lt;", ">": "&gt;",
-        '"': "&quot;", "'": "&#39;"
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
       })[char]);
     }
 
@@ -902,69 +1283,118 @@
       if (value === null || value === undefined || value === "") {
         return "Consulte o valor";
       }
+
       const number = Number(value);
-      if (!Number.isFinite(number)) return "Consulte o valor";
+
+      if (!Number.isFinite(number)) {
+        return "Consulte o valor";
+      }
+
       return number.toLocaleString("pt-BR", {
-        style: "currency", currency: "BRL", maximumFractionDigits: 0
+        style: "currency",
+        currency: "BRL",
+        maximumFractionDigits: 0
       });
     }
 
     function isTrue(value) {
-      return value === true || value === 1 ||
-        value === "1" || value === "true";
+      return value === true ||
+        value === 1 ||
+        value === "1" ||
+        value === "true";
     }
 
-    function isFeatured(item) { return isTrue(item.destaque); }
-    function isLaunch(item) { return isTrue(item.lancamento); }
+    function isFeatured(item) {
+      return isTrue(item.destaque);
+    }
+
+    function isLaunch(item) {
+      return isTrue(item.lancamento);
+    }
 
     function purposeMatches(item) {
-      const value = text(item.finalidade).toLocaleLowerCase("pt-BR");
+      const value = text(item.finalidade)
+        .toLocaleLowerCase("pt-BR");
 
-      if (purpose === "Lançamento") return isLaunch(item);
+      if (purpose === "Lançamento") {
+        return isLaunch(item);
+      }
 
       if (purpose === "Alugar") {
-        return ["alugar", "aluguel", "locação", "locacao"].includes(value);
+        return ["alugar", "aluguel", "locação", "locacao"]
+          .includes(value);
       }
 
       return value === "" || ["venda", "comprar"].includes(value);
     }
 
     function locationOf(item) {
-      return [item.bairro, item.cidade].map(text).filter(Boolean).join(", ")
-        || text(item.endereco) || "Consulte a localização";
+      return [item.bairro, item.cidade]
+        .map(text)
+        .filter(Boolean)
+        .join(", ") ||
+        text(item.endereco) ||
+        "Consulte a localização";
     }
 
     function propertyDetails(item) {
       const details = [];
-      if (Number(item.quartos) > 0)
-        details.push(`<span>${escapeHTML(item.quartos)} quartos</span>`);
-      if (Number(item.banheiros) > 0)
-        details.push(`<span>${escapeHTML(item.banheiros)} banheiros</span>`);
-      if (Number(item.vagas) > 0)
-        details.push(`<span>${escapeHTML(item.vagas)} vagas</span>`);
-      if (Number(item.area_m2) > 0)
-        details.push(`<span>${escapeHTML(item.area_m2)} m²</span>`);
+
+      if (Number(item.quartos) > 0) {
+        details.push(
+          `<span>${escapeHTML(item.quartos)} quartos</span>`
+        );
+      }
+
+      if (Number(item.banheiros) > 0) {
+        details.push(
+          `<span>${escapeHTML(item.banheiros)} banheiros</span>`
+        );
+      }
+
+      if (Number(item.vagas) > 0) {
+        details.push(
+          `<span>${escapeHTML(item.vagas)} vagas</span>`
+        );
+      }
+
+      if (Number(item.area_m2) > 0) {
+        details.push(
+          `<span>${escapeHTML(item.area_m2)} m²</span>`
+        );
+      }
+
       return details.join("");
     }
 
     function detailURL(item) {
-      const message = "Olá, Patricia! Gostaria de saber mais sobre o imóvel: "
-        + text(item.titulo)
-        + (item.id !== undefined ? " (código " + item.id + ")" : "");
-      return "https://wa.me/" + WHATSAPP_NUMBER
-        + "?text=" + encodeURIComponent(message);
+      const message =
+        "Olá, Patricia! Gostaria de saber mais sobre o imóvel: " +
+        text(item.titulo) +
+        (item.id !== undefined ? " (código " + item.id + ")" : "");
+
+      return "https://wa.me/" + WHATSAPP_NUMBER +
+        "?text=" + encodeURIComponent(message);
     }
 
     function propertyCard(item) {
       const title = text(item.titulo) || "Imóvel disponível";
       const type = text(item.tipo) || "Imóvel";
       const image = text(item.foto_url);
-      const tag = isLaunch(item) ? "Lançamento"
-        : isFeatured(item) ? "Destaque" : type;
+
+      const tag = isLaunch(item)
+        ? "Lançamento"
+        : isFeatured(item)
+          ? "Destaque"
+          : type;
 
       const imageHTML = image
-        ? `<img src="${escapeHTML(image)}" alt="${escapeHTML(title)}"
-             loading="lazy" onerror="this.style.display='none'">`
+        ? `<img
+             src="${escapeHTML(image)}"
+             alt="${escapeHTML(title)}"
+             loading="lazy"
+             onerror="this.style.display='none'"
+           >`
         : `<div class="property-placeholder">Foto em breve</div>`;
 
       const details = propertyDetails(item);
@@ -975,14 +1405,24 @@
             ${imageHTML}
             <span class="tag">${escapeHTML(tag)}</span>
           </div>
+
           <div class="property-body">
             <span class="property-type">${escapeHTML(type)}</span>
             <h3>${escapeHTML(title)}</h3>
             <p class="location">${escapeHTML(locationOf(item))}</p>
-            ${details ? `<div class="property-features">${details}</div>` : ""}
+
+            ${details
+              ? `<div class="property-features">${details}</div>`
+              : ""}
+
             <p class="property-price">${money(item.preco)}</p>
-            <a class="property-action" href="${detailURL(item)}"
-              target="_blank" rel="noopener noreferrer">
+
+            <a
+              class="property-action"
+              href="${detailURL(item)}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Consultar imóvel <span aria-hidden="true">→</span>
             </a>
           </div>
@@ -1002,9 +1442,13 @@
         result.sort((a, b) => {
           const priceA = Number(a.preco);
           const priceB = Number(b.preco);
+
           if (!Number.isFinite(priceA)) return 1;
           if (!Number.isFinite(priceB)) return -1;
-          return mode === "menor" ? priceA - priceB : priceB - priceA;
+
+          return mode === "menor"
+            ? priceA - priceB
+            : priceB - priceA;
         });
       } else {
         result.sort((a, b) =>
@@ -1017,36 +1461,59 @@
     }
 
     function filterProperties(list) {
-      const location = text(document.getElementById("location").value)
-        .toLocaleLowerCase("pt-BR");
-      const type = text(document.getElementById("type").value)
-        .toLocaleLowerCase("pt-BR");
+      const location = text(
+        document.getElementById("location").value
+      ).toLocaleLowerCase("pt-BR");
+
+      const type = text(
+        document.getElementById("type").value
+      ).toLocaleLowerCase("pt-BR");
+
       const priceValue = document.getElementById("price").value;
       const maxPrice = priceValue ? Number(priceValue) : Infinity;
 
       return list.filter(item => {
-        const combinedLocation = [item.cidade, item.bairro, item.endereco]
-          .map(text).join(" ").toLocaleLowerCase("pt-BR");
+        const combinedLocation = [
+          item.cidade,
+          item.bairro,
+          item.endereco
+        ]
+          .map(text)
+          .join(" ")
+          .toLocaleLowerCase("pt-BR");
 
-        const matchesLocation = !location || combinedLocation.includes(location);
-        const matchesType = !type ||
+        const matchesLocation =
+          !location || combinedLocation.includes(location);
+
+        const matchesType =
+          !type ||
           text(item.tipo).toLocaleLowerCase("pt-BR") === type;
+
         const itemPrice = Number(item.preco);
-        const matchesPrice = maxPrice === Infinity ||
+
+        const matchesPrice =
+          maxPrice === Infinity ||
           (Number.isFinite(itemPrice) && itemPrice <= maxPrice);
 
-        return matchesLocation && matchesType && matchesPrice
-          && purposeMatches(item);
+        return matchesLocation &&
+          matchesType &&
+          matchesPrice &&
+          purposeMatches(item);
       });
     }
 
     function render() {
       const published = properties.filter(item => {
-        const status = text(item.status).toLocaleLowerCase("pt-BR");
+        const status = text(item.status)
+          .toLocaleLowerCase("pt-BR");
+
         return !status || status === "publicado";
       });
 
-      const active = hasSearched ? filterProperties(published) : published;
+      const active = hasSearched
+        ? filterProperties(published)
+        : published;
+
       const featured = active.filter(isFeatured);
       const sorted = sortProperties(active);
 
@@ -1060,9 +1527,11 @@
         ? "1 imóvel encontrado"
         : `${sorted.length} imóveis encontrados`;
 
-      setStatus(hasSearched
-        ? "Resultados atualizados com os filtros selecionados."
-        : "");
+      setStatus(
+        hasSearched
+          ? "Resultados atualizados com os filtros selecionados."
+          : ""
+      );
     }
 
     async function loadProperties() {
@@ -1071,38 +1540,53 @@
       try {
         const response = await fetch(API_URL, {
           method: "GET",
-          headers: { "Accept": "application/json" },
+          headers: {
+            "Accept": "application/json"
+          },
           cache: "no-store"
         });
 
-        if (!response.ok) throw new Error("HTTP " + response.status);
+        if (!response.ok) {
+          throw new Error("HTTP " + response.status);
+        }
 
         const data = await response.json();
 
-        if (Array.isArray(data)) properties = data;
-        else if (data && Array.isArray(data.imoveis)) properties = data.imoveis;
-        else throw new Error("Formato da API não reconhecido.");
+        if (Array.isArray(data)) {
+          properties = data;
+        } else if (data && Array.isArray(data.imoveis)) {
+          properties = data.imoveis;
+        } else {
+          throw new Error("Formato da API não reconhecido.");
+        }
 
         render();
       } catch (error) {
         console.error("Erro ao carregar imóveis:", error);
+
         featuredList.innerHTML = "";
         allList.innerHTML = "";
+
         featuredEmpty.hidden = false;
         allEmpty.hidden = false;
 
         featuredEmpty.innerHTML =
-          "<strong>Não foi possível carregar os imóveis.</strong>"
-          + "Verifique a configuração da API de anúncios.";
+          "<strong>Não foi possível carregar os imóveis.</strong>" +
+          "Verifique a configuração da API de anúncios.";
 
         allEmpty.innerHTML =
-          "<strong>Catálogo temporariamente indisponível.</strong>"
-          + "Tente novamente mais tarde.";
+          "<strong>Catálogo temporariamente indisponível.</strong>" +
+          "Tente novamente mais tarde.";
 
         resultsCount.textContent = "Catálogo indisponível";
-        setStatus("Os anúncios dependem da disponibilidade da API.");
+
+        setStatus(
+          "Os anúncios dependem da disponibilidade da API."
+        );
       }
     }
+
+    /* ABAS COMPRAR, ALUGAR E LANÇAMENTOS */
 
     document.querySelectorAll(".search-tab").forEach(tab => {
       tab.addEventListener("click", () => {
@@ -1113,23 +1597,72 @@
 
         tab.classList.add("active");
         tab.setAttribute("aria-pressed", "true");
+
         purpose = tab.dataset.purpose;
       });
     });
 
-    document.getElementById("searchForm").addEventListener("submit", event => {
-      event.preventDefault();
-      hasSearched = true;
-      render();
-      document.getElementById("imoveis").scrollIntoView({
-        behavior: "smooth", block: "start"
+    /* FILTRO DO SUBMENU COMPRAR */
+
+    document.querySelectorAll("[data-property-type]").forEach(link => {
+      link.addEventListener("click", event => {
+        event.preventDefault();
+
+        const selectedType = link.dataset.propertyType || "";
+
+        // Seleciona o tipo escolhido no formulário de busca.
+        document.getElementById("type").value = selectedType;
+
+        // Limpa a busca anterior para mostrar os imóveis daquele tipo.
+        document.getElementById("location").value = "";
+        document.getElementById("price").value = "";
+
+        // O menu Comprar corresponde à finalidade de compra.
+        purpose = "Comprar";
+
+        document.querySelectorAll(".search-tab").forEach(tab => {
+          const isActive = tab.dataset.purpose === "Comprar";
+
+          tab.classList.toggle("active", isActive);
+          tab.setAttribute("aria-pressed", String(isActive));
+        });
+
+        hasSearched = true;
+
+        closeMobileMenu();
+        render();
+
+        // Leva o visitante diretamente à lista de imóveis.
+        document.getElementById("imoveis").scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
       });
     });
 
-    document.getElementById("sort").addEventListener("change", render);
+    /* BOTÃO BUSCAR IMÓVEIS */
+
+    document.getElementById("searchForm")
+      .addEventListener("submit", event => {
+        event.preventDefault();
+
+        hasSearched = true;
+        render();
+
+        document.getElementById("imoveis").scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      });
+
+    /* ORDENAÇÃO */
+
+    document.getElementById("sort")
+      .addEventListener("change", render);
+
+    /* CARREGA OS ANÚNCIOS DA API ORIGINAL */
 
     loadProperties();
   </script>
 </body>
 </html>
-```
