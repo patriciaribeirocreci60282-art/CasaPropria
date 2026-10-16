@@ -27,7 +27,7 @@
 
     html {
       scroll-behavior: smooth;
-      scroll-padding-top: 20px;
+      scroll-padding-top: 24px;
     }
 
     body {
@@ -55,13 +55,13 @@
 
     .header {
       position: relative;
-      z-index: 100;
+      z-index: 20;
       background: var(--white);
       border-bottom: 1px solid var(--line);
     }
 
     .header-inner {
-      min-height: 76px;
+      min-height: 72px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -71,12 +71,12 @@
     .brand {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 9px;
       min-width: 0;
       flex-shrink: 1;
     }
 
-    /* LOGO ORIGINAL PRESERVADA */
+    /* MANTÉM O ARQUIVO ORIGINAL DA LOGO */
 
     .header .brand img.brand-logo {
       display: block;
@@ -114,120 +114,29 @@
       line-height: 1.4;
     }
 
-    /* MENU PRINCIPAL */
-
     .nav {
       display: flex;
       align-items: center;
-      justify-content: flex-end;
-      gap: 25px;
+      gap: clamp(14px, 2vw, 28px);
     }
 
-    .nav a,
-    .nav-button {
-      font-family: "Montserrat", sans-serif;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: .35px;
-      white-space: nowrap;
-    }
-
-    .nav > a:not(.nav-login),
-    .nav-button {
-      color: var(--ink);
-      transition: color .2s ease;
-    }
-
-    .nav > a:not(.nav-login):hover,
-    .nav-button:hover,
-    .nav-item:hover > .nav-button,
-    .nav-item:focus-within > .nav-button {
-      color: var(--orange-dark);
-    }
-
-    .nav-item {
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
-
-    .nav-button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 7px;
-      padding: 12px 0;
-      border: 0;
-      background: transparent;
-    }
-
-    .nav-chevron {
-      width: 12px;
-      height: 12px;
-      transition: transform .2s ease;
-    }
-
-    .nav-item:hover .nav-chevron,
-    .nav-item:focus-within .nav-chevron,
-    .nav-item.expanded .nav-chevron {
-      transform: rotate(180deg);
-    }
-
-    /* SUBMENU COM TIPOS DE IMÓVEIS */
-
-    .submenu {
-      position: absolute;
-      top: 100%;
-      left: -18px;
-      z-index: 110;
-      width: 225px;
-      padding: 9px;
-      border: 1px solid var(--line);
-      border-radius: 7px;
-      background: var(--white);
-      box-shadow: 0 15px 35px rgba(0,0,0,.12);
-      display: none;
-    }
-
-    .nav-item:hover .submenu,
-    .nav-item:focus-within .submenu,
-    .nav-item.expanded .submenu {
-      display: block;
-    }
-
-    .submenu a {
-      display: block;
-      padding: 11px 13px;
-      border-radius: 4px;
-      color: var(--ink);
+    .nav a {
       font-size: 14px;
-      font-weight: 500;
-      letter-spacing: 0;
-      white-space: normal;
+      font-weight: 700;
+      white-space: nowrap;
       transition: color .2s ease, background .2s ease;
     }
 
-    .submenu a:hover,
-    .submenu a:focus-visible {
-      color: var(--orange-dark);
-      background: var(--cream);
-    }
+    .nav a:hover { color: var(--orange-dark); }
 
     .nav .nav-login {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 42px;
-      padding: 0 21px;
-      border: 1px solid var(--orange);
+      padding: 10px 19px;
       border-radius: 5px;
       background: var(--orange);
       color: white;
-      transition: background .2s ease, border-color .2s ease;
     }
 
     .nav .nav-login:hover {
-      border-color: var(--orange-dark);
       background: var(--orange-dark);
       color: white;
     }
@@ -245,12 +154,9 @@
       color: var(--ink);
     }
 
-    .menu-toggle svg {
-      width: 25px;
-      height: 25px;
-    }
+    .menu-toggle svg { width: 25px; height: 25px; }
 
-    /* IMAGEM PRINCIPAL */
+    /* CAPA PRINCIPAL */
 
     .hero {
       position: relative;
@@ -296,14 +202,21 @@
     .hero h1 {
       margin: 0;
       color: white;
-      font-size: clamp(38px,5.5vw,72px);
+      font-size: clamp(38px, 5.5vw, 72px);
       font-weight: 600;
       line-height: 1.18;
       letter-spacing: -1.5px;
       text-shadow: 0 3px 24px rgba(0,0,0,.7);
     }
 
-    /* BUSCA */
+    .hero p {
+      margin: 18px 0 0;
+      color: white;
+      font-size: clamp(16px, 2vw, 20px);
+      text-shadow: 0 2px 12px rgba(0,0,0,.7);
+    }
+
+    /* PESQUISA DE IMÓVEIS */
 
     .search-wrap {
       position: relative;
@@ -320,39 +233,15 @@
       box-shadow: 0 18px 55px rgba(0,0,0,.18);
     }
 
-    .search-tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 30px;
-      margin-bottom: 24px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .search-tab {
-      position: relative;
-      padding: 0 2px 14px;
-      border: 0;
-      background: transparent;
-      color: var(--muted);
-      font-size: 16px;
-      font-weight: 600;
-    }
-
-    .search-tab.active { color: var(--orange-dark); }
-
-    .search-tab.active::after {
-      content: "";
-      position: absolute;
-      bottom: -1px;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: var(--orange);
+    .search-heading {
+      margin: 0 0 22px;
+      font-size: 21px;
+      font-weight: 700;
     }
 
     .search-grid {
       display: grid;
-      grid-template-columns: 1.45fr 1fr 1fr auto;
+      grid-template-columns: 1.45fr 1.1fr 1fr auto;
       gap: 15px;
       align-items: end;
     }
@@ -362,8 +251,8 @@
     .field label {
       display: block;
       margin-bottom: 8px;
-      font-size: 16px;
-      font-weight: 600;
+      font-size: 14px;
+      font-weight: 700;
     }
 
     .field input,
@@ -377,7 +266,7 @@
       outline: none;
       color: var(--ink);
       background: white;
-      font-size: 16px;
+      font-size: 14px;
     }
 
     .field input:focus,
@@ -397,7 +286,7 @@
       border-radius: 5px;
       background: var(--orange);
       color: white;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 700;
       transition: background .2s ease;
     }
@@ -406,7 +295,7 @@
 
     .accent-strip {
       width: 100%;
-      height: 14px;
+      height: 10px;
       background: var(--orange);
     }
 
@@ -427,7 +316,7 @@
       display: block;
       margin-bottom: 8px;
       color: var(--orange-dark);
-      font-size: 16px;
+      font-size: 13px;
       font-weight: 700;
       letter-spacing: .7px;
       text-transform: uppercase;
@@ -435,7 +324,7 @@
 
     .section h2 {
       margin: 0;
-      font-size: clamp(27px,3vw,36px);
+      font-size: clamp(27px, 3vw, 36px);
       font-weight: 600;
       line-height: 1.3;
     }
@@ -443,12 +332,12 @@
     .section-desc {
       margin: 10px 0 0;
       color: var(--muted);
-      font-size: 16px;
+      font-size: 15px;
     }
 
     .text-link {
       color: var(--orange-dark);
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 700;
     }
 
@@ -462,31 +351,31 @@
 
     .results-count {
       color: var(--muted);
-      font-size: 16px;
+      font-size: 14px;
     }
 
     .sort-control {
       display: flex;
       align-items: center;
       gap: 12px;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 600;
     }
 
     .sort-control select {
-      min-height: 46px;
+      min-height: 44px;
       padding: 0 12px;
       border: 1px solid var(--line);
       border-radius: 5px;
       background: white;
-      font-size: 16px;
+      font-size: 14px;
     }
 
-    /* IMÓVEIS */
+    /* CARDS DOS IMÓVEIS */
 
     .property-grid {
       display: grid;
-      grid-template-columns: repeat(3,minmax(0,1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 24px;
     }
 
@@ -523,18 +412,18 @@
       display: grid;
       place-items: center;
       color: var(--muted);
-      font-size: 16px;
+      font-size: 14px;
     }
 
     .tag {
       position: absolute;
       top: 12px;
       left: 12px;
-      padding: 7px 11px;
+      padding: 6px 10px;
       border-radius: 3px;
       background: white;
       color: var(--orange-dark);
-      font-size: 16px;
+      font-size: 12px;
       font-weight: 700;
     }
 
@@ -542,14 +431,14 @@
 
     .property-type {
       color: var(--orange-dark);
-      font-size: 16px;
+      font-size: 12px;
       font-weight: 700;
       text-transform: uppercase;
     }
 
     .property-body h3 {
       margin: 8px 0;
-      font-size: 19px;
+      font-size: 18px;
       font-weight: 600;
       line-height: 1.5;
     }
@@ -557,7 +446,7 @@
     .location {
       margin: 0;
       color: var(--muted);
-      font-size: 16px;
+      font-size: 13px;
     }
 
     .property-features {
@@ -565,12 +454,12 @@
       flex-wrap: wrap;
       gap: 10px;
       margin-top: 14px;
-      font-size: 16px;
+      font-size: 13px;
     }
 
     .property-price {
       margin: 18px 0;
-      font-size: 22px;
+      font-size: 21px;
       font-weight: 700;
     }
 
@@ -581,7 +470,7 @@
       padding-top: 15px;
       border-top: 1px solid var(--line);
       color: var(--orange-dark);
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 700;
     }
 
@@ -592,21 +481,83 @@
       background: white;
       color: var(--muted);
       text-align: center;
-      font-size: 16px;
+      font-size: 14px;
     }
 
     .empty-state strong {
       display: block;
       margin-bottom: 8px;
       color: var(--ink);
-      font-size: 19px;
+      font-size: 18px;
     }
 
     .status-message {
       margin: 20px 0;
       color: var(--muted);
       text-align: center;
-      font-size: 16px;
+      font-size: 14px;
+    }
+
+    /* CONSTRUIR */
+
+    .build-panel {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 32px;
+      align-items: center;
+      padding: 36px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: white;
+    }
+
+    .build-panel h2 {
+      margin: 0 0 12px;
+      font-size: clamp(26px, 3vw, 34px);
+      line-height: 1.3;
+    }
+
+    .build-panel p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .build-benefits {
+      display: grid;
+      gap: 12px;
+      margin: 20px 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .build-benefits li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+    }
+
+    .build-benefits li::before {
+      content: "✓";
+      color: var(--orange-dark);
+      font-weight: 700;
+    }
+
+    .build-art {
+      min-height: 230px;
+      display: grid;
+      place-items: center;
+      padding: 25px;
+      border-radius: 6px;
+      background: var(--cream);
+      color: var(--orange-dark);
+      text-align: center;
+    }
+
+    .build-art svg {
+      width: 100%;
+      max-width: 260px;
+      height: auto;
     }
 
     /* RODAPÉ */
@@ -625,15 +576,12 @@
       gap: 20px;
     }
 
-    .footer strong {
-      font-size: 19px;
-      font-weight: 600;
-    }
+    .footer strong { font-size: 18px; font-weight: 600; }
 
     .footer p {
       margin: 6px 0;
       color: var(--muted);
-      font-size: 16px;
+      font-size: 13px;
     }
 
     .footer-links {
@@ -642,10 +590,7 @@
       gap: 18px;
     }
 
-    .footer-links a {
-      font-size: 16px;
-      font-weight: 600;
-    }
+    .footer-links a { font-size: 13px; font-weight: 600; }
 
     /* WHATSAPP */
 
@@ -665,7 +610,7 @@
       background: var(--orange);
       color: white;
       box-shadow: 0 8px 28px rgba(100,43,17,.28);
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 700;
     }
 
@@ -680,28 +625,15 @@
     /* TABLETS */
 
     @media (max-width: 1100px) {
-      .header-inner { gap: 14px; }
-      .nav { gap: 15px; }
-      .nav a, .nav-button {
-        font-size: 12px;
-      }
-
-      .nav .nav-login { padding-inline: 14px; }
-
-      .search-grid {
-        grid-template-columns: repeat(2,minmax(0,1fr));
-      }
-
+      .nav { gap: 14px; }
+      .nav a { font-size: 12px; }
+      .search-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .search-grid .btn { width: 100%; }
-
-      .property-grid {
-        grid-template-columns: repeat(2,minmax(0,1fr));
-      }
-
+      .property-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .section { padding: 55px 0; }
     }
 
-    /* CELULAR */
+    /* CELULARES */
 
     @media (max-width: 760px) {
       .container { width: calc(100% - 28px); }
@@ -711,10 +643,7 @@
         gap: 8px;
       }
 
-      .brand {
-        gap: 7px;
-        flex: 1;
-      }
+      .brand { gap: 7px; flex: 1; }
 
       .header .brand img.brand-logo {
         width: 45px !important;
@@ -726,15 +655,8 @@
         flex: 0 0 45px !important;
       }
 
-      .brand-name {
-        font-size: 19px;
-        letter-spacing: -.4px;
-      }
-
-      .brand-sub {
-        font-size: 13px;
-        line-height: 1.3;
-      }
+      .brand-name { font-size: 19px; letter-spacing: -.4px; }
+      .brand-sub { font-size: 12px; line-height: 1.3; }
 
       .menu-toggle { display: inline-flex; }
 
@@ -747,7 +669,6 @@
         padding: 12px 20px 20px;
         flex-direction: column;
         align-items: stretch;
-        justify-content: flex-start;
         gap: 0;
         background: white;
         border-bottom: 1px solid var(--line);
@@ -756,85 +677,27 @@
 
       .nav.open { display: flex; }
 
-      .nav > a:not(.nav-login),
-      .nav-button {
-        display: flex;
-        width: 100%;
-        justify-content: space-between;
-        padding: 14px 8px;
-        border-bottom: 1px solid #F0ECE6;
-        text-align: left;
-        font-size: 14px;
-      }
-
-      .nav-item {
+      .nav a {
         display: block;
-        width: 100%;
-      }
-
-      /* No celular, o submenu abre por toque. */
-
-      .submenu {
-        position: static;
-        width: 100%;
-        padding: 5px 0 8px 12px;
-        border: 0;
-        border-radius: 0;
-        box-shadow: none;
-        background: #FAF9F6;
-      }
-
-      .nav-item:hover .submenu,
-      .nav-item:focus-within .submenu {
-        display: none;
-      }
-
-      .nav-item.expanded .submenu {
-        display: block;
-      }
-
-      .submenu a {
-        padding: 11px 13px;
+        padding: 13px 8px;
         font-size: 14px;
+        white-space: normal;
       }
 
       .nav .nav-login {
-        display: flex;
-        margin-top: 14px;
-        min-height: 46px;
-        justify-content: center;
+        margin-top: 8px;
         text-align: center;
-        font-size: 14px;
       }
 
-      .hero {
-        min-height: 420px;
-        padding: 50px 14px 95px;
-      }
-
+      .hero { min-height: 420px; padding: 50px 14px 95px; }
       .hero::before { background-position: 58% center; }
+      .hero h1 { font-size: clamp(35px, 9vw, 46px); letter-spacing: -.8px; }
+      .hero p { font-size: 15px; }
 
-      .hero h1 {
-        font-size: clamp(35px,9vw,46px);
-        letter-spacing: -.8px;
-      }
-
-      .search-wrap {
-        width: calc(100% - 28px);
-        margin-top: -72px;
-      }
-
+      .search-wrap { width: calc(100% - 28px); margin-top: -72px; }
       .search-panel { padding: 22px 16px; }
-
-      .search-tabs {
-        gap: 18px;
-        margin-bottom: 20px;
-      }
-
-      .search-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
+      .search-heading { font-size: 19px; margin-bottom: 18px; }
+      .search-grid { grid-template-columns: 1fr; gap: 16px; }
 
       .section { padding: 45px 0; }
 
@@ -844,10 +707,7 @@
         gap: 12px;
       }
 
-      .property-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
+      .property-grid { grid-template-columns: 1fr; gap: 20px; }
 
       .listing-toolbar {
         align-items: stretch;
@@ -861,10 +721,13 @@
 
       .sort-control select { width: 100%; }
 
-      .footer-inner {
-        align-items: flex-start;
-        flex-direction: column;
+      .build-panel {
+        grid-template-columns: 1fr;
+        padding: 22px;
       }
+
+      .build-art { min-height: 180px; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
 
       .whatsapp {
         right: 12px;
@@ -875,18 +738,15 @@
     }
 
     @media (max-width: 380px) {
-      .brand-name { font-size: 18px; }
-      .brand-sub { font-size: 12px; }
+      .brand-name { font-size: 17px; }
+      .brand-sub { font-size: 11px; }
       .brand { gap: 5px; }
       .header-inner { gap: 5px; }
-
       .menu-toggle {
         width: 40px;
         height: 40px;
         flex-basis: 40px;
       }
-
-      .search-tabs { gap: 12px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -902,7 +762,6 @@
   <header class="header">
     <div class="container header-inner">
 
-      <!-- LOGO: CAMINHO ORIGINAL MANTIDO -->
       <a class="brand" href="#" aria-label="Página inicial CasaPrópria">
         <img
           class="brand-logo"
@@ -926,66 +785,22 @@
         aria-controls="mainNav"
       >
         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path
-            d="M4 6h16M4 12h16M4 18h16"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-          />
+          <path d="M4 6h16M4 12h16M4 18h16"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         </svg>
       </button>
 
       <nav class="nav" id="mainNav" aria-label="Navegação principal">
-
-        <!-- COMPRAR: SUBMENU -->
-        <div class="nav-item" id="buyMenu">
-          <button
-            class="nav-button"
-            id="buyMenuButton"
-            type="button"
-            aria-expanded="false"
-            aria-controls="buySubmenu"
-          >
-            COMPRAR
-            <svg class="nav-chevron" viewBox="0 0 12 12"
-              fill="none" aria-hidden="true">
-              <path
-                d="m2 4 4 4 4-4"
-                stroke="currentColor"
-                stroke-width="1.7"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </button>
-
-          <div class="submenu" id="buySubmenu">
-            <a href="#imoveis" data-property-type="">Todos os imóveis</a>
-            <a href="#imoveis" data-property-type="Casa">Casas</a>
-            <a href="#imoveis" data-property-type="Apartamento">Apartamentos</a>
-            <a href="#imoveis" data-property-type="Terreno">Terrenos</a>
-            <a href="#imoveis" data-property-type="Sobrado">Sobrados</a>
-            <a href="#imoveis" data-property-type="Empreendimento">Empreendimentos</a>
-          </div>
-        </div>
-
-        <!-- CONSTRUIR: CONTATO PELO WHATSAPP -->
+        <a href="#imoveis">Comprar</a>
+        <a href="#construir">Construir</a>
         <a
-          href="https://wa.me/5548999372934?text=Ol%C3%A1%2C%20Patricia!%20Gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20constru%C3%A7%C3%A3o."
+          href="https://www.caixa.gov.br/voce/habitacao/Paginas/default.aspx"
           target="_blank"
           rel="noopener noreferrer"
-        >CONSTRUIR</a>
-
-        <!-- FINANCIAMENTO CAIXA: CONTATO PELO WHATSAPP -->
-        <a
-          href="https://wa.me/5548999372934?text=Ol%C3%A1%2C%20Patricia!%20Gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20financiamento%20habitacional%20pela%20Caixa."
-          target="_blank"
-          rel="noopener noreferrer"
-        >FINANCIAMENTO CAIXA</a>
-
-        <!-- ENTRAR: PAINEL ADMINISTRATIVO ORIGINAL -->
-        <a href="admin.html" class="nav-login">ENTRAR</a>
+        >Financiamento Caixa</a>
+        <a href="admin.html" class="nav-login">Entrar</a>
       </nav>
+
     </div>
   </header>
 
@@ -993,33 +808,15 @@
     <section class="hero" aria-label="Encontre seu imóvel">
       <div class="hero-content">
         <h1>Encontre seu imóvel</h1>
+        <p>O lugar ideal para começar uma nova história.</p>
       </div>
     </section>
 
+    <!-- PESQUISA: COMPRAR E FILTRAR POR TIPO, INCLUSIVE LANÇAMENTOS -->
+
     <div class="search-wrap">
       <form class="search-panel" id="searchForm">
-        <div class="search-tabs" aria-label="Finalidade do imóvel">
-          <button
-            type="button"
-            class="search-tab active"
-            data-purpose="Comprar"
-            aria-pressed="true"
-          >Comprar</button>
-
-          <button
-            type="button"
-            class="search-tab"
-            data-purpose="Alugar"
-            aria-pressed="false"
-          >Alugar</button>
-
-          <button
-            type="button"
-            class="search-tab"
-            data-purpose="Lançamento"
-            aria-pressed="false"
-          >Lançamentos</button>
-        </div>
+        <h2 class="search-heading">Encontre o imóvel ideal para você</h2>
 
         <div class="search-grid">
           <div class="field">
@@ -1035,12 +832,12 @@
           <div class="field">
             <label for="type">Tipo de imóvel</label>
             <select id="type">
-              <option value="">Todos os tipos</option>
+              <option value="">Todos os imóveis</option>
               <option value="Casa">Casa</option>
               <option value="Apartamento">Apartamento</option>
               <option value="Terreno">Terreno</option>
-              <option value="Sobrado">Sobrado</option>
               <option value="Empreendimento">Empreendimento</option>
+              <option value="__lancamento__">Lançamentos</option>
             </select>
           </div>
 
@@ -1058,26 +855,12 @@
           </div>
 
           <button class="btn" type="submit">
-            <svg
-              width="21"
-              height="21"
-              viewBox="0 0 24 24"
-              fill="none"
-              aria-hidden="true"
-            >
-              <circle
-                cx="10.8"
-                cy="10.8"
-                r="6.8"
-                stroke="currentColor"
-                stroke-width="2"
-              />
-              <path
-                d="m16 16 4.5 4.5"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-              />
+            <svg width="21" height="21" viewBox="0 0 24 24"
+              fill="none" aria-hidden="true">
+              <circle cx="10.8" cy="10.8" r="6.8"
+                stroke="currentColor" stroke-width="2"/>
+              <path d="m16 16 4.5 4.5" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round"/>
             </svg>
             Buscar imóveis
           </button>
@@ -1086,6 +869,8 @@
     </div>
 
     <div class="accent-strip" aria-hidden="true"></div>
+
+    <!-- DESTAQUES -->
 
     <section class="section" id="destaques">
       <div class="container">
@@ -1097,10 +882,7 @@
               Oportunidades que merecem sua atenção.
             </p>
           </div>
-
-          <a class="text-link" href="#imoveis">
-            Ver todos os imóveis →
-          </a>
+          <a class="text-link" href="#imoveis">Ver todos os imóveis →</a>
         </div>
 
         <div class="property-grid" id="featuredList"></div>
@@ -1111,6 +893,8 @@
         </div>
       </div>
     </section>
+
+    <!-- TODOS OS IMÓVEIS -->
 
     <section class="section soft" id="imoveis">
       <div class="container">
@@ -1143,13 +927,73 @@
 
         <div class="empty-state" id="allEmpty" hidden>
           <strong>Nenhum imóvel encontrado.</strong>
-          Experimente alterar os filtros ou entre em contato para consultar outras oportunidades.
+          Experimente alterar os filtros ou entre em contato para consultar
+          outras oportunidades.
         </div>
 
         <p class="status-message" id="statusMessage" role="status" hidden></p>
       </div>
     </section>
+
+    <!-- CONSTRUIR -->
+
+    <section class="section" id="construir">
+      <div class="container">
+        <div class="build-panel">
+          <div>
+            <span class="section-kicker">Seu próximo passo</span>
+            <h2>Sonha em construir sua casa?</h2>
+
+            <p>
+              Vamos conversar sobre as possibilidades para você encontrar
+              um terreno e planejar a realização do seu projeto.
+            </p>
+
+            <ul class="build-benefits">
+              <li>Encontre terrenos para construir.</li>
+              <li>Conheça oportunidades na sua região.</li>
+              <li>Receba atendimento personalizado.</li>
+            </ul>
+
+            <a
+              class="btn"
+              href="https://wa.me/5548999372934?text=Ol%C3%A1%2C%20Patricia!%20Gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20construir%20minha%20casa."
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Quero construir
+            </a>
+          </div>
+
+          <div class="build-art" aria-label="Ilustração de uma casa" role="img">
+            <svg viewBox="0 0 300 230" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path d="M30 105L150 20L270 105"
+                stroke="currentColor" stroke-width="8"
+                stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M55 96V205H245V96"
+                stroke="currentColor" stroke-width="7"
+                stroke-linejoin="round"/>
+              <path d="M125 205V137H175V205"
+                stroke="currentColor" stroke-width="6"
+                stroke-linejoin="round"/>
+              <rect x="75" y="119" width="32" height="32" rx="2"
+                stroke="currentColor" stroke-width="5"/>
+              <rect x="193" y="119" width="32" height="32" rx="2"
+                stroke="currentColor" stroke-width="5"/>
+              <path d="M91 119V151M75 135H107M209 119V151M193 135H225"
+                stroke="currentColor" stroke-width="3"/>
+              <path d="M25 207H275"
+                stroke="currentColor" stroke-width="5"
+                stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <!-- RODAPÉ -->
 
   <footer class="footer">
     <div class="container footer-inner">
@@ -1161,7 +1005,8 @@
 
       <div class="footer-links">
         <a href="#destaques">Destaques</a>
-        <a href="#imoveis">Imóveis</a>
+        <a href="#imoveis">Comprar imóveis</a>
+        <a href="#construir">Construir</a>
         <a
           href="https://wa.me/5548999372934"
           target="_blank"
@@ -1171,6 +1016,8 @@
     </div>
   </footer>
 
+  <!-- WHATSAPP FIXO -->
+
   <a
     class="whatsapp"
     href="https://wa.me/5548999372934"
@@ -1179,16 +1026,10 @@
     aria-label="Fale comigo pelo WhatsApp"
   >
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M20.2 11.7a8.2 8.2 0 0 1-12.1 7.2L3 20l1.2-4.8a8.2 8.2 0 1 1 16-3.5Z"
-        stroke="currentColor"
-        stroke-width="1.8"
-        stroke-linejoin="round"
-      />
-      <path
-        d="M8.1 7.9c.2-.5.5-.5.8-.5h.4c.2 0 .4.1.5.4l.7 1.7c.1.2 0 .4-.1.6l-.5.6c-.2.2-.2.4-.1.6.5.9 1.2 1.6 2.1 2.1.2.1.4.1.6-.1l.7-.8c.2-.2.4-.2.6-.1l1.6.8c.3.1.4.3.4.5 0 .3-.2 1.1-.7 1.5-.5.5-1.2.7-1.9.6-1-.1-2.3-.7-3.6-1.8-1.2-1.1-2.1-2.4-2.4-3.5-.3-1 .1-2 .9-2.6Z"
-        fill="currentColor"
-      />
+      <path d="M20.2 11.7a8.2 8.2 0 0 1-12.1 7.2L3 20l1.2-4.8a8.2 8.2 0 1 1 16-3.5Z"
+        stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      <path d="M8.1 7.9c.2-.5.5-.5.8-.5h.4c.2 0 .4.1.5.4l.7 1.7c.1.2 0 .4-.1.6l-.5.6c-.2.2-.2.4-.1.6.5.9 1.2 1.6 2.1 2.1.2.1.4.1.6-.1l.7-.8c.2-.2.4-.2.6-.1l1.6.8c.3.1.4.3.4.5 0 .3-.2 1.1-.7 1.5-.5.5-1.2.7-1.9.6-1-.1-2.3-.7-3.6-1.8-1.2-1.1-2.1-2.4-2.4-3.5-.3-1 .1-2 .9-2.6Z"
+        fill="currentColor"/>
     </svg>
     Fale comigo
   </a>
@@ -1205,30 +1046,15 @@
     const statusMessage = document.getElementById("statusMessage");
 
     let properties = [];
-    let purpose = "Comprar";
     let hasSearched = false;
 
     document.getElementById("year").textContent =
       new Date().getFullYear();
 
-    /* MENU PRINCIPAL E MENU DO CELULAR */
+    /* MENU RESPONSIVO */
 
     const menuToggle = document.getElementById("menuToggle");
     const mainNav = document.getElementById("mainNav");
-    const buyMenu = document.getElementById("buyMenu");
-    const buyMenuButton = document.getElementById("buyMenuButton");
-
-    function closeBuyMenu() {
-      buyMenu.classList.remove("expanded");
-      buyMenuButton.setAttribute("aria-expanded", "false");
-    }
-
-    function closeMobileMenu() {
-      mainNav.classList.remove("open");
-      menuToggle.setAttribute("aria-expanded", "false");
-      menuToggle.setAttribute("aria-label", "Abrir menu");
-      closeBuyMenu();
-    }
 
     menuToggle.addEventListener("click", () => {
       const isOpen = mainNav.classList.toggle("open");
@@ -1238,32 +1064,17 @@
         "aria-label",
         isOpen ? "Fechar menu" : "Abrir menu"
       );
-
-      if (!isOpen) closeBuyMenu();
     });
 
-    buyMenuButton.addEventListener("click", () => {
-      const isExpanded = buyMenu.classList.toggle("expanded");
-
-      buyMenuButton.setAttribute(
-        "aria-expanded",
-        String(isExpanded)
-      );
+    mainNav.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        mainNav.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Abrir menu");
+      });
     });
 
-    /* FECHA O SUBMENU AO CLICAR FORA DELE */
-
-    document.addEventListener("click", event => {
-      if (!buyMenu.contains(event.target)) {
-        closeBuyMenu();
-      }
-    });
-
-    /* FECHA O MENU AO USAR LINKS DE NAVEGAÇÃO */
-
-    mainNav.querySelectorAll("a:not([data-property-type])").forEach(link => {
-      link.addEventListener("click", closeMobileMenu);
-    });
+    /* FUNÇÕES AUXILIARES */
 
     function text(value) {
       return String(value ?? "").trim();
@@ -1286,9 +1097,7 @@
 
       const number = Number(value);
 
-      if (!Number.isFinite(number)) {
-        return "Consulte o valor";
-      }
+      if (!Number.isFinite(number)) return "Consulte o valor";
 
       return number.toLocaleString("pt-BR", {
         style: "currency",
@@ -1298,10 +1107,8 @@
     }
 
     function isTrue(value) {
-      return value === true ||
-        value === 1 ||
-        value === "1" ||
-        value === "true";
+      return value === true || value === 1 ||
+        value === "1" || value === "true";
     }
 
     function isFeatured(item) {
@@ -1312,29 +1119,11 @@
       return isTrue(item.lancamento);
     }
 
-    function purposeMatches(item) {
-      const value = text(item.finalidade)
-        .toLocaleLowerCase("pt-BR");
-
-      if (purpose === "Lançamento") {
-        return isLaunch(item);
-      }
-
-      if (purpose === "Alugar") {
-        return ["alugar", "aluguel", "locação", "locacao"]
-          .includes(value);
-      }
-
-      return value === "" || ["venda", "comprar"].includes(value);
-    }
-
     function locationOf(item) {
       return [item.bairro, item.cidade]
         .map(text)
         .filter(Boolean)
-        .join(", ") ||
-        text(item.endereco) ||
-        "Consulte a localização";
+        .join(", ") || text(item.endereco) || "Consulte a localização";
     }
 
     function propertyDetails(item) {
@@ -1367,6 +1156,8 @@
       return details.join("");
     }
 
+    /* CONTATO SOBRE UM IMÓVEL */
+
     function detailURL(item) {
       const message =
         "Olá, Patricia! Gostaria de saber mais sobre o imóvel: " +
@@ -1376,6 +1167,8 @@
       return "https://wa.me/" + WHATSAPP_NUMBER +
         "?text=" + encodeURIComponent(message);
     }
+
+    /* CARD DO IMÓVEL */
 
     function propertyCard(item) {
       const title = text(item.titulo) || "Imóvel disponível";
@@ -1434,6 +1227,8 @@
       statusMessage.hidden = !message;
     }
 
+    /* ORDENAÇÃO */
+
     function sortProperties(list) {
       const mode = document.getElementById("sort").value;
       const result = [...list];
@@ -1460,6 +1255,8 @@
       return result;
     }
 
+    /* FILTROS DA PESQUISA */
+
     function filterProperties(list) {
       const location = text(
         document.getElementById("location").value
@@ -1485,27 +1282,34 @@
         const matchesLocation =
           !location || combinedLocation.includes(location);
 
-        const matchesType =
-          !type ||
-          text(item.tipo).toLocaleLowerCase("pt-BR") === type;
+        /*
+          Lançamentos são filtrados pelo campo lancamento da API.
+          Os demais tipos são filtrados pelo campo tipo.
+        */
+
+        const matchesType = !type
+          ? true
+          : type === "__lancamento__"
+            ? isLaunch(item)
+            : text(item.tipo).toLocaleLowerCase("pt-BR") === type;
 
         const itemPrice = Number(item.preco);
 
-        const matchesPrice =
-          maxPrice === Infinity ||
-          (Number.isFinite(itemPrice) && itemPrice <= maxPrice);
+        const matchesPrice = maxPrice === Infinity ||
+          (
+            Number.isFinite(itemPrice) &&
+            itemPrice <= maxPrice
+          );
 
-        return matchesLocation &&
-          matchesType &&
-          matchesPrice &&
-          purposeMatches(item);
+        return matchesLocation && matchesType && matchesPrice;
       });
     }
 
+    /* EXIBIÇÃO DOS RESULTADOS */
+
     function render() {
       const published = properties.filter(item => {
-        const status = text(item.status)
-          .toLocaleLowerCase("pt-BR");
+        const status = text(item.status).toLocaleLowerCase("pt-BR");
 
         return !status || status === "publicado";
       });
@@ -1534,15 +1338,15 @@
       );
     }
 
+    /* CARREGAMENTO DA API ORIGINAL */
+
     async function loadProperties() {
       resultsCount.textContent = "Carregando imóveis...";
 
       try {
         const response = await fetch(API_URL, {
           method: "GET",
-          headers: {
-            "Accept": "application/json"
-          },
+          headers: { "Accept": "application/json" },
           cache: "no-store"
         });
 
@@ -1561,6 +1365,7 @@
         }
 
         render();
+
       } catch (error) {
         console.error("Erro ao carregar imóveis:", error);
 
@@ -1580,70 +1385,15 @@
 
         resultsCount.textContent = "Catálogo indisponível";
 
-        setStatus(
-          "Os anúncios dependem da disponibilidade da API."
-        );
+        setStatus("Os anúncios dependem da disponibilidade da API.");
       }
     }
 
-    /* ABAS COMPRAR, ALUGAR E LANÇAMENTOS */
+    /* PESQUISAR E ORDENAR */
 
-    document.querySelectorAll(".search-tab").forEach(tab => {
-      tab.addEventListener("click", () => {
-        document.querySelectorAll(".search-tab").forEach(button => {
-          button.classList.remove("active");
-          button.setAttribute("aria-pressed", "false");
-        });
-
-        tab.classList.add("active");
-        tab.setAttribute("aria-pressed", "true");
-
-        purpose = tab.dataset.purpose;
-      });
-    });
-
-    /* FILTRO DO SUBMENU COMPRAR */
-
-    document.querySelectorAll("[data-property-type]").forEach(link => {
-      link.addEventListener("click", event => {
-        event.preventDefault();
-
-        const selectedType = link.dataset.propertyType || "";
-
-        // Seleciona o tipo escolhido no formulário de busca.
-        document.getElementById("type").value = selectedType;
-
-        // Limpa a busca anterior para mostrar os imóveis daquele tipo.
-        document.getElementById("location").value = "";
-        document.getElementById("price").value = "";
-
-        // O menu Comprar corresponde à finalidade de compra.
-        purpose = "Comprar";
-
-        document.querySelectorAll(".search-tab").forEach(tab => {
-          const isActive = tab.dataset.purpose === "Comprar";
-
-          tab.classList.toggle("active", isActive);
-          tab.setAttribute("aria-pressed", String(isActive));
-        });
-
-        hasSearched = true;
-
-        closeMobileMenu();
-        render();
-
-        // Leva o visitante diretamente à lista de imóveis.
-        document.getElementById("imoveis").scrollIntoView({
-          behavior: "smooth",
-          block: "start"
-        });
-      });
-    });
-
-    /* BOTÃO BUSCAR IMÓVEIS */
-
-    document.getElementById("searchForm")
-      .addEventListener("submit", event => {
+    document.getElementById("searchForm").addEventListener(
+      "submit",
+      event => {
         event.preventDefault();
 
         hasSearched = true;
@@ -1653,14 +1403,15 @@
           behavior: "smooth",
           block: "start"
         });
-      });
+      }
+    );
 
-    /* ORDENAÇÃO */
+    document.getElementById("sort").addEventListener(
+      "change",
+      render
+    );
 
-    document.getElementById("sort")
-      .addEventListener("change", render);
-
-    /* CARREGA OS ANÚNCIOS DA API ORIGINAL */
+    /* INICIAR */
 
     loadProperties();
   </script>
