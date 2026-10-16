@@ -71,20 +71,21 @@
     .brand {
       display: flex;
       align-items: center;
-      gap: 9px;
+      gap: 8px;
       min-width: 0;
+      flex-shrink: 1;
     }
 
-    /* TAMANHO FIXO DA LOGO */
+    /* LOGO REDUZIDA: APROXIMADAMENTE 1 CM */
     .header .brand img.brand-logo {
       display: block;
-      width: 16px !important;
-      height: 16px !important;
-      min-width: 16px !important;
-      min-height: 16px !important;
-      max-width: 16px !important;
-      max-height: 16px !important;
-      flex: 0 0 16px !important;
+      width: 10px !important;
+      height: 10px !important;
+      min-width: 10px !important;
+      min-height: 10px !important;
+      max-width: 10px !important;
+      max-height: 10px !important;
+      flex: 0 0 10px !important;
       object-fit: contain;
       object-position: center;
       background: transparent;
@@ -581,17 +582,20 @@
       .brand { gap: 7px; flex: 1; }
 
       .header .brand img.brand-logo {
-        width: 14px !important;
-        height: 14px !important;
-        min-width: 14px !important;
-        min-height: 14px !important;
-        max-width: 14px !important;
-        max-height: 14px !important;
-        flex: 0 0 14px !important;
+        width: 10px !important;
+        height: 10px !important;
+        min-width: 10px !important;
+        min-height: 10px !important;
+        max-width: 10px !important;
+        max-height: 10px !important;
+        flex: 0 0 10px !important;
       }
 
       .brand-name { font-size: 19px; letter-spacing: -.4px; }
-      .brand-sub { font-size: 16px; }
+      .brand-sub {
+        font-size: 16px;
+        line-height: 1.25;
+      }
 
       .menu-toggle { display: inline-flex; }
 
@@ -641,9 +645,16 @@
       }
     }
 
-    @media (max-width: 360px) {
+    @media (max-width: 380px) {
       .brand-name { font-size: 18px; }
       .brand-sub { font-size: 16px; }
+      .brand { gap: 5px; }
+      .header-inner { gap: 5px; }
+      .menu-toggle {
+        width: 40px;
+        height: 40px;
+        flex-basis: 40px;
+      }
       .search-tabs { gap: 12px; }
     }
 
@@ -664,6 +675,8 @@
           class="brand-logo"
           src="./Gemini_Generated_Image_9wawnj9wawnj9waw-removebg-preview%20(1).png"
           alt="Logo CasaPrópria"
+          width="10"
+          height="10"
         >
         <span class="brand-text">
           <span class="brand-name">Patricia Ribeiro</span>
@@ -678,7 +691,7 @@
         aria-label="Abrir menu"
         aria-expanded="false"
         aria-controls="mainNav"
-      >
+    >
         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
           <path d="M4 6h16M4 12h16M4 18h16"
             stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -1119,3 +1132,4 @@
   </script>
 </body>
 </html>
+```
