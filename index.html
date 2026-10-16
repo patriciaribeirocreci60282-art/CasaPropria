@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#FFFFFF">
-  <meta name="description" content="Encontre seu imóvel com Patricia Ribeiro">
+  <meta name="description" content="Encontre seu imóvel ou planeje sua construção com Patricia Ribeiro.">
   <title>CasaPrópria | Patricia Ribeiro</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,11 +35,13 @@
       color: var(--ink);
       background: var(--white);
       font-family: "Montserrat", sans-serif;
-      font-size: 16px;
+      font-size: 15px;
       line-height: 1.65;
     }
 
-    button, input, select { font: inherit; }
+    body.modal-open { overflow: hidden; }
+
+    button, input, select, textarea { font: inherit; }
     button, a { -webkit-tap-highlight-color: transparent; }
     a { color: inherit; text-decoration: none; }
     button { cursor: pointer; }
@@ -56,27 +58,25 @@
     .header {
       position: relative;
       z-index: 20;
-      background: var(--white);
+      background: white;
       border-bottom: 1px solid var(--line);
     }
 
     .header-inner {
-      min-height: 72px;
+      min-height: 76px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 24px;
+      gap: 22px;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 9px;
+      gap: 8px;
       min-width: 0;
       flex-shrink: 1;
     }
-
-    /* MANTÉM O ARQUIVO ORIGINAL DA LOGO */
 
     .header .brand img.brand-logo {
       display: block;
@@ -95,21 +95,20 @@
     .brand-text {
       display: flex;
       flex-direction: column;
-      gap: 1px;
       min-width: 0;
     }
 
     .brand-name {
-      font-size: clamp(19px, 2vw, 25px);
+      font-size: clamp(18px, 2vw, 24px);
       font-weight: 600;
       letter-spacing: -.5px;
-      line-height: 1.2;
+      line-height: 1.25;
       white-space: nowrap;
     }
 
     .brand-sub {
       color: var(--muted);
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 500;
       line-height: 1.4;
     }
@@ -117,28 +116,72 @@
     .nav {
       display: flex;
       align-items: center;
-      gap: clamp(14px, 2vw, 28px);
+      gap: clamp(12px, 2vw, 28px);
     }
 
-    .nav a {
+    .nav a,
+    .nav .nav-action {
       font-size: 14px;
       font-weight: 700;
       white-space: nowrap;
-      transition: color .2s ease, background .2s ease;
     }
 
-    .nav a:hover { color: var(--orange-dark); }
+    .nav a:hover,
+    .nav .nav-action:hover { color: var(--orange-dark); }
 
-    .nav .nav-login {
-      padding: 10px 19px;
+    .nav-action {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 0;
+      border: 0;
+      background: transparent;
+      color: var(--ink);
+    }
+
+    .nav-login {
+      padding: 10px 17px !important;
       border-radius: 5px;
       background: var(--orange);
-      color: white;
+      color: white !important;
     }
 
-    .nav .nav-login:hover {
-      background: var(--orange-dark);
-      color: white;
+    .nav-login:hover { background: var(--orange-dark); }
+
+    /* MENU COM SUBMENU */
+
+    .nav-dropdown {
+      position: relative;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: -12px;
+      z-index: 50;
+      display: none;
+      width: 205px;
+      padding: 8px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: white;
+      box-shadow: var(--shadow);
+    }
+
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu,
+    .nav-dropdown.open .dropdown-menu {
+      display: block;
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 11px 12px;
+      border-radius: 4px;
+      white-space: normal;
+    }
+
+    .dropdown-menu a:hover {
+      background: var(--cream);
     }
 
     .menu-toggle {
@@ -154,18 +197,18 @@
       color: var(--ink);
     }
 
-    .menu-toggle svg { width: 25px; height: 25px; }
+    .menu-toggle svg { width: 24px; height: 24px; }
 
-    /* CAPA PRINCIPAL */
+    /* DESTAQUE PRINCIPAL */
 
     .hero {
       position: relative;
       isolation: isolate;
-      min-height: clamp(420px, 48vw, 650px);
+      min-height: clamp(400px, 47vw, 620px);
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 60px 24px 110px;
+      padding: 60px 24px 105px;
       text-align: center;
       background: #454940;
     }
@@ -195,54 +238,55 @@
 
     .hero-content {
       width: 100%;
-      max-width: 1250px;
+      max-width: 1100px;
       margin: auto;
     }
 
     .hero h1 {
       margin: 0;
       color: white;
-      font-size: clamp(38px, 5.5vw, 72px);
+      font-size: clamp(36px, 5.5vw, 68px);
       font-weight: 600;
-      line-height: 1.18;
-      letter-spacing: -1.5px;
+      line-height: 1.2;
+      letter-spacing: -1.4px;
       text-shadow: 0 3px 24px rgba(0,0,0,.7);
     }
 
     .hero p {
-      margin: 18px 0 0;
+      max-width: 680px;
+      margin: 18px auto 0;
       color: white;
-      font-size: clamp(16px, 2vw, 20px);
-      text-shadow: 0 2px 12px rgba(0,0,0,.7);
+      font-size: clamp(15px, 2vw, 19px);
+      text-shadow: 0 2px 12px rgba(0,0,0,.6);
     }
 
-    /* PESQUISA DE IMÓVEIS */
+    /* BUSCA DE IMÓVEIS */
 
     .search-wrap {
       position: relative;
       z-index: 3;
       width: min(1200px, calc(100% - 48px));
-      margin: -100px auto 0;
+      margin: -85px auto 0;
     }
 
     .search-panel {
-      padding: 28px;
-      background: white;
+      padding: 27px;
       border: 1px solid var(--line);
       border-radius: 8px;
+      background: white;
       box-shadow: 0 18px 55px rgba(0,0,0,.18);
     }
 
-    .search-heading {
-      margin: 0 0 22px;
+    .search-title {
+      margin: 0 0 20px;
       font-size: 21px;
       font-weight: 700;
     }
 
     .search-grid {
       display: grid;
-      grid-template-columns: 1.45fr 1.1fr 1fr auto;
-      gap: 15px;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr auto;
+      gap: 14px;
       align-items: end;
     }
 
@@ -250,17 +294,18 @@
 
     .field label {
       display: block;
-      margin-bottom: 8px;
-      font-size: 14px;
+      margin-bottom: 7px;
+      font-size: 13px;
       font-weight: 700;
     }
 
     .field input,
-    .field select {
+    .field select,
+    .field textarea {
       width: 100%;
       min-width: 0;
-      height: 52px;
-      padding: 0 12px;
+      min-height: 49px;
+      padding: 11px 12px;
       border: 1px solid #DCD7CF;
       border-radius: 5px;
       outline: none;
@@ -269,29 +314,49 @@
       font-size: 14px;
     }
 
+    .field textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
     .field input:focus,
-    .field select:focus {
+    .field select:focus,
+    .field textarea:focus {
       border-color: var(--orange);
       box-shadow: 0 0 0 3px rgba(232,98,42,.12);
     }
 
     .btn {
-      min-height: 52px;
+      min-height: 49px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 9px;
-      padding: 0 22px;
+      gap: 8px;
+      padding: 0 19px;
       border: 0;
       border-radius: 5px;
       background: var(--orange);
       color: white;
       font-size: 14px;
       font-weight: 700;
+      text-align: center;
       transition: background .2s ease;
     }
 
     .btn:hover { background: var(--orange-dark); }
+
+    .btn-secondary {
+      border: 1px solid var(--line);
+      background: white;
+      color: var(--ink);
+    }
+
+    .btn-secondary:hover {
+      background: var(--cream);
+      color: var(--ink);
+    }
+
+    .search-grid .btn { white-space: nowrap; }
 
     .accent-strip {
       width: 100%;
@@ -301,7 +366,7 @@
 
     /* SEÇÕES */
 
-    .section { padding: 70px 0; }
+    .section { padding: 65px 0; }
     .section.soft { background: var(--cream); }
 
     .section-heading {
@@ -309,30 +374,30 @@
       align-items: end;
       justify-content: space-between;
       gap: 24px;
-      margin-bottom: 30px;
+      margin-bottom: 28px;
     }
 
     .section-kicker {
       display: block;
-      margin-bottom: 8px;
+      margin-bottom: 7px;
       color: var(--orange-dark);
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
-      letter-spacing: .7px;
+      letter-spacing: .8px;
       text-transform: uppercase;
     }
 
     .section h2 {
       margin: 0;
-      font-size: clamp(27px, 3vw, 36px);
+      font-size: clamp(26px, 3vw, 35px);
       font-weight: 600;
       line-height: 1.3;
     }
 
     .section-desc {
-      margin: 10px 0 0;
+      margin: 9px 0 0;
       color: var(--muted);
-      font-size: 15px;
+      font-size: 14px;
     }
 
     .text-link {
@@ -346,32 +411,29 @@
       align-items: center;
       justify-content: space-between;
       gap: 18px;
-      margin-bottom: 24px;
+      margin-bottom: 22px;
     }
 
-    .results-count {
-      color: var(--muted);
-      font-size: 14px;
-    }
+    .results-count { color: var(--muted); font-size: 13px; }
 
     .sort-control {
       display: flex;
       align-items: center;
-      gap: 12px;
-      font-size: 14px;
-      font-weight: 600;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 700;
     }
 
     .sort-control select {
-      min-height: 44px;
-      padding: 0 12px;
+      min-height: 42px;
+      padding: 0 10px;
       border: 1px solid var(--line);
       border-radius: 5px;
       background: white;
-      font-size: 14px;
+      font-size: 13px;
     }
 
-    /* CARDS DOS IMÓVEIS */
+    /* CARTÕES DE IMÓVEIS */
 
     .property-grid {
       display: grid;
@@ -427,7 +489,7 @@
       font-weight: 700;
     }
 
-    .property-body { padding: 20px; }
+    .property-body { padding: 19px; }
 
     .property-type {
       color: var(--orange-dark);
@@ -437,8 +499,8 @@
     }
 
     .property-body h3 {
-      margin: 8px 0;
-      font-size: 18px;
+      margin: 7px 0;
+      font-size: 17px;
       font-weight: 600;
       line-height: 1.5;
     }
@@ -453,12 +515,12 @@
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 14px;
-      font-size: 13px;
+      margin-top: 13px;
+      font-size: 12px;
     }
 
     .property-price {
-      margin: 18px 0;
+      margin: 17px 0;
       font-size: 21px;
       font-weight: 700;
     }
@@ -467,103 +529,226 @@
       display: flex;
       justify-content: space-between;
       gap: 12px;
-      padding-top: 15px;
+      padding-top: 14px;
       border-top: 1px solid var(--line);
       color: var(--orange-dark);
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
     }
 
     .empty-state {
-      padding: 30px 20px;
+      padding: 28px 20px;
       border: 1px dashed #D8D0C6;
       border-radius: 8px;
       background: white;
       color: var(--muted);
       text-align: center;
-      font-size: 14px;
+      font-size: 13px;
     }
 
     .empty-state strong {
       display: block;
-      margin-bottom: 8px;
+      margin-bottom: 7px;
       color: var(--ink);
-      font-size: 18px;
+      font-size: 17px;
     }
 
     .status-message {
-      margin: 20px 0;
+      margin: 18px 0;
       color: var(--muted);
       text-align: center;
-      font-size: 14px;
+      font-size: 13px;
     }
 
-    /* CONSTRUIR */
+    /* CHAMADA PARA CONSTRUÇÃO */
 
-    .build-panel {
-      display: grid;
-      grid-template-columns: 1.3fr 1fr;
-      gap: 32px;
+    .build-banner {
+      padding: 44px;
+      border-radius: 10px;
+      background: #34382F;
+      color: white;
+    }
+
+    .build-banner-inner {
+      display: flex;
       align-items: center;
-      padding: 36px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: white;
+      justify-content: space-between;
+      gap: 28px;
     }
 
-    .build-panel h2 {
-      margin: 0 0 12px;
-      font-size: clamp(26px, 3vw, 34px);
+    .build-banner h2 {
+      margin: 0;
+      font-size: clamp(25px, 3vw, 34px);
       line-height: 1.3;
     }
 
-    .build-panel p {
-      color: var(--muted);
-      font-size: 15px;
-    }
-
-    .build-benefits {
-      display: grid;
-      gap: 12px;
-      margin: 20px 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .build-benefits li {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
+    .build-banner p {
+      max-width: 650px;
+      margin: 12px 0 0;
+      color: #F0EEE8;
       font-size: 14px;
     }
 
-    .build-benefits li::before {
-      content: "✓";
-      color: var(--orange-dark);
-      font-weight: 700;
+    /* JANELAS DE FORMULÁRIO */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      overflow-y: auto;
+      background: rgba(20,22,19,.65);
+      backdrop-filter: blur(3px);
     }
 
-    .build-art {
-      min-height: 230px;
+    .modal-card {
+      position: relative;
+      width: min(650px, 100%);
+      max-height: calc(100vh - 36px);
+      overflow-y: auto;
+      padding: 30px;
+      border-radius: 10px;
+      background: white;
+      box-shadow: 0 25px 80px rgba(0,0,0,.25);
+    }
+
+    .modal-card h2 {
+      margin: 0;
+      padding-right: 36px;
+      font-size: 25px;
+      line-height: 1.35;
+    }
+
+    .modal-intro {
+      margin: 8px 0 23px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: 40px;
+      height: 40px;
       display: grid;
       place-items: center;
-      padding: 25px;
-      border-radius: 6px;
-      background: var(--cream);
-      color: var(--orange-dark);
-      text-align: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: white;
+      color: var(--ink);
+      font-size: 23px;
+      line-height: 1;
     }
 
-    .build-art svg {
-      width: 100%;
-      max-width: 260px;
-      height: auto;
+    .modal-close:hover { background: var(--cream); }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .form-grid .full { grid-column: 1 / -1; }
+
+    .form-help {
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .standard-options {
+      display: grid;
+      gap: 12px;
+      margin-top: 7px;
+    }
+
+    .standard-option {
+      position: relative;
+      display: block;
+      cursor: pointer;
+    }
+
+    .standard-option input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .standard-option-content {
+      display: block;
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: white;
+      transition: border-color .15s, background .15s;
+    }
+
+    .standard-option input:checked + .standard-option-content {
+      border: 2px solid var(--orange);
+      padding: 14px;
+      background: #FFF8F4;
+    }
+
+    .standard-option input:focus-visible + .standard-option-content {
+      outline: 3px solid rgba(232,98,42,.25);
+    }
+
+    .standard-option strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--ink);
+      font-size: 14px;
+    }
+
+    .standard-option ul {
+      margin: 0;
+      padding-left: 19px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .consent {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      margin: 18px 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .consent input {
+      width: 17px;
+      height: 17px;
+      flex: 0 0 17px;
+      margin-top: 2px;
+      accent-color: var(--orange);
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .form-actions .btn { flex: 1; }
+
+    .privacy-note {
+      margin: 15px 0 0;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.6;
     }
 
     /* RODAPÉ */
 
     .footer {
-      padding: 35px 0;
+      padding: 34px 0;
       border-top: 1px solid var(--line);
       background: white;
     }
@@ -576,12 +761,12 @@
       gap: 20px;
     }
 
-    .footer strong { font-size: 18px; font-weight: 600; }
+    .footer strong { font-size: 17px; font-weight: 600; }
 
     .footer p {
-      margin: 6px 0;
+      margin: 5px 0;
       color: var(--muted);
-      font-size: 13px;
+      font-size: 12px;
     }
 
     .footer-links {
@@ -596,67 +781,61 @@
 
     .whatsapp {
       position: fixed;
-      right: 22px;
-      bottom: 22px;
+      right: 20px;
+      bottom: 20px;
       z-index: 30;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      min-height: 56px;
-      padding: 12px 20px;
+      gap: 9px;
+      min-height: 54px;
+      padding: 11px 19px;
       border: 2px solid rgba(255,255,255,.35);
       border-radius: 50px;
       background: var(--orange);
       color: white;
       box-shadow: 0 8px 28px rgba(100,43,17,.28);
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
     }
 
     .whatsapp:hover { background: var(--orange-dark); }
 
     .whatsapp svg {
-      width: 23px;
-      height: 23px;
-      flex: 0 0 23px;
+      width: 22px;
+      height: 22px;
+      flex: 0 0 22px;
     }
 
-    /* TABLETS */
+    /* TABLET */
 
     @media (max-width: 1100px) {
-      .nav { gap: 14px; }
-      .nav a { font-size: 12px; }
-      .search-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .search-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
       .search-grid .btn { width: 100%; }
+
       .property-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .section { padding: 55px 0; }
+      .section { padding: 52px 0; }
+      .nav { gap: 13px; }
+      .nav a, .nav .nav-action { font-size: 13px; }
     }
 
-    /* CELULARES */
+    /* CELULAR */
 
     @media (max-width: 760px) {
       .container { width: calc(100% - 28px); }
 
       .header-inner {
-        min-height: 66px;
+        min-height: 68px;
         gap: 8px;
       }
 
       .brand { gap: 7px; flex: 1; }
 
-      .header .brand img.brand-logo {
-        width: 45px !important;
-        height: 45px !important;
-        min-width: 45px !important;
-        min-height: 45px !important;
-        max-width: 45px !important;
-        max-height: 45px !important;
-        flex: 0 0 45px !important;
-      }
-
-      .brand-name { font-size: 19px; letter-spacing: -.4px; }
-      .brand-sub { font-size: 12px; line-height: 1.3; }
+      .brand-name { font-size: 18px; }
+      .brand-sub { font-size: 12px; }
 
       .menu-toggle { display: inline-flex; }
 
@@ -666,7 +845,7 @@
         top: 100%;
         left: 0;
         right: 0;
-        padding: 12px 20px 20px;
+        padding: 10px 20px 18px;
         flex-direction: column;
         align-items: stretch;
         gap: 0;
@@ -677,29 +856,48 @@
 
       .nav.open { display: flex; }
 
-      .nav a {
-        display: block;
+      .nav > a,
+      .nav .nav-action {
+        display: flex;
+        align-items: center;
+        width: 100%;
         padding: 13px 8px;
-        font-size: 14px;
         white-space: normal;
+        text-align: left;
       }
 
       .nav .nav-login {
+        justify-content: center;
         margin-top: 8px;
-        text-align: center;
       }
 
-      .hero { min-height: 420px; padding: 50px 14px 95px; }
+      .nav-dropdown { width: 100%; }
+
+      .dropdown-menu {
+        position: static;
+        width: 100%;
+        padding: 0 0 5px 12px;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .nav-dropdown.open .dropdown-menu { display: block; }
+
+      .hero { min-height: 390px; padding: 45px 14px 90px; }
       .hero::before { background-position: 58% center; }
-      .hero h1 { font-size: clamp(35px, 9vw, 46px); letter-spacing: -.8px; }
-      .hero p { font-size: 15px; }
+      .hero h1 { font-size: clamp(34px, 9vw, 45px); }
 
-      .search-wrap { width: calc(100% - 28px); margin-top: -72px; }
-      .search-panel { padding: 22px 16px; }
-      .search-heading { font-size: 19px; margin-bottom: 18px; }
-      .search-grid { grid-template-columns: 1fr; gap: 16px; }
+      .search-wrap {
+        width: calc(100% - 28px);
+        margin-top: -65px;
+      }
 
-      .section { padding: 45px 0; }
+      .search-panel { padding: 21px 16px; }
+      .search-grid { grid-template-columns: 1fr; gap: 14px; }
+      .search-title { font-size: 19px; }
+
+      .section { padding: 43px 0; }
 
       .section-heading {
         align-items: flex-start;
@@ -707,7 +905,7 @@
         gap: 12px;
       }
 
-      .property-grid { grid-template-columns: 1fr; gap: 20px; }
+      .property-grid { grid-template-columns: 1fr; gap: 19px; }
 
       .listing-toolbar {
         align-items: stretch;
@@ -721,31 +919,55 @@
 
       .sort-control select { width: 100%; }
 
-      .build-panel {
-        grid-template-columns: 1fr;
-        padding: 22px;
+      .build-banner { padding: 26px 20px; }
+
+      .build-banner-inner {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 20px;
       }
 
-      .build-art { min-height: 180px; }
-      .footer-inner { align-items: flex-start; flex-direction: column; }
+      .build-banner .btn { width: 100%; }
+
+      .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .modal { padding: 10px; align-items: flex-start; }
+      .modal-card {
+        max-height: calc(100vh - 20px);
+        margin: auto 0;
+        padding: 23px 17px;
+      }
+
+      .modal-card h2 { font-size: 22px; }
+      .form-grid { grid-template-columns: 1fr; gap: 14px; }
+      .form-grid .full { grid-column: auto; }
+      .form-actions { flex-direction: column; }
+      .form-actions .btn { width: 100%; }
 
       .whatsapp {
         right: 12px;
         bottom: 12px;
-        min-height: 52px;
-        padding: 11px 16px;
+        min-height: 49px;
+        padding: 10px 15px;
       }
     }
 
     @media (max-width: 380px) {
-      .brand-name { font-size: 17px; }
+      .brand-name { font-size: 16px; }
       .brand-sub { font-size: 11px; }
-      .brand { gap: 5px; }
       .header-inner { gap: 5px; }
-      .menu-toggle {
-        width: 40px;
-        height: 40px;
-        flex-basis: 40px;
+
+      .header .brand img.brand-logo {
+        width: 40px !important;
+        height: 40px !important;
+        min-width: 40px !important;
+        min-height: 40px !important;
+        max-width: 40px !important;
+        max-height: 40px !important;
+        flex-basis: 40px !important;
       }
     }
 
@@ -791,16 +1013,34 @@
       </button>
 
       <nav class="nav" id="mainNav" aria-label="Navegação principal">
-        <a href="#imoveis">Comprar</a>
+
+        <div class="nav-dropdown" id="buyDropdown">
+          <button
+            class="nav-action"
+            type="button"
+            id="buyToggle"
+            aria-expanded="false"
+            aria-controls="buySubmenu"
+          >
+            Comprar <span aria-hidden="true">⌄</span>
+          </button>
+
+          <div class="dropdown-menu" id="buySubmenu">
+            <a href="#imoveis" data-type="Casa">Casas</a>
+            <a href="#imoveis" data-type="Apartamento">Apartamentos</a>
+            <a href="#imoveis" data-type="Terreno">Terrenos</a>
+            <a href="#imoveis" data-type="">Todos os imóveis</a>
+          </div>
+        </div>
+
         <a href="#construir">Construir</a>
-        <a
-          href="https://www.caixa.gov.br/voce/habitacao/Paginas/default.aspx"
-          target="_blank"
-          rel="noopener noreferrer"
-        >Financiamento Caixa</a>
+
+        <button class="nav-action" type="button" data-open-modal="financeModal">
+          Financiamento Caixa
+        </button>
+
         <a href="admin.html" class="nav-login">Entrar</a>
       </nav>
-
     </div>
   </header>
 
@@ -808,15 +1048,16 @@
     <section class="hero" aria-label="Encontre seu imóvel">
       <div class="hero-content">
         <h1>Encontre seu imóvel</h1>
-        <p>O lugar ideal para começar uma nova história.</p>
+        <p>
+          Seu próximo lar começa aqui. Encontre um imóvel ou planeje
+          a construção da casa dos seus sonhos.
+        </p>
       </div>
     </section>
 
-    <!-- PESQUISA: COMPRAR E FILTRAR POR TIPO, INCLUSIVE LANÇAMENTOS -->
-
     <div class="search-wrap">
       <form class="search-panel" id="searchForm">
-        <h2 class="search-heading">Encontre o imóvel ideal para você</h2>
+        <h2 class="search-title">Encontre o imóvel ideal</h2>
 
         <div class="search-grid">
           <div class="field">
@@ -832,12 +1073,11 @@
           <div class="field">
             <label for="type">Tipo de imóvel</label>
             <select id="type">
-              <option value="">Todos os imóveis</option>
+              <option value="">Todos os tipos</option>
               <option value="Casa">Casa</option>
               <option value="Apartamento">Apartamento</option>
               <option value="Terreno">Terreno</option>
               <option value="Empreendimento">Empreendimento</option>
-              <option value="__lancamento__">Lançamentos</option>
             </select>
           </div>
 
@@ -854,8 +1094,16 @@
             </select>
           </div>
 
+          <div class="field">
+            <label for="launch">Anúncio</label>
+            <select id="launch">
+              <option value="">Todos os imóveis</option>
+              <option value="sim">Somente lançamentos</option>
+            </select>
+          </div>
+
           <button class="btn" type="submit">
-            <svg width="21" height="21" viewBox="0 0 24 24"
+            <svg width="19" height="19" viewBox="0 0 24 24"
               fill="none" aria-hidden="true">
               <circle cx="10.8" cy="10.8" r="6.8"
                 stroke="currentColor" stroke-width="2"/>
@@ -869,8 +1117,6 @@
     </div>
 
     <div class="accent-strip" aria-hidden="true"></div>
-
-    <!-- DESTAQUES -->
 
     <section class="section" id="destaques">
       <div class="container">
@@ -893,8 +1139,6 @@
         </div>
       </div>
     </section>
-
-    <!-- TODOS OS IMÓVEIS -->
 
     <section class="section soft" id="imoveis">
       <div class="container">
@@ -927,73 +1171,37 @@
 
         <div class="empty-state" id="allEmpty" hidden>
           <strong>Nenhum imóvel encontrado.</strong>
-          Experimente alterar os filtros ou entre em contato para consultar
-          outras oportunidades.
+          Experimente alterar os filtros ou entre em contato para
+          consultar outras oportunidades.
         </div>
 
         <p class="status-message" id="statusMessage" role="status" hidden></p>
       </div>
     </section>
 
-    <!-- CONSTRUIR -->
-
     <section class="section" id="construir">
       <div class="container">
-        <div class="build-panel">
-          <div>
-            <span class="section-kicker">Seu próximo passo</span>
-            <h2>Sonha em construir sua casa?</h2>
+        <div class="build-banner">
+          <div class="build-banner-inner">
+            <div>
+              <span class="section-kicker">Seu projeto começa aqui</span>
+              <h2>Quer construir sua própria casa?</h2>
+              <p>
+                Escolha o padrão construtivo, informe o tamanho da casa
+                e os ambientes desejados. Envie seus dados para Patricia
+                e converse sobre as possibilidades do seu projeto.
+              </p>
+            </div>
 
-            <p>
-              Vamos conversar sobre as possibilidades para você encontrar
-              um terreno e planejar a realização do seu projeto.
-            </p>
-
-            <ul class="build-benefits">
-              <li>Encontre terrenos para construir.</li>
-              <li>Conheça oportunidades na sua região.</li>
-              <li>Receba atendimento personalizado.</li>
-            </ul>
-
-            <a
-              class="btn"
-              href="https://wa.me/5548999372934?text=Ol%C3%A1%2C%20Patricia!%20Gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20construir%20minha%20casa."
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Quero construir
-            </a>
-          </div>
-
-          <div class="build-art" aria-label="Ilustração de uma casa" role="img">
-            <svg viewBox="0 0 300 230" fill="none"
-              xmlns="http://www.w3.org/2000/svg">
-              <path d="M30 105L150 20L270 105"
-                stroke="currentColor" stroke-width="8"
-                stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M55 96V205H245V96"
-                stroke="currentColor" stroke-width="7"
-                stroke-linejoin="round"/>
-              <path d="M125 205V137H175V205"
-                stroke="currentColor" stroke-width="6"
-                stroke-linejoin="round"/>
-              <rect x="75" y="119" width="32" height="32" rx="2"
-                stroke="currentColor" stroke-width="5"/>
-              <rect x="193" y="119" width="32" height="32" rx="2"
-                stroke="currentColor" stroke-width="5"/>
-              <path d="M91 119V151M75 135H107M209 119V151M193 135H225"
-                stroke="currentColor" stroke-width="3"/>
-              <path d="M25 207H275"
-                stroke="currentColor" stroke-width="5"
-                stroke-linecap="round"/>
-            </svg>
+            <button class="btn" type="button"
+              data-open-modal="buildModal">
+              Quero construir minha casa
+            </button>
           </div>
         </div>
       </div>
     </section>
   </main>
-
-  <!-- RODAPÉ -->
 
   <footer class="footer">
     <div class="container footer-inner">
@@ -1005,26 +1213,19 @@
 
       <div class="footer-links">
         <a href="#destaques">Destaques</a>
-        <a href="#imoveis">Comprar imóveis</a>
+        <a href="#imoveis">Imóveis</a>
         <a href="#construir">Construir</a>
-        <a
-          href="https://wa.me/5548999372934"
-          target="_blank"
-          rel="noopener noreferrer"
-        >WhatsApp</a>
+        <a href="https://wa.me/5548999372934"
+          target="_blank" rel="noopener noreferrer">WhatsApp</a>
       </div>
     </div>
   </footer>
 
-  <!-- WHATSAPP FIXO -->
-
-  <a
-    class="whatsapp"
+  <a class="whatsapp"
     href="https://wa.me/5548999372934"
     target="_blank"
     rel="noopener noreferrer"
-    aria-label="Fale comigo pelo WhatsApp"
-  >
+    aria-label="Fale comigo pelo WhatsApp">
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path d="M20.2 11.7a8.2 8.2 0 0 1-12.1 7.2L3 20l1.2-4.8a8.2 8.2 0 1 1 16-3.5Z"
         stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
@@ -1033,6 +1234,223 @@
     </svg>
     Fale comigo
   </a>
+
+  <!-- FORMULÁRIO: COMPRA E FINANCIAMENTO -->
+
+  <section class="modal" id="financeModal"
+    role="dialog" aria-modal="true"
+    aria-labelledby="financeTitle" hidden>
+    <div class="modal-card">
+      <button class="modal-close" type="button"
+        data-close-modal aria-label="Fechar formulário">×</button>
+
+      <h2 id="financeTitle">Simulação de financiamento</h2>
+      <p class="modal-intro">
+        Preencha os dados para solicitar uma pré-análise gratuita
+        e sem compromisso.
+      </p>
+
+      <form id="financeForm">
+        <div class="form-grid">
+          <div class="field full">
+            <label for="financeName">1. Nome completo</label>
+            <input id="financeName" name="nome" required
+              maxlength="120" autocomplete="name"
+              placeholder="Digite seu nome">
+          </div>
+
+          <div class="field full">
+            <label for="financeCity">2. Cidade</label>
+            <input id="financeCity" name="cidade" required
+              maxlength="120" autocomplete="address-level2"
+              placeholder="Ex.: Imbituba, SC">
+          </div>
+
+          <div class="field full">
+            <label for="financeIncome">3. Renda familiar mensal</label>
+            <input id="financeIncome" name="renda" required
+              maxlength="60" placeholder="Ex.: R$ 4.000">
+          </div>
+
+          <div class="field full">
+            <label for="financeObjective">4. O que você deseja fazer?</label>
+            <select id="financeObjective" name="objetivo" required>
+              <option value="Comprar imóvel pronto">Comprar imóvel pronto</option>
+              <option value="Construir minha casa">Construir minha casa</option>
+            </select>
+          </div>
+        </div>
+
+        <label class="consent">
+          <input type="checkbox" id="financeConsent" required>
+          <span>
+            Autorizo o uso dos dados informados para que Patricia Ribeiro
+            entre em contato sobre esta solicitação. Li e concordo com
+            o aviso de privacidade.
+          </span>
+        </label>
+
+        <div class="form-actions">
+          <button class="btn btn-secondary" type="button"
+            data-close-modal>Cancelar</button>
+          <button class="btn" type="submit">
+            Continuar pelo WhatsApp
+          </button>
+        </div>
+
+        <p class="privacy-note">
+          Este formulário solicita uma pré-análise de atendimento.
+          Não representa aprovação de crédito nem simulação oficial
+          da Caixa Econômica Federal. Não informe senhas, CPF ou
+          documentos nesta etapa.
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <!-- FORMULÁRIO: CONSTRUÇÃO -->
+
+  <section class="modal" id="buildModal"
+    role="dialog" aria-modal="true"
+    aria-labelledby="buildTitle" hidden>
+    <div class="modal-card">
+      <button class="modal-close" type="button"
+        data-close-modal aria-label="Fechar formulário">×</button>
+
+      <h2 id="buildTitle">Vamos planejar sua casa?</h2>
+      <p class="modal-intro">
+        Conte um pouco sobre o projeto. Patricia poderá conversar
+        com você sobre as próximas etapas.
+      </p>
+
+      <form id="buildForm">
+        <div class="form-grid">
+          <div class="field full">
+            <label for="buildName">1. Nome completo</label>
+            <input id="buildName" name="nome" required
+              maxlength="120" autocomplete="name"
+              placeholder="Digite seu nome">
+          </div>
+
+          <div class="field full">
+            <label for="buildCity">2. Cidade da construção</label>
+            <input id="buildCity" name="cidade" required
+              maxlength="120" autocomplete="address-level2"
+              placeholder="Ex.: Imbituba, SC">
+          </div>
+
+          <div class="field full">
+            <label>3. Escolha o padrão construtivo</label>
+
+            <div class="standard-options">
+              <label class="standard-option">
+                <input type="radio" name="padrao"
+                  value="Padrão PVC" required>
+                <span class="standard-option-content">
+                  <strong>🔹 Opção 1 – Padrão PVC</strong>
+                  <ul>
+                    <li>Alvenaria convencional;</li>
+                    <li>Forro de PVC;</li>
+                    <li>Telha aparente;</li>
+                    <li>Materiais e mão de obra inclusos.</li>
+                  </ul>
+                </span>
+              </label>
+
+              <label class="standard-option">
+                <input type="radio" name="padrao"
+                  value="Padrão Laje e Telhado" required>
+                <span class="standard-option-content">
+                  <strong>🔹 Opção 2 – Padrão Laje e Telhado</strong>
+                  <ul>
+                    <li>Alvenaria convencional;</li>
+                    <li>Laje reta;</li>
+                    <li>Telhado com telha aparente;</li>
+                    <li>Materiais e mão de obra inclusos.</li>
+                  </ul>
+                </span>
+              </label>
+
+              <label class="standard-option">
+                <input type="radio" name="padrao"
+                  value="Padrão Laje e Platibanda" required>
+                <span class="standard-option-content">
+                  <strong>🔹 Opção 3 – Padrão Laje e Platibanda</strong>
+                  <ul>
+                    <li>Alvenaria convencional;</li>
+                    <li>Laje reta;</li>
+                    <li>Telhado embutido com platibanda;</li>
+                    <li>Materiais e mão de obra inclusos.</li>
+                  </ul>
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="buildArea">4. Tamanho da casa (m²)</label>
+            <input id="buildArea" name="area" type="number"
+              min="20" max="1000" step="1" required
+              placeholder="Ex.: 80">
+          </div>
+
+          <div class="field">
+            <label for="buildBedrooms">5. Número de quartos</label>
+            <select id="buildBedrooms" name="quartos" required>
+              <option value="">Selecione</option>
+              <option value="1">1 quarto</option>
+              <option value="2">2 quartos</option>
+              <option value="3">3 quartos</option>
+              <option value="4">4 quartos</option>
+              <option value="5 ou mais">5 ou mais quartos</option>
+            </select>
+          </div>
+
+          <div class="field full">
+            <label for="buildBathrooms">6. Número de banheiros</label>
+            <select id="buildBathrooms" name="banheiros" required>
+              <option value="">Selecione</option>
+              <option value="1">1 banheiro</option>
+              <option value="2">2 banheiros</option>
+              <option value="3">3 banheiros</option>
+              <option value="4 ou mais">4 ou mais banheiros</option>
+            </select>
+          </div>
+
+          <div class="field full">
+            <label for="buildNotes">Observações (opcional)</label>
+            <textarea id="buildNotes" name="observacoes"
+              maxlength="500"
+              placeholder="Conte algum detalhe importante do seu projeto."></textarea>
+          </div>
+        </div>
+
+        <label class="consent">
+          <input type="checkbox" id="buildConsent" required>
+          <span>
+            Autorizo o uso dos dados informados para que Patricia Ribeiro
+            entre em contato sobre este projeto e li o aviso de privacidade.
+          </span>
+        </label>
+
+        <div class="form-actions">
+          <button class="btn btn-secondary" type="button"
+            data-close-modal>Cancelar</button>
+          <button class="btn" type="submit">
+            Enviar projeto pelo WhatsApp
+          </button>
+        </div>
+
+        <p class="privacy-note">
+          As descrições dos padrões são informações iniciais fornecidas
+          para orientar o atendimento. Escopo, materiais, custos,
+          condições de execução e financiamento deverão ser confirmados
+          individualmente. O envio não representa orçamento fechado
+          nem aprovação de financiamento.
+        </p>
+      </form>
+    </div>
+  </section>
 
   <script>
     const API_URL = "/api/imoveis";
@@ -1055,10 +1473,19 @@
 
     const menuToggle = document.getElementById("menuToggle");
     const mainNav = document.getElementById("mainNav");
+    const buyDropdown = document.getElementById("buyDropdown");
+    const buyToggle = document.getElementById("buyToggle");
+
+    function closeNav() {
+      mainNav.classList.remove("open");
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-label", "Abrir menu");
+      buyDropdown.classList.remove("open");
+      buyToggle.setAttribute("aria-expanded", "false");
+    }
 
     menuToggle.addEventListener("click", () => {
       const isOpen = mainNav.classList.toggle("open");
-
       menuToggle.setAttribute("aria-expanded", String(isOpen));
       menuToggle.setAttribute(
         "aria-label",
@@ -1066,15 +1493,202 @@
       );
     });
 
+    buyToggle.addEventListener("click", () => {
+      const isOpen = buyDropdown.classList.toggle("open");
+      buyToggle.setAttribute("aria-expanded", String(isOpen));
+    });
+
     mainNav.querySelectorAll("a").forEach(link => {
       link.addEventListener("click", () => {
-        mainNav.classList.remove("open");
-        menuToggle.setAttribute("aria-expanded", "false");
-        menuToggle.setAttribute("aria-label", "Abrir menu");
+        if (link.hasAttribute("data-type")) {
+          document.getElementById("type").value =
+            link.dataset.type || "";
+          hasSearched = true;
+          render();
+        }
+
+        closeNav();
+
+        if (link.hash === "#imoveis") {
+          document.getElementById("imoveis").scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        }
       });
     });
 
-    /* FUNÇÕES AUXILIARES */
+    /* JANELAS DOS FORMULÁRIOS */
+
+    let lastFocusedElement = null;
+
+    function openModal(id) {
+      const modal = document.getElementById(id);
+      if (!modal) return;
+
+      lastFocusedElement = document.activeElement;
+      modal.hidden = false;
+      document.body.classList.add("modal-open");
+
+      const closeButton = modal.querySelector("[data-close-modal]");
+      if (closeButton) closeButton.focus();
+
+      closeNav();
+    }
+
+    function closeModal(modal) {
+      if (!modal) return;
+
+      modal.hidden = true;
+
+      if (!document.querySelector(".modal:not([hidden])")) {
+        document.body.classList.remove("modal-open");
+      }
+
+      if (lastFocusedElement &&
+          typeof lastFocusedElement.focus === "function") {
+        lastFocusedElement.focus();
+      }
+    }
+
+    document.querySelectorAll("[data-open-modal]").forEach(button => {
+      button.addEventListener("click", () => {
+        openModal(button.dataset.openModal);
+      });
+    });
+
+    document.querySelectorAll("[data-close-modal]").forEach(button => {
+      button.addEventListener("click", () => {
+        closeModal(button.closest(".modal"));
+      });
+    });
+
+    document.querySelectorAll(".modal").forEach(modal => {
+      modal.addEventListener("click", event => {
+        if (event.target === modal) closeModal(modal);
+      });
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") {
+        const activeModal =
+          document.querySelector(".modal:not([hidden])");
+
+        if (activeModal) closeModal(activeModal);
+        else closeNav();
+      }
+    });
+
+    /* ENVIO PARA WHATSAPP */
+
+    function sendWhatsApp(message) {
+      const url = "https://wa.me/" + WHATSAPP_NUMBER
+        + "?text=" + encodeURIComponent(message);
+
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
+
+    document.getElementById("financeForm").addEventListener(
+      "submit", event => {
+        event.preventDefault();
+
+        const name = document.getElementById("financeName")
+          .value.trim();
+        const city = document.getElementById("financeCity")
+          .value.trim();
+        const income = document.getElementById("financeIncome")
+          .value.trim();
+        const objective = document.getElementById("financeObjective")
+          .value;
+
+        if (!name || !city || !income ||
+            !document.getElementById("financeConsent").checked) {
+          return;
+        }
+
+        const message = [
+          "Olá, Patricia! Gostaria de solicitar uma pré-análise gratuita de financiamento imobiliário, sem compromisso.",
+          "",
+          "NOME: " + name,
+          "CIDADE: " + city,
+          "RENDA FAMILIAR MENSAL: " + income,
+          "OBJETIVO: " + objective,
+          "",
+          "Gostaria de conversar sobre as possibilidades para meu caso.",
+          "",
+          "Entendo que esta solicitação não representa aprovação de crédito."
+        ].join("\n");
+
+        sendWhatsApp(message);
+      }
+    );
+
+    document.getElementById("buildForm").addEventListener(
+      "submit", event => {
+        event.preventDefault();
+
+        const form = event.currentTarget;
+        const data = new FormData(form);
+
+        const name = String(data.get("nome") || "").trim();
+        const city = String(data.get("cidade") || "").trim();
+        const standard = String(data.get("padrao") || "");
+        const area = String(data.get("area") || "");
+        const bedrooms = String(data.get("quartos") || "");
+        const bathrooms = String(data.get("banheiros") || "");
+        const notes = String(data.get("observacoes") || "").trim();
+
+        if (!name || !city || !standard || !area ||
+            !bedrooms || !bathrooms ||
+            !document.getElementById("buildConsent").checked) {
+          return;
+        }
+
+        const standardDescriptions = {
+          "Padrão PVC": [
+            "Alvenaria convencional",
+            "Forro de PVC",
+            "Telha aparente",
+            "Materiais e mão de obra inclusos"
+          ],
+          "Padrão Laje e Telhado": [
+            "Alvenaria convencional",
+            "Laje reta",
+            "Telhado com telha aparente",
+            "Materiais e mão de obra inclusos"
+          ],
+          "Padrão Laje e Platibanda": [
+            "Alvenaria convencional",
+            "Laje reta",
+            "Telhado embutido com platibanda",
+            "Materiais e mão de obra inclusos"
+          ]
+        };
+
+        const message = [
+          "Olá, Patricia! Gostaria de conversar sobre meu projeto de construção.",
+          "",
+          "NOME: " + name,
+          "CIDADE DA CONSTRUÇÃO: " + city,
+          "",
+          "PADRÃO CONSTRUTIVO: " + standard,
+          ...standardDescriptions[standard].map(
+            item => "• " + item
+          ),
+          "",
+          "TAMANHO DA CASA: " + area + " m²",
+          "NÚMERO DE QUARTOS: " + bedrooms,
+          "NÚMERO DE BANHEIROS: " + bathrooms,
+          ...(notes ? ["", "OBSERVAÇÕES: " + notes] : []),
+          "",
+          "Gostaria de receber orientação sobre as próximas etapas do projeto."
+        ].join("\n");
+
+        sendWhatsApp(message);
+      }
+    );
+
+    /* CATÁLOGO DE IMÓVEIS */
 
     function text(value) {
       return String(value ?? "").trim();
@@ -1096,7 +1710,6 @@
       }
 
       const number = Number(value);
-
       if (!Number.isFinite(number)) return "Consulte o valor";
 
       return number.toLocaleString("pt-BR", {
@@ -1123,7 +1736,8 @@
       return [item.bairro, item.cidade]
         .map(text)
         .filter(Boolean)
-        .join(", ") || text(item.endereco) || "Consulte a localização";
+        .join(", ") || text(item.endereco) ||
+        "Consulte a localização";
     }
 
     function propertyDetails(item) {
@@ -1156,38 +1770,28 @@
       return details.join("");
     }
 
-    /* CONTATO SOBRE UM IMÓVEL */
-
     function detailURL(item) {
-      const message =
-        "Olá, Patricia! Gostaria de saber mais sobre o imóvel: " +
-        text(item.titulo) +
-        (item.id !== undefined ? " (código " + item.id + ")" : "");
+      const message = "Olá, Patricia! Gostaria de saber mais sobre o imóvel: "
+        + text(item.titulo)
+        + (item.id !== undefined ? " (código " + item.id + ")" : "");
 
-      return "https://wa.me/" + WHATSAPP_NUMBER +
-        "?text=" + encodeURIComponent(message);
+      return "https://wa.me/" + WHATSAPP_NUMBER
+        + "?text=" + encodeURIComponent(message);
     }
-
-    /* CARD DO IMÓVEL */
 
     function propertyCard(item) {
       const title = text(item.titulo) || "Imóvel disponível";
       const type = text(item.tipo) || "Imóvel";
       const image = text(item.foto_url);
 
-      const tag = isLaunch(item)
-        ? "Lançamento"
-        : isFeatured(item)
-          ? "Destaque"
-          : type;
+      const tag = isLaunch(item) ? "Lançamento"
+        : isFeatured(item) ? "Destaque" : type;
 
       const imageHTML = image
-        ? `<img
-             src="${escapeHTML(image)}"
+        ? `<img src="${escapeHTML(image)}"
              alt="${escapeHTML(title)}"
              loading="lazy"
-             onerror="this.style.display='none'"
-           >`
+             onerror="this.style.display='none'">`
         : `<div class="property-placeholder">Foto em breve</div>`;
 
       const details = propertyDetails(item);
@@ -1198,24 +1802,17 @@
             ${imageHTML}
             <span class="tag">${escapeHTML(tag)}</span>
           </div>
-
           <div class="property-body">
             <span class="property-type">${escapeHTML(type)}</span>
             <h3>${escapeHTML(title)}</h3>
             <p class="location">${escapeHTML(locationOf(item))}</p>
-
             ${details
               ? `<div class="property-features">${details}</div>`
               : ""}
-
             <p class="property-price">${money(item.preco)}</p>
-
-            <a
-              class="property-action"
+            <a class="property-action"
               href="${detailURL(item)}"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+              target="_blank" rel="noopener noreferrer">
               Consultar imóvel <span aria-hidden="true">→</span>
             </a>
           </div>
@@ -1226,8 +1823,6 @@
       statusMessage.textContent = message;
       statusMessage.hidden = !message;
     }
-
-    /* ORDENAÇÃO */
 
     function sortProperties(list) {
       const mode = document.getElementById("sort").value;
@@ -1255,8 +1850,6 @@
       return result;
     }
 
-    /* FILTROS DA PESQUISA */
-
     function filterProperties(list) {
       const location = text(
         document.getElementById("location").value
@@ -1268,49 +1861,34 @@
 
       const priceValue = document.getElementById("price").value;
       const maxPrice = priceValue ? Number(priceValue) : Infinity;
+      const launchOnly =
+        document.getElementById("launch").value === "sim";
 
       return list.filter(item => {
         const combinedLocation = [
-          item.cidade,
-          item.bairro,
-          item.endereco
-        ]
-          .map(text)
-          .join(" ")
-          .toLocaleLowerCase("pt-BR");
+          item.cidade, item.bairro, item.endereco
+        ].map(text).join(" ").toLocaleLowerCase("pt-BR");
 
         const matchesLocation =
           !location || combinedLocation.includes(location);
 
-        /*
-          Lançamentos são filtrados pelo campo lancamento da API.
-          Os demais tipos são filtrados pelo campo tipo.
-        */
-
-        const matchesType = !type
-          ? true
-          : type === "__lancamento__"
-            ? isLaunch(item)
-            : text(item.tipo).toLocaleLowerCase("pt-BR") === type;
+        const matchesType = !type ||
+          text(item.tipo).toLocaleLowerCase("pt-BR") === type;
 
         const itemPrice = Number(item.preco);
-
         const matchesPrice = maxPrice === Infinity ||
-          (
-            Number.isFinite(itemPrice) &&
-            itemPrice <= maxPrice
-          );
+          (Number.isFinite(itemPrice) && itemPrice <= maxPrice);
 
-        return matchesLocation && matchesType && matchesPrice;
+        const matchesLaunch = !launchOnly || isLaunch(item);
+
+        return matchesLocation && matchesType &&
+          matchesPrice && matchesLaunch;
       });
     }
-
-    /* EXIBIÇÃO DOS RESULTADOS */
 
     function render() {
       const published = properties.filter(item => {
         const status = text(item.status).toLocaleLowerCase("pt-BR");
-
         return !status || status === "publicado";
       });
 
@@ -1321,7 +1899,9 @@
       const featured = active.filter(isFeatured);
       const sorted = sortProperties(active);
 
-      featuredList.innerHTML = featured.map(propertyCard).join("");
+      featuredList.innerHTML =
+        featured.map(propertyCard).join("");
+
       allList.innerHTML = sorted.map(propertyCard).join("");
 
       featuredEmpty.hidden = featured.length > 0;
@@ -1331,14 +1911,10 @@
         ? "1 imóvel encontrado"
         : `${sorted.length} imóveis encontrados`;
 
-      setStatus(
-        hasSearched
-          ? "Resultados atualizados com os filtros selecionados."
-          : ""
-      );
+      setStatus(hasSearched
+        ? "Resultados atualizados com os filtros selecionados."
+        : "");
     }
-
-    /* CARREGAMENTO DA API ORIGINAL */
 
     async function loadProperties() {
       resultsCount.textContent = "Carregando imóveis...";
@@ -1365,13 +1941,11 @@
         }
 
         render();
-
       } catch (error) {
         console.error("Erro ao carregar imóveis:", error);
 
         featuredList.innerHTML = "";
         allList.innerHTML = "";
-
         featuredEmpty.hidden = false;
         allEmpty.hidden = false;
 
@@ -1385,17 +1959,15 @@
 
         resultsCount.textContent = "Catálogo indisponível";
 
-        setStatus("Os anúncios dependem da disponibilidade da API.");
+        setStatus(
+          "Os anúncios dependem da disponibilidade da API."
+        );
       }
     }
 
-    /* PESQUISAR E ORDENAR */
-
     document.getElementById("searchForm").addEventListener(
-      "submit",
-      event => {
+      "submit", event => {
         event.preventDefault();
-
         hasSearched = true;
         render();
 
@@ -1406,12 +1978,7 @@
       }
     );
 
-    document.getElementById("sort").addEventListener(
-      "change",
-      render
-    );
-
-    /* INICIAR */
+    document.getElementById("sort").addEventListener("change", render);
 
     loadProperties();
   </script>
