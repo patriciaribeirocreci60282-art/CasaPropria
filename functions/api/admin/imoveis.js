@@ -1,3 +1,4 @@
+
 import { requireAdmin } from "./auth.js";
 
 function json(data, status = 200) {
@@ -83,10 +84,22 @@ function readProperty(body) {
 
 function propertyValues(p) {
   return [
-    p.titulo, p.tipo, p.finalidade, p.descricao || null,
-    p.cidade || null, p.bairro || null, p.endereco || null,
-    p.preco, p.area_m2, p.quartos, p.banheiros, p.vagas,
-    p.foto_url || null, p.destaque, p.lancamento, p.status
+    p.titulo,
+    p.tipo,
+    p.finalidade,
+    p.descricao || null,
+    p.cidade || null,
+    p.bairro || null,
+    p.endereco || null,
+    p.preco,
+    p.area_m2,
+    p.quartos,
+    p.banheiros,
+    p.vagas,
+    p.foto_url || null,
+    p.destaque,
+    p.lancamento,
+    p.status
   ];
 }
 
@@ -94,6 +107,7 @@ async function authorized(request, env) {
   return requireAdmin(request, env);
 }
 
+// CONSULTAR IMÓVEIS
 export async function onRequestGet({ request, env }) {
   const auth = await authorized(request, env);
   if (!auth.ok) return auth.response;
@@ -103,7 +117,7 @@ export async function onRequestGet({ request, env }) {
     const idParam = url.searchParams.get("id");
     const busca = clean(url.searchParams.get("busca") || "", 150);
 
-    let query = `
+    const query = `
       SELECT id, titulo, tipo, finalidade, descricao, cidade,
              bairro, endereco, preco, area_m2, quartos, banheiros,
              vagas, foto_url, destaque, lancamento, status, data_cadastro
@@ -114,15 +128,21 @@ export async function onRequestGet({ request, env }) {
 
     if (idParam !== null) {
       const id = validId(idParam);
-      if (!id) return json({ error: "Código inválido." }, 400);
 
-      statement = env.DB.prepare(query + " WHERE id = ?").bind(id);
+      if (!id) {
+        return json({ error: "Código inválido." }, 400);
+      }
+
+      statement = env.DB.prepare(
+        query + " WHERE id = ?"
+      ).bind(id);
     } else if (busca) {
       const id = validId(busca);
 
       if (id) {
         statement = env.DB.prepare(
-          query + " WHERE id = ? OR titulo LIKE ? ORDER BY data_cadastro DESC"
+          query +
+          " WHERE id = ? OR titulo LIKE ? ORDER BY data_cadastro DESC"
         ).bind(id, `%${busca}%`);
       } else {
         statement = env.DB.prepare(
@@ -137,24 +157,40 @@ export async function onRequestGet({ request, env }) {
 
     if (idParam !== null) {
       const item = await statement.first();
-      if (!item) return json({ error: "Imóvel não encontrado." }, 404);
+
+      if (!item) {
+        return json({ error: "Imóvel não encontrado." }, 404);
+      }
+
       return json({ success: true, imovel: item });
     }
 
     const { results = [] } = await statement.all();
-    return json({ success: true, imoveis: results });
-  } catch {
-    return json({ error: "Erro ao consultar os imóveis." }, 500);
+
+    return json({
+      success: true,
+      imoveis: results
+    });
+  } catch (error) {
+    console.error("Erro ao consultar imóveis:", error);
+
+    return json({
+      error: "Erro ao consultar os imóveis."
+    }, 500);
   }
 }
 
+// CADASTRAR IMÓVEL
 export async function onRequestPost({ request, env }) {
   const auth = await authorized(request, env);
   if (!auth.ok) return auth.response;
 
   const contentType = request.headers.get("Content-Type") || "";
+
   if (!contentType.toLowerCase().includes("application/json")) {
-    return json({ error: "Envie os dados em formato JSON." }, 415);
+    return json({
+      error: "Envie os dados em formato JSON."
+    }, 415);
   }
 
   let body;
@@ -170,7 +206,9 @@ export async function onRequestPost({ request, env }) {
   try {
     p = readProperty(body);
   } catch (error) {
-    return json({ error: error.message || "Dados inválidos." }, 400);
+    return json({
+      error: error.message || "Dados inválidos."
+    }, 400);
   }
 
   try {
@@ -190,11 +228,16 @@ export async function onRequestPost({ request, env }) {
       id,
       codigo: id
     }, 201);
-  } catch {
-    return json({ error: "Não foi possível salvar o imóvel no banco D1." }, 500);
+  } catch (error) {
+    console.error("Erro ao cadastrar imóvel:", error);
+
+    return json({
+      error: "Não foi possível salvar o imóvel no banco D1."
+    }, 500);
   }
 }
 
+// EDITAR IMÓVEL
 export async function onRequestPut({ request, env }) {
   const auth = await authorized(request, env);
   if (!auth.ok) return auth.response;
@@ -208,14 +251,19 @@ export async function onRequestPut({ request, env }) {
   }
 
   const id = validId(body.id ?? body.codigo);
-  if (!id) return json({ error: "Informe o código do imóvel." }, 400);
+
+  if (!id) {
+    return json({ error: "Informe o código do imóvel." }, 400);
+  }
 
   let p;
 
   try {
     p = readProperty(body);
   } catch (error) {
-    return json({ error: error.message || "Dados inválidos." }, 400);
+    return json({
+      error: error.message || "Dados inválidos."
+    }, 400);
   }
 
   try {
@@ -229,7 +277,9 @@ export async function onRequestPut({ request, env }) {
     `).bind(...propertyValues(p), id).run();
 
     if (!result.meta?.changes) {
-      return json({ error: "Imóvel não encontrado ou sem alterações." }, 404);
+      return json({
+        error: "Imóvel não encontrado ou sem alterações."
+      }, 404);
     }
 
     return json({
@@ -238,36 +288,106 @@ export async function onRequestPut({ request, env }) {
       id,
       codigo: id
     });
-  } catch {
-    return json({ error: "Não foi possível atualizar o imóvel no banco D1." }, 500);
+  } catch (error) {
+    console.error("Erro ao atualizar imóvel:", error);
+
+    return json({
+      error: "Não foi possível atualizar o imóvel no banco D1."
+    }, 500);
   }
 }
 
+// EXCLUIR IMÓVEL, FOTOS DO R2 E REGISTROS NO D1
 export async function onRequestDelete({ request, env }) {
   const auth = await authorized(request, env);
   if (!auth.ok) return auth.response;
 
+  if (!env.FOTOS_BUCKET) {
+    return json({
+      error: "O vínculo FOTOS_BUCKET não está configurado."
+    }, 500);
+  }
+
   const url = new URL(request.url);
   const id = validId(url.searchParams.get("id"));
 
-  if (!id) return json({ error: "Informe um código válido na URL." }, 400);
+  if (!id) {
+    return json({
+      error: "Informe um código válido na URL."
+    }, 400);
+  }
 
   try {
+    // 1. Verifica se o imóvel existe.
+    const imovel = await env.DB.prepare(
+      "SELECT id FROM imoveis WHERE id = ?"
+    ).bind(id).first();
+
+    if (!imovel) {
+      return json({
+        error: "Imóvel não encontrado."
+      }, 404);
+    }
+
+    // 2. Busca todas as fotos vinculadas ao imóvel.
+    const { results: fotos = [] } = await env.DB.prepare(`
+      SELECT id, chave_r2
+      FROM fotos_imoveis
+      WHERE imovel_id = ?
+      ORDER BY id
+    `).bind(id).all();
+
+    // 3. Remove os arquivos do bucket R2.
+    for (const foto of fotos) {
+      if (!foto.chave_r2) {
+        throw new Error(
+          `A foto ${foto.id} não possui chave_r2 registrada.`
+        );
+      }
+
+      await env.FOTOS_BUCKET.delete(foto.chave_r2);
+
+      // Confirma se o arquivo ainda existe.
+      const restante = await env.FOTOS_BUCKET.head(foto.chave_r2);
+
+      if (restante) {
+        throw new Error(
+          `Não foi possível confirmar a exclusão da foto ${foto.id}.`
+        );
+      }
+    }
+
+    // 4. Exclui os registros das fotos no D1.
+    await env.DB.prepare(
+      "DELETE FROM fotos_imoveis WHERE imovel_id = ?"
+    ).bind(id).run();
+
+    // 5. Exclui o imóvel no D1.
     const result = await env.DB.prepare(
       "DELETE FROM imoveis WHERE id = ?"
     ).bind(id).run();
 
     if (!result.meta?.changes) {
-      return json({ error: "Imóvel não encontrado." }, 404);
+      return json({
+        error: "Não foi possível confirmar a exclusão do imóvel."
+      }, 500);
     }
 
     return json({
       success: true,
-      message: "Imóvel excluído com sucesso.",
+      message: "Imóvel e fotos excluídos com sucesso.",
       id,
-      codigo: id
+      fotos_excluidas: fotos.length
     });
-  } catch {
-    return json({ error: "Não foi possível excluir o imóvel do banco D1." }, 500);
+  } catch (error) {
+    console.error(
+      `Erro ao excluir imóvel ${id} e suas fotos:`,
+      error
+    );
+
+    return json({
+      error:
+        "Não foi possível excluir completamente o imóvel e suas fotos. Verifique a operação antes de tentar novamente."
+    }, 500);
   }
 }
