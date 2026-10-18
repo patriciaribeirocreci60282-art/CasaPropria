@@ -653,34 +653,12 @@
       font-size: 14px;
     }
 
-    /* PÁGINA COMPLETA DE DETALHES DO IMÓVEL */
+    /* PÁGINA COMPLETA DE DETALHES DO IMÓVEL (PROFISSIONAL E CENTRALIZADA) */
 
     .property-detail {
       width: 100%;
       max-width: 1180px;
       margin: 0 auto;
-    }
-
-    .property-detail .detail-header {
-      margin-bottom: 24px;
-    }
-
-    .property-detail .detail-header h1 {
-      margin: 8px 0;
-      font-size: clamp(28px, 4vw, 42px);
-      line-height: 1.2;
-    }
-
-    .property-detail .detail-location {
-      color: var(--muted);
-      font-size: 15px;
-    }
-
-    .property-detail .detail-price {
-      margin-top: 15px;
-      color: var(--orange-dark);
-      font-size: clamp(25px, 4vw, 34px);
-      font-weight: 700;
     }
 
     .detail-gallery {
@@ -690,55 +668,23 @@
     .detail-main-photo {
       position: relative;
       width: 100%;
-      height: clamp(300px, 55vw, 650px);
+      height: clamp(320px, 50vw, 550px);
       overflow: hidden;
       border-radius: 12px;
-      background: #E8E4DD;
+      background: #1a1a1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .detail-main-photo img {
       display: block;
-      width: 100%;
-      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
       object-fit: contain;
-      background: #242424;
-    }
-
-    .gallery-arrow {
-      position: absolute;
-      top: 50%;
-      z-index: 2;
-      display: flex;
-      width: 48px;
-      height: 48px;
-      align-items: center;
-      justify-content: center;
-      transform: translateY(-50%);
-      border: 1px solid rgba(255,255,255,.7);
-      border-radius: 50%;
-      background: rgba(0,0,0,.55);
-      color: white;
-      font-size: 30px;
-      line-height: 1;
-      cursor: pointer;
-    }
-
-    .gallery-arrow:hover {
-      background: var(--orange-dark);
-    }
-
-    .gallery-prev { left: 16px; }
-    .gallery-next { right: 16px; }
-
-    .gallery-counter {
-      position: absolute;
-      right: 15px;
-      bottom: 15px;
-      padding: 7px 12px;
-      border-radius: 5px;
-      background: rgba(0,0,0,.7);
-      color: white;
-      font-size: 13px;
+      margin: auto;
     }
 
     .detail-thumbnails {
@@ -747,11 +693,12 @@
       margin-top: 12px;
       padding: 4px 2px 10px;
       overflow-x: auto;
+      justify-content: center;
     }
 
     .detail-thumbnail {
-      flex: 0 0 105px;
-      height: 78px;
+      flex: 0 0 95px;
+      height: 70px;
       padding: 0;
       overflow: hidden;
       border: 2px solid transparent;
@@ -784,100 +731,85 @@
       border: 1px solid var(--line);
       border-radius: 10px;
       background: white;
+      box-shadow: 0 4px 20px rgba(0,0,0,.03);
     }
 
     .detail-section h2 {
-      margin: 0 0 20px;
-      font-size: 22px;
+      margin: 0 0 16px;
+      font-size: 20px;
       line-height: 1.35;
+      color: var(--ink);
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 10px;
     }
 
     .detail-description {
       color: var(--muted);
       line-height: 1.9;
-      overflow-wrap: anywhere;
-    }
-
-    .detail-features {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .detail-feature {
-      padding: 14px;
-      border-radius: 7px;
-      background: var(--cream);
-    }
-
-    .detail-feature span {
-      display: block;
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .detail-feature strong {
-      display: block;
-      margin-top: 4px;
       font-size: 15px;
       overflow-wrap: anywhere;
     }
 
-    .detail-contact {
+    .detail-features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .detail-feature-card {
+      padding: 14px 16px;
+      border-radius: 8px;
+      background: var(--cream);
+      border: 1px solid var(--line);
+    }
+
+    .detail-feature-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: .5px;
+    }
+
+    .detail-feature-card strong {
+      display: block;
+      margin-top: 4px;
+      font-size: 16px;
+      color: var(--ink);
+      overflow-wrap: anywhere;
+    }
+
+    .detail-contact-card {
       position: sticky;
       top: 20px;
+      padding: 25px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: white;
+      box-shadow: 0 8px 30px rgba(0,0,0,.06);
     }
 
-    .detail-contact .detail-price {
-      margin-top: 0;
-      margin-bottom: 20px;
-    }
-
-    .detail-contact .btn {
-      width: 100%;
-      text-align: center;
-    }
-
-    .detail-contact p {
-      color: var(--muted);
-      font-size: 13px;
+    .detail-price-tag {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--orange-dark);
+      margin-bottom: 15px;
     }
 
     @media (max-width: 760px) {
       .detail-layout {
         grid-template-columns: 1fr;
       }
-
       .detail-main-photo {
-        height: 340px;
-        border-radius: 8px;
+        height: 280px;
       }
-
-      .gallery-arrow {
-        width: 40px;
-        height: 40px;
-        font-size: 25px;
-      }
-
-      .gallery-prev { left: 9px; }
-      .gallery-next { right: 9px; }
-
-      .detail-section {
-        padding: 19px;
-      }
-
-      .detail-contact {
-        position: static;
-      }
-    }
-
-    @media (max-width: 380px) {
-      .detail-main-photo {
-        height: 270px;
-      }
-
-      .detail-features {
+      .detail-features-grid {
         grid-template-columns: 1fr;
+      }
+      .detail-contact-card {
+        position: static;
       }
     }
 
@@ -1198,14 +1130,14 @@
       </section>
     </div>
 
-    <!-- PÁGINA DE DETALHES DO IMÓVEL -->
+    <!-- PÁGINA DE DETALHES DO IMÓVEL (LAYOUT PROFISSIONAL) -->
     <section class="internal-page" id="pageDetalhes" hidden>
       <div class="container">
         <a href="#comprar" class="back-link" data-page="comprar">
           ← Voltar para os imóveis
         </a>
 
-        <div id="propertyDetailsContent"></div>
+        <div class="property-detail" id="propertyDetailsContent"></div>
       </div>
     </section>
 
@@ -1684,40 +1616,103 @@
         )
       ].filter(Boolean);
 
+      const tituloImovel = escapeHTML(item.titulo || "Imóvel em destaque");
+      const tipoImovel = escapeHTML(item.tipo || "Imóvel");
+      const cidadeImovel = escapeHTML(item.cidade || "Não informada");
+      const bairroImovel = escapeHTML(item.bairro || "Não informado");
+      const enderecoImovel = escapeHTML(item.endereco || "Não informado");
+      const precoImovel = money(item.preco);
+      const descricaoImovel = escapeHTML(item.descricao || "Descrição não informada pelo proprietário.").replace(/\n/g, "<br>");
+
+      const quartosVal = Number(item.quartos) > 0 ? `${item.quartos} quarto(s)` : "—";
+      const banheirosVal = Number(item.banheiros) > 0 ? `${item.banheiros} banheiro(s)` : "—";
+      const vagasVal = Number(item.vagas) > 0 ? `${item.vagas} vaga(s)` : "—";
+      const areaVal = Number(item.area_m2) > 0 ? `${item.area_m2} m²` : "—";
+
       content.innerHTML = `
-        <div class="internal-heading">
-          <span class="section-kicker">${escapeHTML(item.tipo || "Imóvel")}</span>
-          <h1>${escapeHTML(item.titulo || "Detalhes do imóvel")}</h1>
+        <div class="internal-heading" style="margin-bottom: 20px;">
+          <span class="section-kicker">${tipoImovel}</span>
+          <h1>${tituloImovel}</h1>
           <p>${escapeHTML(locationOf(item))}</p>
         </div>
 
-        <div class="property-grid">
-          ${fotos.length
-            ? fotos.map(foto => `
-                <div class="property-image">
-                  <img src="${escapeHTML(foto)}"
-                       alt="${escapeHTML(item.titulo || "Foto do imóvel")}"
-                       loading="lazy">
-                </div>
-              `).join("")
-            : '<p>Este imóvel ainda não possui fotos disponíveis.</p>'}
+        <div class="detail-gallery">
+          <div class="detail-main-photo" id="mainPhotoContainer">
+            ${fotos.length
+              ? `<img id="activeGalleryImage" src="${escapeHTML(fotos[0])}" alt="${tituloImovel}">`
+              : `<div class="property-placeholder" style="color: #aaa;">Sem imagem disponível</div>`
+            }
+          </div>
+          ${fotos.length > 1 ? `
+            <div class="detail-thumbnails">
+              ${fotos.map((foto, index) => `
+                <button class="detail-thumbnail ${index === 0 ? 'active' : ''}" onclick="changeMainPhoto('${escapeHTML(foto)}', this)">
+                  <img src="${escapeHTML(foto)}" alt="Miniatura ${index + 1}">
+                </button>
+              `).join("")}
+            </div>
+          ` : ''}
         </div>
 
-        <div class="form-card" style="margin-top:30px">
-          <h2>Descrição do imóvel</h2>
-          <p>${escapeHTML(item.descricao || "Descrição não informada.")
-            .replace(/\n/g, "<br>")}</p>
+        <div class="detail-layout">
+          <div>
+            <div class="detail-section">
+              <h2>Sobre o Imóvel</h2>
+              <div class="detail-description">${descricaoImovel}</div>
+            </div>
 
-          <p><strong>Valor:</strong> ${money(item.preco)}</p>
+            <div class="detail-section">
+              <h2>Características Principais</h2>
+              <div class="detail-features-grid">
+                <div class="detail-feature-card">
+                  <span>Quartos</span>
+                  <strong>${quartosVal}</strong>
+                </div>
+                <div class="detail-feature-card">
+                  <span>Banheiros</span>
+                  <strong>${banheirosVal}</strong>
+                </div>
+                <div class="detail-feature-card">
+                  <span>Vagas de Garagem</span>
+                  <strong>${vagasVal}</strong>
+                </div>
+                <div class="detail-feature-card">
+                  <span>Área Útil</span>
+                  <strong>${areaVal}</strong>
+                </div>
+              </div>
+            </div>
 
-          <div class="property-features">
-            ${propertyDetails(item)}
+            <div class="detail-section">
+              <h2>Localização e Endereço</h2>
+              <div class="detail-features-grid">
+                <div class="detail-feature-card">
+                  <span>Cidade</span>
+                  <strong>${cidadeImovel}</strong>
+                </div>
+                <div class="detail-feature-card">
+                  <span>Bairro</span>
+                  <strong>${bairroImovel}</strong>
+                </div>
+                <div class="detail-feature-card full" style="grid-column: 1 / -1;">
+                  <span>Endereço / Referência</span>
+                  <strong>${enderecoImovel}</strong>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <a class="btn btn-block" href="${detailURL(item)}"
-             target="_blank" rel="noopener noreferrer">
-            Consultar pelo WhatsApp
-          </a>
+          <div>
+            <div class="detail-contact-card">
+              <div class="detail-price-tag">${precoImovel}</div>
+              <p style="color: var(--muted); font-size: 14px; margin-bottom: 20px;">
+                Interessado neste imóvel? Fale diretamente com a corretora Patricia Ribeiro para tirar dúvidas ou agendar uma visita.
+              </p>
+              <a class="btn btn-block" href="${detailURL(item)}" target="_blank" rel="noopener noreferrer">
+                Consultar pelo WhatsApp
+              </a>
+            </div>
+          </div>
         </div>
       `;
 
@@ -1728,6 +1723,19 @@
         "",
         "#imovel-" + encodeURIComponent(String(item.id))
       );
+    }
+
+    function changeMainPhoto(src, buttonElement) {
+      const activeImg = document.getElementById("activeGalleryImage");
+      if (activeImg) {
+        activeImg.src = src;
+      }
+      document.querySelectorAll(".detail-thumbnail").forEach(thumb => {
+        thumb.classList.remove("active");
+      });
+      if (buttonElement) {
+        buttonElement.classList.add("active");
+      }
     }
 
     function propertyCard(item) {
