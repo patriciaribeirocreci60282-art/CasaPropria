@@ -19,7 +19,6 @@ function json(data, status = 200) {
   });
 }
 
-async function authorize(request, env) {
   try {
     const auth = await requireAdmin(request, env);
     return auth.ok ? null : auth.response;
@@ -103,7 +102,6 @@ async function saveToR2(file, imovelId = null) {
 
 // Usa o binding R2 do ambiente.
 // O binding FOTOS_BUCKET precisa estar configurado no Cloudflare.
-async function envPut(file, key) {
   // A referência ao bucket é definida dentro dos handlers.
   throw new Error("Bucket não inicializado.");
 }
