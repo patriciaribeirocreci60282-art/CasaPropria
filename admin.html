@@ -279,9 +279,43 @@ footer {
 
   <section id="adminSection" hidden>
     <div style="margin-bottom:22px">
-      <h1>Gerenciar imóveis</h1>
-      <p>Cadastre, aprove, edite, publique e exclua seus anúncios.</p>
+      <h1>Painel de Controle</h1>
+      <p>Gerencie anúncios, modere propostas e configure os parâmetros de custos da região.</p>
     </div>
+
+    <!-- SEÇÃO DE CONFIGURAÇÃO DE CUSTOS POR M² (SECRETA / PROTEGIDA) -->
+    <section class="panel" style="border-left: 4px solid var(--dark);">
+      <div class="toolbar">
+        <div>
+          <h2 style="margin-bottom:4px; color: var(--dark);">Configuração de Custos por m² (Interno)</h2>
+          <p style="margin:0">Defina os valores de referência por metro quadrado para o simulador do site.</p>
+        </div>
+      </div>
+      <form id="costConfigForm" style="margin-top: 15px;">
+        <div class="field-grid">
+          <div class="field">
+            <label for="costCriciuma">Criciúma (R$ / m²)</label>
+            <input id="costCriciuma" type="number" step="0.01" value="2450" required>
+          </div>
+          <div class="field">
+            <label for="costIcara">Içara (R$ / m²)</label>
+            <input id="costIcara" type="number" step="0.01" value="2300" required>
+          </div>
+          <div class="field">
+            <label for="costArarangua">Araranguá (R$ / m²)</label>
+            <input id="costArarangua" type="number" step="0.01" value="2200" required>
+          </div>
+          <div class="field">
+            <label for="costTubarao">Tubarão (R$ / m²)</label>
+            <input id="costTubarao" type="number" step="0.01" value="2500" required>
+          </div>
+        </div>
+        <div style="margin-top: 15px;">
+          <button class="btn btn-secondary" type="submit" id="saveCostsBtn">Salvar Custos Regionais</button>
+        </div>
+        <div id="costMessage" class="message" role="status" aria-live="polite" hidden></div>
+      </form>
+    </section>
 
     <!-- SEÇÃO DE IMÓVEIS PENDENTES DE APROVAÇÃO -->
     <section class="panel" id="pendingPanel" style="border-left: 4px solid var(--orange);">
@@ -513,6 +547,7 @@ function showAdmin() {
   $("loginSection").hidden = true;
   $("adminSection").hidden = false;
   $("logoutButton").hidden = false;
+  loadSavedCosts();
 }
 
 function showLogin() {
@@ -546,8 +581,33 @@ function displayCode(item) {
     : `Código ${item.id}`;
 }
 
+// SALVAR E CARREGAR CUSTOS REGIONAIS NO LOCALSTORAGE (OU API)
+function loadSavedCosts() {
+  const saved = localStorage.getItem("casa_propria_costs");
+  if (saved) {
+    try {
+      const data = JSON.parse(saved);
+      if (data.criciuma) $("costCriciuma").value = data.criciuma;
+      if (data.icara) $("costIcara").value = data.icara;
+      if (data.ararangua) $("costArarangua").value = data.ararangua;
+      if (data.tubarao) $("costTubarao").value = data.tubarao;
+    } catch (e) {}
+  }
+}
+
+$("costConfigForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const costs = {
+    criciuma: $("costCriciuma").value,
+    icara: $("costIcara").value,
+    ararangua: $("costArarangua").value,
+    tubarao: $("costTubarao").value
+  };
+  localStorage.setItem("casa_propria_costs", JSON.stringify(costs));
+  showMessage("costMessage", "Custos regionais por m² atualizados com sucesso!", "success");
+});
+
 function renderProperties(items) {
-  // 1. SEPARAÇÃO E RENDERIZAÇÃO DOS IMÓVEIS PENDENTES
   const pendingItems = items.filter(i => safeText(i.status).toLowerCase() === "pendente");
   const pendingList = $("pendingList");
   const emptyPending = $("emptyPending");
@@ -609,13 +669,10 @@ function renderProperties(items) {
     }
   }
 
-  // 2. LISTAGEM GERAL DE IMÓVEIS (DEMAIS)
   const list = $("propertyList");
   list.replaceChildren();
 
-  const query = $("filterProperties").value
-    .trim()
-    .toLocaleLowerCase("pt-BR");
+  const query = $("filterProperties").value.trim().toLocaleLowerCase("pt-BR");
 
   const filtered = items.filter(item => {
     const searchable = [
@@ -690,7 +747,7 @@ function renderProperties(items) {
 async function loadProperties() {
   $("refreshButton").disabled = true;
   $("propertyCount").textContent = "Carregando...";
-  лект: showMessage("listMessage", "");
+  showMessage("listMessage", "");
 
   try {
     const data = await apiRequest(API.properties);
@@ -709,16 +766,11 @@ async function loadProperties() {
 
 async function approveProperty(item) {
   try {
-    const payload = {
-      ...item,
-      status: "Publicado"
-    };
-
+    const payload = { ...item, status: "Publicado" };
     await apiRequest(`${API.properties}?id=${encodeURIComponent(item.id)}`, {
       method: "PUT",
       body: JSON.stringify(payload)
     });
-
     showMessage("listMessage", `Imóvel ${displayCode(item)} aprovado e publicado com sucesso!`, "success");
     await loadProperties();
   } catch (error) {
@@ -731,7 +783,6 @@ function setPhotoPreview(url) {
     URL.revokeObjectURL(previewObjectUrl);
     previewObjectUrl = null;
   }
-
   if (url) {
     $("fotoPreviewImg").src = url;
     $("fotoPreview").hidden = false;
@@ -747,24 +798,20 @@ $("fotoArquivo").addEventListener("change", () => {
     setPhotoPreview($("foto_url").value.trim());
     return;
   }
-
   if (!["image/png", "image/jpeg"].includes(file.type)) {
     $("fotoArquivo").value = "";
     setPhotoPreview($("foto_url").value.trim());
     showMessage("formMessage", "Escolha uma imagem PNG ou JPG/JPEG.", "error");
     return;
   }
-
   if (file.size > 10 * 1024 * 1024) {
     $("fotoArquivo").value = "";
     setPhotoPreview($("foto_url").value.trim());
     showMessage("formMessage", "A imagem deve ter no máximo 10 MB.", "error");
     return;
   }
-
   showMessage("formMessage", "");
   setPhotoPreview("");
-
   previewObjectUrl = URL.createObjectURL(file);
   $("fotoPreviewImg").src = previewObjectUrl;
   $("fotoPreview").hidden = false;
@@ -796,13 +843,9 @@ function startEdit(item) {
 
   $("fotoArquivo").value = "";
   setPhotoPreview(item.foto_url || "");
-
   showMessage("formMessage", `Editando ${displayCode(item)}. Faça as alterações e salve.`, "success");
 
-  $("editorPanel").scrollIntoView({
-    behavior: "smooth",
-    block: "start"
-  });
+  $("editorPanel").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function resetEditor() {
@@ -821,17 +864,14 @@ async function deleteProperty(item) {
     showMessage("listMessage", "Este imóvel não possui código e não pode ser excluído.", "error");
     return;
   }
-
   const confirmed = confirm(`Deseja realmente excluir ${displayCode(item)} — ${safeText(item.titulo)}?\n\nEssa ação não pode ser desfeita.`);
   if (!confirmed) return;
 
   try {
     await apiRequest(`${API.properties}?id=${encodeURIComponent(item.id)}`, { method: "DELETE" });
-
     if ($("editingId").value === String(item.id)) {
       resetEditor();
     }
-
     showMessage("listMessage", `${displayCode(item)} excluído com sucesso.`, "success");
     await loadProperties();
   } catch (error) {
@@ -861,11 +901,9 @@ async function uploadPhoto(file) {
   if (!response.ok) {
     throw new Error(data.error || `Falha no envio da foto (HTTP ${response.status}).`);
   }
-
   if (!data.url || typeof data.url !== "string") {
     throw new Error("O servidor recebeu uma resposta sem a URL da foto.");
   }
-
   return data.url;
 }
 
@@ -931,66 +969,4 @@ $("propertyForm").addEventListener("submit", async event => {
     resetEditor();
     showMessage("formMessage", message, "success");
     await loadProperties();
-  } catch (error) {
-    showMessage("formMessage", error.message, "error");
-  } finally {
-    button.disabled = false;
-    button.textContent = $("editingId").value ? "Salvar alterações" : "Cadastrar imóvel";
   }
-});
-
-$("clearButton").addEventListener("click", resetEditor);
-$("cancelEditButton").addEventListener("click", resetEditor);
-$("refreshButton").addEventListener("click", loadProperties);
-
-$("filterProperties").addEventListener("input", () => {
-  renderProperties(properties);
-});
-
-$("loginForm").addEventListener("submit", async event => {
-  event.preventDefault();
-  const button = $("loginButton");
-  button.disabled = true;
-  button.textContent = "Verificando...";
-  showMessage("loginMessage", "");
-
-  try {
-    await apiRequest(API.login, {
-      method: "POST",
-      body: JSON.stringify({ password: $("password").value })
-    });
-
-    $("password").value = "";
-    showAdmin();
-    await loadProperties();
-  } catch (error) {
-    showMessage("loginMessage", error.message, "error");
-  } finally {
-    button.disabled = false;
-    button.textContent = "Entrar no painel";
-  }
-});
-
-$("logoutButton").addEventListener("click", async () => {
-  try {
-    await apiRequest(API.logout, { method: "POST" });
-  } catch (error) {
-    showMessage("listMessage", error.message, "error");
-  }
-  showLogin();
-});
-
-async function checkSession() {
-  try {
-    await apiRequest(API.session);
-    showAdmin();
-    await loadProperties();
-  } catch {
-    showLogin();
-  }
-}
-
-checkSession();
-</script>
-</body>
-</html>
