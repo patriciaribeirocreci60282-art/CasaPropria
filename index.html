@@ -1319,7 +1319,7 @@
               <label>Fotos do imóvel (Até 5 fotos)</label>
               <div class="file-upload-box">
                 <span class="file-upload-icon">📷</span>
-                <strong style="display:block; font-size:14px;">Clique para selecionar das fotos</strong>
+                <strong style="display:block; font-size:14px;">Clique para selecionar as fotos</strong>
                 <span style="font-size:12px; color:var(--muted);" id="fileUploadStatus">Formatos JPG ou PNG (máx. 5 fotos)</span>
                 <input id="sellPhotos" name="fotos" type="file" accept="image/*" multiple>
               </div>
@@ -1466,24 +1466,31 @@
       return [item.bairro, item.cidade].map(text).filter(Boolean).join(", ") || text(item.endereco) || "Consulte a localização";
     }
 
-    // NORMALIZAÇÃO E RESOLUÇÃO COMPLETA DA URL DO R2
-    function normalizePhotoUrl(url) {
-      const clean = text(url);
+    // NORMALIZAÇÃO DE URL CORRIGIDA PARA CAMINHOS COMO imoveis/pendentes/...
+    function normalizePhotoUrl(rawUrl) {
+      let clean = text(rawUrl);
       if (!clean) return "";
+
+      // Se já for uma URL completa
       if (clean.startsWith("http://") || clean.startsWith("https://")) {
         return clean;
       }
-      // Se vier com barra inicial ou caminho relativo, junta com o domínio R2
-      const path = clean.startsWith("/") ? clean : "/" + clean;
-      return R2_DOMAIN + path;
+
+      // Remove barras iniciais extras para padronizar
+      clean = clean.replace(/^\/+/, "");
+
+      // Monta o link absoluto concatenando com o domínio do R2
+      return R2_DOMAIN + "/" + clean;
     }
 
     function getPrimaryPhoto(item) {
       if (!item) return "";
 
+      // 1. Tenta pegar a URL direta
       const direct = text(item.foto_url) || text(item.fotoUrl) || text(item.foto);
       if (direct) return normalizePhotoUrl(direct);
 
+      // 2. Tenta pegar dentro de um array de fotos
       if (Array.isArray(item.fotos) && item.fotos.length > 0) {
         const first = item.fotos[0];
         if (typeof first === "string" && text(first)) return normalizePhotoUrl(first);
@@ -1492,14 +1499,21 @@
         }
       }
 
-      if (typeof item.fotos === "string" && item.fotos.trim().startsWith("[")) {
-        try {
-          const parsed = JSON.parse(item.fotos);
-          if (Array.isArray(parsed) && parsed.length > 0) {
-            const val = typeof parsed[0] === "string" ? parsed[0] : (parsed[0].url || parsed[0].foto_url || "");
-            return normalizePhotoUrl(val);
-          }
-        } catch (e) {}
+      // 3. Tenta parsear caso venha como JSON string ex: "['imoveis/...']"
+      if (typeof item.fotos === "string" && item.fotos.trim().length > 0) {
+        const rawString = item.fotos.trim();
+        if (rawString.startsWith("[") || rawString.startsWith("{")) {
+          try {
+            const parsed = JSON.parse(rawString);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+              const val = typeof parsed[0] === "string" ? parsed[0] : (parsed[0].url || parsed[0].foto_url || "");
+              return normalizePhotoUrl(val);
+            }
+          } catch (e) {}
+        } else {
+          // Caso 'fotos' venha direto como uma string do caminho da foto
+          return normalizePhotoUrl(rawString);
+        }
       }
 
       return "";
