@@ -18,6 +18,7 @@
   --cream: #F7F5F1;
   --green: #247547;
   --red: #B42318;
+  --blue: #1D63B8;
 }
 * { box-sizing: border-box; }
 body {
@@ -29,6 +30,7 @@ body {
 button, input, select, textarea { font: inherit; }
 button { cursor: pointer; }
 [hidden] { display: none !important; }
+
 header {
   background: white;
   border-bottom: 1px solid var(--line);
@@ -49,6 +51,7 @@ header {
   text-decoration: none;
 }
 .brand span { color: var(--dark); }
+
 main {
   width: min(1200px, calc(100% - 32px));
   margin: 30px auto 55px;
@@ -56,6 +59,7 @@ main {
 h1 { font-size: clamp(25px, 4vw, 34px); margin: 0 0 8px; }
 h2 { font-size: 21px; margin: 0 0 18px; }
 p { color: var(--muted); }
+
 .panel {
   padding: 24px;
   margin-bottom: 22px;
@@ -65,6 +69,7 @@ p { color: var(--muted); }
   box-shadow: 0 5px 20px rgba(0,0,0,0.03);
 }
 .login-wrap { max-width: 440px; margin: 50px auto; }
+
 .field-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -93,6 +98,7 @@ input:focus, select:focus, textarea:focus {
   outline: 2px solid rgba(232,98,42,0.2);
   border-color: var(--orange);
 }
+
 .btn {
   display: inline-flex;
   justify-content: center;
@@ -115,8 +121,11 @@ input:focus, select:focus, textarea:focus {
   border: 1px solid var(--line);
 }
 .btn-secondary:hover { background: var(--cream); }
+.btn-success { background: var(--green); }
+.btn-success:hover { background: #1B5835; }
 .btn-danger { background: var(--red); }
 .btn-danger:hover { background: #8E1B13; }
+
 .top-actions, .actions {
   display: flex;
   gap: 8px;
@@ -131,6 +140,7 @@ input:focus, select:focus, textarea:focus {
 }
 .message.error { background: #FDECEC; color: var(--red); }
 .message.success { background: #E9F6ED; color: var(--green); }
+
 .check-row {
   display: flex;
   gap: 20px;
@@ -150,6 +160,7 @@ input:focus, select:focus, textarea:focus {
   height: 18px;
   accent-color: var(--orange);
 }
+
 .help {
   display: block;
   color: var(--muted);
@@ -165,6 +176,37 @@ input:focus, select:focus, textarea:focus {
   border: 1px solid var(--line);
   border-radius: 6px;
 }
+
+.filter-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+.tab-btn {
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: white;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.tab-btn.active {
+  background: var(--ink);
+  color: white;
+  border-color: var(--ink);
+}
+.tab-badge {
+  display: inline-block;
+  padding: 2px 7px;
+  margin-left: 6px;
+  border-radius: 10px;
+  background: var(--orange);
+  color: white;
+  font-size: 11px;
+}
+
 .toolbar {
   display: flex;
   align-items: center;
@@ -175,9 +217,9 @@ input:focus, select:focus, textarea:focus {
 }
 .property-list { display: grid; gap: 12px; }
 .property {
-  padding: 15px;
+  padding: 16px;
   border: 1px solid var(--line);
-  border-radius: 7px;
+  border-radius: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -213,6 +255,18 @@ input:focus, select:focus, textarea:focus {
 }
 .status.draft { background: #FFF0D9; color: #875400; }
 .status.pending { background: #E6F4EA; color: #137333; }
+.status.sold { background: #E8F0FE; color: var(--blue); }
+
+.private-note {
+  margin-top: 6px;
+  padding: 8px 10px;
+  background: #F7F5F1;
+  border-left: 3px solid var(--dark);
+  font-size: 12px;
+  color: var(--ink);
+  border-radius: 0 4px 4px 0;
+}
+
 .property-actions {
   display: flex;
   gap: 7px;
@@ -231,6 +285,7 @@ input:focus, select:focus, textarea:focus {
   border-radius: 7px;
   color: var(--muted);
 }
+
 footer {
   padding: 24px 16px;
   border-top: 1px solid var(--line);
@@ -238,6 +293,7 @@ footer {
   color: var(--muted);
   font-size: 12px;
 }
+
 @media(max-width: 680px) {
   main { margin-top: 20px; }
   .panel { padding: 17px; }
@@ -257,7 +313,7 @@ footer {
   <div class="header-inner">
     <a class="brand" href="index.html">Casa<span>Própria</span></a>
     <div class="top-actions">
-      <a class="btn btn-secondary" href="index.html">Ver site</a>
+      <a class="btn btn-secondary" href="index.html" target="_blank">Ver site</a>
       <button class="btn btn-secondary" id="logoutButton" type="button" hidden>Sair</button>
     </div>
   </div>
@@ -279,56 +335,23 @@ footer {
 
   <section id="adminSection" hidden>
     <div style="margin-bottom:22px">
-      <h1>Painel de Controle</h1>
-      <p>Gerencie anúncios, modere propostas e configure os parâmetros de custos da região.</p>
+      <h1>Painel de Gestão e Moderação</h1>
+      <p>Gerencie seus imóveis, modere propostas recebidas do site e controle suas vendas.</p>
     </div>
 
-    <!-- SEÇÃO DE CONFIGURAÇÃO DE CUSTOS POR M² (SECRETA / PROTEGIDA) -->
-    <section class="panel" style="border-left: 4px solid var(--dark);">
-      <div class="toolbar">
-        <div>
-          <h2 style="margin-bottom:4px; color: var(--dark);">Configuração de Custos por m² (Interno)</h2>
-          <p style="margin:0">Defina os valores de referência por metro quadrado para o simulador do site.</p>
-        </div>
-      </div>
-      <form id="costConfigForm" style="margin-top: 15px;">
-        <div class="field-grid">
-          <div class="field">
-            <label for="costCriciuma">Criciúma (R$ / m²)</label>
-            <input id="costCriciuma" type="number" step="0.01" value="2450" required>
-          </div>
-          <div class="field">
-            <label for="costIcara">Içara (R$ / m²)</label>
-            <input id="costIcara" type="number" step="0.01" value="2300" required>
-          </div>
-          <div class="field">
-            <label for="costArarangua">Araranguá (R$ / m²)</label>
-            <input id="costArarangua" type="number" step="0.01" value="2200" required>
-          </div>
-          <div class="field">
-            <label for="costTubarao">Tubarão (R$ / m²)</label>
-            <input id="costTubarao" type="number" step="0.01" value="2500" required>
-          </div>
-        </div>
-        <div style="margin-top: 15px;">
-          <button class="btn btn-secondary" type="submit" id="saveCostsBtn">Salvar Custos Regionais</button>
-        </div>
-        <div id="costMessage" class="message" role="status" aria-live="polite" hidden></div>
-      </form>
-    </section>
-
-    <!-- SEÇÃO DE IMÓVEIS PENDENTES DE APROVAÇÃO -->
+    <!-- SEÇÃO DE MODERAÇÃO DE PROPOSTAS PENDENTES -->
     <section class="panel" id="pendingPanel" style="border-left: 4px solid var(--orange);">
       <div class="toolbar">
         <div>
-          <h2 style="margin-bottom:4px; color: var(--dark);">Imóveis Pendentes de Aprovação</h2>
-          <p style="margin:0">Propostas enviadas por proprietários aguardando liberação para o site.</p>
+          <h2 style="margin-bottom:4px; color: var(--dark);">Propostas Pendentes de Aprovação</h2>
+          <p style="margin:0">Imóveis cadastrados por clientes através do formulário "Vender meu Imóvel".</p>
         </div>
       </div>
       <div id="pendingList" class="property-list" style="margin-top: 15px;"></div>
-      <div id="emptyPending" class="empty" style="margin-top: 10px;">Nenhum imóvel pendente no momento.</div>
+      <div id="emptyPending" class="empty" style="margin-top: 10px;">Nenhuma proposta pendente no momento.</div>
     </section>
 
+    <!-- FORMULÁRIO DE CADASTRO E EDIÇÃO -->
     <section class="panel" id="editorPanel">
       <h2 id="formTitle">Cadastrar novo imóvel</h2>
       <p id="editNotice" hidden>
@@ -342,7 +365,7 @@ footer {
           <div class="field">
             <label for="titulo">Título do imóvel *</label>
             <input id="titulo" required maxlength="150"
-              placeholder="Ex.: Casa com 3 quartos">
+              placeholder="Ex.: Casa com 3 quartos em Criciúma">
           </div>
 
           <div class="field">
@@ -354,42 +377,43 @@ footer {
               <option value="Terreno">Terreno</option>
               <option value="Empreendimento">Empreendimento</option>
               <option value="Comercial">Comercial</option>
+              <option value="Outro">Outro</option>
             </select>
           </div>
 
           <div class="field">
             <label for="finalidade">Finalidade</label>
             <select id="finalidade">
-              <option value="Venda">Comprar / Venda</option>
+              <option value="Venda">Venda</option>
               <option value="Lançamento">Lançamento</option>
               <option value="Aluguel">Aluguel</option>
             </select>
           </div>
 
           <div class="field">
-            <label for="preco">Preço em reais</label>
+            <label for="preco">Preço de anúncio (R$)</label>
             <input id="preco" type="number" min="0" step="0.01"
               placeholder="Ex.: 350000">
           </div>
 
           <div class="field">
-            <label for="cidade">Cidade</label>
-            <input id="cidade" maxlength="100" placeholder="Ex.: Criciúma">
+            <label for="cidade">Cidade *</label>
+            <input id="cidade" required maxlength="100" placeholder="Ex.: Criciúma, Içara, Nova Veneza...">
           </div>
 
           <div class="field">
             <label for="bairro">Bairro</label>
-            <input id="bairro" maxlength="100">
+            <input id="bairro" maxlength="100" placeholder="Ex.: Centro, Próspera...">
           </div>
 
           <div class="field full">
-            <label for="endereco">Endereço (opcional)</label>
-            <input id="endereco" maxlength="250">
+            <label for="endereco">Endereço completo (opcional)</label>
+            <input id="endereco" maxlength="250" placeholder="Ex.: Rua, número, complemento">
           </div>
 
           <div class="field">
-            <label for="area_m2">Área em m²</label>
-            <input id="area_m2" type="number" min="0" step="0.01">
+            <label for="area_m2">Área privativa (m²)</label>
+            <input id="area_m2" type="number" min="0" step="0.01" placeholder="Ex.: 95">
           </div>
 
           <div class="field">
@@ -408,62 +432,67 @@ footer {
           </div>
 
           <div class="field full">
-            <label for="fotoArquivo">Enviar foto do imóvel (PNG, JPG ou JPEG)</label>
+            <label for="fotoArquivo">Enviar foto principal (PNG, JPG ou JPEG)</label>
             <input id="fotoArquivo" type="file" accept="image/png,image/jpeg">
             <small class="help">
-              Arquivos de até 10 MB. A imagem será enviada para o servidor e armazenada no R2.
+              Limite de 10 MB. A foto será armazenada no seu bucket R2 da Cloudflare.
             </small>
             <div id="fotoPreview" class="preview" hidden>
-              <img id="fotoPreviewImg" alt="Pré-visualização da foto do imóvel">
+              <img id="fotoPreviewImg" alt="Pré-visualização da foto">
             </div>
           </div>
 
           <div class="field full">
-            <label for="foto_url">Ou endereço da foto (URL)</label>
+            <label for="foto_url">Ou insira a URL da foto</label>
             <input id="foto_url" type="url" maxlength="2000"
               placeholder="https://...">
-            <small class="help">
-              Ao selecionar um arquivo, ele terá prioridade sobre a URL.
-            </small>
           </div>
 
           <div class="field full">
-            <label for="descricao">Descrição do imóvel</label>
+            <label for="descricao">Descrição pública do imóvel (Aparece no site)</label>
             <textarea id="descricao" maxlength="5000"
-              placeholder="Descreva os detalhes do imóvel"></textarea>
+              placeholder="Descreva as características, acabamentos e diferenciais do imóvel..."></textarea>
+          </div>
+
+          <!-- CAMPO PRIVADO APENAS PARA A EQUIPE INTERNA -->
+          <div class="field full" style="padding:16px; background:#F7F5F1; border-radius:6px; border:1px solid var(--line);">
+            <label for="anotacaoInterna" style="color:var(--dark);">Anotação Interna / Contato do Proprietário (NÃO aparece no site)</label>
+            <textarea id="anotacaoInterna" style="min-height:70px; background:white;"
+              placeholder="Ex.: Proprietário: João Silva (48 99999-0000). Comissão combinada: 5%. Matrícula 12.345 do 1º RI."></textarea>
+            <small class="help">Esta anotação é mantida estritamente privada para seu controle no painel.</small>
           </div>
         </div>
 
         <div class="check-row">
-          <label><input id="destaque" type="checkbox"> Mostrar em destaque</label>
-          <label><input id="lancamento" type="checkbox"> Marcar como lançamento</label>
+          <label><input id="destaque" type="checkbox"> Mostrar em Destaque na Home</label>
+          <label><input id="lancamento" type="checkbox"> Marcar como Lançamento</label>
         </div>
 
         <div class="field" style="max-width:360px;margin-bottom:18px">
-          <label for="status">Publicação</label>
+          <label for="status">Status de Publicação</label>
           <select id="status">
-            <option value="Publicado">Publicado no site</option>
-            <option value="Pendente">Pendente (Aguardando aprovação)</option>
-            <option value="Rascunho">Salvar como rascunho</option>
+            <option value="Publicado">🟢 Publicado (Visível no site)</option>
+            <option value="Pendente">🟡 Pendente (Aguardando revisão)</option>
+            <option value="Vendido">🔴 Vendido (Exibe selo no site)</option>
+            <option value="Rascunho">⚪ Rascunho / Desativado</option>
           </select>
         </div>
 
         <div class="actions">
           <button class="btn" id="saveButton" type="submit">Cadastrar imóvel</button>
-          <button class="btn btn-secondary" id="cancelEditButton"
-            type="button" hidden>Cancelar edição</button>
-          <button class="btn btn-secondary" id="clearButton"
-            type="button">Limpar formulário</button>
+          <button class="btn btn-secondary" id="cancelEditButton" type="button" hidden>Cancelar edição</button>
+          <button class="btn btn-secondary" id="clearButton" type="button">Limpar formulário</button>
         </div>
 
         <div id="formMessage" class="message" role="status" aria-live="polite" hidden></div>
       </form>
     </section>
 
+    <!-- LISTA DE IMÓVEIS CADASTRADOS -->
     <section class="panel">
       <div class="toolbar">
         <div>
-          <h2 style="margin-bottom:4px">Imóveis cadastrados</h2>
+          <h2 style="margin-bottom:4px">Todos os Imóveis</h2>
           <p id="propertyCount" style="margin:0">Carregando...</p>
         </div>
         <button class="btn btn-secondary" id="refreshButton" type="button">
@@ -471,10 +500,18 @@ footer {
         </button>
       </div>
 
+      <!-- TAB DE FILTROS RÁPIDOS POR STATUS -->
+      <div class="filter-tabs">
+        <button class="tab-btn active" data-filter="todos" id="tabTodos">Todos</button>
+        <button class="tab-btn" data-filter="Publicado" id="tabPublicados">Publicados</button>
+        <button class="tab-btn" data-filter="Pendente" id="tabPendentes">Pendentes <span class="tab-badge" id="pendingBadge" hidden>0</span></button>
+        <button class="tab-btn" data-filter="Vendido" id="tabVendidos">Vendidos</button>
+        <button class="tab-btn" data-filter="Rascunho" id="tabRascunhos">Rascunhos</button>
+      </div>
+
       <div class="field" style="margin-bottom:15px">
-        <label for="filterProperties">Buscar imóvel por código, título ou cidade</label>
         <input id="filterProperties" type="search"
-          placeholder="Ex.: 125, casa ou Criciúma">
+          placeholder="Buscar imóvel por código, título, cidade ou bairro...">
       </div>
 
       <div id="listMessage" class="message" role="status" aria-live="polite" hidden></div>
@@ -484,7 +521,7 @@ footer {
   </section>
 </main>
 
-<footer>CasaPrópria · Patricia Ribeiro · Painel administrativo</footer>
+<footer>CasaPrópria · Patricia Ribeiro · CRECI/SC 60282-F</footer>
 
 <script>
 "use strict";
@@ -500,6 +537,7 @@ const API = {
 const $ = id => document.getElementById(id);
 
 let properties = [];
+let currentFilter = "todos";
 let previewObjectUrl = null;
 
 function showMessage(id, message, type = "") {
@@ -526,7 +564,6 @@ async function apiRequest(url, options = {}) {
   });
 
   let data = {};
-
   try {
     data = await response.json();
   } catch {
@@ -535,7 +572,7 @@ async function apiRequest(url, options = {}) {
 
   if (!response.ok) {
     if (response.status === 401 || response.status === 403) {
-      throw new Error(data.error || "Sessão inválida ou expirada. Entre novamente.");
+      throw new Error(data.error || "Sessão expirada. Entre novamente.");
     }
     throw new Error(data.error || `Erro HTTP ${response.status}`);
   }
@@ -547,7 +584,6 @@ function showAdmin() {
   $("loginSection").hidden = true;
   $("adminSection").hidden = false;
   $("logoutButton").hidden = false;
-  loadSavedCosts();
 }
 
 function showLogin() {
@@ -557,17 +593,13 @@ function showLogin() {
 }
 
 function money(value) {
-  if (value === null || value === undefined || value === "") {
-    return "Valor a consultar";
-  }
+  if (value === null || value === undefined || value === "") return "Consulte o valor";
   const n = Number(value);
-  if (!Number.isFinite(n)) {
-    return "Valor a consultar";
-  }
+  if (!Number.isFinite(n)) return "Consulte o valor";
   return n.toLocaleString("pt-BR", {
     style: "currency",
     currency: "BRL",
-    maximumFractionDigits: 2
+    maximumFractionDigits: 0
   });
 }
 
@@ -576,41 +608,24 @@ function safeText(value) {
 }
 
 function displayCode(item) {
-  return item.id === null || item.id === undefined
-    ? "Sem código"
-    : `Código ${item.id}`;
+  return item.id === null || item.id === undefined ? "Sem código" : `Código ${item.id}`;
 }
-
-// SALVAR E CARREGAR CUSTOS REGIONAIS NO LOCALSTORAGE (OU API)
-function loadSavedCosts() {
-  const saved = localStorage.getItem("casa_propria_costs");
-  if (saved) {
-    try {
-      const data = JSON.parse(saved);
-      if (data.criciuma) $("costCriciuma").value = data.criciuma;
-      if (data.icara) $("costIcara").value = data.icara;
-      if (data.ararangua) $("costArarangua").value = data.ararangua;
-      if (data.tubarao) $("costTubarao").value = data.tubarao;
-    } catch (e) {}
-  }
-}
-
-$("costConfigForm").addEventListener("submit", e => {
-  e.preventDefault();
-  const costs = {
-    criciuma: $("costCriciuma").value,
-    icara: $("costIcara").value,
-    ararangua: $("costArarangua").value,
-    tubarao: $("costTubarao").value
-  };
-  localStorage.setItem("casa_propria_costs", JSON.stringify(costs));
-  showMessage("costMessage", "Custos regionais por m² atualizados com sucesso!", "success");
-});
 
 function renderProperties(items) {
+  // 1. Atualizar lista de pendentes de aprovação
   const pendingItems = items.filter(i => safeText(i.status).toLowerCase() === "pendente");
   const pendingList = $("pendingList");
   const emptyPending = $("emptyPending");
+  const pendingBadge = $("pendingBadge");
+
+  if (pendingBadge) {
+    if (pendingItems.length > 0) {
+      pendingBadge.textContent = pendingItems.length;
+      pendingBadge.hidden = false;
+    } else {
+      pendingBadge.hidden = true;
+    }
+  }
 
   if (pendingList) {
     pendingList.replaceChildren();
@@ -620,13 +635,14 @@ function renderProperties(items) {
       const article = document.createElement("article");
       article.className = "property";
       article.style.background = "#FFF8F4";
+      article.style.borderLeft = "4px solid var(--orange)";
 
       const info = document.createElement("div");
       info.className = "property-info";
 
       const code = document.createElement("div");
       code.className = "property-code";
-      code.textContent = displayCode(item) + " · Proposta de Venda";
+      code.textContent = displayCode(item) + " · Proposta do Site";
 
       const title = document.createElement("h3");
       title.textContent = safeText(item.titulo) || "Imóvel sem título";
@@ -644,22 +660,31 @@ function renderProperties(items) {
 
       info.append(code, title, details, price);
 
+      if (item.anotacao_interna || item.descricao) {
+        const note = document.createElement("div");
+        note.className = "private-note";
+        note.textContent = safeText(item.anotacao_interna || item.descricao);
+        info.append(note);
+      }
+
       const actions = document.createElement("div");
       actions.className = "property-actions";
 
       const approveBtn = document.createElement("button");
-      approveBtn.className = "btn";
-      approveBtn.style.background = "var(--green)";
+      approveBtn.className = "btn btn-success";
+      approveBtn.type = "button";
       approveBtn.textContent = "Aprovar e Publicar";
-      approveBtn.addEventListener("click", () => approveProperty(item));
+      approveBtn.addEventListener("click", () => updateStatus(item, "Publicado"));
 
       const editBtn = document.createElement("button");
       editBtn.className = "btn btn-secondary";
+      editBtn.type = "button";
       editBtn.textContent = "Editar";
       editBtn.addEventListener("click", () => startEdit(item));
 
       const removeBtn = document.createElement("button");
       removeBtn.className = "btn btn-danger";
+      removeBtn.type = "button";
       removeBtn.textContent = "Recusar";
       removeBtn.addEventListener("click", () => deleteProperty(item));
 
@@ -669,12 +694,21 @@ function renderProperties(items) {
     }
   }
 
+  // 2. Renderizar lista geral de imóveis com filtros
   const list = $("propertyList");
   list.replaceChildren();
 
   const query = $("filterProperties").value.trim().toLocaleLowerCase("pt-BR");
 
   const filtered = items.filter(item => {
+    const statusText = safeText(item.status) || "Publicado";
+    
+    // Filtro por Tab
+    if (currentFilter !== "todos" && statusText.toLowerCase() !== currentFilter.toLowerCase()) {
+      return false;
+    }
+
+    // Filtro por texto
     const searchable = [
       item.id,
       item.titulo,
@@ -687,7 +721,7 @@ function renderProperties(items) {
   });
 
   $("propertyCount").textContent =
-    `${filtered.length} ${filtered.length === 1 ? "imóvel" : "imóveis"} exibidos de ${items.length}`;
+    `${filtered.length} ${filtered.length === 1 ? "imóvel exibido" : "imóveis exibidos"} de ${items.length}`;
 
   $("emptyList").hidden = filtered.length !== 0;
 
@@ -718,13 +752,40 @@ function renderProperties(items) {
 
     const statusText = safeText(item.status) || "Publicado";
     const status = document.createElement("span");
-    status.className = "status" + (statusText === "Rascunho" ? " draft" : statusText === "Pendente" ? " pending" : "");
+    status.className = "status" + (
+      statusText === "Rascunho" ? " draft" : 
+      statusText === "Pendente" ? " pending" : 
+      statusText === "Vendido" ? " sold" : ""
+    );
     status.textContent = statusText;
 
     info.append(code, title, details, price, status);
 
+    if (item.anotacao_interna) {
+      const note = document.createElement("div");
+      note.className = "private-note";
+      note.textContent = "Obs: " + safeText(item.anotacao_interna);
+      info.append(note);
+    }
+
     const actions = document.createElement("div");
     actions.className = "property-actions";
+
+    if (statusText !== "Vendido") {
+      const soldBtn = document.createElement("button");
+      soldBtn.className = "btn btn-secondary";
+      soldBtn.type = "button";
+      soldBtn.textContent = "Marcar Vendido";
+      soldBtn.addEventListener("click", () => updateStatus(item, "Vendido"));
+      actions.append(soldBtn);
+    } else {
+      const publishBtn = document.createElement("button");
+      publishBtn.className = "btn btn-secondary";
+      publishBtn.type = "button";
+      publishBtn.textContent = "Reativar";
+      publishBtn.addEventListener("click", () => updateStatus(item, "Publicado"));
+      actions.append(publishBtn);
+    }
 
     const edit = document.createElement("button");
     edit.className = "btn";
@@ -757,24 +818,24 @@ async function loadProperties() {
     properties = data.imoveis;
     renderProperties(properties);
   } catch (error) {
-    $("propertyCount").textContent = "Não foi possível carregar";
+    $("propertyCount").textContent = "Erro ao carregar";
     showMessage("listMessage", error.message, "error");
   } finally {
     $("refreshButton").disabled = false;
   }
 }
 
-async function approveProperty(item) {
+async function updateStatus(item, newStatus) {
   try {
-    const payload = { ...item, status: "Publicado" };
+    const payload = { ...item, status: newStatus };
     await apiRequest(`${API.properties}?id=${encodeURIComponent(item.id)}`, {
       method: "PUT",
       body: JSON.stringify(payload)
     });
-    showMessage("listMessage", `Imóvel ${displayCode(item)} aprovado e publicado com sucesso!`, "success");
+    showMessage("listMessage", `${displayCode(item)} atualizado para "${newStatus}"!`, "success");
     await loadProperties();
   } catch (error) {
-    showMessage("listMessage", "Erro ao aprovar imóvel: " + error.message, "error");
+    showMessage("listMessage", "Erro ao atualizar status: " + error.message, "error");
   }
 }
 
@@ -833,9 +894,10 @@ function startEdit(item) {
   for (const field of [
     "titulo", "tipo", "finalidade", "preco", "cidade", "bairro",
     "endereco", "area_m2", "quartos", "banheiros", "vagas",
-    "foto_url", "descricao", "status"
+    "foto_url", "descricao", "status", "anotacaoInterna"
   ]) {
-    $(field).value = item[field] ?? "";
+    if ($(field)) {$(field).value = item[field] ?? "";
+    }
   }
 
   $("destaque").checked = item.destaque === true || item.destaque === 1 || item.destaque === "1";
@@ -861,10 +923,10 @@ function resetEditor() {
 
 async function deleteProperty(item) {
   if (item.id === null || item.id === undefined) {
-    showMessage("listMessage", "Este imóvel não possui código e não pode ser excluído.", "error");
+    showMessage("listMessage", "Este imóvel não possui código válido.", "error");
     return;
   }
-  const confirmed = confirm(`Deseja realmente excluir ${displayCode(item)} — ${safeText(item.titulo)}?\n\nEssa ação não pode ser desfeita.`);
+  const confirmed = confirm(`Deseja realmente excluir ${displayCode(item)} — ${safeText(item.titulo)}?\n\nEssa ação é permanente.`);
   if (!confirmed) return;
 
   try {
@@ -902,7 +964,7 @@ async function uploadPhoto(file) {
     throw new Error(data.error || `Falha no envio da foto (HTTP ${response.status}).`);
   }
   if (!data.url || typeof data.url !== "string") {
-    throw new Error("O servidor recebeu uma resposta sem a URL da foto.");
+    throw new Error("O servidor respondeu sem a URL da foto.");
   }
   return data.url;
 }
@@ -944,6 +1006,7 @@ $("propertyForm").addEventListener("submit", async event => {
       vagas: numberValue("vagas"),
       foto_url: photoUrl,
       descricao: $("descricao").value.trim(),
+      anotacao_interna: $("anotacaoInterna") ? $("anotacaoInterna").value.trim() : "",
       destaque: $("destaque").checked,
       lancamento: $("lancamento").checked,
       status: $("status").value
@@ -975,6 +1038,16 @@ $("propertyForm").addEventListener("submit", async event => {
     button.disabled = false;
     button.textContent = $("editingId").value ? "Salvar alterações" : "Cadastrar imóvel";
   }
+});
+
+// Eventos de Filtro por Tab
+document.querySelectorAll(".tab-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    currentFilter = btn.dataset.filter;
+    renderProperties(properties);
+  });
 });
 
 $("clearButton").addEventListener("click", resetEditor);
