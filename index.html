@@ -1595,10 +1595,18 @@ function openPropertyDetails(propertyId) {
 
   const content = document.getElementById("propertyDetailsContent");
 
-  const fotos = [
-    item.foto_url,
-    ...(Array.isArray(item.fotos) ? item.fotos : [])
-  ].filter(Boolean);
+const fotosCadastradas = Array.isArray(item.fotos)
+  ? item.fotos
+  : [];
+
+const fotos = [
+  item.foto_url,
+  ...fotosCadastradas.map(foto =>
+    typeof foto === "string" ? foto : foto.url || foto.foto_url
+  )
+].filter(Boolean);
+
+let fotoAtual = 0;
 
   content.innerHTML = `
     <div class="internal-heading">
