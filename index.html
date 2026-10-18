@@ -1618,6 +1618,39 @@ render();
 
     document.getElementById("sort").addEventListener("change", render);
 
+/* CÁLCULO DA COMISSÃO NA PÁGINA VENDER MEU IMÓVEL */
+
+const sellDesiredPrice = document.getElementById("sellDesiredPrice");
+const sellNet = document.getElementById("sellNet");
+const sellCommission = document.getElementById("sellCommission");
+const sellGross = document.getElementById("sellGross");
+
+function updateSellCalculation() {
+  const desired = Number(sellDesiredPrice.value);
+
+  if (!Number.isFinite(desired) || desired <= 0) {
+    sellNet.textContent = "R$ 0,00";
+    sellCommission.textContent = "R$ 0,00";
+    sellGross.textContent = "R$ 0,00";
+    return;
+  }
+
+  const gross = Math.round((desired / 0.95) * 100) / 100;
+  const commission = Math.round((gross - desired) * 100) / 100;
+
+  const formatBRL = value => value.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL"
+  });
+
+  sellNet.textContent = formatBRL(desired);
+  sellCommission.textContent = formatBRL(commission);
+  sellGross.textContent = formatBRL(gross);
+}
+
+sellDesiredPrice.addEventListener("input", updateSellCalculation);
+updateSellCalculation();
+
     /* ENVIO DOS FORMULÁRIOS PARA O WHATSAPP */
 
     function openWhatsApp(message) {
