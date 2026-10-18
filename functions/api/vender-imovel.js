@@ -1,11 +1,13 @@
 
-const TAXA_COMISSAO = 0.05;
-const VERSAO_TERMO = "v1";
+const VERSAO_TERMO = "v1.0-2026";
 
 function json(data, status = 200) {
   return Response.json(data, {
     status,
-    headers: { "Cache-Control": "no-store" }
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "Cache-Control": "no-store"
+    }
   });
 }
 
@@ -14,21 +16,19 @@ function clean(value, max = 500) {
   return value.trim().slice(0, max);
 }
 
-function moneyInCents(value) {
-  const number = Number(value);
+function required(value, label, max = 500) {
+  const result = clean(value, max);
 
-  if (!Number.isFinite(number) || number <= 0) {
-    return null;
+  if (!result) {
+    throw new Error(`Preencha o campo: ${label}.`);
   }
 
-  if (number > 100000000000) return null;
-
-  return Math.round(number * 100);
+  return result;
 }
 
-function optionalNumber(value, field, integer = false) {
+function optionalNumber(value, label, integer = false) {
   if (value === "" || value === null || value === undefined) {
-    return { valid: true, value: null };
+    return null;
   }
 
   const number = Number(value);
@@ -36,31 +36,67 @@ function optionalNumber(value, field, integer = false) {
   if (
     !Number.isFinite(number) ||
     number < 0 ||
-    number > 1000000 ||
     (integer && !Number.isSafeInteger(number))
   ) {
-    return { valid: false, value: null, field };
+    throw new Error(`Valor inválido no campo: ${label}.`);
   }
 
-  return { valid: true, value: number };
+  return number;
+}
+
+function moneyToCents(value, label) {
+  const number = Number(value);
+
+  if (!Number.isFinite(number) || number <= 0) {
+    throw new Error(`Informe um valor válido para ${label}.`);
+  }
+
+  const cents = Math.round(number * 100);
+
+  if (!Number.isSafeInteger(cents) || cents <= 0) {
+    throw new Error(`Valor inválido para ${label}.`);
+  }
+
+  return cents;
+}
+
+function validatePhoto(value) {
+  if (!value) return true;
+
+  try {
+    const url = new URL(value);
+
+    return (
+      url.protocol === "https:" &&
+      !url.username &&
+      !url.password
+    );
+  } catch {
+    return false;
+  }
+}
+
+function validEmail(value) {
+  if (!value) return true;
+
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
 export async function onRequestPost({ request, env }) {
-  const origin = request.headers.get("Origin");
-  const url = new URL(request.url);
-
-  if (origin && origin !== url.origin) {
-    return json({ error: "Origem não autorizada." }, 403);
-  }
-
   if (!env.DB) {
-    return json({ error: "Banco D1 não configurado." }, 500);
+    return json({
+      error: "Banco de dados D1 não configurado."
+    }, 500);
   }
 
-  const contentType = request.headers.get("Content-Type") || "";
-
-  if (!contentType.toLowerCase().includes("application/json")) {
-    return json({ error: "Envie os dados em formato JSON." }, 415);
+  if (
+    !(request.headers.get("Content-Type") || "")
+      .toLowerCase()
+      .includes("application/json")
+  ) {
+    return json({
+      error: "Envie os dados em formato JSON."
+    }, 415);
   }
 
   let body;
@@ -68,90 +104,99 @@ export async function onRequestPost({ request, env }) {
   try {
     body = await request.json();
   } catch {
-    return json({ error: "Dados inválidos." }, 400);
-  }
-
-  const nome = clean(body.nome, 150);
-  const telefone = clean(body.telefone, 30);
-  const email = clean(body.email, 254);
-  const titulo = clean(body.titulo, 150);
-  const tipo = clean(body.tipo, 60);
-  const descricao = clean(body.descricao, 5000);
-  const cidade = clean(body.cidade, 100);
-  const bairro = clean(body.bairro, 100);
-  const endereco = clean(body.endereco, 250);
-
-  const tiposPermitidos = [
-    "Casa",
-    "Apartamento",
-    "Terreno",
-    "Sítio",
-    "Sala comercial",
-    "Outro"
-  ];
-
-  const valorLiquido = moneyInCents(body.valor_liquido);
-
-  if (
-    !nome ||
-    !telefone ||
-    !titulo ||
-    !cidade ||
-    !tiposPermitidos.includes(tipo) ||
-    valorLiquido === null
-  ) {
     return json({
-      error: "Confira os campos obrigatórios e o valor desejado."
+      error: "O conteúdo enviado não é um JSON válido."
     }, 400);
   }
-
-  if (telefone.replace(/\D/g, "").length < 10) {
-    return json({ error: "Informe um telefone válido." }, 400);
-  }
-
-  if (
-    email &&
-    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-  ) {
-    return json({ error: "Informe um e-mail válido." }, 400);
-  }
-
-  if (body.aceitou_comissao !== true) {
-    return json({
-      error: "É necessário aceitar o termo de comissão."
-    }, 400);
-  }
-
-  const area = optionalNumber(body.area_m2, "área");
-  const quartos = optionalNumber(body.quartos, "quartos", true);
-  const banheiros = optionalNumber(body.banheiros, "banheiros", true);
-  const vagas = optionalNumber(body.vagas, "vagas", true);
-
-  for (const result of [area, quartos, banheiros, vagas]) {
-    if (!result.valid) {
-      return json({
-        error: `Valor inválido no campo ${result.field}.`
-      }, 400);
-    }
-  }
-
-  // Valores calculados no servidor.
-  const precoVenda = Math.ceil(valorLiquido / (1 - TAXA_COMISSAO));
-  const comissao = precoVenda - valorLiquido;
-  const dataAceite = new Date().toISOString();
 
   try {
+    const nome = required(
+      body.nome_proprietario,
+      "nome completo",
+      150
+    );
+
+    const telefone = required(
+      body.telefone,
+      "telefone",
+      30
+    );
+
+    const email = clean(body.email, 254).toLowerCase();
+
+    if (!validEmail(email)) {
+      throw new Error("Informe um e-mail válido.");
+    }
+
+    const titulo = required(body.titulo, "título do imóvel", 150);
+    const tipo = required(body.tipo, "tipo do imóvel", 60);
+    const cidade = required(body.cidade, "cidade", 100);
+
+    const descricao = clean(body.descricao, 5000);
+    const bairro = clean(body.bairro, 100);
+    const endereco = clean(body.endereco, 250);
+    const fotoUrl = clean(body.foto_url, 2000);
+
+    if (!validatePhoto(fotoUrl)) {
+      throw new Error("A foto deve possuir uma URL HTTPS válida.");
+    }
+
+    const valorLiquido = moneyToCents(
+      body.valor_liquido,
+      "valor líquido desejado"
+    );
+
+    // Comissão de 5% sobre o preço de venda.
+    // Para o proprietário receber o valor líquido solicitado,
+    // o preço de venda é o líquido dividido por 0,95.
+    const precoVenda = Math.round(valorLiquido / 0.95);
+    const comissao = precoVenda - valorLiquido;
+
+    if (
+      !Number.isSafeInteger(precoVenda) ||
+      !Number.isSafeInteger(comissao)
+    ) {
+      throw new Error("Não foi possível calcular os valores.");
+    }
+
+    if (body.aceitou_comissao !== true) {
+      throw new Error(
+        "É necessário aceitar expressamente o termo de comissão."
+      );
+    }
+
+    const area = optionalNumber(body.area_m2, "área");
+    const quartos = optionalNumber(body.quartos, "quartos", true);
+    const banheiros = optionalNumber(body.banheiros, "banheiros", true);
+    const vagas = optionalNumber(body.vagas, "vagas", true);
+
     const result = await env.DB.prepare(`
       INSERT INTO solicitacoes_venda (
-        nome_proprietario, telefone, email,
-        titulo, tipo, descricao, cidade, bairro, endereco,
-        valor_liquido_centavos, preco_venda_centavos,
-        comissao_centavos, percentual_comissao,
-        area_m2, quartos, banheiros, vagas,
-        aceitou_comissao, versao_termo, data_aceite, status
+        nome_proprietario,
+        telefone,
+        email,
+        titulo,
+        tipo,
+        descricao,
+        cidade,
+        bairro,
+        endereco,
+        valor_liquido_centavos,
+        preco_venda_centavos,
+        comissao_centavos,
+        percentual_comissao,
+        area_m2,
+        quartos,
+        banheiros,
+        vagas,
+        foto_url,
+        aceitou_comissao,
+        versao_termo,
+        data_aceite,
+        status
       ) VALUES (
-        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-        1, ?, ?, 'Pendente'
+        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 5.0,
+        ?, ?, ?, ?, ?, 1, ?, ?, 'Pendente'
       )
     `).bind(
       nome,
@@ -166,30 +211,39 @@ export async function onRequestPost({ request, env }) {
       valorLiquido,
       precoVenda,
       comissao,
-      5.0,
-      area.value,
-      quartos.value,
-      banheiros.value,
-      vagas.value,
+      area,
+      quartos,
+      banheiros,
+      vagas,
+      fotoUrl || null,
       VERSAO_TERMO,
-      dataAceite
+      new Date().toISOString()
     ).run();
 
     return json({
       success: true,
-      message: "Solicitação enviada para análise.",
+      message:
+        "Solicitação recebida. Seu imóvel será analisado antes de ser publicado.",
       protocolo: result.meta?.last_row_id ?? null,
-      status: "Pendente"
+      status: "Pendente",
+      valores: {
+        valor_liquido_centavos: valorLiquido,
+        preco_venda_centavos: precoVenda,
+        comissao_centavos: comissao,
+        percentual_comissao: 5
+      }
     }, 201);
   } catch (error) {
-    console.error("Erro ao salvar solicitação:", error);
+    if (error instanceof Error) {
+      return json({
+        error: error.message || "Não foi possível processar a solicitação."
+      }, 400);
+    }
+
+    console.error("Erro ao registrar solicitação de venda:", error);
 
     return json({
-      error: "Não foi possível registrar a solicitação."
+      error: "Erro interno ao salvar a solicitação."
     }, 500);
   }
-}
-
-export async function onRequestGet() {
-  return json({ error: "Use POST para enviar a solicitação." }, 405);
 }
