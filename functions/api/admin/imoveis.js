@@ -107,6 +107,12 @@ function readProperty(body) {
     throw new Error("URL da foto inválida.");
   }
 
+  // CORREÇÃO: Aceita explicitamente "Pendente", "Rascunho" ou "Publicado" enviado pelo front-end
+  const statusInformado = clean(body.status, 20);
+  const statusFinal = ["Pendente", "Rascunho", "Publicado"].includes(statusInformado)
+    ? statusInformado
+    : "Publicado";
+
   return {
     titulo,
     tipo,
@@ -123,7 +129,7 @@ function readProperty(body) {
     vagas: numberOrNull(body.vagas, "vagas"),
     destaque: body.destaque === true ? 1 : 0,
     lancamento: body.lancamento === true ? 1 : 0,
-    status: body.status === "Rascunho" ? "Rascunho" : "Publicado"
+    status: statusFinal
   };
 }
 
