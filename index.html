@@ -675,14 +675,6 @@
       font-size: 13px;
     }
 
-    .property-features {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 14px;
-      font-size: 13px;
-    }
-
     .property-price {
       margin: 18px 0;
       font-size: 21px;
@@ -1090,7 +1082,7 @@
       </div>
     </section>
 
-    <!-- CONSTRUIR (SIMULADOR DA CASA PRÓPRIA - LINGUAGEM SIMPLES E DIRETA) -->
+    <!-- CONSTRUIR (SIMULADOR DA CASA PRÓPRIA) -->
     <section class="internal-page" id="pageConstruir" hidden>
       <div class="container">
         <a href="#comprar" class="back-link" data-page="comprar">← Voltar para Comprar</a>
@@ -1182,7 +1174,7 @@
       </div>
     </section>
 
-    <!-- FINANCIAMENTO CAIXA (COM PAINEL DE CONFIANÇA/FGTS) -->
+    <!-- FINANCIAMENTO CAIXA -->
     <section class="internal-page" id="pageFinanciamento" hidden>
       <div class="container">
         <a href="#comprar" class="back-link" data-page="comprar">← Voltar para Comprar</a>
@@ -1567,8 +1559,14 @@
         </article>`;
     }
 
+    // FUNÇÃO RENDER TOLERANTE PARA SITES PÚBLICOS
     function render() {
-      const published = properties.filter(item => text(item.status).toLocaleLowerCase("pt-BR") === "publicado");
+      // Aceita "Publicado", "publicado" ou propriedades sem status explícito no banco
+      const published = properties.filter(item => {
+        const st = text(item.status).toLocaleLowerCase("pt-BR");
+        return st === "publicado" || st === "" || item.status === undefined || item.status === null;
+      });
+
       const active = hasSearched ? filterProperties(published) : published;
       const featured = active.filter(isFeatured);
       const sorted = sortProperties(active);
@@ -1662,7 +1660,7 @@
       window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message), "_blank");
     });
 
-    // ATUALIZAÇÃO DO STATUS DO UPLOAD DE FOTOS
+    // UPLOAD DE FOTOS E CONTROLE DE QUANTIDADE
     const sellPhotosInput = document.getElementById("sellPhotos");
     const fileUploadStatus = document.getElementById("fileUploadStatus");
     if (sellPhotosInput && fileUploadStatus) {
@@ -1697,6 +1695,7 @@
       });
     }
 
+    // PROPOSTA DE VENDA ENVIADA COMO PENDENTE E TRATADA PARA O ADMIN
     document.getElementById("sellForm").addEventListener("submit", async event => {
       event.preventDefault();
       const form = event.currentTarget;
@@ -1719,18 +1718,24 @@
           const file = photoInput.files[i];
           const formDataUpload = new FormData();
           formDataUpload.append("file", file);
-          const resUpload = await fetch(UPLOAD_URL, { method: "POST", body: formDataUpload });
-          if (resUpload.ok) {
-            const dataUpload = await resUpload.json();
-            if (dataUpload.url) {
-              if (i === 0) fotoUrl = dataUpload.url;
-              fotosArray.push(dataUpload.url);
+          try {
+            const resUpload = await fetch(UPLOAD_URL, { method: "POST", body: formDataUpload });
+            if (resUpload.ok) {
+              const dataUpload = await resUpload.json();
+              if (dataUpload.url) {
+                if (i === 0) fotoUrl = dataUpload.url;
+                fotosArray.push(dataUpload.url);
+              }
             }
+          } catch (e) {
+            console.warn("Erro no envio da foto:", e);
           }
         }
 
         const desired = Number(form.querySelector("#sellDesiredPrice").value);
         const grossPrice = Math.round((desired / 0.95) * 100) / 100;
+        const nomeProprietario = form.querySelector("#sellName").value;
+        const telProprietario = form.querySelector("#sellPhone").value;
 
         const payload = {
           titulo: `Imóvel em ${form.querySelector("#sellCity").value} (${form.querySelector("#sellType").value})`,
@@ -1739,17 +1744,22 @@
           preco: grossPrice,
           cidade: form.querySelector("#sellCity").value,
           bairro: form.querySelector("#sellNeighborhood").value,
-          descricao: `Proprietário: ${form.querySelector("#sellName").value} (Tel: ${form.querySelector("#sellPhone").value})\n\n` + form.querySelector("#sellDescription").value,
+          descricao: form.querySelector("#sellDescription").value,
+          anotacao_interna: `Proprietário: ${nomeProprietario} | Tel: ${telProprietario} | Valor líquido desejado: R$ ${desired.toLocaleString('pt-BR')}`,
           foto_url: fotoUrl,
           fotos: fotosArray,
           status: "Pendente"
         };
 
-        await fetch(ADMIN_API_URL, {
+        const response = await fetch(ADMIN_API_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload)
         });
+
+        if (!response.ok) {
+          throw new Error("Falha ao salvar proposta.");
+        }
 
         alert("Imóvel enviado com sucesso para análise e aprovação na área administrativa!");
         form.reset();
