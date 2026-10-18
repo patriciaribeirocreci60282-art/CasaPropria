@@ -653,236 +653,234 @@
       font-size: 14px;
     }
 
+    /* PÁGINA COMPLETA DE DETALHES DO IMÓVEL */
 
+    .property-detail {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
 
+    .property-detail .detail-header {
+      margin-bottom: 24px;
+    }
 
-/* PÁGINA COMPLETA DE DETALHES DO IMÓVEL */
+    .property-detail .detail-header h1 {
+      margin: 8px 0;
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.2;
+    }
 
-.property-detail {
-  width: 100%;
-  max-width: 1180px;
-  margin: 0 auto;
-}
+    .property-detail .detail-location {
+      color: var(--muted);
+      font-size: 15px;
+    }
 
-.property-detail .detail-header {
-  margin-bottom: 24px;
-}
+    .property-detail .detail-price {
+      margin-top: 15px;
+      color: var(--orange-dark);
+      font-size: clamp(25px, 4vw, 34px);
+      font-weight: 700;
+    }
 
-.property-detail .detail-header h1 {
-  margin: 8px 0;
-  font-size: clamp(28px, 4vw, 42px);
-  line-height: 1.2;
-}
+    .detail-gallery {
+      margin: 25px 0 35px;
+    }
 
-.property-detail .detail-location {
-  color: var(--muted);
-  font-size: 15px;
-}
+    .detail-main-photo {
+      position: relative;
+      width: 100%;
+      height: clamp(300px, 55vw, 650px);
+      overflow: hidden;
+      border-radius: 12px;
+      background: #E8E4DD;
+    }
 
-.property-detail .detail-price {
-  margin-top: 15px;
-  color: var(--orange-dark);
-  font-size: clamp(25px, 4vw, 34px);
-  font-weight: 700;
-}
+    .detail-main-photo img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #242424;
+    }
 
-.detail-gallery {
-  margin: 25px 0 35px;
-}
+    .gallery-arrow {
+      position: absolute;
+      top: 50%;
+      z-index: 2;
+      display: flex;
+      width: 48px;
+      height: 48px;
+      align-items: center;
+      justify-content: center;
+      transform: translateY(-50%);
+      border: 1px solid rgba(255,255,255,.7);
+      border-radius: 50%;
+      background: rgba(0,0,0,.55);
+      color: white;
+      font-size: 30px;
+      line-height: 1;
+      cursor: pointer;
+    }
 
-.detail-main-photo {
-  position: relative;
-  width: 100%;
-  height: clamp(300px, 55vw, 650px);
-  overflow: hidden;
-  border-radius: 12px;
-  background: #E8E4DD;
-}
+    .gallery-arrow:hover {
+      background: var(--orange-dark);
+    }
 
-.detail-main-photo img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  background: #242424;
-}
+    .gallery-prev { left: 16px; }
+    .gallery-next { right: 16px; }
 
-.gallery-arrow {
-  position: absolute;
-  top: 50%;
-  z-index: 2;
-  display: flex;
-  width: 48px;
-  height: 48px;
-  align-items: center;
-  justify-content: center;
-  transform: translateY(-50%);
-  border: 1px solid rgba(255,255,255,.7);
-  border-radius: 50%;
-  background: rgba(0,0,0,.55);
-  color: white;
-  font-size: 30px;
-  line-height: 1;
-  cursor: pointer;
-}
+    .gallery-counter {
+      position: absolute;
+      right: 15px;
+      bottom: 15px;
+      padding: 7px 12px;
+      border-radius: 5px;
+      background: rgba(0,0,0,.7);
+      color: white;
+      font-size: 13px;
+    }
 
-.gallery-arrow:hover {
-  background: var(--orange-dark);
-}
+    .detail-thumbnails {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+      padding: 4px 2px 10px;
+      overflow-x: auto;
+    }
 
-.gallery-prev { left: 16px; }
-.gallery-next { right: 16px; }
+    .detail-thumbnail {
+      flex: 0 0 105px;
+      height: 78px;
+      padding: 0;
+      overflow: hidden;
+      border: 2px solid transparent;
+      border-radius: 6px;
+      background: #E8E4DD;
+      cursor: pointer;
+    }
 
-.gallery-counter {
-  position: absolute;
-  right: 15px;
-  bottom: 15px;
-  padding: 7px 12px;
-  border-radius: 5px;
-  background: rgba(0,0,0,.7);
-  color: white;
-  font-size: 13px;
-}
+    .detail-thumbnail.active {
+      border-color: var(--orange);
+    }
 
-.detail-thumbnails {
-  display: flex;
-  gap: 10px;
-  margin-top: 12px;
-  padding: 4px 2px 10px;
-  overflow-x: auto;
-}
+    .detail-thumbnail img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
-.detail-thumbnail {
-  flex: 0 0 105px;
-  height: 78px;
-  padding: 0;
-  overflow: hidden;
-  border: 2px solid transparent;
-  border-radius: 6px;
-  background: #E8E4DD;
-  cursor: pointer;
-}
+    .detail-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.7fr) minmax(270px, .8fr);
+      align-items: start;
+      gap: 25px;
+    }
 
-.detail-thumbnail.active {
-  border-color: var(--orange);
-}
+    .detail-section {
+      margin-bottom: 24px;
+      padding: 25px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: white;
+    }
 
-.detail-thumbnail img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+    .detail-section h2 {
+      margin: 0 0 20px;
+      font-size: 22px;
+      line-height: 1.35;
+    }
 
-.detail-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1.7fr) minmax(270px, .8fr);
-  align-items: start;
-  gap: 25px;
-}
+    .detail-description {
+      color: var(--muted);
+      line-height: 1.9;
+      overflow-wrap: anywhere;
+    }
 
-.detail-section {
-  margin-bottom: 24px;
-  padding: 25px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: white;
-}
+    .detail-features {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
 
-.detail-section h2 {
-  margin: 0 0 20px;
-  font-size: 22px;
-  line-height: 1.35;
-}
+    .detail-feature {
+      padding: 14px;
+      border-radius: 7px;
+      background: var(--cream);
+    }
 
-.detail-description {
-  color: var(--muted);
-  line-height: 1.9;
-  overflow-wrap: anywhere;
-}
+    .detail-feature span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+    }
 
-.detail-features {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
+    .detail-feature strong {
+      display: block;
+      margin-top: 4px;
+      font-size: 15px;
+      overflow-wrap: anywhere;
+    }
 
-.detail-feature {
-  padding: 14px;
-  border-radius: 7px;
-  background: var(--cream);
-}
+    .detail-contact {
+      position: sticky;
+      top: 20px;
+    }
 
-.detail-feature span {
-  display: block;
-  color: var(--muted);
-  font-size: 12px;
-}
+    .detail-contact .detail-price {
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
 
-.detail-feature strong {
-  display: block;
-  margin-top: 4px;
-  font-size: 15px;
-  overflow-wrap: anywhere;
-}
+    .detail-contact .btn {
+      width: 100%;
+      text-align: center;
+    }
 
-.detail-contact {
-  position: sticky;
-  top: 20px;
-}
+    .detail-contact p {
+      color: var(--muted);
+      font-size: 13px;
+    }
 
-.detail-contact .detail-price {
-  margin-top: 0;
-  margin-bottom: 20px;
-}
+    @media (max-width: 760px) {
+      .detail-layout {
+        grid-template-columns: 1fr;
+      }
 
-.detail-contact .btn {
-  width: 100%;
-  text-align: center;
-}
+      .detail-main-photo {
+        height: 340px;
+        border-radius: 8px;
+      }
 
-.detail-contact p {
-  color: var(--muted);
-  font-size: 13px;
-}
+      .gallery-arrow {
+        width: 40px;
+        height: 40px;
+        font-size: 25px;
+      }
 
-@media (max-width: 760px) {
-  .detail-layout {
-    grid-template-columns: 1fr;
-  }
+      .gallery-prev { left: 9px; }
+      .gallery-next { right: 9px; }
 
-  .detail-main-photo {
-    height: 340px;
-    border-radius: 8px;
-  }
+      .detail-section {
+        padding: 19px;
+      }
 
-  .gallery-arrow {
-    width: 40px;
-    height: 40px;
-    font-size: 25px;
-  }
+      .detail-contact {
+        position: static;
+      }
+    }
 
-  .gallery-prev { left: 9px; }
-  .gallery-next { right: 9px; }
+    @media (max-width: 380px) {
+      .detail-main-photo {
+        height: 270px;
+      }
 
-  .detail-section {
-    padding: 19px;
-  }
+      .detail-features {
+        grid-template-columns: 1fr;
+      }
+    }
 
-  .detail-contact {
-    position: static;
-  }
-}
-
-@media (max-width: 380px) {
-  .detail-main-photo {
-    height: 270px;
-  }
-
-  .detail-features {
-    grid-template-columns: 1fr;
-  }
-}
     /* RODAPÉ E WHATSAPP */
 
     .footer {
@@ -1050,8 +1048,7 @@
 <body>
   <header class="header">
     <div class="container header-inner">
-      <a class="brand" href="#comprar" data-page="comprar"
-         aria-label="Página inicial CasaPrópria">
+      <a class="brand" href="#comprar" data-page="comprar" aria-label="Página inicial CasaPrópria">
         <img
           class="brand-logo"
           src="./Gemini_Generated_Image_9wawnj9wawnj9waw-removebg-preview%20(1).png"
@@ -1079,127 +1076,15 @@
         </svg>
       </button>
 
-<nav class="nav" id="mainNav" aria-label="Navegação principal">
-  <a href="#comprar" data-page="comprar">COMPRAR</a>
-  <a href="#construir" data-page="construir">CONSTRUIR</a>
-  <a href="#financiamento" data-page="financiamento">FINANCIAMENTO CAIXA</a>
-  <a href="#vender" data-page="vender">VENDER MEU IMÓVEL</a>
-  <a href="admin.html" class="nav-login">ENTRAR</a>
-</nav>
-      
+      <nav class="nav" id="mainNav" aria-label="Navegação principal">
+        <a href="#comprar" data-page="comprar">COMPRAR</a>
+        <a href="#construir" data-page="construir">CONSTRUIR</a>
+        <a href="#financiamento" data-page="financiamento">FINANCIAMENTO CAIXA</a>
+        <a href="#vender" data-page="vender">VENDER MEU IMÓVEL</a>
+        <a href="admin.html" class="nav-login">ENTRAR</a>
+      </nav>
     </div>
   </header>
-
-<!-- PÁGINA VENDER MEU IMÓVEL -->
-<section class="internal-page" id="pageVender" hidden>
-  <div class="container">
-    <a href="#comprar" class="back-link" data-page="comprar">
-      ← Voltar para Comprar
-    </a>
-
-    <div class="internal-heading">
-      <span class="section-kicker">Anuncie seu imóvel</span>
-      <h1>Venda seu imóvel com a gente</h1>
-      <p>Informe quanto deseja receber e veja o preço sugerido para o anúncio, incluindo a comissão de 5%.</p>
-    </div>
-
-    <form class="form-card" id="sellForm">
-      <div class="form-grid">
-        <div class="field full">
-          <label for="sellName">Nome completo *</label>
-          <input id="sellName" name="nome" required
-            placeholder="Seu nome completo">
-        </div>
-
-        <div class="field">
-          <label for="sellPhone">WhatsApp *</label>
-          <input id="sellPhone" name="telefone" type="tel"
-            required placeholder="(00) 00000-0000">
-        </div>
-
-        <div class="field">
-          <label for="sellType">Tipo de imóvel *</label>
-          <select id="sellType" name="tipo" required>
-            <option value="">Selecione</option>
-            <option>Casa</option>
-            <option>Apartamento</option>
-            <option>Terreno</option>
-            <option>Empreendimento</option>
-            <option>Outro</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="sellCity">Cidade *</label>
-          <input id="sellCity" name="cidade" required
-            placeholder="Cidade do imóvel">
-        </div>
-
-        <div class="field">
-          <label for="sellNeighborhood">Bairro</label>
-          <input id="sellNeighborhood" name="bairro"
-            placeholder="Bairro do imóvel">
-        </div>
-
-        <div class="field full">
-          <label for="sellDesiredPrice">
-            Quanto você quer receber pelo imóvel? (R$) *
-          </label>
-          <input id="sellDesiredPrice" name="valor_desejado"
-            type="number" min="1" step="0.01" required
-            placeholder="Ex.: 300000">
-        </div>
-
-        <div class="field full">
-          <label>Simulação do anúncio</label>
-          <div style="padding:18px;background:#F7F5F1;border-radius:6px">
-            <p>Valor desejado pelo proprietário:
-              <strong id="sellNet">R$ 0,00</strong>
-            </p>
-            <p>Comissão de 5%:
-              <strong id="sellCommission">R$ 0,00</strong>
-            </p>
-            <p style="font-size:20px;margin-bottom:0">
-              Preço sugerido para anunciar:
-              <strong id="sellGross" style="color:#C94C19">
-                R$ 0,00
-              </strong>
-            </p>
-          </div>
-          <p class="form-help">
-            Simulação considerando comissão de 5% sobre o preço final de venda.
-          </p>
-        </div>
-
-        <div class="field full">
-          <label for="sellDescription">Descrição do imóvel *</label>
-          <textarea id="sellDescription" name="descricao"
-            required placeholder="Descreva o imóvel, a metragem, os quartos e outras características."></textarea>
-        </div>
-
-        <div class="field full">
-          <label style="display:flex;gap:10px;align-items:flex-start">
-            <input type="checkbox" id="sellTerms" required
-              style="width:18px;min-height:18px;margin-top:4px;flex:0 0 auto">
-            <span>
-              Li e aceito que a comissão de intermediação proposta é de 5%
-              sobre o preço final de venda, conforme as condições que
-              serão formalizadas no termo de intermediação.
-            </span>
-          </label>
-          <p class="form-help">
-            O envio desta solicitação não substitui o contrato de intermediação
-            nem significa publicação automática do imóvel.
-          </p>
-        </div>
-      </div>
-
-      <button class="btn btn-block" type="submit">
-        Enviar proposta pelo WhatsApp
-      </button>
-    </form>
-  </div>
-</section>
 
   <main>
     <!-- PÁGINA PRINCIPAL: COMPRAR -->
@@ -1313,18 +1198,18 @@
       </section>
     </div>
 
-<!-- PÁGINA DE DETALHES DO IMÓVEL -->
-<section class="internal-page" id="pageDetalhes" hidden>
-  <div class="container">
-    <a href="#comprar" class="back-link" data-page="comprar">
-      ← Voltar para os imóveis
-    </a>
+    <!-- PÁGINA DE DETALHES DO IMÓVEL -->
+    <section class="internal-page" id="pageDetalhes" hidden>
+      <div class="container">
+        <a href="#comprar" class="back-link" data-page="comprar">
+          ← Voltar para os imóveis
+        </a>
 
-    <div id="propertyDetailsContent"></div>
-  </div>
-</section>
+        <div id="propertyDetailsContent"></div>
+      </div>
+    </section>
 
-    <!-- PÁGINA CONSTRUIR: ABERTA PELO MENU -->
+    <!-- PÁGINA CONSTRUIR -->
     <section class="internal-page" id="pageConstruir" hidden>
       <div class="container">
         <a href="#comprar" class="back-link" data-page="comprar">← Voltar para Comprar</a>
@@ -1502,6 +1387,7 @@
         </form>
       </div>
     </section>
+
     <!-- PÁGINA VENDER MEU IMÓVEL -->
     <section class="internal-page" id="pageVender" hidden>
       <div class="container">
@@ -1511,26 +1397,20 @@
 
         <div class="internal-heading">
           <span class="section-kicker">Anuncie seu imóvel</span>
-          <h1>Venda seu imóvel com a Patricia</h1>
-          <p>Informe quanto deseja receber pelo seu imóvel. Calcularemos o preço de anúncio incluindo a comissão de 5%.</p>
+          <h1>Venda seu imóvel com a gente</h1>
+          <p>Informe quanto deseja receber e veja o preço sugerido para o anúncio, incluindo a comissão de 5%.</p>
         </div>
 
         <form class="form-card" id="sellForm">
           <div class="form-grid">
             <div class="field full">
               <label for="sellName">Nome completo *</label>
-              <input id="sellName" name="nome" required autocomplete="name">
+              <input id="sellName" name="nome" required placeholder="Seu nome completo">
             </div>
 
             <div class="field">
-              <label for="sellPhone">WhatsApp para contato *</label>
-              <input id="sellPhone" name="telefone" type="tel"
-                required autocomplete="tel" placeholder="(00) 00000-0000">
-            </div>
-
-            <div class="field">
-              <label for="sellCity">Cidade *</label>
-              <input id="sellCity" name="cidade" required>
+              <label for="sellPhone">WhatsApp *</label>
+              <input id="sellPhone" name="telefone" type="tel" required placeholder="(00) 00000-0000">
             </div>
 
             <div class="field">
@@ -1540,44 +1420,73 @@
                 <option>Casa</option>
                 <option>Apartamento</option>
                 <option>Terreno</option>
-                <option>Sítio ou chácara</option>
-                <option>Comercial</option>
+                <option>Empreendimento</option>
                 <option>Outro</option>
               </select>
             </div>
 
             <div class="field">
-              <label for="sellValue">Quanto deseja receber líquido? *</label>
-              <input id="sellValue" name="valor" type="number"
-                min="1" step="0.01" required placeholder="Ex.: 300000">
-              <p class="form-help">Informe o valor que deseja receber, antes de considerar eventuais impostos e outras despesas.</p>
+              <label for="sellCity">Cidade *</label>
+              <input id="sellCity" name="cidade" required placeholder="Cidade do imóvel">
+            </div>
+
+            <div class="field">
+              <label for="sellNeighborhood">Bairro</label>
+              <input id="sellNeighborhood" name="bairro" placeholder="Bairro do imóvel">
+            </div>
+
+            <div class="field full">
+              <label for="sellDesiredPrice">
+                Quanto você quer receber pelo imóvel? (R$) *
+              </label>
+              <input id="sellDesiredPrice" name="valor_desejado" type="number" min="1" step="0.01" required placeholder="Ex.: 300000">
+            </div>
+
+            <div class="field full">
+              <label>Simulação do anúncio</label>
+              <div style="padding:18px;background:#F7F5F1;border-radius:6px">
+                <p>Valor desejado pelo proprietário:
+                  <strong id="sellNet">R$ 0,00</strong>
+                </p>
+                <p>Comissão de 5%:
+                  <strong id="sellCommission">R$ 0,00</strong>
+                </p>
+                <p style="font-size:20px;margin-bottom:0">
+                  Preço sugerido para anunciar:
+                  <strong id="sellGross" style="color:#C94C19">
+                    R$ 0,00
+                  </strong>
+                </p>
+              </div>
+              <p class="form-help">
+                Simulação considerando comissão de 5% sobre o preço final de venda.
+              </p>
             </div>
 
             <div class="field full">
               <label for="sellDescription">Descrição do imóvel *</label>
-              <textarea id="sellDescription" name="descricao" required
-                placeholder="Informe bairro, área, quartos, estado do imóvel e outras características."></textarea>
+              <textarea id="sellDescription" name="descricao" required placeholder="Descreva o imóvel, a metragem, os quartos e outras características."></textarea>
             </div>
 
             <div class="field full">
-              <label class="standard-option">
-                <input type="checkbox" id="sellTerms" required>
+              <label style="display:flex;gap:10px;align-items:flex-start">
+                <input type="checkbox" id="sellTerms" required style="width:18px;min-height:18px;margin-top:4px;flex:0 0 auto">
                 <span>
-                  <strong>Li e aceito as condições iniciais *</strong>
-                  Autorizo o envio destas informações à Patricia Ribeiro para avaliação do imóvel. Estou ciente de que a comissão proposta de 5% deverá ser confirmada em contrato antes da intermediação. O valor anunciado será calculado para que, descontada essa comissão, reste o valor líquido desejado, sem incluir outros custos.
+                  Li e aceito que a comissão de intermediação proposta é de 5%
+                  sobre o preço final de venda, conforme as condições que
+                  serão formalizadas no termo de intermediação.
                 </span>
               </label>
+              <p class="form-help">
+                O envio desta solicitação não substitui o contrato de intermediação
+                nem significa publicação automática do imóvel.
+              </p>
             </div>
           </div>
 
-          <div class="empty-state" id="sellCalculation" aria-live="polite">
-            Informe o valor líquido desejado para calcular o preço de anúncio.
-          </div>
-
           <button class="btn btn-block" type="submit">
-            Enviar imóvel pelo WhatsApp
+            Enviar proposta pelo WhatsApp
           </button>
-          <p class="form-note">O envio abrirá o WhatsApp para você conferir e enviar sua solicitação. O anúncio não será publicado automaticamente.</p>
         </form>
       </div>
     </section>
@@ -1630,7 +1539,7 @@
 
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    /* MENU E NAVEGAÇÃO ENTRE AS TRÊS ÁREAS */
+    /* MENU E NAVEGAÇÃO ENTRE AS ÁREAS */
 
     const menuToggle = document.getElementById("menuToggle");
     const mainNav = document.getElementById("mainNav");
@@ -1647,15 +1556,14 @@
       menuToggle.setAttribute("aria-label", isOpen ? "Fechar menu" : "Abrir menu");
     });
 
-function showPage(page, updateHistory = true) {
- 
-const pages = {
-  comprar: document.getElementById("pageComprar"),
-  construir: document.getElementById("pageConstruir"),
-  financiamento: document.getElementById("pageFinanciamento"),
-  vender: document.getElementById("pageVender"),
-  detalhes: document.getElementById("pageDetalhes")
-};
+    function showPage(page, updateHistory = true) {
+      const pages = {
+        comprar: document.getElementById("pageComprar"),
+        construir: document.getElementById("pageConstruir"),
+        financiamento: document.getElementById("pageFinanciamento"),
+        vender: document.getElementById("pageVender"),
+        detalhes: document.getElementById("pageDetalhes")
+      };
 
       if (!pages[page]) page = "comprar";
 
@@ -1683,7 +1591,7 @@ const pages = {
     window.addEventListener("popstate", () => {
       const page = location.hash.replace("#", "");
       showPage(
-        ["comprar", "construir", "financiamento"].includes(page)
+        ["comprar", "construir", "financiamento", "vender"].includes(page)
           ? page : "comprar",
         false
       );
@@ -1691,7 +1599,7 @@ const pages = {
 
     const initialPage = location.hash.replace("#", "");
     showPage(
-      ["comprar", "construir", "financiamento"].includes(initialPage)
+      ["comprar", "construir", "financiamento", "vender"].includes(initialPage)
         ? initialPage : "comprar",
       false
     );
@@ -1753,83 +1661,75 @@ const pages = {
         + "?text=" + encodeURIComponent(message);
     }
 
-function openPropertyDetails(propertyId) {
-  const item = properties.find(
-    p => String(p.id) === String(propertyId)
-  );
+    function openPropertyDetails(propertyId) {
+      const item = properties.find(
+        p => String(p.id) === String(propertyId)
+      );
 
-  if (!item) {
-    alert("Não foi possível encontrar os detalhes deste imóvel.");
-    return;
-  }
+      if (!item) {
+        alert("Não foi possível encontrar os detalhes deste imóvel.");
+        return;
+      }
 
-  const content = document.getElementById("propertyDetailsContent");
+      const content = document.getElementById("propertyDetailsContent");
 
-const fotosCadastradas = Array.isArray(item.fotos)
-  ? item.fotos
-  : [];
+      const fotosCadastradas = Array.isArray(item.fotos)
+        ? item.fotos
+        : [];
 
-const fotos = [
-  item.foto_url,
-  ...fotosCadastradas.map(foto =>
-    typeof foto === "string" ? foto : foto.url || foto.foto_url
-  )
-].filter(Boolean);
+      const fotos = [
+        item.foto_url,
+        ...fotosCadastradas.map(foto =>
+          typeof foto === "string" ? foto : foto.url || foto.foto_url
+        )
+      ].filter(Boolean);
 
-let fotoAtual = 0;
+      content.innerHTML = `
+        <div class="internal-heading">
+          <span class="section-kicker">${escapeHTML(item.tipo || "Imóvel")}</span>
+          <h1>${escapeHTML(item.titulo || "Detalhes do imóvel")}</h1>
+          <p>${escapeHTML(locationOf(item))}</p>
+        </div>
 
-  content.innerHTML = `
-    <div class="internal-heading">
-      <span class="section-kicker">${escapeHTML(item.tipo || "Imóvel")}</span>
-      <h1>${escapeHTML(item.titulo || "Detalhes do imóvel")}</h1>
-      <p>${escapeHTML(locationOf(item))}</p>
-    </div>
+        <div class="property-grid">
+          ${fotos.length
+            ? fotos.map(foto => `
+                <div class="property-image">
+                  <img src="${escapeHTML(foto)}"
+                       alt="${escapeHTML(item.titulo || "Foto do imóvel")}"
+                       loading="lazy">
+                </div>
+              `).join("")
+            : '<p>Este imóvel ainda não possui fotos disponíveis.</p>'}
+        </div>
 
-    <div class="property-grid">
-      ${fotos.length
-        ? fotos.map(foto => `
-            <div class="property-image">
-              <img src="${escapeHTML(foto)}"
-                   alt="${escapeHTML(item.titulo || "Foto do imóvel")}"
-                   loading="lazy">
-            </div>
-          `).join("")
-        : '<p>Este imóvel ainda não possui fotos disponíveis.</p>'}
-    </div>
+        <div class="form-card" style="margin-top:30px">
+          <h2>Descrição do imóvel</h2>
+          <p>${escapeHTML(item.descricao || "Descrição não informada.")
+            .replace(/\n/g, "<br>")}</p>
 
-    <div class="form-card" style="margin-top:30px">
-      <h2>Descrição do imóvel</h2>
-      <p>${escapeHTML(item.descricao || "Descrição não informada.")
-        .replace(/\n/g, "<br>")}</p>
+          <p><strong>Valor:</strong> ${money(item.preco)}</p>
 
-      <p><strong>Valor:</strong> ${money(item.preco)}</p>
+          <div class="property-features">
+            ${propertyDetails(item)}
+          </div>
 
-      <div class="property-features">
-        ${propertyDetails(item)}
-      </div>
+          <a class="btn btn-block" href="${detailURL(item)}"
+             target="_blank" rel="noopener noreferrer">
+            Consultar pelo WhatsApp
+          </a>
+        </div>
+      `;
 
-      <a class="btn btn-block" href="${detailURL(item)}"
-         target="_blank" rel="noopener noreferrer">
-        Consultar pelo WhatsApp
-      </a>
-    </div>
-  `;
+      showPage("detalhes", false);
 
-  document.getElementById("pageComprar").hidden = true;
-  document.getElementById("pageConstruir").hidden = true;
-  document.getElementById("pageFinanciamento").hidden = true;
-  document.getElementById("pageVender").hidden = true;
-  document.getElementById("pageDetalhes").hidden = false;
+      history.pushState(
+        { page: "detalhes", propertyId: String(item.id) },
+        "",
+        "#imovel-" + encodeURIComponent(String(item.id))
+      );
+    }
 
-  history.pushState(
-    { page: "detalhes", propertyId: String(item.id) },
-    "",
-    "#imovel-" + encodeURIComponent(String(item.id))
-  );
-
-  closeMenu();
-  window.scrollTo({ top: 0, behavior: "auto" });
-}
     function propertyCard(item) {
       const title = text(item.titulo) || "Imóvel disponível";
       const type = text(item.tipo) || "Imóvel";
@@ -1856,10 +1756,10 @@ let fotoAtual = 0;
             ${details ? `<div class="property-features">${details}</div>` : ""}
             <p class="property-price">${money(item.preco)}</p>
             
-<a class="property-action" href="#imovel-${encodeURIComponent(item.id)}"
-  onclick="event.preventDefault(); openPropertyDetails('${encodeURIComponent(String(item.id ?? ""))}')">
-  Ver detalhes do imóvel <span aria-hidden="true">→</span>
-</a>
+            <a class="property-action" href="#imovel-${encodeURIComponent(item.id)}"
+              onclick="event.preventDefault(); openPropertyDetails('${encodeURIComponent(String(item.id ?? ""))}')">
+              Ver detalhes do imóvel <span aria-hidden="true">→</span>
+            </a>
           </div>
         </article>`;
     }
@@ -1954,32 +1854,32 @@ let fotoAtual = 0;
         const data = await response.json();
 
         if (Array.isArray(data)) {
-  properties = data;
-} else if (data && Array.isArray(data.imoveis)) {
-  properties = data.imoveis;
-} else {
-  throw new Error("Formato da API não reconhecido.");
-}
+          properties = data;
+        } else if (data && Array.isArray(data.imoveis)) {
+          properties = data.imoveis;
+        } else {
+          throw new Error("Formato da API não reconhecido.");
+        }
 
-// Compatibiliza os campos da API com os nomes usados no site.
-properties = properties.map(item => ({
-  ...item,
-  titulo: item.titulo ?? item.title,
-  tipo: item.tipo ?? item.type,
-  foto_url: item.foto_url ?? item.image,
-  destaque: item.destaque ?? item.featured,
-  preco: item.preco ?? item.price,
-  quartos: item.quartos ?? item.bedrooms,
-  banheiros: item.banheiros ?? item.bathrooms,
-  vagas: item.vagas ?? item.parking,
-  area_m2: item.area_m2 ?? item.area,
-  data_cadastro: item.data_cadastro ?? item.publishedAt,
-  cidade: item.cidade ?? "",
-  bairro: item.bairro ?? "",
-  endereco: item.endereco ?? item.location
-}));
+        // Compatibiliza os campos da API com os nomes usados no site.
+        properties = properties.map(item => ({
+          ...item,
+          titulo: item.titulo ?? item.title,
+          tipo: item.tipo ?? item.type,
+          foto_url: item.foto_url ?? item.image,
+          destaque: item.destaque ?? item.featured,
+          preco: item.preco ?? item.price,
+          quartos: item.quartos ?? item.bedrooms,
+          banheiros: item.banheiros ?? item.bathrooms,
+          vagas: item.vagas ?? item.parking,
+          area_m2: item.area_m2 ?? item.area,
+          data_cadastro: item.data_cadastro ?? item.publishedAt,
+          cidade: item.cidade ?? "",
+          bairro: item.bairro ?? "",
+          endereco: item.endereco ?? item.location
+        }));
 
-render();
+        render();
       } catch (error) {
         console.error("Erro ao carregar imóveis:", error);
         featuredList.innerHTML = "";
@@ -2019,38 +1919,37 @@ render();
 
     document.getElementById("sort").addEventListener("change", render);
 
-/* CÁLCULO DA COMISSÃO NA PÁGINA VENDER MEU IMÓVEL */
+    /* CÁLCULO DA COMISSÃO NA PÁGINA VENDER MEU IMÓVEL */
 
-const sellDesiredPrice = document.getElementById("sellDesiredPrice");
-const sellNet = document.getElementById("sellNet");
-const sellCommission = document.getElementById("sellCommission");
-const sellGross = document.getElementById("sellGross");
+    const sellDesiredPrice = document.getElementById("sellDesiredPrice");
+    const sellNet = document.getElementById("sellNet");
+    const sellCommission = document.getElementById("sellCommission");
+    const sellGross = document.getElementById("sellGross");
 
-function updateSellCalculation() {
-  const desired = Number(sellDesiredPrice.value);
+    function updateSellCalculation() {
+      const desired = Number(sellDesiredPrice.value);
 
-  if (!Number.isFinite(desired) || desired <= 0) {
-    sellNet.textContent = "R$ 0,00";
-    sellCommission.textContent = "R$ 0,00";
-    sellGross.textContent = "R$ 0,00";
-    return;
-  }
+      if (!Number.isFinite(desired) || desired <= 0) {
+        sellNet.textContent = "R$ 0,00";
+        sellCommission.textContent = "R$ 0,00";
+        sellGross.textContent = "R$ 0,00";
+        return;
+      }
 
-  const gross = Math.round((desired / 0.95) * 100) / 100;
-  const commission = Math.round((gross - desired) * 100) / 100;
+      const gross = Math.round((desired / 0.95) * 100) / 100;
+      const commission = Math.round((gross - desired) * 100) / 100;
 
-  const formatBRL = value => value.toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL"
-  });
+      const formatBRL = value => value.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+      });
 
-  sellNet.textContent = formatBRL(desired);
-  sellCommission.textContent = formatBRL(commission);
-  sellGross.textContent = formatBRL(gross);
-}
+      sellNet.textContent = formatBRL(desired);
+      sellCommission.textContent = formatBRL(commission);
+      sellGross.textContent = formatBRL(gross);
+    }
 
-sellDesiredPrice.addEventListener("input", updateSellCalculation);
-updateSellCalculation();
+    sellDesiredPrice.addEventListener("input", updateSellCalculation);
 
     /* ENVIO DOS FORMULÁRIOS PARA O WHATSAPP */
 
@@ -2100,6 +1999,34 @@ updateSellCalculation();
         "Informações adicionais: " + (form.get("observacoes") || "Não informado"),
         "",
         "Gostaria de saber quais possibilidades podem se encaixar no meu perfil."
+      ].join("\n");
+
+      openWhatsApp(message);
+    });
+
+    document.getElementById("sellForm").addEventListener("submit", event => {
+      event.preventDefault();
+
+      const form = new FormData(event.currentTarget);
+      const desired = Number(form.get("valor_desejado"));
+      const gross = desired ? Math.round((desired / 0.95) * 100) / 100 : 0;
+
+      const formatBRL = val => val.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+
+      const message = [
+        "Olá, Patricia! Gostaria de cadastrar meu imóvel para venda.",
+        "",
+        "*PROPOSTA DE VENDA DE IMÓVEL*",
+        "Nome: " + form.get("nome"),
+        "Telefone: " + form.get("telefone"),
+        "Tipo de imóvel: " + form.get("tipo"),
+        "Cidade: " + form.get("cidade"),
+        "Bairro: " + (form.get("bairro") || "Não informado"),
+        "Valor que deseja receber: " + formatBRL(desired),
+        "Preço sugerido para anúncio (com 5% comissão): " + formatBRL(gross),
+        "Descrição: " + form.get("descricao"),
+        "",
+        "Aceito as condições de comissão e gostaria de dar andamento."
       ].join("\n");
 
       openWhatsApp(message);
