@@ -5,6 +5,7 @@ const PUBLIC_URL =
 
 const MAX_FOTOS = 5;
 const MAX_BYTES = 10 * 1024 * 1024;
+
 const ALLOWED_TYPES = new Set([
   "image/jpeg",
   "image/png"
@@ -19,6 +20,8 @@ function json(data, status = 200) {
   });
 }
 
+// AUTENTICAÇÃO
+async function authorize(request, env) {
   try {
     const auth = await requireAdmin(request, env);
     return auth.ok ? null : auth.response;
@@ -31,6 +34,7 @@ function json(data, status = 200) {
   }
 }
 
+// UTILITÁRIOS
 function safeName(name) {
   return String(name || "foto")
     .normalize("NFD")
@@ -51,11 +55,13 @@ function errorMessage(error) {
 }
 
 function isFile(value) {
-  return value &&
+  return Boolean(
+    value &&
     typeof value === "object" &&
     typeof value.arrayBuffer === "function" &&
     typeof value.size === "number" &&
-    value.size > 0;
+    value.size > 0
+  );
 }
 
 function validId(value) {
@@ -80,30 +86,36 @@ function validateFiles(files) {
   return null;
 }
 
-async function saveToR2(file, imovelId = null) {
-  const extension = file.type === "image/png" ? "png" : "jpg";
-  const originalName = safeName(file.name || `foto.${extension}`);
+function makeKey(file, imovelId = null) {
+  const extension =
+    file.type === "image/png" ? "png" : "jpg";
+
+  const originalName = safeName(
+    file.name || `foto.${extension}`
+  );
+
   const folder = imovelId
     ? `imoveis/${imovelId}`
     : "imoveis/pendentes";
 
-  const key =
-    `${folder}/${crypto.randomUUID()}-${originalName}`;
-
-  await envPut(file, key);
-
-  return {
-    chave_r2: key,
-    url: publicUrl(key),
-    tipo: file.type,
-    tamanho: file.size
-  };
+  return `${folder}/${crypto.randomUUID()}-${originalName}`;
 }
 
-// Usa o binding R2 do ambiente.
-// O binding FOTOS_BUCKET precisa estar configurado no Cloudflare.
-  // A referência ao bucket é definida dentro dos handlers.
-  throw new Error("Bucket não inicializado.");
+async function uploadToR2(env, file, key) {
+  if (!env.FOTOS_BUCKET) {
+    throw new Error(
+      "O vínculo FOTOS_BUCKET não está configurado."
+    );
+  }
+
+  await env.FOTOS_BUCKET.put(key, file.stream(), {
+    httpMetadata: {
+      contentType: file.type,
+      cacheControl: "public, max-age=31536000"
+    }
+  });
+
+  return publicUrl(key);
 }
 
 // LISTAR FOTOS DE UM IMÓVEL
@@ -118,7 +130,9 @@ export async function onRequestGet({ request, env }) {
   }
 
   const url = new URL(request.url);
-  const imovelId = validId(url.searchParams.get("imovel_id"));
+  const imovelId = validId(
+    url.searchParams.get("imovel_id")
+  );
 
   if (!imovelId) {
     return json({
@@ -151,7 +165,7 @@ export async function onRequestGet({ request, env }) {
   }
 }
 
-// ENVIAR FOTO ÚNICA OU GALERIA DE FOTOS
+// ENVIAR FOTO ÚNICA OU GALERIA
 export async function onRequestPost({ request, env }) {
   const denied = await authorize(request, env);
   if (denied) return denied;
@@ -162,7 +176,8 @@ export async function onRequestPost({ request, env }) {
     }, 500);
   }
 
-  const contentType = request.headers.get("Content-Type") || "";
+  const contentType =
+    request.headers.get("Content-Type") || "";
 
   if (!contentType.toLowerCase().includes("multipart/form-data")) {
     return json({
@@ -189,7 +204,7 @@ export async function onRequestPost({ request, env }) {
   // formData.append("file", file)
   const singleFile = form.get("file");
 
-  // Compatibilidade com envio de galeria:
+  // Compatibilidade com galeria:
   // formData.append("fotos", file)
   const galleryFiles = form.getAll("fotos").filter(isFile);
 
@@ -212,13 +227,8 @@ export async function onRequestPost({ request, env }) {
 
   const imovelId = validId(form.get("imovel_id"));
 
-  /*
-   * MODO 1 — HTML atual:
-   * envia apenas "file", antes de salvar o imóvel.
-   *
-   * A foto é enviada ao R2 e a API retorna { url }.
-   * O HTML grava essa URL em imoveis.foto_url.
-   */
+  // MODO 1: upload individual usado pelo HTML atual.
+  // A foto fica no R2 e a URL é retornada para o cadastro.
   if (!imovelId) {
     if (files.length !== 1 || !isFile(singleFile)) {
       return json({
@@ -227,29 +237,23 @@ export async function onRequestPost({ request, env }) {
       }, 400);
     }
 
+    let key;
+
     try {
-      const file = singleFile;
-      const extension = file.type === "image/png" ? "png" : "jpg";
-      const originalName = safeName(file.name || `foto.${extension}`);
-      const key =
-        `imoveis/pendentes/${crypto.randomUUID()}-${originalName}`;
-
-      await env.FOTOS_BUCKET.put(key, file.stream(), {
-        httpMetadata: {
-          contentType: file.type,
-          cacheControl: "public, max-age=31536000"
-        }
-      });
-
-      const url = publicUrl(key);
+      key = makeKey(singleFile);
+      const url = await uploadToR2(
+        env,
+        singleFile,
+        key
+      );
 
       return json({
         success: true,
         message: "Foto enviada ao R2 com sucesso.",
         url,
         chave_r2: key,
-        tipo: file.type,
-        tamanho: file.size
+        tipo: singleFile.type,
+        tamanho: singleFile.size
       }, 201);
     } catch (error) {
       console.error(
@@ -259,15 +263,12 @@ export async function onRequestPost({ request, env }) {
 
       return json({
         error:
-          "Não foi possível enviar a foto ao R2. Verifique o binding FOTOS_BUCKET e os logs da função."
+          "Não foi possível enviar a foto ao R2. Verifique o vínculo FOTOS_BUCKET."
       }, 500);
     }
   }
 
-  /*
-   * MODO 2 — Galeria vinculada a um imóvel existente.
-   * Grava os arquivos no R2 e os registros no D1.
-   */
+  // MODO 2: galeria vinculada a um imóvel existente.
   if (!env.DB) {
     return json({
       error: "O vínculo DB não está configurado."
@@ -285,9 +286,11 @@ export async function onRequestPost({ request, env }) {
       }, 404);
     }
 
-    const existentes = await env.DB.prepare(
-      "SELECT COUNT(*) AS total FROM fotos_imoveis WHERE imovel_id = ?"
-    ).bind(imovelId).first();
+    const existentes = await env.DB.prepare(`
+      SELECT COUNT(*) AS total
+      FROM fotos_imoveis
+      WHERE imovel_id = ?
+    `).bind(imovelId).first();
 
     const totalAtual = Number(existentes?.total || 0);
 
@@ -304,24 +307,16 @@ export async function onRequestPost({ request, env }) {
     try {
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
-        const extension = file.type === "image/png" ? "png" : "jpg";
-        const originalName = safeName(
-          file.name || `foto.${extension}`
+        const key = makeKey(file, imovelId);
+
+        const url = await uploadToR2(
+          env,
+          file,
+          key
         );
-
-        const key =
-          `imoveis/${imovelId}/${crypto.randomUUID()}-${originalName}`;
-
-        await env.FOTOS_BUCKET.put(key, file.stream(), {
-          httpMetadata: {
-            contentType: file.type,
-            cacheControl: "public, max-age=31536000"
-          }
-        });
 
         arquivosEnviados.push(key);
 
-        const url = publicUrl(key);
         const ordem = totalAtual + i + 1;
 
         const result = await env.DB.prepare(`
@@ -353,7 +348,7 @@ export async function onRequestPost({ request, env }) {
         errorMessage(error)
       );
 
-      // Desfaz os registros criados nesta operação.
+      // Remove os registros criados nesta operação.
       for (const foto of salvas) {
         if (foto.id != null) {
           try {
@@ -369,7 +364,7 @@ export async function onRequestPost({ request, env }) {
         }
       }
 
-      // Desfaz os arquivos criados no R2.
+      // Remove os arquivos enviados para o R2.
       for (const key of arquivosEnviados) {
         try {
           await env.FOTOS_BUCKET.delete(key);
@@ -387,7 +382,6 @@ export async function onRequestPost({ request, env }) {
     return json({
       success: true,
       message: `${salvas.length} foto(s) enviada(s) com sucesso.`,
-      // Também retorna url para facilitar a integração com o HTML.
       url: salvas[0]?.url || null,
       fotos: salvas
     }, 201);
@@ -432,9 +426,11 @@ export async function onRequestDelete({ request, env }) {
   }
 
   try {
-    const foto = await env.DB.prepare(
-      "SELECT id, chave_r2 FROM fotos_imoveis WHERE id = ?"
-    ).bind(id).first();
+    const foto = await env.DB.prepare(`
+      SELECT id, chave_r2
+      FROM fotos_imoveis
+      WHERE id = ?
+    `).bind(id).first();
 
     if (!foto) {
       return json({
@@ -448,6 +444,7 @@ export async function onRequestDelete({ request, env }) {
       }, 500);
     }
 
+    // Remove o arquivo e depois seu registro no D1.
     await env.FOTOS_BUCKET.delete(foto.chave_r2);
 
     await env.DB.prepare(
