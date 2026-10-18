@@ -1478,12 +1478,14 @@
     });
 
 function showPage(page, updateHistory = true) {
-  const pages = {
-    comprar: document.getElementById("pageComprar"),
-    construir: document.getElementById("pageConstruir"),
-    financiamento: document.getElementById("pageFinanciamento"),
-    vender: document.getElementById("pageVender")
-  };
+ 
+const pages = {
+  comprar: document.getElementById("pageComprar"),
+  construir: document.getElementById("pageConstruir"),
+  financiamento: document.getElementById("pageFinanciamento"),
+  vender: document.getElementById("pageVender"),
+  detalhes: document.getElementById("pageDetalhes")
+};
 
       if (!pages[page]) page = "comprar";
 
