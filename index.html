@@ -1465,16 +1465,50 @@
       return [item.bairro, item.cidade].map(text).filter(Boolean).join(", ") || text(item.endereco) || "Consulte a localização";
     }
 
+    // EXTRAÇÃO INTELIGENTE DE FOTOS DA PROPRIEDADE
+    function getPrimaryPhoto(item) {
+      if (!item) return "";
+
+      if (text(item.foto_url)) return text(item.foto_url);
+      if (text(item.fotoUrl)) return text(item.fotoUrl);
+      if (text(item.foto)) return text(item.foto);
+
+      if (Array.isArray(item.fotos) && item.fotos.length > 0) {
+        const first = item.fotos[0];
+        if (typeof first === "string" && text(first)) return text(first);
+        if (first && typeof first === "object") {
+          return text(first.url || first.foto_url || first.fotoUrl || "");
+        }
+      }
+
+      if (typeof item.fotos === "string" && item.fotos.trim().startsWith("[")) {
+        try {
+          const parsed = JSON.parse(item.fotos);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            return typeof parsed[0] === "string" ? parsed[0] : (parsed[0].url || parsed[0].foto_url || "");
+          }
+        } catch (e) {}
+      }
+
+      return "";
+    }
+
     function openPropertyDetails(propertyId) {
       const item = properties.find(p => String(p.id) === String(propertyId));
       if (!item) { alert("Imóvel não encontrado."); return; }
 
       const content = document.getElementById("propertyDetailsContent");
-      const fotosCadastradas = Array.isArray(item.fotos) ? item.fotos : [];
-      const fotos = [
-        item.foto_url,
-        ...fotosCadastradas.map(foto => typeof foto === "string" ? foto : foto.url || foto.foto_url)
-      ].filter(Boolean);
+      
+      let fotosCadastradas = [];
+      if (Array.isArray(item.fotos)) {
+        fotosCadastradas = item.fotos;
+      } else if (typeof item.fotos === "string" && item.fotos.trim().startsWith("[")) {
+        try { fotosCadastradas = JSON.parse(item.fotos); } catch (e) {}
+      }
+
+      const primary = getPrimaryPhoto(item);
+      const additional = fotosCadastradas.map(foto => typeof foto === "string" ? foto : (foto.url || foto.foto_url)).filter(Boolean);
+      const fotos = Array.from(new Set([primary, ...additional])).filter(Boolean);
 
       const tituloImovel = escapeHTML(item.titulo || "Imóvel");
       const tipoImovel = escapeHTML(item.tipo || "Imóvel");
@@ -1489,13 +1523,15 @@
         </div>
         <div class="detail-gallery">
           <div class="detail-main-photo">
-            ${fotos.length ? `<img id="activeGalleryImage" src="${escapeHTML(fotos[0])}" alt="${tituloImovel}">` : `<div class="property-placeholder">Sem imagem</div>`}
+            ${fotos.length 
+              ? `<img id="activeGalleryImage" src="${escapeHTML(fotos[0])}" alt="${tituloImovel}" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\\'property-placeholder\\'>Foto indisponível</div>';">` 
+              : `<div class="property-placeholder">Sem imagem</div>`}
           </div>
           ${fotos.length > 1 ? `
             <div class="detail-thumbnails">
               ${fotos.map((foto, index) => `
                 <button class="detail-thumbnail ${index === 0 ? 'active' : ''}" onclick="changeMainPhoto('${escapeHTML(foto)}', this)">
-                  <img src="${escapeHTML(foto)}" alt="Miniatura">
+                  <img src="${escapeHTML(foto)}" alt="Miniatura" onerror="this.src=''; this.alt='Erro ao carregar';">
                 </button>
               `).join("")}
             </div>
@@ -1537,9 +1573,12 @@
     function propertyCard(item) {
       const title = text(item.titulo) || "Imóvel disponível";
       const type = text(item.tipo) || "Imóvel";
-      const image = text(item.foto_url);
+      const image = getPrimaryPhoto(item);
       const tag = isFeatured(item) ? "Destaque" : type;
-      const imageHTML = image ? `<img src="${escapeHTML(image)}" alt="${escapeHTML(title)}" loading="lazy">` : `<div class="property-placeholder">Foto em breve</div>`;
+
+      const imageHTML = image 
+        ? `<img src="${escapeHTML(image)}" alt="${escapeHTML(title)}" loading="lazy" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\\'property-placeholder\\'>Foto indisponível</div>';">` 
+        : `<div class="property-placeholder">Foto em breve</div>`;
 
       return `
         <article class="property-card">
@@ -1559,9 +1598,7 @@
         </article>`;
     }
 
-    // FUNÇÃO RENDER TOLERANTE PARA SITES PÚBLICOS
     function render() {
-      // Aceita "Publicado", "publicado" ou propriedades sem status explícito no banco
       const published = properties.filter(item => {
         const st = text(item.status).toLocaleLowerCase("pt-BR");
         return st === "publicado" || st === "" || item.status === undefined || item.status === null;
