@@ -339,12 +339,12 @@ footer {
       <p>Gerencie seus imóveis, modere propostas recebidas do site e controle suas vendas.</p>
     </div>
 
-    <!-- SEÇÃO DE MODERAÇÃO DE PROPOSTAS PENDENTES -->
+    <!-- PROPOSTAS PENDENTES DE APROVAÇÃO -->
     <section class="panel" id="pendingPanel" style="border-left: 4px solid var(--orange);">
       <div class="toolbar">
         <div>
           <h2 style="margin-bottom:4px; color: var(--dark);">Propostas Pendentes de Aprovação</h2>
-          <p style="margin:0">Imóveis cadastrados por clientes através do formulário "Vender meu Imóvel".</p>
+          <p style="margin:0">Imóveis enviados por proprietários na aba "Vender meu Imóvel".</p>
         </div>
       </div>
       <div id="pendingList" class="property-list" style="margin-top: 15px;"></div>
@@ -435,7 +435,7 @@ footer {
             <label for="fotoArquivo">Enviar foto principal (PNG, JPG ou JPEG)</label>
             <input id="fotoArquivo" type="file" accept="image/png,image/jpeg">
             <small class="help">
-              Limite de 10 MB. A foto será armazenada no seu bucket R2 da Cloudflare.
+              A imagem será salva e armazenada no servidor/R2.
             </small>
             <div id="fotoPreview" class="preview" hidden>
               <img id="fotoPreviewImg" alt="Pré-visualização da foto">
@@ -443,23 +443,22 @@ footer {
           </div>
 
           <div class="field full">
-            <label for="foto_url">Ou insira a URL da foto</label>
-            <input id="foto_url" type="url" maxlength="2000"
-              placeholder="https://...">
+            <label for="foto_url">Ou URL da foto principal</label>
+            <input id="foto_url" type="url" maxlength="2000" placeholder="https://...">
           </div>
 
           <div class="field full">
-            <label for="descricao">Descrição pública do imóvel (Aparece no site)</label>
+            <label for="descricao">Descrição pública (Aparece no site)</label>
             <textarea id="descricao" maxlength="5000"
-              placeholder="Descreva as características, acabamentos e diferenciais do imóvel..."></textarea>
+              placeholder="Descreva as características do imóvel..."></textarea>
           </div>
 
-          <!-- CAMPO PRIVADO APENAS PARA A EQUIPE INTERNA -->
+          <!-- ANOTAÇÃO INTERNA PRIVADA -->
           <div class="field full" style="padding:16px; background:#F7F5F1; border-radius:6px; border:1px solid var(--line);">
             <label for="anotacaoInterna" style="color:var(--dark);">Anotação Interna / Contato do Proprietário (NÃO aparece no site)</label>
             <textarea id="anotacaoInterna" style="min-height:70px; background:white;"
-              placeholder="Ex.: Proprietário: João Silva (48 99999-0000). Comissão combinada: 5%. Matrícula 12.345 do 1º RI."></textarea>
-            <small class="help">Esta anotação é mantida estritamente privada para seu controle no painel.</small>
+              placeholder="Ex.: Proprietário: João Silva (48 99999-0000). Comissão combinada: 5%. Valor líquido desejado: R$ 300.000."></textarea>
+            <small class="help">Guardado de forma privada no painel admin para seu controle.</small>
           </div>
         </div>
 
@@ -469,12 +468,12 @@ footer {
         </div>
 
         <div class="field" style="max-width:360px;margin-bottom:18px">
-          <label for="status">Status de Publicação</label>
-          <select id="status">
+          <label for="status">Status de Publicação *</label>
+          <select id="status" required>
             <option value="Publicado">🟢 Publicado (Visível no site)</option>
-            <option value="Pendente">🟡 Pendente (Aguardando revisão)</option>
-            <option value="Vendido">🔴 Vendido (Exibe selo no site)</option>
-            <option value="Rascunho">⚪ Rascunho / Desativado</option>
+            <option value="Pendente">🟡 Pendente (Aguardando aprovação)</option>
+            <option value="Vendido">🔴 Vendido (Exibe selo/desativado)</option>
+            <option value="Rascunho">⚪ Rascunho / Oculto</option>
           </select>
         </div>
 
@@ -488,7 +487,7 @@ footer {
       </form>
     </section>
 
-    <!-- LISTA DE IMÓVEIS CADASTRADOS -->
+    <!-- LISTA DE IMÓVEIS -->
     <section class="panel">
       <div class="toolbar">
         <div>
@@ -500,7 +499,7 @@ footer {
         </button>
       </div>
 
-      <!-- TAB DE FILTROS RÁPIDOS POR STATUS -->
+      <!-- TABS DE FILTRO -->
       <div class="filter-tabs">
         <button class="tab-btn active" data-filter="todos" id="tabTodos">Todos</button>
         <button class="tab-btn" data-filter="Publicado" id="tabPublicados">Publicados</button>
@@ -596,15 +595,20 @@ function money(value) {
   if (value === null || value === undefined || value === "") return "Consulte o valor";
   const n = Number(value);
   if (!Number.isFinite(n)) return "Consulte o valor";
-  return n.toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-    maximumFractionDigits: 0
-  });
+  return n.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
 }
 
 function safeText(value) {
   return String(value ?? "").trim();
+}
+
+function normalizeStatus(rawStatus) {
+  const st = safeText(rawStatus).toLowerCase();
+  if (st === "publicado") return "Publicado";
+  if (st === "pendente") return "Pendente";
+  if (st === "vendido") return "Vendido";
+  if (st === "rascunho") return "Rascunho";
+  return "Publicado";
 }
 
 function displayCode(item) {
@@ -612,8 +616,8 @@ function displayCode(item) {
 }
 
 function renderProperties(items) {
-  // 1. Atualizar lista de pendentes de aprovação
-  const pendingItems = items.filter(i => safeText(i.status).toLowerCase() === "pendente");
+  // 1. Renderiza lista de propostas pendentes
+  const pendingItems = items.filter(i => normalizeStatus(i.status) === "Pendente");
   const pendingList = $("pendingList");
   const emptyPending = $("emptyPending");
   const pendingBadge = $("pendingBadge");
@@ -660,10 +664,11 @@ function renderProperties(items) {
 
       info.append(code, title, details, price);
 
-      if (item.anotacao_interna || item.descricao) {
+      const noteContent = safeText(item.anotacao_interna || item.anotacao_privada || item.descricao);
+      if (noteContent) {
         const note = document.createElement("div");
         note.className = "private-note";
-        note.textContent = safeText(item.anotacao_interna || item.descricao);
+        note.textContent = "Contato / Info: " + noteContent;
         info.append(note);
       }
 
@@ -694,27 +699,26 @@ function renderProperties(items) {
     }
   }
 
-  // 2. Renderizar lista geral de imóveis com filtros
+  // 2. Renderiza lista geral
   const list = $("propertyList");
   list.replaceChildren();
 
   const query = $("filterProperties").value.trim().toLocaleLowerCase("pt-BR");
 
   const filtered = items.filter(item => {
-    const statusText = safeText(item.status) || "Publicado";
-    
-    // Filtro por Tab
+    const statusText = normalizeStatus(item.status);
+
     if (currentFilter !== "todos" && statusText.toLowerCase() !== currentFilter.toLowerCase()) {
       return false;
     }
 
-    // Filtro por texto
     const searchable = [
       item.id,
       item.titulo,
       item.tipo,
       item.cidade,
-      item.bairro
+      item.bairro,
+      item.anotacao_interna
     ].map(safeText).join(" ").toLocaleLowerCase("pt-BR");
 
     return searchable.includes(query);
@@ -750,7 +754,7 @@ function renderProperties(items) {
     price.className = "price";
     price.textContent = money(item.preco);
 
-    const statusText = safeText(item.status) || "Publicado";
+    const statusText = normalizeStatus(item.status);
     const status = document.createElement("span");
     status.className = "status" + (
       statusText === "Rascunho" ? " draft" : 
@@ -832,7 +836,7 @@ async function updateStatus(item, newStatus) {
       method: "PUT",
       body: JSON.stringify(payload)
     });
-    showMessage("listMessage", `${displayCode(item)} atualizado para "${newStatus}"!`, "success");
+    showMessage("listMessage", `${displayCode(item)} atualizado para "${newStatus}" com sucesso!`, "success");
     await loadProperties();
   } catch (error) {
     showMessage("listMessage", "Erro ao atualizar status: " + error.message, "error");
@@ -894,10 +898,18 @@ function startEdit(item) {
   for (const field of [
     "titulo", "tipo", "finalidade", "preco", "cidade", "bairro",
     "endereco", "area_m2", "quartos", "banheiros", "vagas",
-    "foto_url", "descricao", "status", "anotacaoInterna"
+    "foto_url", "descricao"
   ]) {
     if ($(field)) {$(field).value = item[field] ?? "";
     }
+  }
+
+  if ($("anotacaoInterna")) {
+    $("anotacaoInterna").value = item.anotacao_interna || item.anotacao_privada || "";
+  }
+
+  if ($("status")) {
+    $("status").value = normalizeStatus(item.status);
   }
 
   $("destaque").checked = item.destaque === true || item.destaque === 1 || item.destaque === "1";
@@ -1040,7 +1052,7 @@ $("propertyForm").addEventListener("submit", async event => {
   }
 });
 
-// Eventos de Filtro por Tab
+// EVENTOS DE TAB DE FILTRO
 document.querySelectorAll(".tab-btn").forEach(btn => {
   btn.addEventListener("click", () => {
     document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
