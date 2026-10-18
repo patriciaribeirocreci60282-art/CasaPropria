@@ -1606,10 +1606,11 @@ function showPage(page, updateHistory = true) {
             <p class="location">${escapeHTML(locationOf(item))}</p>
             ${details ? `<div class="property-features">${details}</div>` : ""}
             <p class="property-price">${money(item.preco)}</p>
-            <a class="property-action" href="${detailURL(item)}"
-              target="_blank" rel="noopener noreferrer">
-              Consultar imóvel <span aria-hidden="true">→</span>
-            </a>
+            
+<a class="property-action" href="#imovel-${encodeURIComponent(item.id)}"
+  onclick="event.preventDefault(); openPropertyDetails('${encodeURIComponent(String(item.id ?? ""))}')">
+  Ver detalhes do imóvel <span aria-hidden="true">→</span>
+</a>
           </div>
         </article>`;
     }
