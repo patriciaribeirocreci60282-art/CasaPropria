@@ -5,14 +5,13 @@ const PUBLIC_URL =
 
 const MAX_FOTOS = 5;
 const MAX_BYTES = 5 * 1024 * 1024;
-const TIPOS_PERMITIDOS = new Set(["image/jpeg", "image/png"]);
+const ALLOWED_TYPES = new Set(["image/jpeg", "image/png"]);
 
 function json(data, status = 200) {
   return Response.json(data, {
     status,
     headers: {
-      "Cache-Control": "no-store",
-      "X-Content-Type-Options": "nosniff"
+      "Cache-Control": "no-store"
     }
   });
 }
@@ -20,12 +19,12 @@ function json(data, status = 200) {
 async function authorize(request, env) {
   try {
     const auth = await requireAdmin(request, env);
-    return auth?.ok ? null : (auth?.response || json({
-      error: "Acesso não autorizado. Entre novamente na área administrativa."
-    }, 401));
-  } catch (error) {
-    console.error("Erro de autenticação em fotos.js:", error);
-    return json({ error: "Não foi possível verificar a autenticação." }, 500);
+    return auth.ok ? null : auth.response;
+  } catch {
+    return json(
+      { error: "Não foi possível verificar sua sessão. Entre novamente." },
+      401
+    );
   }
 }
 
@@ -42,23 +41,25 @@ function publicUrl(key) {
     key.split("/").map(encodeURIComponent).join("/");
 }
 
-function validId(value) {
-  const id = Number(value);
-  return Number.isSafeInteger(id) && id > 0 ? id : null;
+function errorMessage(error) {
+  return error instanceof Error
+    ? error.message
+    : String(error || "Erro desconhecido");
 }
 
-function getErrorMessage(error) {
-  return error instanceof Error ? error.message : String(error);
-}
-
-// Lista as fotos de um imóvel.
+// LISTAR FOTOS DE UM IMÓVEL
 export async function onRequestGet({ request, env }) {
   const denied = await authorize(request, env);
   if (denied) return denied;
 
-  const id = validId(new URL(request.url).searchParams.get("imovel_id"));
+  if (!env.DB) {
+    return json({ error: "O vínculo DB não está configurado." }, 500);
+  }
 
-  if (!id) {
+  const url = new URL(request.url);
+  const imovelId = Number(url.searchParams.get("imovel_id"));
+
+  if (!Number.isSafeInteger(imovelId) || imovelId < 1) {
     return json({ error: "Código do imóvel inválido." }, 400);
   }
 
@@ -68,30 +69,33 @@ export async function onRequestGet({ request, env }) {
       FROM fotos_imoveis
       WHERE imovel_id = ?
       ORDER BY ordem, id
-    `).bind(id).all();
+    `).bind(imovelId).all();
 
     return json({
       success: true,
       fotos: result.results || []
     });
   } catch (error) {
-    console.error("Erro ao listar fotos:", error);
-    return json({ error: "Não foi possível listar as fotos." }, 500);
+    console.error("Erro ao listar fotos:", errorMessage(error));
+
+    return json({
+      error: "Não foi possível listar as fotos no banco de dados."
+    }, 500);
   }
 }
 
-// Recebe e salva até cinco imagens PNG ou JPG.
+// ENVIAR FOTOS
 export async function onRequestPost({ request, env }) {
   const denied = await authorize(request, env);
   if (denied) return denied;
 
   if (!env.DB) {
-    return json({ error: "O banco de dados D1 não está configurado." }, 500);
+    return json({ error: "O vínculo DB não está configurado." }, 500);
   }
 
   if (!env.FOTOS_BUCKET) {
     return json({
-      error: "O armazenamento de fotos FOTOS_BUCKET não está configurado."
+      error: "O armazenamento FOTOS_BUCKET não está configurado no Cloudflare."
     }, 500);
   }
 
@@ -108,23 +112,26 @@ export async function onRequestPost({ request, env }) {
   try {
     form = await request.formData();
   } catch (error) {
-    console.error("Erro ao ler formulário de fotos:", error);
+    console.error("Erro ao ler formulário:", errorMessage(error));
+
     return json({
       error: "Não foi possível ler as fotos enviadas. Tente novamente."
     }, 400);
   }
 
-  const imovelId = validId(form.get("imovel_id"));
-  const fotos = form.getAll("fotos").filter(
-    item => item &&
-      typeof item === "object" &&
-      typeof item.arrayBuffer === "function" &&
-      typeof item.size === "number" &&
-      item.size > 0
+  const imovelId = Number(form.get("imovel_id"));
+
+  const fotos = form.getAll("fotos").filter(item =>
+    item &&
+    typeof item === "object" &&
+    typeof item.arrayBuffer === "function" &&
+    item.size > 0
   );
 
-  if (!imovelId) {
-    return json({ error: "Código do imóvel inválido." }, 400);
+  if (!Number.isSafeInteger(imovelId) || imovelId < 1) {
+    return json({
+      error: "Código do imóvel inválido. Salve o imóvel antes de enviar as fotos."
+    }, 400);
   }
 
   if (fotos.length < 1 || fotos.length > MAX_FOTOS) {
@@ -134,15 +141,15 @@ export async function onRequestPost({ request, env }) {
   }
 
   for (const foto of fotos) {
-    if (!TIPOS_PERMITIDOS.has(foto.type)) {
+    if (!ALLOWED_TYPES.has(foto.type)) {
       return json({
-        error: `A foto "${safeName(foto.name)}" não é PNG ou JPG.`
+        error: `O arquivo "${safeName(foto.name)}" não é JPG ou PNG.`
       }, 400);
     }
 
     if (foto.size > MAX_BYTES) {
       return json({
-        error: `A foto "${safeName(foto.name)}" excede o limite de 5 MB.`
+        error: `A foto "${safeName(foto.name)}" ultrapassa o limite de 5 MB.`
       }, 400);
     }
   }
@@ -154,7 +161,7 @@ export async function onRequestPost({ request, env }) {
 
     if (!imovel) {
       return json({
-        error: "Cadastre o imóvel antes de enviar as fotos."
+        error: "Imóvel não encontrado. Salve o cadastro antes de enviar as fotos."
       }, 404);
     }
 
@@ -166,7 +173,7 @@ export async function onRequestPost({ request, env }) {
 
     if (totalAtual + fotos.length > MAX_FOTOS) {
       return json({
-        error: `Este imóvel já tem ${totalAtual} foto(s). O limite é 5.`
+        error: `Este imóvel já possui ${totalAtual} foto(s). O limite total é de 5.`
       }, 400);
     }
 
@@ -179,21 +186,24 @@ export async function onRequestPost({ request, env }) {
         const tipo = foto.type;
         const extensao = tipo === "image/png" ? "png" : "jpg";
         const nome = safeName(foto.name || `foto.${extensao}`);
+
         const chave =
           `imoveis/${imovelId}/${crypto.randomUUID()}-${nome}`;
+
         const urlFoto = publicUrl(chave);
         const ordem = totalAtual + i + 1;
 
-        // Salva primeiro o arquivo no R2.
+        // Salva a imagem no Cloudflare R2.
         await env.FOTOS_BUCKET.put(chave, foto.stream(), {
           httpMetadata: {
-            contentType: tipo
+            contentType: tipo,
+            cacheControl: "public, max-age=31536000"
           }
         });
 
         arquivosEnviados.push(chave);
 
-        // Registra a foto no banco D1.
+        // Registra a imagem no banco D1.
         const result = await env.DB.prepare(`
           INSERT INTO fotos_imoveis
             (imovel_id, chave_r2, url, tipo, tamanho, ordem)
@@ -208,7 +218,7 @@ export async function onRequestPost({ request, env }) {
         ).run();
 
         salvas.push({
-          id: result.meta?.last_row_id ?? null,
+          id: result.meta?.last_row_id,
           imovel_id: imovelId,
           chave_r2: chave,
           url: urlFoto,
@@ -218,24 +228,30 @@ export async function onRequestPost({ request, env }) {
         });
       }
     } catch (error) {
-      console.error("Falha durante o envio das fotos:", error);
+      console.error("Erro durante upload das fotos:", errorMessage(error));
 
-      // Tenta reverter os registros e arquivos criados neste envio.
-      for (const foto of salvas.reverse()) {
+      // Tenta desfazer os registros e arquivos criados nesta operação.
+      for (const foto of salvas) {
         try {
           await env.DB.prepare(
             "DELETE FROM fotos_imoveis WHERE id = ?"
           ).bind(foto.id).run();
-        } catch (cleanupError) {
-          console.error("Falha ao remover registro de foto:", cleanupError);
+        } catch (rollbackError) {
+          console.error(
+            "Erro ao desfazer registro:",
+            errorMessage(rollbackError)
+          );
         }
       }
 
-      for (const chave of arquivosEnviados.reverse()) {
+      for (const chave of arquivosEnviados) {
         try {
           await env.FOTOS_BUCKET.delete(chave);
-        } catch (cleanupError) {
-          console.error("Falha ao remover arquivo do R2:", cleanupError);
+        } catch (rollbackError) {
+          console.error(
+            "Erro ao remover arquivo:",
+            errorMessage(rollbackError)
+          );
         }
       }
 
@@ -249,34 +265,36 @@ export async function onRequestPost({ request, env }) {
     }, 201);
 
   } catch (error) {
-    // Detalhes ficam nos logs do servidor, não na resposta pública.
-    console.error("Erro ao salvar fotos no R2/D1:", error);
+    console.error("Falha ao salvar fotos:", errorMessage(error));
 
     return json({
-      error: "Falha ao salvar as fotos. Verifique a configuração do armazenamento e tente novamente."
+      error: "Falha ao salvar as fotos. Verifique os vínculos R2 e D1 e os logs da função."
     }, 500);
   }
 }
 
-// Exclui uma foto pelo ID do registro.
+// EXCLUIR FOTO
 export async function onRequestDelete({ request, env }) {
   const denied = await authorize(request, env);
   if (denied) return denied;
 
   if (!env.DB) {
-    return json({ error: "O banco de dados D1 não está configurado." }, 500);
+    return json({ error: "O vínculo DB não está configurado." }, 500);
   }
 
   if (!env.FOTOS_BUCKET) {
     return json({
-      error: "O armazenamento de fotos FOTOS_BUCKET não está configurado."
+      error: "O armazenamento FOTOS_BUCKET não está configurado."
     }, 500);
   }
 
-  const id = validId(new URL(request.url).searchParams.get("id"));
+  const url = new URL(request.url);
+  const id = Number(url.searchParams.get("id"));
 
-  if (!id) {
-    return json({ error: "Informe um código de foto válido." }, 400);
+  if (!Number.isSafeInteger(id) || id < 1) {
+    return json({
+      error: "Informe um código de foto válido."
+    }, 400);
   }
 
   try {
@@ -285,7 +303,9 @@ export async function onRequestDelete({ request, env }) {
     ).bind(id).first();
 
     if (!foto) {
-      return json({ error: "Foto não encontrada." }, 404);
+      return json({
+        error: "Foto não encontrada."
+      }, 404);
     }
 
     if (!foto.chave_r2) {
@@ -294,7 +314,6 @@ export async function onRequestDelete({ request, env }) {
       }, 500);
     }
 
-    // Mantém o registro se a exclusão do arquivo falhar.
     await env.FOTOS_BUCKET.delete(foto.chave_r2);
 
     await env.DB.prepare(
@@ -305,12 +324,11 @@ export async function onRequestDelete({ request, env }) {
       success: true,
       message: "Foto excluída com sucesso."
     });
-
   } catch (error) {
-    console.error("Erro ao excluir foto:", error);
+    console.error("Erro ao excluir foto:", errorMessage(error));
 
     return json({
-      error: "Não foi possível excluir a foto. Verifique os logs do servidor."
+      error: "Não foi possível excluir a foto. Consulte os logs da função."
     }, 500);
   }
 }
