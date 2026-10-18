@@ -860,6 +860,117 @@
     </div>
   </header>
 
+<!-- PÁGINA VENDER MEU IMÓVEL -->
+<section class="internal-page" id="pageVender" hidden>
+  <div class="container">
+    <a href="#comprar" class="back-link" data-page="comprar">
+      ← Voltar para Comprar
+    </a>
+
+    <div class="internal-heading">
+      <span class="section-kicker">Anuncie seu imóvel</span>
+      <h1>Venda seu imóvel com a gente</h1>
+      <p>Informe quanto deseja receber e veja o preço sugerido para o anúncio, incluindo a comissão de 5%.</p>
+    </div>
+
+    <form class="form-card" id="sellForm">
+      <div class="form-grid">
+        <div class="field full">
+          <label for="sellName">Nome completo *</label>
+          <input id="sellName" name="nome" required
+            placeholder="Seu nome completo">
+        </div>
+
+        <div class="field">
+          <label for="sellPhone">WhatsApp *</label>
+          <input id="sellPhone" name="telefone" type="tel"
+            required placeholder="(00) 00000-0000">
+        </div>
+
+        <div class="field">
+          <label for="sellType">Tipo de imóvel *</label>
+          <select id="sellType" name="tipo" required>
+            <option value="">Selecione</option>
+            <option>Casa</option>
+            <option>Apartamento</option>
+            <option>Terreno</option>
+            <option>Empreendimento</option>
+            <option>Outro</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="sellCity">Cidade *</label>
+          <input id="sellCity" name="cidade" required
+            placeholder="Cidade do imóvel">
+        </div>
+
+        <div class="field">
+          <label for="sellNeighborhood">Bairro</label>
+          <input id="sellNeighborhood" name="bairro"
+            placeholder="Bairro do imóvel">
+        </div>
+
+        <div class="field full">
+          <label for="sellDesiredPrice">
+            Quanto você quer receber pelo imóvel? (R$) *
+          </label>
+          <input id="sellDesiredPrice" name="valor_desejado"
+            type="number" min="1" step="0.01" required
+            placeholder="Ex.: 300000">
+        </div>
+
+        <div class="field full">
+          <label>Simulação do anúncio</label>
+          <div style="padding:18px;background:#F7F5F1;border-radius:6px">
+            <p>Valor desejado pelo proprietário:
+              <strong id="sellNet">R$ 0,00</strong>
+            </p>
+            <p>Comissão de 5%:
+              <strong id="sellCommission">R$ 0,00</strong>
+            </p>
+            <p style="font-size:20px;margin-bottom:0">
+              Preço sugerido para anunciar:
+              <strong id="sellGross" style="color:#C94C19">
+                R$ 0,00
+              </strong>
+            </p>
+          </div>
+          <p class="form-help">
+            Simulação considerando comissão de 5% sobre o preço final de venda.
+          </p>
+        </div>
+
+        <div class="field full">
+          <label for="sellDescription">Descrição do imóvel *</label>
+          <textarea id="sellDescription" name="descricao"
+            required placeholder="Descreva o imóvel, a metragem, os quartos e outras características."></textarea>
+        </div>
+
+        <div class="field full">
+          <label style="display:flex;gap:10px;align-items:flex-start">
+            <input type="checkbox" id="sellTerms" required
+              style="width:18px;min-height:18px;margin-top:4px;flex:0 0 auto">
+            <span>
+              Li e aceito que a comissão de intermediação proposta é de 5%
+              sobre o preço final de venda, conforme as condições que
+              serão formalizadas no termo de intermediação.
+            </span>
+          </label>
+          <p class="form-help">
+            O envio desta solicitação não substitui o contrato de intermediação
+            nem significa publicação automática do imóvel.
+          </p>
+        </div>
+      </div>
+
+      <button class="btn btn-block" type="submit">
+        Enviar proposta pelo WhatsApp
+      </button>
+    </form>
+  </div>
+</section>
+
   <main>
     <!-- PÁGINA PRINCIPAL: COMPRAR -->
     <div id="pageComprar">
