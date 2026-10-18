@@ -10,242 +10,244 @@
 
 <style>
 :root {
-  --orange:#E8622A;
-  --dark:#C94C19;
-  --ink:#262823;
-  --muted:#625F59;
-  --line:#E7E2DA;
-  --cream:#F7F5F1;
-  --green:#247547;
-  --red:#B42318;
+  --orange: #E8622A;
+  --dark: #C94C19;
+  --ink: #262823;
+  --muted: #625F59;
+  --line: #E7E2DA;
+  --cream: #F7F5F1;
+  --green: #247547;
+  --red: #B42318;
 }
-* { box-sizing:border-box; }
+* { box-sizing: border-box; }
 body {
-  margin:0;
-  background:var(--cream);
-  color:var(--ink);
-  font:15px/1.6 Montserrat,sans-serif;
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font: 15px/1.6 Montserrat, sans-serif;
 }
-button,input,select,textarea { font:inherit; }
-button { cursor:pointer; }
-[hidden] { display:none!important; }
+button, input, select, textarea { font: inherit; }
+button { cursor: pointer; }
+[hidden] { display: none !important; }
 header {
-  background:white;
-  border-bottom:1px solid var(--line);
+  background: white;
+  border-bottom: 1px solid var(--line);
 }
 .header-inner {
-  width:min(1200px,calc(100% - 32px));
-  min-height:72px;
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
+  width: min(1200px, calc(100% - 32px));
+  min-height: 72px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 }
 .brand {
-  font-size:22px;
-  font-weight:700;
-  color:var(--ink);
-  text-decoration:none;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: none;
 }
-.brand span { color:var(--dark); }
+.brand span { color: var(--dark); }
 main {
-  width:min(1200px,calc(100% - 32px));
-  margin:30px auto 55px;
+  width: min(1200px, calc(100% - 32px));
+  margin: 30px auto 55px;
 }
-h1 { font-size:clamp(25px,4vw,34px); margin:0 0 8px; }
-h2 { font-size:21px; margin:0 0 18px; }
-p { color:var(--muted); }
+h1 { font-size: clamp(25px, 4vw, 34px); margin: 0 0 8px; }
+h2 { font-size: 21px; margin: 0 0 18px; }
+p { color: var(--muted); }
 .panel {
-  padding:24px;
-  margin-bottom:22px;
-  background:white;
-  border:1px solid var(--line);
-  border-radius:9px;
-  box-shadow:0 5px 20px #00000008;
+  padding: 24px;
+  margin-bottom: 22px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.03);
 }
-.login-wrap { max-width:440px; margin:50px auto; }
+.login-wrap { max-width: 440px; margin: 50px auto; }
 .field-grid {
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:16px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
 }
-.field { min-width:0; }
-.field.full { grid-column:1/-1; }
+.field { min-width: 0; }
+.field.full { grid-column: 1 / -1; }
 label {
-  display:block;
-  margin-bottom:6px;
-  font-weight:700;
-  font-size:13px;
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 700;
+  font-size: 13px;
 }
-input,select,textarea {
-  display:block;
-  width:100%;
-  min-height:46px;
-  padding:10px 12px;
-  border:1px solid #DCD7CF;
-  border-radius:5px;
-  background:white;
-  color:var(--ink);
+input, select, textarea {
+  display: block;
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 12px;
+  border: 1px solid #DCD7CF;
+  border-radius: 5px;
+  background: white;
+  color: var(--ink);
 }
-textarea { min-height:110px; resize:vertical; }
-input:focus,select:focus,textarea:focus {
-  outline:2px solid #E8622A33;
-  border-color:var(--orange);
+textarea { min-height: 110px; resize: vertical; }
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid rgba(232,98,42,0.2);
+  border-color: var(--orange);
 }
 .btn {
-  display:inline-flex;
-  justify-content:center;
-  align-items:center;
-  gap:6px;
-  min-height:43px;
-  padding:9px 15px;
-  border:0;
-  border-radius:5px;
-  background:var(--orange);
-  color:white;
-  font-weight:700;
-  text-decoration:none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  min-height: 43px;
+  padding: 9px 15px;
+  border: 0;
+  border-radius: 5px;
+  background: var(--orange);
+  color: white;
+  font-weight: 700;
+  text-decoration: none;
 }
-.btn:hover { background:var(--dark); }
-.btn:disabled { opacity:.6; cursor:wait; }
+.btn:hover { background: var(--dark); }
+.btn:disabled { opacity: .6; cursor: wait; }
 .btn-secondary {
-  background:white;
-  color:var(--ink);
-  border:1px solid var(--line);
+  background: white;
+  color: var(--ink);
+  border: 1px solid var(--line);
 }
-.btn-secondary:hover { background:var(--cream); }
-.btn-danger { background:var(--red); }
-.btn-danger:hover { background:#8E1B13; }
-.top-actions,.actions {
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
+.btn-secondary:hover { background: var(--cream); }
+.btn-danger { background: var(--red); }
+.btn-danger:hover { background: #8E1B13; }
+.top-actions, .actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 .message {
-  padding:11px 13px;
-  margin:14px 0;
-  border-radius:5px;
-  background:#F0F0F0;
-  overflow-wrap:anywhere;
+  padding: 11px 13px;
+  margin: 14px 0;
+  border-radius: 5px;
+  background: #F0F0F0;
+  overflow-wrap: anywhere;
 }
-.message.error { background:#FDECEC; color:var(--red); }
-.message.success { background:#E9F6ED; color:var(--green); }
+.message.error { background: #FDECEC; color: var(--red); }
+.message.success { background: #E9F6ED; color: var(--green); }
 .check-row {
-  display:flex;
-  gap:20px;
-  flex-wrap:wrap;
-  margin:18px 0;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin: 18px 0;
 }
 .check-row label {
-  display:flex;
-  align-items:center;
-  gap:8px;
-  font-size:14px;
-  font-weight:500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
 }
 .check-row input {
-  width:18px;
-  min-height:18px;
-  height:18px;
-  accent-color:var(--orange);
+  width: 18px;
+  min-height: 18px;
+  height: 18px;
+  accent-color: var(--orange);
 }
 .help {
-  display:block;
-  color:var(--muted);
-  font-size:12px;
-  margin-top:5px;
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 5px;
 }
-.preview { margin-top:12px; max-width:340px; }
+.preview { margin-top: 12px; max-width: 340px; }
 .preview img {
-  display:block;
-  max-width:100%;
-  max-height:220px;
-  object-fit:contain;
-  border:1px solid var(--line);
-  border-radius:6px;
+  display: block;
+  max-width: 100%;
+  max-height: 220px;
+  object-fit: contain;
+  border: 1px solid var(--line);
+  border-radius: 6px;
 }
 .toolbar {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  flex-wrap:wrap;
-  margin-bottom:16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
 }
-.property-list { display:grid; gap:12px; }
+.property-list { display: grid; gap: 12px; }
 .property {
-  padding:15px;
-  border:1px solid var(--line);
-  border-radius:7px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:14px;
+  padding: 15px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  background: white;
 }
-.property-info { min-width:0; }
+.property-info { min-width: 0; }
 .property h3 {
-  margin:0 0 4px;
-  font-size:16px;
-  overflow-wrap:anywhere;
+  margin: 0 0 4px;
+  font-size: 16px;
+  overflow-wrap: anywhere;
 }
-.property p { margin:4px 0; font-size:13px; }
+.property p { margin: 4px 0; font-size: 13px; }
 .property-code {
-  display:inline-block;
-  padding:3px 8px;
-  margin-bottom:5px;
-  border-radius:4px;
-  background:#FFF0E8;
-  color:var(--dark);
-  font-weight:700;
-  font-size:12px;
+  display: inline-block;
+  padding: 3px 8px;
+  margin-bottom: 5px;
+  border-radius: 4px;
+  background: #FFF0E8;
+  color: var(--dark);
+  font-weight: 700;
+  font-size: 12px;
 }
-.price { color:var(--dark); font-weight:700; }
+.price { color: var(--dark); font-weight: 700; }
 .status {
-  display:inline-block;
-  padding:3px 8px;
-  border-radius:4px;
-  background:#E9F6ED;
-  color:var(--green);
-  font-size:11px;
-  font-weight:700;
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: #E9F6ED;
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 700;
 }
-.status.draft { background:#FFF0D9; color:#875400; }
+.status.draft { background: #FFF0D9; color: #875400; }
+.status.pending { background: #E6F4EA; color: #137333; }
 .property-actions {
-  display:flex;
-  gap:7px;
-  flex-wrap:wrap;
-  flex-shrink:0;
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
 }
 .property-actions .btn {
-  font-size:12px;
-  padding:7px 10px;
-  min-height:36px;
+  font-size: 12px;
+  padding: 7px 10px;
+  min-height: 36px;
 }
 .empty {
-  padding:22px;
-  text-align:center;
-  border:1px dashed #D8D0C6;
-  border-radius:7px;
-  color:var(--muted);
+  padding: 22px;
+  text-align: center;
+  border: 1px dashed #D8D0C6;
+  border-radius: 7px;
+  color: var(--muted);
 }
 footer {
-  padding:24px 16px;
-  border-top:1px solid var(--line);
-  text-align:center;
-  color:var(--muted);
-  font-size:12px;
+  padding: 24px 16px;
+  border-top: 1px solid var(--line);
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
 }
-@media(max-width:680px) {
-  main { margin-top:20px; }
-  .panel { padding:17px; }
-  .field-grid { grid-template-columns:1fr; }
-  .field.full { grid-column:auto; }
-  .header-inner { min-height:64px; }
-  .brand { font-size:19px; }
-  .property { align-items:stretch; flex-direction:column; }
-  .property-actions .btn { flex:1; }
-  .top-actions .btn { padding:8px 10px; font-size:12px; }
+@media(max-width: 680px) {
+  main { margin-top: 20px; }
+  .panel { padding: 17px; }
+  .field-grid { grid-template-columns: 1fr; }
+  .field.full { grid-column: auto; }
+  .header-inner { min-height: 64px; }
+  .brand { font-size: 19px; }
+  .property { align-items: stretch; flex-direction: column; }
+  .property-actions .btn { flex: 1; }
+  .top-actions .btn { padding: 8px 10px; font-size: 12px; }
 }
 </style>
 </head>
@@ -278,8 +280,20 @@ footer {
   <section id="adminSection" hidden>
     <div style="margin-bottom:22px">
       <h1>Gerenciar imóveis</h1>
-      <p>Cadastre, edite, publique e exclua seus anúncios.</p>
+      <p>Cadastre, aprove, edite, publique e exclua seus anúncios.</p>
     </div>
+
+    <!-- SEÇÃO DE IMÓVEIS PENDENTES DE APROVAÇÃO -->
+    <section class="panel" id="pendingPanel" style="border-left: 4px solid var(--orange);">
+      <div class="toolbar">
+        <div>
+          <h2 style="margin-bottom:4px; color: var(--dark);">Imóveis Pendentes de Aprovação</h2>
+          <p style="margin:0">Propostas enviadas por proprietários aguardando liberação para o site.</p>
+        </div>
+      </div>
+      <div id="pendingList" class="property-list" style="margin-top: 15px;"></div>
+      <div id="emptyPending" class="empty" style="margin-top: 10px;">Nenhum imóvel pendente no momento.</div>
+    </section>
 
     <section class="panel" id="editorPanel">
       <h2 id="formTitle">Cadastrar novo imóvel</h2>
@@ -363,8 +377,7 @@ footer {
             <label for="fotoArquivo">Enviar foto do imóvel (PNG, JPG ou JPEG)</label>
             <input id="fotoArquivo" type="file" accept="image/png,image/jpeg">
             <small class="help">
-              Arquivos de até 10 MB. A imagem será enviada para o servidor e deverá
-              ser armazenada no R2 para permanecer disponível.
+              Arquivos de até 10 MB. A imagem será enviada para o servidor e armazenada no R2.
             </small>
             <div id="fotoPreview" class="preview" hidden>
               <img id="fotoPreviewImg" alt="Pré-visualização da foto do imóvel">
@@ -396,6 +409,7 @@ footer {
           <label for="status">Publicação</label>
           <select id="status">
             <option value="Publicado">Publicado no site</option>
+            <option value="Pendente">Pendente (Aguardando aprovação)</option>
             <option value="Rascunho">Salvar como rascunho</option>
           </select>
         </div>
@@ -489,7 +503,6 @@ async function apiRequest(url, options = {}) {
     if (response.status === 401 || response.status === 403) {
       throw new Error(data.error || "Sessão inválida ou expirada. Entre novamente.");
     }
-
     throw new Error(data.error || `Erro HTTP ${response.status}`);
   }
 
@@ -512,13 +525,10 @@ function money(value) {
   if (value === null || value === undefined || value === "") {
     return "Valor a consultar";
   }
-
   const n = Number(value);
-
   if (!Number.isFinite(n)) {
     return "Valor a consultar";
   }
-
   return n.toLocaleString("pt-BR", {
     style: "currency",
     currency: "BRL",
@@ -537,6 +547,69 @@ function displayCode(item) {
 }
 
 function renderProperties(items) {
+  // 1. SEPARAÇÃO E RENDERIZAÇÃO DOS IMÓVEIS PENDENTES
+  const pendingItems = items.filter(i => safeText(i.status).toLowerCase() === "pendente");
+  const pendingList = $("pendingList");
+  const emptyPending = $("emptyPending");
+
+  if (pendingList) {
+    pendingList.replaceChildren();
+    emptyPending.hidden = pendingItems.length !== 0;
+
+    for (const item of pendingItems) {
+      const article = document.createElement("article");
+      article.className = "property";
+      article.style.background = "#FFF8F4";
+
+      const info = document.createElement("div");
+      info.className = "property-info";
+
+      const code = document.createElement("div");
+      code.className = "property-code";
+      code.textContent = displayCode(item) + " · Proposta de Venda";
+
+      const title = document.createElement("h3");
+      title.textContent = safeText(item.titulo) || "Imóvel sem título";
+
+      const details = document.createElement("p");
+      details.textContent = [
+        safeText(item.tipo),
+        safeText(item.cidade),
+        safeText(item.bairro)
+      ].filter(Boolean).join(" · ");
+
+      const price = document.createElement("p");
+      price.className = "price";
+      price.textContent = money(item.preco);
+
+      info.append(code, title, details, price);
+
+      const actions = document.createElement("div");
+      actions.className = "property-actions";
+
+      const approveBtn = document.createElement("button");
+      approveBtn.className = "btn";
+      approveBtn.style.background = "var(--green)";
+      approveBtn.textContent = "Aprovar e Publicar";
+      approveBtn.addEventListener("click", () => approveProperty(item));
+
+      const editBtn = document.createElement("button");
+      editBtn.className = "btn btn-secondary";
+      editBtn.textContent = "Editar";
+      editBtn.addEventListener("click", () => startEdit(item));
+
+      const removeBtn = document.createElement("button");
+      removeBtn.className = "btn btn-danger";
+      removeBtn.textContent = "Recusar";
+      removeBtn.addEventListener("click", () => deleteProperty(item));
+
+      actions.append(approveBtn, editBtn, removeBtn);
+      article.append(info, actions);
+      pendingList.append(article);
+    }
+  }
+
+  // 2. LISTAGEM GERAL DE IMÓVEIS (DEMAIS)
   const list = $("propertyList");
   list.replaceChildren();
 
@@ -586,10 +659,10 @@ function renderProperties(items) {
     price.className = "price";
     price.textContent = money(item.preco);
 
+    const statusText = safeText(item.status) || "Publicado";
     const status = document.createElement("span");
-    status.className =
-      "status" + (item.status === "Rascunho" ? " draft" : "");
-    status.textContent = safeText(item.status) || "Publicado";
+    status.className = "status" + (statusText === "Rascunho" ? " draft" : statusText === "Pendente" ? " pending" : "");
+    status.textContent = statusText;
 
     info.append(code, title, details, price, status);
 
@@ -617,15 +690,13 @@ function renderProperties(items) {
 async function loadProperties() {
   $("refreshButton").disabled = true;
   $("propertyCount").textContent = "Carregando...";
-  showMessage("listMessage", "");
+  лект: showMessage("listMessage", "");
 
   try {
     const data = await apiRequest(API.properties);
-
     if (!Array.isArray(data.imoveis)) {
       throw new Error("A API não retornou a lista de imóveis.");
     }
-
     properties = data.imoveis;
     renderProperties(properties);
   } catch (error) {
@@ -633,6 +704,25 @@ async function loadProperties() {
     showMessage("listMessage", error.message, "error");
   } finally {
     $("refreshButton").disabled = false;
+  }
+}
+
+async function approveProperty(item) {
+  try {
+    const payload = {
+      ...item,
+      status: "Publicado"
+    };
+
+    await apiRequest(`${API.properties}?id=${encodeURIComponent(item.id)}`, {
+      method: "PUT",
+      body: JSON.stringify(payload)
+    });
+
+    showMessage("listMessage", `Imóvel ${displayCode(item)} aprovado e publicado com sucesso!`, "success");
+    await loadProperties();
+  } catch (error) {
+    showMessage("listMessage", "Erro ao aprovar imóvel: " + error.message, "error");
   }
 }
 
@@ -653,7 +743,6 @@ function setPhotoPreview(url) {
 
 $("fotoArquivo").addEventListener("change", () => {
   const file = $("fotoArquivo").files[0];
-
   if (!file) {
     setPhotoPreview($("foto_url").value.trim());
     return;
@@ -702,24 +791,13 @@ function startEdit(item) {
     $(field).value = item[field] ?? "";
   }
 
-  $("destaque").checked =
-    item.destaque === true ||
-    item.destaque === 1 ||
-    item.destaque === "1";
-
-  $("lancamento").checked =
-    item.lancamento === true ||
-    item.lancamento === 1 ||
-    item.lancamento === "1";
+  $("destaque").checked = item.destaque === true || item.destaque === 1 || item.destaque === "1";
+  $("lancamento").checked = item.lancamento === true || item.lancamento === 1 || item.lancamento === "1";
 
   $("fotoArquivo").value = "";
   setPhotoPreview(item.foto_url || "");
 
-  showMessage(
-    "formMessage",
-    `Editando ${displayCode(item)}. Faça as alterações e salve.`,
-    "success"
-  );
+  showMessage("formMessage", `Editando ${displayCode(item)}. Faça as alterações e salve.`, "success");
 
   $("editorPanel").scrollIntoView({
     behavior: "smooth",
@@ -740,36 +818,21 @@ function resetEditor() {
 
 async function deleteProperty(item) {
   if (item.id === null || item.id === undefined) {
-    showMessage(
-      "listMessage",
-      "Este imóvel não possui código e não pode ser excluído.",
-      "error"
-    );
+    showMessage("listMessage", "Este imóvel não possui código e não pode ser excluído.", "error");
     return;
   }
 
-  const confirmed = confirm(
-    `Deseja realmente excluir ${displayCode(item)} — ${safeText(item.titulo)}?\n\nEssa ação não pode ser desfeita.`
-  );
-
+  const confirmed = confirm(`Deseja realmente excluir ${displayCode(item)} — ${safeText(item.titulo)}?\n\nEssa ação não pode ser desfeita.`);
   if (!confirmed) return;
 
   try {
-    await apiRequest(
-      `${API.properties}?id=${encodeURIComponent(item.id)}`,
-      { method: "DELETE" }
-    );
+    await apiRequest(`${API.properties}?id=${encodeURIComponent(item.id)}`, { method: "DELETE" });
 
     if ($("editingId").value === String(item.id)) {
       resetEditor();
     }
 
-    showMessage(
-      "listMessage",
-      `${displayCode(item)} excluído com sucesso.`,
-      "success"
-    );
-
+    showMessage("listMessage", `${displayCode(item)} excluído com sucesso.`, "success");
     await loadProperties();
   } catch (error) {
     showMessage("listMessage", error.message, "error");
@@ -778,22 +841,17 @@ async function deleteProperty(item) {
 
 async function uploadPhoto(file) {
   const formData = new FormData();
-
-  // O nome do campo deve corresponder ao esperado em fotos.js.
   formData.append("file", file);
 
   const response = await fetch(API.upload, {
     method: "POST",
     credentials: "same-origin",
     cache: "no-store",
-    headers: {
-      Accept: "application/json"
-    },
+    headers: { Accept: "application/json" },
     body: formData
   });
 
   let data = {};
-
   try {
     data = await response.json();
   } catch {
@@ -801,15 +859,11 @@ async function uploadPhoto(file) {
   }
 
   if (!response.ok) {
-    throw new Error(
-      data.error || `Falha no envio da foto (HTTP ${response.status}).`
-    );
+    throw new Error(data.error || `Falha no envio da foto (HTTP ${response.status}).`);
   }
 
   if (!data.url || typeof data.url !== "string") {
-    throw new Error(
-      "O servidor recebeu uma resposta sem a URL da foto. Verifique functions/api/admin/fotos.js."
-    );
+    throw new Error("O servidor recebeu uma resposta sem a URL da foto.");
   }
 
   return data.url;
@@ -817,9 +871,7 @@ async function uploadPhoto(file) {
 
 $("propertyForm").addEventListener("submit", async event => {
   event.preventDefault();
-
   const button = $("saveButton");
-
   if (button.disabled) return;
 
   button.disabled = true;
@@ -860,16 +912,12 @@ $("propertyForm").addEventListener("submit", async event => {
     };
 
     const id = $("editingId").value;
-
-    // imoveis.js espera o ID no corpo do PUT.
     if (id) {
       payload.id = Number(id);
     }
 
     const result = await apiRequest(
-      id
-        ? `${API.properties}?id=${encodeURIComponent(id)}`
-        : API.properties,
+      id ? `${API.properties}?id=${encodeURIComponent(id)}` : API.properties,
       {
         method: id ? "PUT" : "POST",
         body: JSON.stringify(payload)
@@ -878,9 +926,7 @@ $("propertyForm").addEventListener("submit", async event => {
 
     const message = id
       ? `${displayCode({ id })} atualizado com sucesso!`
-      : `${result.message || "Imóvel cadastrado com sucesso."}${
-          result.id != null ? " Código: " + result.id : ""
-        }`;
+      : `${result.message || "Imóvel cadastrado com sucesso."}${result.id != null ? " Código: " + result.id : ""}`;
 
     resetEditor();
     showMessage("formMessage", message, "success");
@@ -889,9 +935,7 @@ $("propertyForm").addEventListener("submit", async event => {
     showMessage("formMessage", error.message, "error");
   } finally {
     button.disabled = false;
-    button.textContent = $("editingId").value
-      ? "Salvar alterações"
-      : "Cadastrar imóvel";
+    button.textContent = $("editingId").value ? "Salvar alterações" : "Cadastrar imóvel";
   }
 });
 
@@ -905,7 +949,6 @@ $("filterProperties").addEventListener("input", () => {
 
 $("loginForm").addEventListener("submit", async event => {
   event.preventDefault();
-
   const button = $("loginButton");
   button.disabled = true;
   button.textContent = "Verificando...";
@@ -914,9 +957,7 @@ $("loginForm").addEventListener("submit", async event => {
   try {
     await apiRequest(API.login, {
       method: "POST",
-      body: JSON.stringify({
-        password: $("password").value
-      })
+      body: JSON.stringify({ password: $("password").value })
     });
 
     $("password").value = "";
@@ -936,7 +977,6 @@ $("logoutButton").addEventListener("click", async () => {
   } catch (error) {
     showMessage("listMessage", error.message, "error");
   }
-
   showLogin();
 });
 
