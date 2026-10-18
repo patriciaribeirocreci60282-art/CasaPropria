@@ -1321,7 +1321,7 @@
       </div>
     </section>
 
-    <!-- PÁGINA VENDER MEU IMÓVEL (COM ATÉ 5 FOTOS E ENVIO PARA O PAINEL ADMIN) -->
+    <!-- PÁGINA VENDER MEU IMÓVEL (COM ATÉ 5 FOTOS E STATUS PENDENTE) -->
     <section class="internal-page" id="pageVender" hidden>
       <div class="container">
         <a href="#comprar" class="back-link" data-page="comprar">
@@ -1829,9 +1829,10 @@
     }
 
     function render() {
+      // EXIBE NA PÁGINA PÚBLICA APENAS OS IMÓVEIS COM STATUS EXPLICITAMENTE "PUBLICADO"
       const published = properties.filter(item => {
         const status = text(item.status).toLocaleLowerCase("pt-BR");
-        return !status || status === "publicado";
+        return status === "publicado";
       });
 
       const active = hasSearched ? filterProperties(published) : published;
@@ -1889,7 +1890,8 @@
           data_cadastro: item.data_cadastro ?? item.publishedAt,
           cidade: item.cidade ?? "",
           bairro: item.bairro ?? "",
-          endereco: item.endereco ?? item.location
+          endereco: item.endereco ?? item.location,
+          status: item.status ?? "Publicado"
         }));
 
         render();
@@ -2007,7 +2009,7 @@
       openWhatsApp(message);
     });
 
-    /* ENVIO DE IMÓVEL PARA O PAINEL ADMIN (D1 / R2) COM ATÉ 5 FOTOS */
+    /* ENVIO DE IMÓVEL PARA O PAINEL ADMIN COM STATUS PENDENTE */
 
     document.getElementById("sellForm").addEventListener("submit", async event => {
       event.preventDefault();
@@ -2058,7 +2060,7 @@
           descricao: `Proprietário: ${form.querySelector("#sellName").value} (Tel: ${form.querySelector("#sellPhone").value})\n\n` + form.querySelector("#sellDescription").value,
           foto_url: fotoUrl,
           fotos: fotosArray,
-          status: "Pendente"
+          status: "Pendente" // Garante que entra como pendente para aprovação no admin
         };
 
         const response = await fetch(ADMIN_API_URL, {
