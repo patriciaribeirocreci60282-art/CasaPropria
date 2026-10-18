@@ -1,5 +1,7 @@
-
 import { requireAdmin } from "./auth.js";
+
+const R2_PUBLIC_HOST =
+  "pub-0d961880c43e4ed59f5117c94ea18f93.r2.dev";
 
 function json(data, status = 200) {
   return Response.json(data, {
@@ -40,6 +42,49 @@ function validatePhoto(value) {
     return url.protocol === "https:" || url.protocol === "http:";
   } catch {
     return false;
+  }
+}
+
+// Converte a URL pública do R2 na chave do objeto.
+// Somente aceita o domínio público configurado para este projeto.
+function r2KeyFromPublicUrl(value) {
+  if (typeof value !== "string" || !value.trim()) {
+    return null;
+  }
+
+  try {
+    const url = new URL(value);
+
+    if (
+      url.protocol !== "https:" ||
+      url.hostname !== R2_PUBLIC_HOST ||
+      url.port ||
+      url.username ||
+      url.password
+    ) {
+      return null;
+    }
+
+    const segments = url.pathname
+      .split("/")
+      .filter(Boolean)
+      .map(segment => decodeURIComponent(segment));
+
+    const key = segments.join("/");
+
+    if (
+      !key ||
+      segments.some(segment =>
+        !segment || segment === "." || segment === ".."
+      ) ||
+      !/^imoveis\/(?:pendentes|[1-9]\d*)\/.+/.test(key)
+    ) {
+      return null;
+    }
+
+    return key;
+  } catch {
+    return null;
   }
 }
 
@@ -297,7 +342,7 @@ export async function onRequestPut({ request, env }) {
   }
 }
 
-// EXCLUIR IMÓVEL, FOTOS DO R2 E REGISTROS NO D1
+// EXCLUIR IMÓVEL, FOTO PRINCIPAL, GALERIA E REGISTROS NO D1
 export async function onRequestDelete({ request, env }) {
   const auth = await authorized(request, env);
   if (!auth.ok) return auth.response;
@@ -305,6 +350,12 @@ export async function onRequestDelete({ request, env }) {
   if (!env.FOTOS_BUCKET) {
     return json({
       error: "O vínculo FOTOS_BUCKET não está configurado."
+    }, 500);
+  }
+
+  if (!env.DB) {
+    return json({
+      error: "O vínculo DB não está configurado."
     }, 500);
   }
 
@@ -318,10 +369,12 @@ export async function onRequestDelete({ request, env }) {
   }
 
   try {
-    // 1. Verifica se o imóvel existe.
-    const imovel = await env.DB.prepare(
-      "SELECT id FROM imoveis WHERE id = ?"
-    ).bind(id).first();
+    // 1. Recupera a URL da foto principal.
+    const imovel = await env.DB.prepare(`
+      SELECT id, foto_url
+      FROM imoveis
+      WHERE id = ?
+    `).bind(id).first();
 
     if (!imovel) {
       return json({
@@ -329,7 +382,7 @@ export async function onRequestDelete({ request, env }) {
       }, 404);
     }
 
-    // 2. Busca todas as fotos vinculadas ao imóvel.
+    // 2. Recupera as fotos da galeria.
     const { results: fotos = [] } = await env.DB.prepare(`
       SELECT id, chave_r2
       FROM fotos_imoveis
@@ -337,7 +390,15 @@ export async function onRequestDelete({ request, env }) {
       ORDER BY id
     `).bind(id).all();
 
-    // 3. Remove os arquivos do bucket R2.
+    // 3. Reúne as chaves R2, sem duplicações.
+    const keys = new Set();
+
+    const mainKey = r2KeyFromPublicUrl(imovel.foto_url);
+
+    if (mainKey) {
+      keys.add(mainKey);
+    }
+
     for (const foto of fotos) {
       if (!foto.chave_r2) {
         throw new Error(
@@ -345,27 +406,34 @@ export async function onRequestDelete({ request, env }) {
         );
       }
 
-      await env.FOTOS_BUCKET.delete(foto.chave_r2);
+      keys.add(foto.chave_r2);
+    }
 
-      // Confirma se o arquivo ainda existe.
-      const restante = await env.FOTOS_BUCKET.head(foto.chave_r2);
+    // 4. Exclui os arquivos no R2.
+    for (const key of keys) {
+      await env.FOTOS_BUCKET.delete(key);
+
+      // O HEAD retorna null quando o objeto não existe.
+      const restante = await env.FOTOS_BUCKET.head(key);
 
       if (restante) {
         throw new Error(
-          `Não foi possível confirmar a exclusão da foto ${foto.id}.`
+          `Não foi possível confirmar a exclusão do objeto R2: ${key}`
         );
       }
     }
 
-    // 4. Exclui os registros das fotos no D1.
-    await env.DB.prepare(
-      "DELETE FROM fotos_imoveis WHERE imovel_id = ?"
-    ).bind(id).run();
+    // 5. Remove os registros da galeria.
+    await env.DB.prepare(`
+      DELETE FROM fotos_imoveis
+      WHERE imovel_id = ?
+    `).bind(id).run();
 
-    // 5. Exclui o imóvel no D1.
-    const result = await env.DB.prepare(
-      "DELETE FROM imoveis WHERE id = ?"
-    ).bind(id).run();
+    // 6. Remove o imóvel no D1.
+    const result = await env.DB.prepare(`
+      DELETE FROM imoveis
+      WHERE id = ?
+    `).bind(id).run();
 
     if (!result.meta?.changes) {
       return json({
@@ -377,7 +445,7 @@ export async function onRequestDelete({ request, env }) {
       success: true,
       message: "Imóvel e fotos excluídos com sucesso.",
       id,
-      fotos_excluidas: fotos.length
+      fotos_excluidas: keys.size
     });
   } catch (error) {
     console.error(
@@ -387,7 +455,7 @@ export async function onRequestDelete({ request, env }) {
 
     return json({
       error:
-        "Não foi possível excluir completamente o imóvel e suas fotos. Verifique a operação antes de tentar novamente."
+        "Não foi possível excluir completamente o imóvel e suas fotos. Verifique os logs da função antes de tentar novamente."
     }, 500);
   }
 }
