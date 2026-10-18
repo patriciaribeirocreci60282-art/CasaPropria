@@ -1406,12 +1406,13 @@
       menuToggle.setAttribute("aria-label", isOpen ? "Fechar menu" : "Abrir menu");
     });
 
-    function showPage(page, updateHistory = true) {
-      const pages = {
-        comprar: document.getElementById("pageComprar"),
-        construir: document.getElementById("pageConstruir"),
-        financiamento: document.getElementById("pageFinanciamento")
-      };
+function showPage(page, updateHistory = true) {
+  const pages = {
+    comprar: document.getElementById("pageComprar"),
+    construir: document.getElementById("pageConstruir"),
+    financiamento: document.getElementById("pageFinanciamento"),
+    vender: document.getElementById("pageVender")
+  };
 
       if (!pages[page]) page = "comprar";
 
