@@ -270,7 +270,7 @@
       color: var(--ink);
     }
 
-    /* AJUSTE VISUAL: CARDS DO PADRÃO CONSTRUTIVO EM GRADE */
+    /* CARDS DO PADRÃO CONSTRUTIVO EM GRADE */
     .standard-options {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1090,60 +1090,60 @@
       </div>
     </section>
 
-    <!-- CONSTRUIR (COM CARDS EM GRADE E CAMPO DE CIDADE LIVRE) -->
+    <!-- CONSTRUIR (SIMULADOR DA CASA PRÓPRIA - LINGUAGEM SIMPLES E DIRETA) -->
     <section class="internal-page" id="pageConstruir" hidden>
       <div class="container">
         <a href="#comprar" class="back-link" data-page="comprar">← Voltar para Comprar</a>
 
         <div class="internal-heading">
-          <span class="section-kicker">Realize seu projeto</span>
-          <h1>Simulador de Viabilidade e Construção</h1>
-          <p>Informe os dados abaixo para calcularmos a estimativa de viabilidade técnica e financeira para o seu projeto.</p>
+          <span class="section-kicker">Seu sonho ao seu alcance</span>
+          <h1>Simulador da Casa Própria</h1>
+          <p>Descubra quanto custa construir a sua casa de forma simples, rápida e sem complicação.</p>
         </div>
 
         <form class="form-card" id="constructionForm">
           <div class="form-grid">
             <div class="field">
-              <label for="buildName">Nome completo *</label>
-              <input id="buildName" name="nome" required autocomplete="name" placeholder="Como você se chama?">
+              <label for="buildName">Seu nome completo *</label>
+              <input id="buildName" name="nome" required autocomplete="name" placeholder="Como podemos te chamar?">
             </div>
 
             <div class="field">
-              <label for="buildCity">Cidade da Obra *</label>
+              <label for="buildCity">Onde você quer construir? (Cidade) *</label>
               <input id="buildCity" name="cidade" required placeholder="Ex.: Criciúma, Içara, Forquilhinha, Nova Veneza...">
             </div>
 
-            <div class="form-section-title">Padrão construtivo desejado</div>
+            <div class="form-section-title">Como você imagina o acabamento da casa?</div>
 
             <div class="field full">
               <div class="standard-options">
                 <label class="standard-option">
                   <input type="radio" name="padrao" value="Padrão PVC" required>
-                  <strong>Opção 1 — PVC</strong>
-                  <span>Alvenaria convencional, forro PVC e telha aparente.</span>
+                  <strong>Opção 1 — Econômica (PVC)</strong>
+                  <span>Teto em PVC, acabamento simples e prático para economizar.</span>
                 </label>
 
                 <label class="standard-option">
                   <input type="radio" name="padrao" value="Padrão Laje e Telhado" required>
-                  <strong>Opção 2 — Laje e Telhado</strong>
-                  <span>Alvenaria convencional, laje reta e telha aparente.</span>
+                  <strong>Opção 2 — Tradicional (Laje e Telhado)</strong>
+                  <span>Casa com laje, telha aparente e excelente conforto térmico.</span>
                 </label>
 
                 <label class="standard-option">
                   <input type="radio" name="padrao" value="Padrão Laje e Platibanda" required>
-                  <strong>Opção 3 — Platibanda</strong>
-                  <span>Laje reta e telhado embutido moderno com platibanda.</span>
+                  <strong>Opção 3 — Moderna (Platibanda)</strong>
+                  <span>Design moderno com fachada reta e telhado embutido.</span>
                 </label>
               </div>
             </div>
 
             <div class="field">
-              <label for="buildAreaM2">Metragem estimada (m²) *</label>
-              <input id="buildAreaM2" name="metragem" type="number" min="30" max="1000" required placeholder="Ex.: 80">
+              <label for="buildAreaM2">Tamanho estimado da casa (em m²) *</label>
+              <input id="buildAreaM2" name="metragem" type="number" min="30" max="1000" required placeholder="Ex.: 70 ou 100">
             </div>
 
             <div class="field">
-              <label for="buildBedrooms">Número de quartos *</label>
+              <label for="buildBedrooms">Quantos quartos você precisa? *</label>
               <select id="buildBedrooms" name="quartos" required>
                 <option value="">Selecione</option>
                 <option value="1 quarto">1 quarto</option>
@@ -1154,7 +1154,7 @@
             </div>
 
             <div class="field">
-              <label for="buildBathrooms">Número de banheiros *</label>
+              <label for="buildBathrooms">Quantos banheiros? *</label>
               <select id="buildBathrooms" name="banheiros" required>
                 <option value="">Selecione</option>
                 <option value="1 banheiro">1 banheiro</option>
@@ -1164,20 +1164,20 @@
             </div>
 
             <div class="field">
-              <label for="buildPhone">Seu WhatsApp *</label>
+              <label for="buildPhone">Seu número de WhatsApp *</label>
               <input id="buildPhone" name="telefone" type="tel" required autocomplete="tel" placeholder="(00) 00000-0000">
             </div>
 
             <div class="field full">
-              <label for="buildNotes">Informações adicionais (opcional)</label>
-              <textarea id="buildNotes" name="observacoes" placeholder="Já possui terreno? Tem previsão para começar?"></textarea>
+              <label for="buildNotes">Quer nos contar algo mais? (Opcional)</label>
+              <textarea id="buildNotes" name="observacoes" placeholder="Ex.: Já tenho o terreno, quero começar logo..."></textarea>
             </div>
           </div>
 
           <button class="btn btn-block" type="submit">
-            Gerar Estudo de Viabilidade no WhatsApp
+            Receber meu orçamento no WhatsApp
           </button>
-          <p class="form-note">Ferramenta protegida. O resultado confidencial e o memorial descritivo serão enviados diretamente para você via WhatsApp.</p>
+          <p class="form-note">É rápido, gratuito e sem compromisso! O valor estimado vai direto para o seu WhatsApp.</p>
         </form>
       </div>
     </section>
@@ -1194,7 +1194,6 @@
         </div>
 
         <form class="form-card" id="financeForm">
-          <!-- PAINEL DE MARCAS E VANTAGENS DO FINANCIAMENTO CAIXA -->
           <div class="trust-badges">
             <div class="trust-badge-item">
               ✔ Uso do FGTS
@@ -1262,7 +1261,7 @@
       </div>
     </section>
 
-    <!-- VENDER MEU IMÓVEL (COM UPLOAD DE FOTOS PONTILHADO E DESTAQUE NO PREÇO) -->
+    <!-- VENDER MEU IMÓVEL -->
     <section class="internal-page" id="pageVender" hidden>
       <div class="container">
         <a href="#comprar" class="back-link" data-page="comprar">← Voltar para Comprar</a>
@@ -1624,18 +1623,18 @@
 
     document.getElementById("sort").addEventListener("change", render);
 
-    // ENVIO DO SIMULADOR DE CONSTRUÇÃO
+    // ENVIO DO SIMULADOR DA CASA PRÓPRIA
     document.getElementById("constructionForm").addEventListener("submit", event => {
       event.preventDefault();
       const form = new FormData(event.currentTarget);
       const message = [
-        "Olá, Patricia! Gostaria de um estudo de viabilidade técnica para construção.",
+        "Olá, Patricia! Fiz uma simulação pelo site para construir minha casa.",
         "",
-        "*DADOS DO PROJETO*",
+        "*DADOS DA SIMULAÇÃO*",
         "Nome: " + form.get("nome"),
-        "Cidade da obra: " + form.get("cidade"),
-        "Padrão: " + form.get("padrao"),
-        "Metragem aproximada: " + form.get("metragem") + " m²",
+        "Onde quer construir: " + form.get("cidade"),
+        "Acabamento desejado: " + form.get("padrao"),
+        "Tamanho estimado: " + form.get("metragem") + " m²",
         "Quartos: " + form.get("quartos"),
         "Banheiros: " + form.get("banheiros"),
         "WhatsApp: " + form.get("telefone"),
