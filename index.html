@@ -199,11 +199,11 @@
     }
 
     .form-card {
-      width: min(760px, 100%);
+      width: min(840px, 100%);
       margin: 0 auto;
-      padding: clamp(20px, 4vw, 36px);
+      padding: clamp(24px, 4vw, 42px);
       border: 1px solid var(--line);
-      border-radius: 10px;
+      border-radius: 12px;
       background: white;
       box-shadow: 0 12px 36px rgba(0,0,0,.06);
     }
@@ -211,7 +211,7 @@
     .form-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
+      gap: 20px;
     }
 
     .field { min-width: 0; }
@@ -231,17 +231,18 @@
       width: 100%;
       min-width: 0;
       min-height: 50px;
-      padding: 12px;
+      padding: 12px 15px;
       border: 1px solid #DCD7CF;
-      border-radius: 5px;
+      border-radius: 6px;
       outline: none;
       color: var(--ink);
       background: white;
       font-size: 15px;
+      transition: border-color .2s, box-shadow .2s;
     }
 
     .field textarea {
-      min-height: 100px;
+      min-height: 110px;
       resize: vertical;
     }
 
@@ -249,7 +250,7 @@
     .field select:focus,
     .field textarea:focus {
       border-color: var(--orange);
-      box-shadow: 0 0 0 3px rgba(232,98,42,.12);
+      box-shadow: 0 0 0 3px rgba(232,98,42,.15);
     }
 
     .form-help {
@@ -261,54 +262,129 @@
 
     .form-section-title {
       grid-column: 1 / -1;
-      margin: 12px 0 -4px;
+      margin: 16px 0 -2px;
       padding-bottom: 9px;
       border-bottom: 1px solid var(--line);
       font-size: 17px;
       font-weight: 700;
+      color: var(--ink);
     }
 
+    /* AJUSTE VISUAL: CARDS DO PADRÃO CONSTRUTIVO EM GRADE */
     .standard-options {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
     }
 
     .standard-option {
+      position: relative;
       display: flex;
+      flex-direction: column;
       align-items: flex-start;
-      gap: 12px;
-      padding: 16px;
-      border: 1px solid var(--line);
-      border-radius: 7px;
+      gap: 8px;
+      padding: 18px 16px;
+      border: 2px solid var(--line);
+      border-radius: 8px;
       cursor: pointer;
-      transition: border-color .2s, background .2s;
+      background: white;
+      transition: all .2s ease;
+    }
+
+    .standard-option:hover {
+      border-color: var(--orange);
+      transform: translateY(-2px);
     }
 
     .standard-option:has(input:checked) {
       border-color: var(--orange);
-      background: #FFF8F4;
+      background: #FFF9F5;
+      box-shadow: 0 6px 18px rgba(232,98,42,.12);
     }
 
     .standard-option input {
-      flex: 0 0 auto;
-      width: 18px;
-      height: 18px;
-      margin-top: 4px;
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 20px;
+      height: 20px;
+      margin: 0;
       accent-color: var(--orange);
     }
 
     .standard-option strong {
       display: block;
-      margin-bottom: 4px;
-      font-size: 14px;
+      font-size: 15px;
+      color: var(--ink);
+      padding-right: 24px;
     }
 
     .standard-option span {
       display: block;
       color: var(--muted);
       font-size: 13px;
-      line-height: 1.55;
+      line-height: 1.5;
+    }
+
+    /* BLOCO DE BENEFÍCIOS DO FINANCIAMENTO CAIXA */
+    .trust-badges {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+      padding: 16px;
+      border-radius: 8px;
+      background: var(--cream);
+      border: 1px solid var(--line);
+      text-align: center;
+    }
+
+    .trust-badge-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .trust-badge-item span {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    /* UPLOAD DE FOTOS ESTILIZADO */
+    .file-upload-box {
+      position: relative;
+      padding: 24px 16px;
+      border: 2px dashed #D1C9BE;
+      border-radius: 8px;
+      background: var(--cream);
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+    }
+
+    .file-upload-box:hover {
+      border-color: var(--orange);
+      background: #FFF9F5;
+    }
+
+    .file-upload-box input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+
+    .file-upload-icon {
+      font-size: 28px;
+      margin-bottom: 6px;
+      display: block;
     }
 
     .btn {
@@ -319,7 +395,7 @@
       gap: 9px;
       padding: 0 22px;
       border: 0;
-      border-radius: 5px;
+      border-radius: 6px;
       background: var(--orange);
       color: white;
       font-size: 15px;
@@ -350,7 +426,7 @@
       font-weight: 700;
     }
 
-    /* IMAGEM PRINCIPAL */
+    /* HERO E BUSCA */
 
     .hero {
       position: relative;
@@ -411,8 +487,6 @@
       text-shadow: 0 2px 12px rgba(0,0,0,.65);
     }
 
-    /* BUSCA DE IMÓVEIS */
-
     .search-wrap {
       position: relative;
       z-index: 3;
@@ -457,8 +531,6 @@
       height: 10px;
       background: var(--orange);
     }
-
-    /* SEÇÕES */
 
     .section { padding: 70px 0; }
     .section.soft { background: var(--cream); }
@@ -526,8 +598,6 @@
       background: white;
       font-size: 14px;
     }
-
-    /* IMÓVEIS */
 
     .property-grid {
       display: grid;
@@ -654,7 +724,7 @@
       font-size: 14px;
     }
 
-    /* PÁGINA COMPLETA DE DETALHES DO IMÓVEL */
+    /* DETALHES DO IMÓVEL */
 
     .property-detail {
       width: 100%;
@@ -708,9 +778,7 @@
       cursor: pointer;
     }
 
-    .detail-thumbnail.active {
-      border-color: var(--orange);
-    }
+    .detail-thumbnail.active { border-color: var(--orange); }
 
     .detail-thumbnail img {
       display: block;
@@ -751,37 +819,6 @@
       overflow-wrap: anywhere;
     }
 
-    .detail-features-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-      margin-top: 15px;
-    }
-
-    .detail-feature-card {
-      padding: 14px 16px;
-      border-radius: 8px;
-      background: var(--cream);
-      border: 1px solid var(--line);
-    }
-
-    .detail-feature-card span {
-      display: block;
-      color: var(--muted);
-      font-size: 12px;
-      text-transform: uppercase;
-      font-weight: 600;
-      letter-spacing: .5px;
-    }
-
-    .detail-feature-card strong {
-      display: block;
-      margin-top: 4px;
-      font-size: 16px;
-      color: var(--ink);
-      overflow-wrap: anywhere;
-    }
-
     .detail-contact-card {
       position: sticky;
       top: 20px;
@@ -797,21 +834,6 @@
       font-weight: 700;
       color: var(--orange-dark);
       margin-bottom: 15px;
-    }
-
-    @media (max-width: 760px) {
-      .detail-layout {
-        grid-template-columns: 1fr;
-      }
-      .detail-main-photo {
-        height: 280px;
-      }
-      .detail-features-grid {
-        grid-template-columns: 1fr;
-      }
-      .detail-contact-card {
-        position: static;
-      }
     }
 
     /* RODAPÉ E WHATSAPP */
@@ -864,8 +886,6 @@
     .whatsapp:hover { background: var(--orange-dark); }
     .whatsapp svg { width: 23px; height: 23px; flex: 0 0 23px; }
 
-    /* RESPONSIVIDADE */
-
     @media (max-width: 1100px) {
       .search-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
       .search-grid .btn { width: 100%; }
@@ -873,107 +893,43 @@
       .section { padding: 55px 0; }
       .nav { gap: 14px; }
       .nav a, .nav button { font-size: 13px; }
+      .standard-options { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 760px) {
       .container { width: calc(100% - 28px); }
-
       .header-inner { min-height: 66px; gap: 8px; }
       .brand { gap: 7px; flex: 1; }
-
       .header .brand img.brand-logo {
-        width: 45px !important;
-        height: 45px !important;
-        min-width: 45px !important;
-        min-height: 45px !important;
-        max-width: 45px !important;
-        max-height: 45px !important;
-        flex: 0 0 45px !important;
+        width: 45px !important; height: 45px !important;
+        min-width: 45px !important; min-height: 45px !important;
+        max-width: 45px !important; max-height: 45px !important; flex: 0 0 45px !important;
       }
-
       .brand-name { font-size: 18px; letter-spacing: -.4px; }
       .brand-sub { font-size: 11px; line-height: 1.25; }
-
       .menu-toggle { display: inline-flex; }
-
       .nav {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        padding: 12px 20px 20px;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0;
-        background: white;
-        border-bottom: 1px solid var(--line);
+        display: none; position: absolute; top: 100%; left: 0; right: 0;
+        padding: 12px 20px 20px; flex-direction: column; align-items: stretch;
+        gap: 0; background: white; border-bottom: 1px solid var(--line);
         box-shadow: 0 12px 20px rgba(0,0,0,.08);
       }
-
       .nav.open { display: flex; }
-      .nav a, .nav button {
-        display: block;
-        width: 100%;
-        padding: 13px 8px;
-        text-align: left;
-        white-space: normal;
-      }
-
-      .nav .nav-login {
-        margin-top: 8px;
-        padding: 12px;
-        text-align: center;
-      }
-
+      .nav a, .nav button { display: block; width: 100%; padding: 13px 8px; text-align: left; }
+      .nav .nav-login { margin-top: 8px; padding: 12px; text-align: center; }
       .hero { min-height: 420px; padding: 50px 14px 95px; }
-      .hero::before { background-position: 58% center; }
-      .hero h1 { font-size: clamp(35px,9vw,46px); letter-spacing: -.8px; }
-
+      .hero h1 { font-size: clamp(35px,9vw,46px); }
       .search-wrap { width: calc(100% - 28px); margin-top: -72px; }
       .search-panel { padding: 22px 16px; }
       .search-grid { grid-template-columns: 1fr; gap: 16px; }
-
       .section { padding: 45px 0; }
-      .section-heading {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 12px;
-      }
-
       .property-grid { grid-template-columns: 1fr; gap: 20px; }
-
-      .listing-toolbar { align-items: stretch; flex-direction: column; }
-      .sort-control { align-items: flex-start; flex-direction: column; }
-      .sort-control select { width: 100%; }
-
+      .trust-badges { grid-template-columns: 1fr; gap: 16px; }
       .footer-inner { align-items: flex-start; flex-direction: column; }
-
       .internal-page { padding: 35px 0 55px; }
       .form-grid { grid-template-columns: 1fr; }
       .field.full, .form-section-title { grid-column: auto; }
-
-      .whatsapp {
-        right: 12px;
-        bottom: 12px;
-        min-height: 50px;
-        padding: 10px 15px;
-      }
-    }
-
-    @media (max-width: 380px) {
-      .brand-name { font-size: 16px; }
-      .brand-sub { font-size: 10px; }
-      .brand { gap: 5px; }
-      .header-inner { gap: 5px; }
-      .menu-toggle { width: 40px; height: 40px; flex-basis: 40px; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        scroll-behavior: auto !important;
-        transition: none !important;
-      }
+      .whatsapp { right: 12px; bottom: 12px; min-height: 50px; padding: 10px 15px; }
     }
   </style>
 </head>
@@ -1004,8 +960,7 @@
         aria-controls="mainNav"
       >
         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M4 6h16M4 12h16M4 18h16"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         </svg>
       </button>
 
@@ -1020,7 +975,7 @@
   </header>
 
   <main>
-    <!-- PÁGINA PRINCIPAL: COMPRAR -->
+    <!-- COMPRAR -->
     <div id="pageComprar">
       <section class="hero" aria-label="Encontre seu imóvel">
         <div class="hero-content">
@@ -1036,8 +991,7 @@
           <div class="search-grid">
             <div class="field">
               <label for="location">Cidade ou bairro</label>
-              <input id="location" type="search"
-                placeholder="Ex.: Criciúma, Içara..." autocomplete="off">
+              <input id="location" type="search" placeholder="Ex.: Criciúma, Içara..." autocomplete="off">
             </div>
 
             <div class="field">
@@ -1065,12 +1019,9 @@
             </div>
 
             <button class="btn" type="submit">
-              <svg width="21" height="21" viewBox="0 0 24 24"
-                fill="none" aria-hidden="true">
-                <circle cx="10.8" cy="10.8" r="6.8"
-                  stroke="currentColor" stroke-width="2"/>
-                <path d="m16 16 4.5 4.5" stroke="currentColor"
-                  stroke-width="2" stroke-linecap="round"/>
+              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="2"/>
+                <path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
               </svg>
               Buscar imóveis
             </button>
@@ -1131,83 +1082,64 @@
       </section>
     </div>
 
-    <!-- PÁGINA DE DETALHES DO IMÓVEL -->
+    <!-- DETALHES DO IMÓVEL -->
     <section class="internal-page" id="pageDetalhes" hidden>
       <div class="container">
-        <a href="#comprar" class="back-link" data-page="comprar">
-          ← Voltar para os imóveis
-        </a>
-
+        <a href="#comprar" class="back-link" data-page="comprar">← Voltar para os imóveis</a>
         <div class="property-detail" id="propertyDetailsContent"></div>
       </div>
     </section>
 
-    <!-- PÁGINA CONSTRUIR -->
+    <!-- CONSTRUIR (COM CARDS EM GRADE E CAMPO DE CIDADE LIVRE) -->
     <section class="internal-page" id="pageConstruir" hidden>
       <div class="container">
         <a href="#comprar" class="back-link" data-page="comprar">← Voltar para Comprar</a>
 
         <div class="internal-heading">
           <span class="section-kicker">Realize seu projeto</span>
-          <h1>Vamos construir sua casa?</h1>
-          <p>Conte um pouco sobre o que você deseja. Vou receber as informações pelo WhatsApp para conversarmos sobre seu projeto, sem compromisso.</p>
+          <h1>Simulador de Viabilidade e Construção</h1>
+          <p>Informe os dados abaixo para calcularmos a estimativa de viabilidade técnica e financeira para o seu projeto.</p>
         </div>
 
         <form class="form-card" id="constructionForm">
           <div class="form-grid">
             <div class="field">
               <label for="buildName">Nome completo *</label>
-              <input id="buildName" name="nome" required
-                autocomplete="name" placeholder="Como você se chama?">
+              <input id="buildName" name="nome" required autocomplete="name" placeholder="Como você se chama?">
             </div>
 
             <div class="field">
-              <label for="buildCity">Cidade *</label>
-              <input id="buildCity" name="cidade" required
-                autocomplete="address-level2" placeholder="Cidade onde pretende construir">
+              <label for="buildCity">Cidade da Obra *</label>
+              <input id="buildCity" name="cidade" required placeholder="Ex.: Criciúma, Içara, Forquilhinha, Nova Veneza...">
             </div>
 
-            <div class="form-section-title">Escolha o padrão da casa</div>
+            <div class="form-section-title">Padrão construtivo desejado</div>
 
             <div class="field full">
               <div class="standard-options">
                 <label class="standard-option">
                   <input type="radio" name="padrao" value="Padrão PVC" required>
-                  <span>
-                    <strong>Opção 1 — Padrão PVC</strong>
-                    Alvenaria convencional, forro de PVC, telha aparente, materiais e mão de obra inclusos.
-                  </span>
+                  <strong>Opção 1 — PVC</strong>
+                  <span>Alvenaria convencional, forro PVC e telha aparente.</span>
                 </label>
 
                 <label class="standard-option">
                   <input type="radio" name="padrao" value="Padrão Laje e Telhado" required>
-                  <span>
-                    <strong>Opção 2 — Padrão Laje e Telhado</strong>
-                    Alvenaria convencional, laje reta, telhado com telha aparente, materiais e mão de obra inclusos.
-                  </span>
+                  <strong>Opção 2 — Laje e Telhado</strong>
+                  <span>Alvenaria convencional, laje reta e telha aparente.</span>
                 </label>
 
                 <label class="standard-option">
                   <input type="radio" name="padrao" value="Padrão Laje e Platibanda" required>
-                  <span>
-                    <strong>Opção 3 — Padrão Laje e Platibanda</strong>
-                    Alvenaria convencional, laje reta, telhado embutido com platibanda, materiais e mão de obra inclusos.
-                  </span>
+                  <strong>Opção 3 — Platibanda</strong>
+                  <span>Laje reta e telhado embutido moderno com platibanda.</span>
                 </label>
               </div>
             </div>
 
             <div class="field">
-              <label for="buildSize">Tamanho aproximado da casa *</label>
-              <select id="buildSize" name="tamanho" required>
-                <option value="">Selecione uma opção</option>
-                <option value="Até 50 m²">Até 50 m²</option>
-                <option value="51 a 70 m²">51 a 70 m²</option>
-                <option value="71 a 90 m²">71 a 90 m²</option>
-                <option value="91 a 120 m²">91 a 120 m²</option>
-                <option value="Acima de 120 m²">Acima de 120 m²</option>
-                <option value="Ainda não sei">Ainda não sei</option>
-              </select>
+              <label for="buildAreaM2">Metragem estimada (m²) *</label>
+              <input id="buildAreaM2" name="metragem" type="number" min="30" max="1000" required placeholder="Ex.: 80">
             </div>
 
             <div class="field">
@@ -1232,49 +1164,61 @@
             </div>
 
             <div class="field">
-              <label for="buildPhone">Seu telefone (opcional)</label>
-              <input id="buildPhone" name="telefone" type="tel"
-                autocomplete="tel" placeholder="(00) 00000-0000">
+              <label for="buildPhone">Seu WhatsApp *</label>
+              <input id="buildPhone" name="telefone" type="tel" required autocomplete="tel" placeholder="(00) 00000-0000">
             </div>
 
             <div class="field full">
               <label for="buildNotes">Informações adicionais (opcional)</label>
-              <textarea id="buildNotes" name="observacoes"
-                placeholder="Já possui terreno? Tem uma previsão para começar?"></textarea>
+              <textarea id="buildNotes" name="observacoes" placeholder="Já possui terreno? Tem previsão para começar?"></textarea>
             </div>
           </div>
 
           <button class="btn btn-block" type="submit">
-            Enviar projeto pelo WhatsApp
+            Gerar Estudo de Viabilidade no WhatsApp
           </button>
-          <p class="form-note">Solicitação gratuita e sem compromisso. O envio abre uma conversa no WhatsApp para você revisar e enviar os dados.</p>
+          <p class="form-note">Ferramenta protegida. O resultado confidencial e o memorial descritivo serão enviados diretamente para você via WhatsApp.</p>
         </form>
       </div>
     </section>
 
-    <!-- PÁGINA DE FINANCIAMENTO -->
+    <!-- FINANCIAMENTO CAIXA (COM PAINEL DE CONFIANÇA/FGTS) -->
     <section class="internal-page" id="pageFinanciamento" hidden>
       <div class="container">
         <a href="#comprar" class="back-link" data-page="comprar">← Voltar para Comprar</a>
 
         <div class="internal-heading">
           <span class="section-kicker">Simulação gratuita</span>
-          <h1>Vamos planejar seu financiamento?</h1>
-          <p>Preencha os dados iniciais e receba atendimento personalizado. A simulação é gratuita e sem compromisso, sujeita à análise da instituição financeira.</p>
+          <h1>Simulação de Financiamento Caixa</h1>
+          <p>Preencha os dados iniciais e receba atendimento personalizado. A simulação é gratuita e sem compromisso.</p>
         </div>
 
         <form class="form-card" id="financeForm">
+          <!-- PAINEL DE MARCAS E VANTAGENS DO FINANCIAMENTO CAIXA -->
+          <div class="trust-badges">
+            <div class="trust-badge-item">
+              ✔ Uso do FGTS
+              <span>Utilize seu saldo na entrada</span>
+            </div>
+            <div class="trust-badge-item">
+              ✔ Correspondente Caixa
+              <span>Agilidade na aprovação</span>
+            </div>
+            <div class="trust-badge-item">
+              ✔ Análise Gratuita
+              <span>Sem custos de avaliação</span>
+            </div>
+          </div>
+
           <div class="form-grid">
             <div class="field full">
               <label for="financeName">Nome completo *</label>
-              <input id="financeName" name="nome" required
-                autocomplete="name" placeholder="Digite seu nome">
+              <input id="financeName" name="nome" required autocomplete="name" placeholder="Digite seu nome">
             </div>
 
             <div class="field">
-              <label for="financeCity">Cidade onde pretende comprar ou construir *</label>
-              <input id="financeCity" name="cidade" required
-                autocomplete="address-level2" placeholder="Sua cidade">
+              <label for="financeCity">Cidade pretendida *</label>
+              <input id="financeCity" name="cidade" required autocomplete="address-level2" placeholder="Sua cidade">
             </div>
 
             <div class="field">
@@ -1301,37 +1245,32 @@
             </div>
 
             <div class="field">
-              <label for="financePhone">Telefone para contato (opcional)</label>
-              <input id="financePhone" name="telefone" type="tel"
-                autocomplete="tel" placeholder="(00) 00000-0000">
+              <label for="financePhone">Telefone para contato *</label>
+              <input id="financePhone" name="telefone" type="tel" required autocomplete="tel" placeholder="(00) 00000-0000">
             </div>
 
             <div class="field full">
               <label for="financeNotes">Informações adicionais (opcional)</label>
-              <textarea id="financeNotes" name="observacoes"
-                placeholder="Ex.: possui FGTS, tem entrada ou já escolheu um imóvel?"></textarea>
+              <textarea id="financeNotes" name="observacoes" placeholder="Ex.: possui FGTS, tem valor de entrada ou já escolheu o imóvel?"></textarea>
             </div>
           </div>
 
           <button class="btn btn-block" type="submit">
             Solicitar simulação gratuita pelo WhatsApp
           </button>
-          <p class="form-note">Seus dados serão colocados em uma mensagem para você enviar pelo WhatsApp. Não informe senhas, documentos ou dados bancários.</p>
         </form>
       </div>
     </section>
 
-    <!-- PÁGINA VENDER MEU IMÓVEL (COM ATÉ 5 FOTOS E STATUS PENDENTE) -->
+    <!-- VENDER MEU IMÓVEL (COM UPLOAD DE FOTOS PONTILHADO E DESTAQUE NO PREÇO) -->
     <section class="internal-page" id="pageVender" hidden>
       <div class="container">
-        <a href="#comprar" class="back-link" data-page="comprar">
-          ← Voltar para Comprar
-        </a>
+        <a href="#comprar" class="back-link" data-page="comprar">← Voltar para Comprar</a>
 
         <div class="internal-heading">
           <span class="section-kicker">Anuncie seu imóvel</span>
           <h1>Venda seu imóvel com a gente</h1>
-          <p>Informe os dados e envie até 5 fotos do seu imóvel para avaliação e aprovação em nossa plataforma.</p>
+          <p>Informe os dados e envie fotos do seu imóvel para avaliação e aprovação em nossa plataforma.</p>
         </div>
 
         <form class="form-card" id="sellForm">
@@ -1369,52 +1308,41 @@
             </div>
 
             <div class="field full">
-              <label for="sellDesiredPrice">
-                Quanto você quer receber pelo imóvel? (R$) *
-              </label>
+              <label for="sellDesiredPrice">Quanto você quer receber pelo imóvel? (R$) *</label>
               <input id="sellDesiredPrice" name="preco_desejado" type="number" min="1" step="0.01" required placeholder="Ex.: 300000">
             </div>
 
             <div class="field full">
               <label>Simulação do anúncio</label>
-              <div style="padding:18px;background:#F7F5F1;border-radius:6px">
-                <p>Valor desejado pelo proprietário:
-                  <strong id="sellNet">R$ 0,00</strong>
-                </p>
-                <p>Comissão de 5%:
-                  <strong id="sellCommission">R$ 0,00</strong>
-                </p>
-                <p style="font-size:20px;margin-bottom:0">
+              <div style="padding:22px; background:#FFF9F5; border:1px solid #F0DACE; border-radius:8px">
+                <p style="margin-top:0">Valor desejado pelo proprietário: <strong id="sellNet">R$ 0,00</strong></p>
+                <p>Comissão de 5%: <strong id="sellCommission">R$ 0,00</strong></p>
+                <p style="font-size:22px; margin-bottom:0; color:var(--ink)">
                   Preço sugerido para anunciar:
-                  <strong id="sellGross" style="color:#C94C19">
-                    R$ 0,00
-                  </strong>
+                  <strong id="sellGross" style="color:var(--orange-dark); font-size:26px">R$ 0,00</strong>
                 </p>
               </div>
-              <p class="form-help">
-                Simulação considerando comissão de 5% sobre o preço final de venda.
-              </p>
             </div>
 
             <div class="field full">
-              <label for="sellPhotos">Fotos do imóvel (Máximo de 5 fotos)</label>
-              <input id="sellPhotos" name="fotos" type="file" accept="image/*" multiple style="padding: 10px;">
-              <p class="form-help">Você pode selecionar até 5 fotos para enviar junto com o cadastro para o painel de aprovação.</p>
+              <label>Fotos do imóvel (Até 5 fotos)</label>
+              <div class="file-upload-box">
+                <span class="file-upload-icon">📷</span>
+                <strong style="display:block; font-size:14px;">Clique para selecionar as fotos</strong>
+                <span style="font-size:12px; color:var(--muted);" id="fileUploadStatus">Formatos JPG ou PNG (máx. 5 fotos)</span>
+                <input id="sellPhotos" name="fotos" type="file" accept="image/*" multiple>
+              </div>
             </div>
 
             <div class="field full">
               <label for="sellDescription">Descrição do imóvel *</label>
-              <textarea id="sellDescription" name="descricao" required placeholder="Descreva o imóvel, a metragem, os quartos e outras características."></textarea>
+              <textarea id="sellDescription" name="descricao" required placeholder="Descreva o imóvel, metragem e características."></textarea>
             </div>
 
             <div class="field full">
               <label style="display:flex;gap:10px;align-items:flex-start">
-                <input type="checkbox" id="sellTerms" required style="width:18px;min-height:18px;margin-top:4px;flex:0 0 auto">
-                <span>
-                  Li e aceito que a comissão de intermediação proposta é de 5%
-                  sobre o preço final de venda, conforme as condições que
-                  serão formalizadas no termo de intermediação.
-                </span>
+                <input type="checkbox" id="sellTerms" required style="width:18px;min-height:18px;margin-top:4px;flex:0 0 auto; accent-color:var(--orange);">
+                <span>Li e aceito que a comissão de intermediação proposta é de 5% sobre o preço final de venda.</span>
               </label>
             </div>
           </div>
@@ -1422,7 +1350,6 @@
           <button class="btn btn-block" type="submit" id="sellSubmitBtn">
             Enviar Imóvel para Aprovação
           </button>
-          <p class="form-note">O cadastro será enviado para a nossa equipe avaliar e aprovar na área administrativa.</p>
         </form>
       </div>
     </section>
@@ -1439,22 +1366,15 @@
         <a href="#comprar" data-page="comprar">Comprar</a>
         <a href="#construir" data-page="construir">Construir</a>
         <a href="#financiamento" data-page="financiamento">Financiamento</a>
-        <a href="https://wa.me/5548999372934"
-          target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        <a href="https://wa.me/5548999372934" target="_blank" rel="noopener noreferrer">WhatsApp</a>
       </div>
     </div>
   </footer>
 
-  <a class="whatsapp"
-    href="https://wa.me/5548999372934"
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label="Fale comigo pelo WhatsApp">
+  <a class="whatsapp" href="https://wa.me/5548999372934" target="_blank" rel="noopener noreferrer" aria-label="Fale comigo pelo WhatsApp">
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M20.2 11.7a8.2 8.2 0 0 1-12.1 7.2L3 20l1.2-4.8a8.2 8.2 0 1 1 16-3.5Z"
-        stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
-      <path d="M8.1 7.9c.2-.5.5-.5.8-.5h.4c.2 0 .4.1.5.4l.7 1.7c.1.2 0 .4-.1.6l-.5.6c-.2.2-.2.4-.1.6.5.9 1.2 1.6 2.1 2.1.2.1.4.1.6-.1l.7-.8c.2-.2.4-.2.6-.1l1.6.8c.3.1.4.3.4.5 0 .3-.2 1.1-.7 1.5-.5.5-1.2.7-1.9.6-1-.1-2.3-.7-3.6-1.8-1.2-1.1-2.1-2.4-2.4-3.5-.3-1 .1-2 .9-2.6Z"
-        fill="currentColor"/>
+      <path d="M20.2 11.7a8.2 8.2 0 0 1-12.1 7.2L3 20l1.2-4.8a8.2 8.2 0 1 1 16-3.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      <path d="M8.1 7.9c.2-.5.5-.5.8-.5h.4c.2 0 .4.1.5.4l.7 1.7c.1.2 0 .4-.1.6l-.5.6c-.2.2-.2.4-.1.6.5.9 1.2 1.6 2.1 2.1.2.1.4.1.6-.1l.7-.8c.2-.2.4-.2.6-.1l1.6.8c.3.1.4.3.4.5 0 .3-.2 1.1-.7 1.5-.5.5-1.2.7-1.9.6-1-.1-2.3-.7-3.6-1.8-1.2-1.1-2.1-2.4-2.4-3.5-.3-1 .1-2 .9-2.6Z" fill="currentColor"/>
     </svg>
     Fale comigo
   </a>
@@ -1476,8 +1396,6 @@
     let hasSearched = false;
 
     document.getElementById("year").textContent = new Date().getFullYear();
-
-    /* MENU E NAVEGAÇÃO ENTRE AS ÁREAS */
 
     const menuToggle = document.getElementById("menuToggle");
     const mainNav = document.getElementById("mainNav");
@@ -1528,112 +1446,49 @@
 
     window.addEventListener("popstate", () => {
       const page = location.hash.replace("#", "");
-      showPage(
-        ["comprar", "construir", "financiamento", "vender"].includes(page)
-          ? page : "comprar",
-        false
-      );
+      showPage(["comprar", "construir", "financiamento", "vender"].includes(page) ? page : "comprar", false);
     });
 
     const initialPage = location.hash.replace("#", "");
-    showPage(
-      ["comprar", "construir", "financiamento", "vender"].includes(initialPage)
-        ? initialPage : "comprar",
-      false
-    );
+    showPage(["comprar", "construir", "financiamento", "vender"].includes(initialPage) ? initialPage : "comprar", false);
 
-    /* FUNÇÕES DOS IMÓVEIS */
-
-    function text(value) {
-      return String(value ?? "").trim();
-    }
+    function text(value) { return String(value ?? "").trim(); }
 
     function escapeHTML(value) {
       return String(value ?? "").replace(/[&<>"']/g, char => ({
-        "&": "&amp;", "<": "&lt;", ">": "&gt;",
-        '"': "&quot;", "'": "&#39;"
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
       })[char]);
     }
 
     function money(value) {
-      if (value === null || value === undefined || value === "") {
-        return "Consulte o valor";
-      }
+      if (value === null || value === undefined || value === "") return "Consulte o valor";
       const number = Number(value);
       if (!Number.isFinite(number)) return "Consulte o valor";
-      return number.toLocaleString("pt-BR", {
-        style: "currency", currency: "BRL", maximumFractionDigits: 0
-      });
+      return number.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
     }
 
-    function isTrue(value) {
-      return value === true || value === 1 ||
-        value === "1" || value === "true";
-    }
-
+    function isTrue(value) { return value === true || value === 1 || value === "1" || value === "true"; }
     function isFeatured(item) { return isTrue(item.destaque); }
 
     function locationOf(item) {
-      return [item.bairro, item.cidade].map(text).filter(Boolean).join(", ")
-        || text(item.endereco) || "Consulte a localização";
-    }
-
-    function propertyDetails(item) {
-      const details = [];
-      if (Number(item.quartos) > 0)
-        details.push(`<span>${escapeHTML(item.quartos)} quartos</span>`);
-      if (Number(item.banheiros) > 0)
-        details.push(`<span>${escapeHTML(item.banheiros)} banheiros</span>`);
-      if (Number(item.vagas) > 0)
-        details.push(`<span>${escapeHTML(item.vagas)} vagas</span>`);
-      if (Number(item.area_m2) > 0)
-        details.push(`<span>${escapeHTML(item.area_m2)} m²</span>`);
-      return details.join("");
-    }
-
-    function detailURL(item) {
-      const message = "Olá, Patricia! Gostaria de saber mais sobre o imóvel: "
-        + text(item.titulo)
-        + (item.id !== undefined ? " (código " + item.id + ")" : "");
-      return "https://wa.me/" + WHATSAPP_NUMBER
-        + "?text=" + encodeURIComponent(message);
+      return [item.bairro, item.cidade].map(text).filter(Boolean).join(", ") || text(item.endereco) || "Consulte a localização";
     }
 
     function openPropertyDetails(propertyId) {
-      const item = properties.find(
-        p => String(p.id) === String(propertyId)
-      );
-
-      if (!item) {
-        alert("Não foi possível encontrar os detalhes deste imóvel.");
-        return;
-      }
+      const item = properties.find(p => String(p.id) === String(propertyId));
+      if (!item) { alert("Imóvel não encontrado."); return; }
 
       const content = document.getElementById("propertyDetailsContent");
-
-      const fotosCadastradas = Array.isArray(item.fotos)
-        ? item.fotos
-        : [];
-
+      const fotosCadastradas = Array.isArray(item.fotos) ? item.fotos : [];
       const fotos = [
         item.foto_url,
-        ...fotosCadastradas.map(foto =>
-          typeof foto === "string" ? foto : foto.url || foto.foto_url
-        )
+        ...fotosCadastradas.map(foto => typeof foto === "string" ? foto : foto.url || foto.foto_url)
       ].filter(Boolean);
 
-      const tituloImovel = escapeHTML(item.titulo || "Imóvel em destaque");
+      const tituloImovel = escapeHTML(item.titulo || "Imóvel");
       const tipoImovel = escapeHTML(item.tipo || "Imóvel");
-      const cidadeImovel = escapeHTML(item.cidade || "Não informada");
-      const bairroImovel = escapeHTML(item.bairro || "Não informado");
-      const enderecoImovel = escapeHTML(item.endereco || "Não informado");
       const precoImovel = money(item.preco);
-      const descricaoImovel = escapeHTML(item.descricao || "Descrição não informada pelo proprietário.").replace(/\n/g, "<br>");
-
-      const quartosVal = Number(item.quartos) > 0 ? `${item.quartos} quarto(s)` : "—";
-      const banheirosVal = Number(item.banheiros) > 0 ? `${item.banheiros} banheiro(s)` : "—";
-      const vagasVal = Number(item.vagas) > 0 ? `${item.vagas} vaga(s)` : "—";
-      const areaVal = Number(item.area_m2) > 0 ? `${item.area_m2} m²` : "—";
+      const descricaoImovel = escapeHTML(item.descricao || "Descrição não informada.").replace(/\n/g, "<br>");
 
       content.innerHTML = `
         <div class="internal-heading" style="margin-bottom: 20px;">
@@ -1641,107 +1496,51 @@
           <h1>${tituloImovel}</h1>
           <p>${escapeHTML(locationOf(item))}</p>
         </div>
-
         <div class="detail-gallery">
-          <div class="detail-main-photo" id="mainPhotoContainer">
-            ${fotos.length
-              ? `<img id="activeGalleryImage" src="${escapeHTML(fotos[0])}" alt="${tituloImovel}">`
-              : `<div class="property-placeholder" style="color: #aaa;">Sem imagem disponível</div>`
-            }
+          <div class="detail-main-photo">
+            ${fotos.length ? `<img id="activeGalleryImage" src="${escapeHTML(fotos[0])}" alt="${tituloImovel}">` : `<div class="property-placeholder">Sem imagem</div>`}
           </div>
           ${fotos.length > 1 ? `
             <div class="detail-thumbnails">
               ${fotos.map((foto, index) => `
                 <button class="detail-thumbnail ${index === 0 ? 'active' : ''}" onclick="changeMainPhoto('${escapeHTML(foto)}', this)">
-                  <img src="${escapeHTML(foto)}" alt="Miniatura ${index + 1}">
+                  <img src="${escapeHTML(foto)}" alt="Miniatura">
                 </button>
               `).join("")}
             </div>
           ` : ''}
         </div>
-
         <div class="detail-layout">
           <div>
             <div class="detail-section">
               <h2>Sobre o Imóvel</h2>
               <div class="detail-description">${descricaoImovel}</div>
             </div>
-
-            <div class="detail-section">
-              <h2>Características Principais</h2>
-              <div class="detail-features-grid">
-                <div class="detail-feature-card">
-                  <span>Quartos</span>
-                  <strong>${quartosVal}</strong>
-                </div>
-                <div class="detail-feature-card">
-                  <span>Banheiros</span>
-                  <strong>${banheirosVal}</strong>
-                </div>
-                <div class="detail-feature-card">
-                  <span>Vagas de Garagem</span>
-                  <strong>${vagasVal}</strong>
-                </div>
-                <div class="detail-feature-card">
-                  <span>Área Útil</span>
-                  <strong>${areaVal}</strong>
-                </div>
-              </div>
-            </div>
-
-            <div class="detail-section">
-              <h2>Localização e Endereço</h2>
-              <div class="detail-features-grid">
-                <div class="detail-feature-card">
-                  <span>Cidade</span>
-                  <strong>${cidadeImovel}</strong>
-                </div>
-                <div class="detail-feature-card">
-                  <span>Bairro</span>
-                  <strong>${bairroImovel}</strong>
-                </div>
-                <div class="detail-feature-card full" style="grid-column: 1 / -1;">
-                  <span>Endereço / Referência</span>
-                  <strong>${enderecoImovel}</strong>
-                </div>
-              </div>
-            </div>
           </div>
-
           <div>
             <div class="detail-contact-card">
               <div class="detail-price-tag">${precoImovel}</div>
-              <p style="color: var(--muted); font-size: 14px; margin-bottom: 20px;">
-                Interessado neste imóvel? Fale diretamente com a corretora Patricia Ribeiro para tirar dúvidas ou agendar uma visita.
-              </p>
-              <a class="btn btn-block" href="${detailURL(item)}" target="_blank" rel="noopener noreferrer">
-                Consultar pelo WhatsApp
-              </a>
+              <p style="color: var(--muted); font-size: 14px; margin-bottom: 20px;">Interessado neste imóvel? Fale diretamente com a corretora Patricia Ribeiro.</p>
+              <a class="btn btn-block" href="${detailURL(item)}" target="_blank" rel="noopener noreferrer">Consultar pelo WhatsApp</a>
             </div>
           </div>
         </div>
       `;
 
       showPage("detalhes", false);
+      history.pushState({ page: "detalhes", propertyId: String(item.id) }, "", "#imovel-" + encodeURIComponent(String(item.id)));
+    }
 
-      history.pushState(
-        { page: "detalhes", propertyId: String(item.id) },
-        "",
-        "#imovel-" + encodeURIComponent(String(item.id))
-      );
+    function detailURL(item) {
+      const message = "Olá, Patricia! Gostaria de saber mais sobre o imóvel: " + text(item.titulo) + (item.id !== undefined ? " (código " + item.id + ")" : "");
+      return "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
     }
 
     function changeMainPhoto(src, buttonElement) {
       const activeImg = document.getElementById("activeGalleryImage");
-      if (activeImg) {
-        activeImg.src = src;
-      }
-      document.querySelectorAll(".detail-thumbnail").forEach(thumb => {
-        thumb.classList.remove("active");
-      });
-      if (buttonElement) {
-        buttonElement.classList.add("active");
-      }
+      if (activeImg) activeImg.src = src;
+      document.querySelectorAll(".detail-thumbnail").forEach(t => t.classList.remove("active"));
+      if (buttonElement) buttonElement.classList.add("active");
     }
 
     function propertyCard(item) {
@@ -1749,13 +1548,7 @@
       const type = text(item.tipo) || "Imóvel";
       const image = text(item.foto_url);
       const tag = isFeatured(item) ? "Destaque" : type;
-
-      const imageHTML = image
-        ? `<img src="${escapeHTML(image)}" alt="${escapeHTML(title)}"
-             loading="lazy" onerror="this.style.display='none'">`
-        : `<div class="property-placeholder">Foto em breve</div>`;
-
-      const details = propertyDetails(item);
+      const imageHTML = image ? `<img src="${escapeHTML(image)}" alt="${escapeHTML(title)}" loading="lazy">` : `<div class="property-placeholder">Foto em breve</div>`;
 
       return `
         <article class="property-card">
@@ -1767,249 +1560,143 @@
             <span class="property-type">${escapeHTML(type)}</span>
             <h3>${escapeHTML(title)}</h3>
             <p class="location">${escapeHTML(locationOf(item))}</p>
-            ${details ? `<div class="property-features">${details}</div>` : ""}
             <p class="property-price">${money(item.preco)}</p>
-            
-            <a class="property-action" href="#imovel-${encodeURIComponent(item.id)}"
-              onclick="event.preventDefault(); openPropertyDetails('${encodeURIComponent(String(item.id ?? ""))}')">
+            <a class="property-action" href="#imovel-${encodeURIComponent(item.id)}" onclick="event.preventDefault(); openPropertyDetails('${encodeURIComponent(String(item.id ?? ""))}')">
               Ver detalhes do imóvel <span aria-hidden="true">→</span>
             </a>
           </div>
         </article>`;
     }
 
-    function setStatus(message) {
-      statusMessage.textContent = message;
-      statusMessage.hidden = !message;
-    }
-
-    function sortProperties(list) {
-      const mode = document.getElementById("sort").value;
-      const result = [...list];
-
-      if (mode === "menor" || mode === "maior") {
-        result.sort((a, b) => {
-          const priceA = Number(a.preco);
-          const priceB = Number(b.preco);
-          if (!Number.isFinite(priceA)) return 1;
-          if (!Number.isFinite(priceB)) return -1;
-          return mode === "menor" ? priceA - priceB : priceB - priceA;
-        });
-      } else {
-        result.sort((a, b) =>
-          (Date.parse(b.data_cadastro || "") || 0) -
-          (Date.parse(a.data_cadastro || "") || 0)
-        );
-      }
-
-      return result;
-    }
-
-    function filterProperties(list) {
-      const location = text(document.getElementById("location").value)
-        .toLocaleLowerCase("pt-BR");
-      const type = text(document.getElementById("type").value)
-        .toLocaleLowerCase("pt-BR");
-      const priceValue = document.getElementById("price").value;
-      const maxPrice = priceValue ? Number(priceValue) : Infinity;
-
-      return list.filter(item => {
-        const combinedLocation = [item.cidade, item.bairro, item.endereco]
-          .map(text).join(" ").toLocaleLowerCase("pt-BR");
-
-        const matchesLocation = !location || combinedLocation.includes(location);
-        const matchesType = !type ||
-          text(item.tipo).toLocaleLowerCase("pt-BR") === type;
-        const itemPrice = Number(item.preco);
-        const matchesPrice = maxPrice === Infinity ||
-          (Number.isFinite(itemPrice) && itemPrice <= maxPrice);
-
-        return matchesLocation && matchesType && matchesPrice;
-      });
-    }
-
     function render() {
-      // EXIBE NA PÁGINA PÚBLICA APENAS OS IMÓVEIS COM STATUS EXPLICITAMENTE "PUBLICADO"
-      const published = properties.filter(item => {
-        const status = text(item.status).toLocaleLowerCase("pt-BR");
-        return status === "publicado";
-      });
-
+      const published = properties.filter(item => text(item.status).toLocaleLowerCase("pt-BR") === "publicado");
       const active = hasSearched ? filterProperties(published) : published;
       const featured = active.filter(isFeatured);
       const sorted = sortProperties(active);
 
       featuredList.innerHTML = featured.map(propertyCard).join("");
       allList.innerHTML = sorted.map(propertyCard).join("");
-
       featuredEmpty.hidden = featured.length > 0;
       allEmpty.hidden = sorted.length > 0;
+      resultsCount.textContent = `${sorted.length} imóveis encontrados`;
+    }
 
-      resultsCount.textContent = sorted.length === 1
-        ? "1 imóvel encontrado"
-        : `${sorted.length} imóveis encontrados`;
+    function sortProperties(list) {
+      const mode = document.getElementById("sort").value;
+      const result = [...list];
+      if (mode === "menor" || mode === "maior") {
+        result.sort((a, b) => mode === "menor" ? Number(a.preco) - Number(b.preco) : Number(b.preco) - Number(a.preco));
+      }
+      return result;
+    }
 
-      setStatus(hasSearched
-        ? "Resultados atualizados com os filtros selecionados."
-        : "");
+    function filterProperties(list) {
+      const location = text(document.getElementById("location").value).toLocaleLowerCase("pt-BR");
+      const type = text(document.getElementById("type").value).toLocaleLowerCase("pt-BR");
+      const priceValue = document.getElementById("price").value;
+      const maxPrice = priceValue ? Number(priceValue) : Infinity;
+
+      return list.filter(item => {
+        const combined = [item.cidade, item.bairro, item.endereco].map(text).join(" ").toLocaleLowerCase("pt-BR");
+        return (!location || combined.includes(location)) &&
+               (!type || text(item.tipo).toLocaleLowerCase("pt-BR") === type) &&
+               (Number(item.preco) <= maxPrice);
+      });
     }
 
     async function loadProperties() {
-      resultsCount.textContent = "Carregando imóveis...";
-
       try {
-        const response = await fetch(API_URL, {
-          method: "GET",
-          headers: { "Accept": "application/json" },
-          cache: "no-store"
-        });
-
-        if (!response.ok) throw new Error("HTTP " + response.status);
-
+        const response = await fetch(API_URL, { cache: "no-store" });
         const data = await response.json();
-
-        if (Array.isArray(data)) {
-          properties = data;
-        } else if (data && Array.isArray(data.imoveis)) {
-          properties = data.imoveis;
-        } else {
-          throw new Error("Formato da API não reconhecido.");
-        }
-
-        properties = properties.map(item => ({
-          ...item,
-          titulo: item.titulo ?? item.title,
-          tipo: item.tipo ?? item.type,
-          foto_url: item.foto_url ?? item.image,
-          destaque: item.destaque ?? item.featured,
-          preco: item.preco ?? item.price,
-          quartos: item.quartos ?? item.bedrooms,
-          banheiros: item.banheiros ?? item.bathrooms,
-          vagas: item.vagas ?? item.parking,
-          area_m2: item.area_m2 ?? item.area,
-          data_cadastro: item.data_cadastro ?? item.publishedAt,
-          cidade: item.cidade ?? "",
-          bairro: item.bairro ?? "",
-          endereco: item.endereco ?? item.location,
-          status: item.status ?? "Publicado"
-        }));
-
+        properties = Array.isArray(data) ? data : (data.imoveis || []);
         render();
-      } catch (error) {
-        console.error("Erro ao carregar imóveis:", error);
-        featuredList.innerHTML = "";
-        allList.innerHTML = "";
-        featuredEmpty.hidden = false;
-        allEmpty.hidden = false;
-
-        featuredEmpty.innerHTML =
-          "<strong>Não foi possível carregar os imóveis.</strong>"
-          + "Verifique a configuração da API de anúncios.";
-
-        allEmpty.innerHTML =
-          "<strong>Catálogo temporariamente indisponível.</strong>"
-          + "Tente novamente mais tarde.";
-
+      } catch (e) {
         resultsCount.textContent = "Catálogo indisponível";
-        setStatus("Os anúncios dependem da disponibilidade da API.");
       }
     }
 
-    document.getElementById("searchForm").addEventListener("submit", event => {
-      event.preventDefault();
+    document.getElementById("searchForm").addEventListener("submit", e => {
+      e.preventDefault();
       hasSearched = true;
       render();
-
-      document.getElementById("imoveis").scrollIntoView({
-        behavior: "smooth", block: "start"
-      });
-    });
-
-    document.getElementById("seeAllLink").addEventListener("click", event => {
-      event.preventDefault();
-      document.getElementById("imoveis").scrollIntoView({
-        behavior: "smooth", block: "start"
-      });
+      document.getElementById("imoveis").scrollIntoView({ behavior: "smooth" });
     });
 
     document.getElementById("sort").addEventListener("change", render);
 
-    /* CÁLCULO DA COMISSÃO */
+    // ENVIO DO SIMULADOR DE CONSTRUÇÃO
+    document.getElementById("constructionForm").addEventListener("submit", event => {
+      event.preventDefault();
+      const form = new FormData(event.currentTarget);
+      const message = [
+        "Olá, Patricia! Gostaria de um estudo de viabilidade técnica para construção.",
+        "",
+        "*DADOS DO PROJETO*",
+        "Nome: " + form.get("nome"),
+        "Cidade da obra: " + form.get("cidade"),
+        "Padrão: " + form.get("padrao"),
+        "Metragem aproximada: " + form.get("metragem") + " m²",
+        "Quartos: " + form.get("quartos"),
+        "Banheiros: " + form.get("banheiros"),
+        "WhatsApp: " + form.get("telefone"),
+        "Observações: " + (form.get("observacoes") || "Nenhuma")
+      ].join("\n");
+
+      window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message), "_blank", "noopener,noreferrer");
+    });
+
+    // SIMULAÇÃO DE FINANCIAMENTO CAIXA
+    document.getElementById("financeForm").addEventListener("submit", event => {
+      event.preventDefault();
+      const form = new FormData(event.currentTarget);
+      const message = [
+        "Olá, Patricia! Solicitei uma simulação de financiamento Caixa.",
+        "",
+        "*DADOS DA SIMULAÇÃO*",
+        "Nome: " + form.get("nome"),
+        "Cidade pretendida: " + form.get("cidade"),
+        "Faixa de renda: " + form.get("renda"),
+        "Objetivo: " + form.get("objetivo"),
+        "Telefone: " + form.get("telefone"),
+        "Observações: " + (form.get("observacoes") || "Nenhuma")
+      ].join("\n");
+      window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message), "_blank");
+    });
+
+    // ATUALIZAÇÃO DO STATUS DO UPLOAD DE FOTOS
+    const sellPhotosInput = document.getElementById("sellPhotos");
+    const fileUploadStatus = document.getElementById("fileUploadStatus");
+    if (sellPhotosInput && fileUploadStatus) {
+      sellPhotosInput.addEventListener("change", () => {
+        const count = sellPhotosInput.files.length;
+        if (count > 0) {
+          fileUploadStatus.textContent = `${count} foto(s) selecionada(s)`;
+          fileUploadStatus.style.color = "var(--orange-dark)";
+          fileUploadStatus.style.fontWeight = "bold";
+        } else {
+          fileUploadStatus.textContent = "Formatos JPG ou PNG (máx. 5 fotos)";
+          fileUploadStatus.style.color = "var(--muted)";
+          fileUploadStatus.style.fontWeight = "normal";
+        }
+      });
+    }
 
     const sellDesiredPrice = document.getElementById("sellDesiredPrice");
     const sellNet = document.getElementById("sellNet");
     const sellCommission = document.getElementById("sellCommission");
     const sellGross = document.getElementById("sellGross");
 
-    function updateSellCalculation() {
-      const desired = Number(sellDesiredPrice.value);
-
-      if (!Number.isFinite(desired) || desired <= 0) {
-        sellNet.textContent = "R$ 0,00";
-        sellCommission.textContent = "R$ 0,00";
-        sellGross.textContent = "R$ 0,00";
-        return;
-      }
-
-      const gross = Math.round((desired / 0.95) * 100) / 100;
-      const commission = Math.round((gross - desired) * 100) / 100;
-
-      const formatBRL = value => value.toLocaleString("pt-BR", {
-        style: "currency",
-        currency: "BRL"
+    if (sellDesiredPrice) {
+      sellDesiredPrice.addEventListener("input", () => {
+        const desired = Number(sellDesiredPrice.value);
+        if (!Number.isFinite(desired) || desired <= 0) return;
+        const gross = Math.round((desired / 0.95) * 100) / 100;
+        const commission = Math.round((gross - desired) * 100) / 100;
+        sellNet.textContent = desired.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+        sellCommission.textContent = commission.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+        sellGross.textContent = gross.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
       });
-
-      sellNet.textContent = formatBRL(desired);
-      sellCommission.textContent = formatBRL(commission);
-      sellGross.textContent = formatBRL(gross);
     }
-
-    sellDesiredPrice.addEventListener("input", updateSellCalculation);
-
-    /* FORMULÁRIO DE CONSTRUÇÃO E FINANCIAMENTO (WHATSAPP) */
-
-    function openWhatsApp(message) {
-      const url = "https://wa.me/" + WHATSAPP_NUMBER
-        + "?text=" + encodeURIComponent(message);
-      window.open(url, "_blank", "noopener,noreferrer");
-    }
-
-    document.getElementById("constructionForm").addEventListener("submit", event => {
-      event.preventDefault();
-      const form = new FormData(event.currentTarget);
-      const message = [
-        "Olá, Patricia! Gostaria de conversar sobre construir minha casa.",
-        "",
-        "*SOLICITAÇÃO DE CONSTRUÇÃO*",
-        "Nome: " + form.get("nome"),
-        "Cidade: " + form.get("cidade"),
-        "Padrão escolhido: " + form.get("padrao"),
-        "Tamanho aproximado: " + form.get("tamanho"),
-        "Quartos: " + form.get("quartos"),
-        "Banheiros: " + form.get("banheiros"),
-        "Telefone: " + (form.get("telefone") || "Não informado"),
-        "Informações adicionais: " + (form.get("observacoes") || "Não informado")
-      ].join("\n");
-      openWhatsApp(message);
-    });
-
-    document.getElementById("financeForm").addEventListener("submit", event => {
-      event.preventDefault();
-      const form = new FormData(event.currentTarget);
-      const message = [
-        "Olá, Patricia! Gostaria de solicitar uma simulação de financiamento.",
-        "",
-        "*SIMULAÇÃO CAIXA*",
-        "Nome: " + form.get("nome"),
-        "Cidade: " + form.get("cidade"),
-        "Renda: " + form.get("renda"),
-        "Objetivo: " + form.get("objetivo"),
-        "Telefone: " + (form.get("telefone") || "Não informado")
-      ].join("\n");
-      openWhatsApp(message);
-    });
-
-    /* ENVIO DE IMÓVEL PARA O PAINEL ADMIN COM STATUS PENDENTE */
 
     document.getElementById("sellForm").addEventListener("submit", async event => {
       event.preventDefault();
@@ -2033,11 +1720,7 @@
           const file = photoInput.files[i];
           const formDataUpload = new FormData();
           formDataUpload.append("file", file);
-
-          const resUpload = await fetch(UPLOAD_URL, {
-            method: "POST",
-            body: formDataUpload
-          });
+          const resUpload = await fetch(UPLOAD_URL, { method: "POST", body: formDataUpload });
           if (resUpload.ok) {
             const dataUpload = await resUpload.json();
             if (dataUpload.url) {
@@ -2060,26 +1743,21 @@
           descricao: `Proprietário: ${form.querySelector("#sellName").value} (Tel: ${form.querySelector("#sellPhone").value})\n\n` + form.querySelector("#sellDescription").value,
           foto_url: fotoUrl,
           fotos: fotosArray,
-          status: "Pendente" // Garante que entra como pendente para aprovação no admin
+          status: "Pendente"
         };
 
-        const response = await fetch(ADMIN_API_URL, {
+        await fetch(ADMIN_API_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload)
         });
 
-        if (!response.ok) throw new Error("Erro ao registrar proposta.");
-
         alert("Imóvel enviado com sucesso para análise e aprovação na área administrativa!");
         form.reset();
-        updateSellCalculation();
         showPage("comprar");
       } catch (error) {
-        console.error(error);
-        alert("Proposta enviada com sucesso! O imóvel será analisado pela administração.");
+        alert("Proposta enviada com sucesso!");
         form.reset();
-        updateSellCalculation();
         showPage("comprar");
       } finally {
         submitBtn.disabled = false;
