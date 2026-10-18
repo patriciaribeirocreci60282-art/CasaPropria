@@ -1440,11 +1440,33 @@
 
         const data = await response.json();
 
-        if (Array.isArray(data)) properties = data;
-        else if (data && Array.isArray(data.imoveis)) properties = data.imoveis;
-        else throw new Error("Formato da API não reconhecido.");
+        if (Array.isArray(data)) {
+  properties = data;
+} else if (data && Array.isArray(data.imoveis)) {
+  properties = data.imoveis;
+} else {
+  throw new Error("Formato da API não reconhecido.");
+}
 
-        render();
+// Compatibiliza os campos da API com os nomes usados no site.
+properties = properties.map(item => ({
+  ...item,
+  titulo: item.titulo ?? item.title,
+  tipo: item.tipo ?? item.type,
+  foto_url: item.foto_url ?? item.image,
+  destaque: item.destaque ?? item.featured,
+  preco: item.preco ?? item.price,
+  quartos: item.quartos ?? item.bedrooms,
+  banheiros: item.banheiros ?? item.bathrooms,
+  vagas: item.vagas ?? item.parking,
+  area_m2: item.area_m2 ?? item.area,
+  data_cadastro: item.data_cadastro ?? item.publishedAt,
+  cidade: item.cidade ?? "",
+  bairro: item.bairro ?? "",
+  endereco: item.endereco ?? item.location
+}));
+
+render();
       } catch (error) {
         console.error("Erro ao carregar imóveis:", error);
         featuredList.innerHTML = "";
