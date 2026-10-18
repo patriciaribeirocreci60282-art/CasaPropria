@@ -1261,6 +1261,85 @@
         </form>
       </div>
     </section>
+    <!-- PÁGINA VENDER MEU IMÓVEL -->
+    <section class="internal-page" id="pageVender" hidden>
+      <div class="container">
+        <a href="#comprar" class="back-link" data-page="comprar">
+          ← Voltar para Comprar
+        </a>
+
+        <div class="internal-heading">
+          <span class="section-kicker">Anuncie seu imóvel</span>
+          <h1>Venda seu imóvel com a Patricia</h1>
+          <p>Informe quanto deseja receber pelo seu imóvel. Calcularemos o preço de anúncio incluindo a comissão de 5%.</p>
+        </div>
+
+        <form class="form-card" id="sellForm">
+          <div class="form-grid">
+            <div class="field full">
+              <label for="sellName">Nome completo *</label>
+              <input id="sellName" name="nome" required autocomplete="name">
+            </div>
+
+            <div class="field">
+              <label for="sellPhone">WhatsApp para contato *</label>
+              <input id="sellPhone" name="telefone" type="tel"
+                required autocomplete="tel" placeholder="(00) 00000-0000">
+            </div>
+
+            <div class="field">
+              <label for="sellCity">Cidade *</label>
+              <input id="sellCity" name="cidade" required>
+            </div>
+
+            <div class="field">
+              <label for="sellType">Tipo de imóvel *</label>
+              <select id="sellType" name="tipo" required>
+                <option value="">Selecione</option>
+                <option>Casa</option>
+                <option>Apartamento</option>
+                <option>Terreno</option>
+                <option>Sítio ou chácara</option>
+                <option>Comercial</option>
+                <option>Outro</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="sellValue">Quanto deseja receber líquido? *</label>
+              <input id="sellValue" name="valor" type="number"
+                min="1" step="0.01" required placeholder="Ex.: 300000">
+              <p class="form-help">Informe o valor que deseja receber, antes de considerar eventuais impostos e outras despesas.</p>
+            </div>
+
+            <div class="field full">
+              <label for="sellDescription">Descrição do imóvel *</label>
+              <textarea id="sellDescription" name="descricao" required
+                placeholder="Informe bairro, área, quartos, estado do imóvel e outras características."></textarea>
+            </div>
+
+            <div class="field full">
+              <label class="standard-option">
+                <input type="checkbox" id="sellTerms" required>
+                <span>
+                  <strong>Li e aceito as condições iniciais *</strong>
+                  Autorizo o envio destas informações à Patricia Ribeiro para avaliação do imóvel. Estou ciente de que a comissão proposta de 5% deverá ser confirmada em contrato antes da intermediação. O valor anunciado será calculado para que, descontada essa comissão, reste o valor líquido desejado, sem incluir outros custos.
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <div class="empty-state" id="sellCalculation" aria-live="polite">
+            Informe o valor líquido desejado para calcular o preço de anúncio.
+          </div>
+
+          <button class="btn btn-block" type="submit">
+            Enviar imóvel pelo WhatsApp
+          </button>
+          <p class="form-note">O envio abrirá o WhatsApp para você conferir e enviar sua solicitação. O anúncio não será publicado automaticamente.</p>
+        </form>
+      </div>
+    </section>
   </main>
 
   <footer class="footer">
