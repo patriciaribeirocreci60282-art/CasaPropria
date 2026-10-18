@@ -199,11 +199,11 @@
     }
 
     .form-card {
-      width: min(760px, 100%);
+      width: min(840px, 100%);
       margin: 0 auto;
-      padding: clamp(20px, 4vw, 36px);
+      padding: clamp(24px, 4vw, 42px);
       border: 1px solid var(--line);
-      border-radius: 10px;
+      border-radius: 12px;
       background: white;
       box-shadow: 0 12px 36px rgba(0,0,0,.06);
     }
@@ -211,7 +211,7 @@
     .form-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
+      gap: 20px;
     }
 
     .field { min-width: 0; }
@@ -231,17 +231,18 @@
       width: 100%;
       min-width: 0;
       min-height: 50px;
-      padding: 12px;
+      padding: 12px 15px;
       border: 1px solid #DCD7CF;
-      border-radius: 5px;
+      border-radius: 6px;
       outline: none;
       color: var(--ink);
       background: white;
       font-size: 15px;
+      transition: border-color .2s, box-shadow .2s;
     }
 
     .field textarea {
-      min-height: 100px;
+      min-height: 110px;
       resize: vertical;
     }
 
@@ -249,7 +250,7 @@
     .field select:focus,
     .field textarea:focus {
       border-color: var(--orange);
-      box-shadow: 0 0 0 3px rgba(232,98,42,.12);
+      box-shadow: 0 0 0 3px rgba(232,98,42,.15);
     }
 
     .form-help {
@@ -261,54 +262,129 @@
 
     .form-section-title {
       grid-column: 1 / -1;
-      margin: 12px 0 -4px;
+      margin: 16px 0 -2px;
       padding-bottom: 9px;
       border-bottom: 1px solid var(--line);
       font-size: 17px;
       font-weight: 700;
+      color: var(--ink);
     }
 
+    /* CARDS DO PADRÃO CONSTRUTIVO EM GRADE */
     .standard-options {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
     }
 
     .standard-option {
+      position: relative;
       display: flex;
+      flex-direction: column;
       align-items: flex-start;
-      gap: 12px;
-      padding: 16px;
-      border: 1px solid var(--line);
-      border-radius: 7px;
+      gap: 8px;
+      padding: 18px 16px;
+      border: 2px solid var(--line);
+      border-radius: 8px;
       cursor: pointer;
-      transition: border-color .2s, background .2s;
+      background: white;
+      transition: all .2s ease;
+    }
+
+    .standard-option:hover {
+      border-color: var(--orange);
+      transform: translateY(-2px);
     }
 
     .standard-option:has(input:checked) {
       border-color: var(--orange);
-      background: #FFF8F4;
+      background: #FFF9F5;
+      box-shadow: 0 6px 18px rgba(232,98,42,.12);
     }
 
     .standard-option input {
-      flex: 0 0 auto;
-      width: 18px;
-      height: 18px;
-      margin-top: 4px;
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 20px;
+      height: 20px;
+      margin: 0;
       accent-color: var(--orange);
     }
 
     .standard-option strong {
       display: block;
-      margin-bottom: 4px;
-      font-size: 14px;
+      font-size: 15px;
+      color: var(--ink);
+      padding-right: 24px;
     }
 
     .standard-option span {
       display: block;
       color: var(--muted);
       font-size: 13px;
-      line-height: 1.55;
+      line-height: 1.5;
+    }
+
+    /* BLOCO DE BENEFÍCIOS DO FINANCIAMENTO CAIXA */
+    .trust-badges {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+      padding: 16px;
+      border-radius: 8px;
+      background: var(--cream);
+      border: 1px solid var(--line);
+      text-align: center;
+    }
+
+    .trust-badge-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .trust-badge-item span {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    /* UPLOAD DE FOTOS ESTILIZADO */
+    .file-upload-box {
+      position: relative;
+      padding: 24px 16px;
+      border: 2px dashed #D1C9BE;
+      border-radius: 8px;
+      background: var(--cream);
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+    }
+
+    .file-upload-box:hover {
+      border-color: var(--orange);
+      background: #FFF9F5;
+    }
+
+    .file-upload-box input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+
+    .file-upload-icon {
+      font-size: 28px;
+      margin-bottom: 6px;
+      display: block;
     }
 
     .btn {
@@ -319,7 +395,7 @@
       gap: 9px;
       padding: 0 22px;
       border: 0;
-      border-radius: 5px;
+      border-radius: 6px;
       background: var(--orange);
       color: white;
       font-size: 15px;
@@ -328,6 +404,7 @@
     }
 
     .btn:hover { background: var(--orange-dark); }
+    .btn:disabled { opacity: .6; cursor: wait; }
 
     .btn-block {
       width: 100%;
@@ -657,33 +734,6 @@
       margin: 0 auto;
     }
 
-    .detail-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1.7fr) minmax(270px, .8fr);
-      align-items: start;
-      gap: 25px;
-    }
-
-    .detail-section {
-      margin-bottom: 24px;
-      padding: 25px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: white;
-    }
-
-    .detail-section h2 {
-      margin: 0 0 20px;
-      font-size: 22px;
-      line-height: 1.35;
-    }
-
-    .detail-description {
-      color: var(--muted);
-      line-height: 1.9;
-      overflow-wrap: anywhere;
-    }
-
     /* RODAPÉ E WHATSAPP */
 
     .footer {
@@ -741,6 +791,7 @@
       .section { padding: 55px 0; }
       .nav { gap: 14px; }
       .nav a, .nav button { font-size: 13px; }
+      .standard-options { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 760px) {
@@ -771,6 +822,7 @@
       .search-grid { grid-template-columns: 1fr; gap: 16px; }
       .section { padding: 45px 0; }
       .property-grid { grid-template-columns: 1fr; gap: 20px; }
+      .trust-badges { grid-template-columns: 1fr; gap: 16px; }
       .listing-toolbar { align-items: stretch; flex-direction: column; }
       .sort-control { align-items: flex-start; flex-direction: column; }
       .sort-control select { width: 100%; }
@@ -939,61 +991,55 @@
       </div>
     </section>
 
-    <!-- PÁGINA CONSTRUIR -->
+    <!-- PÁGINA CONSTRUIR (SIMULADOR DA CASA PRÓPRIA MELHORADO) -->
     <section class="internal-page" id="pageConstruir" hidden>
       <div class="container">
         <a href="#comprar" class="back-link" data-page="comprar">← Voltar para Comprar</a>
 
         <div class="internal-heading">
-          <span class="section-kicker">Realize seu projeto</span>
-          <h1>Vamos construir sua casa?</h1>
-          <p>Conte um pouco sobre o que você deseja. Vou receber as informações pelo WhatsApp para conversarmos sobre seu projeto, sem compromisso.</p>
+          <span class="section-kicker">Seu sonho ao seu alcance</span>
+          <h1>Simulador da Casa Própria</h1>
+          <p>Descubra quanto custa construir a sua casa de forma simples, rápida e sem complicação.</p>
         </div>
 
         <form class="form-card" id="constructionForm">
           <div class="form-grid">
             <div class="field">
-              <label for="buildName">Nome completo *</label>
-              <input id="buildName" name="nome" required autocomplete="name" placeholder="Como você se chama?">
+              <label for="buildName">Seu nome completo *</label>
+              <input id="buildName" name="nome" required autocomplete="name" placeholder="Como podemos te chamar?">
             </div>
 
             <div class="field">
-              <label for="buildCity">Cidade *</label>
-              <input id="buildCity" name="cidade" required autocomplete="address-level2" placeholder="Cidade onde pretende construir">
+              <label for="buildCity">Onde você quer construir? (Cidade) *</label>
+              <input id="buildCity" name="cidade" required placeholder="Ex.: Criciúma, Içara, Forquilhinha, Nova Veneza...">
             </div>
 
-            <div class="form-section-title">Escolha o padrão da casa</div>
+            <div class="form-section-title">Como você imagina o acabamento da casa?</div>
 
             <div class="field full">
               <div class="standard-options">
                 <label class="standard-option">
                   <input type="radio" name="padrao" value="Padrão PVC" required>
-                  <span>
-                    <strong>Opção 1 — Padrão PVC</strong>
-                    Alvenaria convencional, forro de PVC, telha aparente, materiais e mão de obra inclusos.
-                  </span>
+                  <strong>Opção 1 — Econômica (PVC)</strong>
+                  <span>Teto em PVC, acabamento simples e prático para economizar.</span>
                 </label>
 
                 <label class="standard-option">
                   <input type="radio" name="padrao" value="Padrão Laje e Telhado" required>
-                  <span>
-                    <strong>Opção 2 — Padrão Laje e Telhado</strong>
-                    Alvenaria convencional, laje reta, telhado com telha aparente, materiais e mão de obra inclusos.
-                  </span>
+                  <strong>Opção 2 — Tradicional (Laje e Telhado)</strong>
+                  <span>Casa com laje, telha aparente e excelente conforto térmico.</span>
                 </label>
 
                 <label class="standard-option">
                   <input type="radio" name="padrao" value="Padrão Laje e Platibanda" required>
-                  <span>
-                    <strong>Opção 3 — Padrão Laje e Platibanda</strong>
-                    Alvenaria convencional, laje reta, telhado embutido com platibanda, materiais e mão de obra inclusos.
-                  </span>
+                  <strong>Opção 3 — Moderna (Platibanda)</strong>
+                  <span>Design moderno com fachada reta e telhado embutido.</span>
                 </label>
               </div>
             </div>
 
             <div class="field">
-              <label for="buildSize">Tamanho aproximado da casa *</label>
+              <label for="buildSize">Tamanho estimado da casa (em m²) *</label>
               <select id="buildSize" name="tamanho" required>
                 <option value="">Selecione uma opção</option>
                 <option value="Até 50 m²">Até 50 m²</option>
@@ -1006,7 +1052,7 @@
             </div>
 
             <div class="field">
-              <label for="buildBedrooms">Número de quartos *</label>
+              <label for="buildBedrooms">Quantos quartos você precisa? *</label>
               <select id="buildBedrooms" name="quartos" required>
                 <option value="">Selecione</option>
                 <option value="1 quarto">1 quarto</option>
@@ -1017,7 +1063,7 @@
             </div>
 
             <div class="field">
-              <label for="buildBathrooms">Número de banheiros *</label>
+              <label for="buildBathrooms">Quantos banheiros? *</label>
               <select id="buildBathrooms" name="banheiros" required>
                 <option value="">Selecione</option>
                 <option value="1 banheiro">1 banheiro</option>
@@ -1027,36 +1073,51 @@
             </div>
 
             <div class="field">
-              <label for="buildPhone">Seu telefone (opcional)</label>
-              <input id="buildPhone" name="telefone" type="tel" autocomplete="tel" placeholder="(00) 00000-0000">
+              <label for="buildPhone">Seu número de WhatsApp *</label>
+              <input id="buildPhone" name="telefone" type="tel" required autocomplete="tel" placeholder="(00) 00000-0000">
             </div>
 
             <div class="field full">
-              <label for="buildNotes">Informações adicionais (opcional)</label>
-              <textarea id="buildNotes" name="observacoes" placeholder="Já possui terreno? Tem uma previsão para começar?"></textarea>
+              <label for="buildNotes">Quer nos contar algo mais? (Opcional)</label>
+              <textarea id="buildNotes" name="observacoes" placeholder="Ex.: Já tenho o terreno, quero começar logo..."></textarea>
             </div>
           </div>
 
           <button class="btn btn-block" type="submit">
-            Enviar projeto pelo WhatsApp
+            Receber meu orçamento no WhatsApp
           </button>
-          <p class="form-note">Solicitação gratuita e sem compromisso. O envio abre uma conversa no WhatsApp para você revisar e enviar os dados.</p>
+          <p class="form-note">É rápido, gratuito e sem compromisso! O valor estimado vai direto para o seu WhatsApp.</p>
         </form>
       </div>
     </section>
 
-    <!-- PÁGINA DE FINANCIAMENTO -->
+    <!-- PÁGINA DE FINANCIAMENTO CAIXA (COM BADGES DE CONFIANÇA) -->
     <section class="internal-page" id="pageFinanciamento" hidden>
       <div class="container">
         <a href="#comprar" class="back-link" data-page="comprar">← Voltar para Comprar</a>
 
         <div class="internal-heading">
           <span class="section-kicker">Simulação gratuita</span>
-          <h1>Vamos planejar seu financiamento?</h1>
-          <p>Preencha os dados iniciais e receba atendimento personalizado. A simulação é gratuita e sem compromisso, sujeita à análise da instituição financeira.</p>
+          <h1>Simulação de Financiamento Caixa</h1>
+          <p>Preencha os dados iniciais e receba atendimento personalizado. A simulação é gratuita e sem compromisso.</p>
         </div>
 
         <form class="form-card" id="financeForm">
+          <div class="trust-badges">
+            <div class="trust-badge-item">
+              ✔ Uso do FGTS
+              <span>Utilize seu saldo na entrada</span>
+            </div>
+            <div class="trust-badge-item">
+              ✔ Correspondente Caixa
+              <span>Agilidade na aprovação</span>
+            </div>
+            <div class="trust-badge-item">
+              ✔ Análise Gratuita
+              <span>Sem custos de avaliação</span>
+            </div>
+          </div>
+
           <div class="form-grid">
             <div class="field full">
               <label for="financeName">Nome completo *</label>
@@ -1064,7 +1125,7 @@
             </div>
 
             <div class="field">
-              <label for="financeCity">Cidade onde pretende comprar ou construir *</label>
+              <label for="financeCity">Cidade pretendida *</label>
               <input id="financeCity" name="cidade" required autocomplete="address-level2" placeholder="Sua cidade">
             </div>
 
@@ -1092,25 +1153,24 @@
             </div>
 
             <div class="field">
-              <label for="financePhone">Telefone para contato (opcional)</label>
-              <input id="financePhone" name="telefone" type="tel" autocomplete="tel" placeholder="(00) 00000-0000">
+              <label for="financePhone">Telefone para contato *</label>
+              <input id="financePhone" name="telefone" type="tel" required autocomplete="tel" placeholder="(00) 00000-0000">
             </div>
 
             <div class="field full">
               <label for="financeNotes">Informações adicionais (opcional)</label>
-              <textarea id="financeNotes" name="observacoes" placeholder="Ex.: possui FGTS, tem entrada ou já escolheu um imóvel?"></textarea>
+              <textarea id="financeNotes" name="observacoes" placeholder="Ex.: possui FGTS, tem valor de entrada ou já escolheu o imóvel?"></textarea>
             </div>
           </div>
 
           <button class="btn btn-block" type="submit">
             Solicitar simulação gratuita pelo WhatsApp
           </button>
-          <p class="form-note">Seus dados serão colocados em uma mensagem para você enviar pelo WhatsApp. Não informe senhas, documentos ou dados bancários.</p>
         </form>
       </div>
     </section>
 
-    <!-- PÁGINA VENDER MEU IMÓVEL -->
+    <!-- PÁGINA VENDER MEU IMÓVEL (COM CÁLCULO DE COMISSÃO) -->
     <section class="internal-page" id="pageVender" hidden>
       <div class="container">
         <a href="#comprar" class="back-link" data-page="comprar">← Voltar para Comprar</a>
@@ -1163,11 +1223,11 @@
             </div>
 
             <div class="field full">
-              <label class="standard-option">
-                <input type="checkbox" id="sellTerms" required>
+              <label class="standard-option" style="border:0; padding:0; background:transparent;">
+                <input type="checkbox" id="sellTerms" required style="margin-top:2px;">
                 <span>
                   <strong>Li e aceito as condições iniciais *</strong>
-                  Autorizo o envio destas informações à Patricia Ribeiro para avaliação do imóvel. Estou ciente de que a comissão proposta de 5% deverá ser confirmada em contrato antes da intermediação. O valor anunciado será calculado para que, descontada essa comissão, reste o valor líquido desejado, sem incluir outros custos.
+                  Autorizo o envio destas informações à Patricia Ribeiro para avaliação do imóvel. Estou ciente de que a comissão proposta de 5% deverá ser confirmada em contrato antes da intermediação. O valor anunciado será calculado para que, descontada essa comissão, reste o valor líquido desejado.
                 </span>
               </label>
             </div>
@@ -1344,10 +1404,10 @@
         + "?text=" + encodeURIComponent(message);
     }
 
-    // EXTRAÇÃO DE FOTO PRINCIPAL ROBUSTA
+    // EXTRAÇÃO DE FOTO ROBUSTA (GARANTE QUE AS IMAGENS APARECEM SEMPRE)
     function getPrimaryPhoto(item) {
       if (!item) return "";
-      let photo = text(item.foto_url) || text(item.foto);
+      let photo = text(item.foto_url) || text(item.fotoUrl) || text(item.foto);
       if (photo) return photo;
 
       if (Array.isArray(item.fotos) && item.fotos.length > 0) {
@@ -1371,11 +1431,14 @@
 
       const fotosCadastradas = Array.isArray(item.fotos) ? item.fotos : [];
       const fotos = [
-        item.foto_url,
+        getPrimaryPhoto(item),
         ...fotosCadastradas.map(foto =>
           typeof foto === "string" ? foto : (foto.url || foto.foto_url)
         )
       ].filter(Boolean);
+
+      // Remove duplicatas caso a foto principal já esteja no array de fotos
+      const fotosUnicas = [...new Set(fotos)];
 
       content.innerHTML = `
         <div class="internal-heading">
@@ -1385,8 +1448,8 @@
         </div>
 
         <div class="property-grid">
-          ${fotos.length
-            ? fotos.map(foto => `
+          ${fotosUnicas.length
+            ? fotosUnicas.map(foto => `
                 <div class="property-image">
                   <img src="${escapeHTML(foto)}"
                        alt="${escapeHTML(item.titulo || "Foto do imóvel")}"
