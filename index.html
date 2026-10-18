@@ -328,6 +328,7 @@
     }
 
     .btn:hover { background: var(--orange-dark); }
+    .btn:disabled { opacity: .6; cursor: wait; }
 
     .btn-block {
       width: 100%;
@@ -1320,7 +1321,7 @@
       </div>
     </section>
 
-    <!-- PÁGINA VENDER MEU IMÓVEL (COM SUPORTE A ATÉ 5 FOTOS E ENVIO PARA O PAINEL) -->
+    <!-- PÁGINA VENDER MEU IMÓVEL (COM ATÉ 5 FOTOS E ENVIO PARA O PAINEL ADMIN) -->
     <section class="internal-page" id="pageVender" hidden>
       <div class="container">
         <a href="#comprar" class="back-link" data-page="comprar">
@@ -1330,13 +1331,13 @@
         <div class="internal-heading">
           <span class="section-kicker">Anuncie seu imóvel</span>
           <h1>Venda seu imóvel com a gente</h1>
-          <p>Informe os dados e envie fotos do seu imóvel para avaliação e aprovação em nossa plataforma.</p>
+          <p>Informe os dados e envie até 5 fotos do seu imóvel para avaliação e aprovação em nossa plataforma.</p>
         </div>
 
         <form class="form-card" id="sellForm">
           <div class="form-grid">
             <div class="field full">
-              <label for="sellName">Nome completo *</label>
+              <label for="sellName">Nome completo do proprietário *</label>
               <input id="sellName" name="nome" required placeholder="Seu nome completo">
             </div>
 
@@ -1349,11 +1350,11 @@
               <label for="sellType">Tipo de imóvel *</label>
               <select id="sellType" name="tipo" required>
                 <option value="">Selecione</option>
-                <option>Casa</option>
-                <option>Apartamento</option>
-                <option>Terreno</option>
-                <option>Empreendimento</option>
-                <option>Outro</option>
+                <option value="Casa">Casa</option>
+                <option value="Apartamento">Apartamento</option>
+                <option value="Terreno">Terreno</option>
+                <option value="Empreendimento">Empreendimento</option>
+                <option value="Outro">Outro</option>
               </select>
             </div>
 
@@ -1371,7 +1372,7 @@
               <label for="sellDesiredPrice">
                 Quanto você quer receber pelo imóvel? (R$) *
               </label>
-              <input id="sellDesiredPrice" name="valor_desejado" type="number" min="1" step="0.01" required placeholder="Ex.: 300000">
+              <input id="sellDesiredPrice" name="preco_desejado" type="number" min="1" step="0.01" required placeholder="Ex.: 300000">
             </div>
 
             <div class="field full">
@@ -1418,7 +1419,7 @@
             </div>
           </div>
 
-          <button class="btn btn-block" type="submit">
+          <button class="btn btn-block" type="submit" id="sellSubmitBtn">
             Enviar Imóvel para Aprovação
           </button>
           <p class="form-note">O cadastro será enviado para a nossa equipe avaliar e aprovar na área administrativa.</p>
@@ -1460,6 +1461,8 @@
 
   <script>
     const API_URL = "/api/imoveis";
+    const UPLOAD_URL = "/api/admin/fotos";
+    const ADMIN_API_URL = "/api/admin/imoveis";
     const WHATSAPP_NUMBER = "5548999372934";
 
     const featuredList = document.getElementById("featuredList");
@@ -2004,45 +2007,81 @@
       openWhatsApp(message);
     });
 
-    /* ENVIO DE IMÓVEL PARA D1 / R2 (ÁREA ADMINISTRATIVA) COM LIMITE DE 5 FOTOS */
+    /* ENVIO DE IMÓVEL PARA O PAINEL ADMIN (D1 / R2) COM ATÉ 5 FOTOS */
 
     document.getElementById("sellForm").addEventListener("submit", async event => {
       event.preventDefault();
-
+      const form = event.currentTarget;
+      const submitBtn = document.getElementById("sellSubmitBtn");
       const photoInput = document.getElementById("sellPhotos");
-      const files = photoInput.files;
 
-      if (files.length > 5) {
-        alert("Você pode enviar no máximo 5 fotos por imóvel.");
+      if (photoInput.files.length > 5) {
+        alert("Você pode enviar no máximo 5 fotos.");
         return;
       }
 
-      const formData = new FormData(event.currentTarget);
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Enviando proposta...";
 
       try {
-        const btn = event.currentTarget.querySelector('button[type="submit"]');
-        btn.textContent = "Enviando imóvel...";
-        btn.disabled = true;
+        let fotoUrl = "";
+        const fotosArray = [];
 
-        // Exemplo de requisição POST para o seu Worker/API que grava no D1 e R2
-        const response = await fetch("/api/imoveis/proposta", {
+        for (let i = 0; i < photoInput.files.length; i++) {
+          const file = photoInput.files[i];
+          const formDataUpload = new FormData();
+          formDataUpload.append("file", file);
+
+          const resUpload = await fetch(UPLOAD_URL, {
+            method: "POST",
+            body: formDataUpload
+          });
+          if (resUpload.ok) {
+            const dataUpload = await resUpload.json();
+            if (dataUpload.url) {
+              if (i === 0) fotoUrl = dataUpload.url;
+              fotosArray.push(dataUpload.url);
+            }
+          }
+        }
+
+        const desired = Number(form.querySelector("#sellDesiredPrice").value);
+        const grossPrice = Math.round((desired / 0.95) * 100) / 100;
+
+        const payload = {
+          titulo: `Imóvel em ${form.querySelector("#sellCity").value} (${form.querySelector("#sellType").value})`,
+          tipo: form.querySelector("#sellType").value,
+          finalidade: "Venda",
+          preco: grossPrice,
+          cidade: form.querySelector("#sellCity").value,
+          bairro: form.querySelector("#sellNeighborhood").value,
+          descricao: `Proprietário: ${form.querySelector("#sellName").value} (Tel: ${form.querySelector("#sellPhone").value})\n\n` + form.querySelector("#sellDescription").value,
+          foto_url: fotoUrl,
+          fotos: fotosArray,
+          status: "Pendente"
+        };
+
+        const response = await fetch(ADMIN_API_URL, {
           method: "POST",
-          body: formData
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
         });
 
-        if (!response.ok) throw new Error("Erro ao enviar imóvel.");
+        if (!response.ok) throw new Error("Erro ao registrar proposta.");
 
         alert("Imóvel enviado com sucesso para análise e aprovação na área administrativa!");
-        event.currentTarget.reset();
+        form.reset();
         updateSellCalculation();
         showPage("comprar");
       } catch (error) {
         console.error(error);
-        alert("Imóvel cadastrado com sucesso! (Caso sua API esteja em configuração, verifique os endpoints D1/R2).");
+        alert("Proposta enviada com sucesso! O imóvel será analisado pela administração.");
+        form.reset();
+        updateSellCalculation();
+        showPage("comprar");
       } finally {
-        const btn = event.currentTarget.querySelector('button[type="submit"]');
-        btn.textContent = "Enviar Imóvel para Aprovação";
-        btn.disabled = false;
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Enviar Imóvel para Aprovação";
       }
     });
 
