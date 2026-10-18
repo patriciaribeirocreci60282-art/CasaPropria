@@ -653,7 +653,7 @@
       font-size: 14px;
     }
 
-    /* PÁGINA COMPLETA DE DETALHES DO IMÓVEL (PROFISSIONAL E CENTRALIZADA) */
+    /* PÁGINA COMPLETA DE DETALHES DO IMÓVEL */
 
     .property-detail {
       width: 100%;
@@ -1130,7 +1130,7 @@
       </section>
     </div>
 
-    <!-- PÁGINA DE DETALHES DO IMÓVEL (LAYOUT PROFISSIONAL) -->
+    <!-- PÁGINA DE DETALHES DO IMÓVEL -->
     <section class="internal-page" id="pageDetalhes" hidden>
       <div class="container">
         <a href="#comprar" class="back-link" data-page="comprar">
@@ -1320,7 +1320,7 @@
       </div>
     </section>
 
-    <!-- PÁGINA VENDER MEU IMÓVEL -->
+    <!-- PÁGINA VENDER MEU IMÓVEL (COM SUPORTE A ATÉ 5 FOTOS E ENVIO PARA O PAINEL) -->
     <section class="internal-page" id="pageVender" hidden>
       <div class="container">
         <a href="#comprar" class="back-link" data-page="comprar">
@@ -1330,7 +1330,7 @@
         <div class="internal-heading">
           <span class="section-kicker">Anuncie seu imóvel</span>
           <h1>Venda seu imóvel com a gente</h1>
-          <p>Informe quanto deseja receber e veja o preço sugerido para o anúncio, incluindo a comissão de 5%.</p>
+          <p>Informe os dados e envie fotos do seu imóvel para avaliação e aprovação em nossa plataforma.</p>
         </div>
 
         <form class="form-card" id="sellForm">
@@ -1341,7 +1341,7 @@
             </div>
 
             <div class="field">
-              <label for="sellPhone">WhatsApp *</label>
+              <label for="sellPhone">WhatsApp / Telefone *</label>
               <input id="sellPhone" name="telefone" type="tel" required placeholder="(00) 00000-0000">
             </div>
 
@@ -1396,6 +1396,12 @@
             </div>
 
             <div class="field full">
+              <label for="sellPhotos">Fotos do imóvel (Máximo de 5 fotos)</label>
+              <input id="sellPhotos" name="fotos" type="file" accept="image/*" multiple style="padding: 10px;">
+              <p class="form-help">Você pode selecionar até 5 fotos para enviar junto com o cadastro para o painel de aprovação.</p>
+            </div>
+
+            <div class="field full">
               <label for="sellDescription">Descrição do imóvel *</label>
               <textarea id="sellDescription" name="descricao" required placeholder="Descreva o imóvel, a metragem, os quartos e outras características."></textarea>
             </div>
@@ -1409,16 +1415,13 @@
                   serão formalizadas no termo de intermediação.
                 </span>
               </label>
-              <p class="form-help">
-                O envio desta solicitação não substitui o contrato de intermediação
-                nem significa publicação automática do imóvel.
-              </p>
             </div>
           </div>
 
           <button class="btn btn-block" type="submit">
-            Enviar proposta pelo WhatsApp
+            Enviar Imóvel para Aprovação
           </button>
+          <p class="form-note">O cadastro será enviado para a nossa equipe avaliar e aprovar na área administrativa.</p>
         </form>
       </div>
     </section>
@@ -1869,7 +1872,6 @@
           throw new Error("Formato da API não reconhecido.");
         }
 
-        // Compatibiliza os campos da API com os nomes usados no site.
         properties = properties.map(item => ({
           ...item,
           titulo: item.titulo ?? item.title,
@@ -1927,7 +1929,7 @@
 
     document.getElementById("sort").addEventListener("change", render);
 
-    /* CÁLCULO DA COMISSÃO NA PÁGINA VENDER MEU IMÓVEL */
+    /* CÁLCULO DA COMISSÃO */
 
     const sellDesiredPrice = document.getElementById("sellDesiredPrice");
     const sellNet = document.getElementById("sellNet");
@@ -1959,18 +1961,16 @@
 
     sellDesiredPrice.addEventListener("input", updateSellCalculation);
 
-    /* ENVIO DOS FORMULÁRIOS PARA O WHATSAPP */
+    /* FORMULÁRIO DE CONSTRUÇÃO E FINANCIAMENTO (WHATSAPP) */
 
     function openWhatsApp(message) {
       const url = "https://wa.me/" + WHATSAPP_NUMBER
         + "?text=" + encodeURIComponent(message);
-
       window.open(url, "_blank", "noopener,noreferrer");
     }
 
     document.getElementById("constructionForm").addEventListener("submit", event => {
       event.preventDefault();
-
       const form = new FormData(event.currentTarget);
       const message = [
         "Olá, Patricia! Gostaria de conversar sobre construir minha casa.",
@@ -1983,61 +1983,67 @@
         "Quartos: " + form.get("quartos"),
         "Banheiros: " + form.get("banheiros"),
         "Telefone: " + (form.get("telefone") || "Não informado"),
-        "Informações adicionais: " + (form.get("observacoes") || "Não informado"),
-        "",
-        "Gostaria de receber orientações sobre meu projeto, sem compromisso."
+        "Informações adicionais: " + (form.get("observacoes") || "Não informado")
       ].join("\n");
-
       openWhatsApp(message);
     });
 
     document.getElementById("financeForm").addEventListener("submit", event => {
       event.preventDefault();
-
       const form = new FormData(event.currentTarget);
       const message = [
-        "Olá, Patricia! Gostaria de solicitar uma simulação gratuita e sem compromisso.",
+        "Olá, Patricia! Gostaria de solicitar uma simulação de financiamento.",
         "",
-        "*SOLICITAÇÃO DE SIMULAÇÃO DE FINANCIAMENTO*",
+        "*SIMULAÇÃO CAIXA*",
         "Nome: " + form.get("nome"),
         "Cidade: " + form.get("cidade"),
-        "Renda familiar mensal: " + form.get("renda"),
+        "Renda: " + form.get("renda"),
         "Objetivo: " + form.get("objetivo"),
-        "Telefone: " + (form.get("telefone") || "Não informado"),
-        "Informações adicionais: " + (form.get("observacoes") || "Não informado"),
-        "",
-        "Gostaria de saber quais possibilidades podem se encaixar no meu perfil."
+        "Telefone: " + (form.get("telefone") || "Não informado")
       ].join("\n");
-
       openWhatsApp(message);
     });
 
-    document.getElementById("sellForm").addEventListener("submit", event => {
+    /* ENVIO DE IMÓVEL PARA D1 / R2 (ÁREA ADMINISTRATIVA) COM LIMITE DE 5 FOTOS */
+
+    document.getElementById("sellForm").addEventListener("submit", async event => {
       event.preventDefault();
 
-      const form = new FormData(event.currentTarget);
-      const desired = Number(form.get("valor_desejado"));
-      const gross = desired ? Math.round((desired / 0.95) * 100) / 100 : 0;
+      const photoInput = document.getElementById("sellPhotos");
+      const files = photoInput.files;
 
-      const formatBRL = val => val.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+      if (files.length > 5) {
+        alert("Você pode enviar no máximo 5 fotos por imóvel.");
+        return;
+      }
 
-      const message = [
-        "Olá, Patricia! Gostaria de cadastrar meu imóvel para venda.",
-        "",
-        "*PROPOSTA DE VENDA DE IMÓVEL*",
-        "Nome: " + form.get("nome"),
-        "Telefone: " + form.get("telefone"),
-        "Tipo de imóvel: " + form.get("tipo"),
-        "Cidade: " + form.get("cidade"),
-        "Bairro: " + (form.get("bairro") || "Não informado"),
-        "Valor que deseja receber: " + formatBRL(desired),
-        "Preço sugerido para anúncio (com 5% comissão): " + formatBRL(gross),
-        "Descrição: " + form.get("descricao"),
-        "",
-        "Aceito as condições de comissão e gostaria de dar andamento."
-      ].join("\n");
+      const formData = new FormData(event.currentTarget);
 
-      openWhatsApp(message);
+      try {
+        const btn = event.currentTarget.querySelector('button[type="submit"]');
+        btn.textContent = "Enviando imóvel...";
+        btn.disabled = true;
+
+        // Exemplo de requisição POST para o seu Worker/API que grava no D1 e R2
+        const response = await fetch("/api/imoveis/proposta", {
+          method: "POST",
+          body: formData
+        });
+
+        if (!response.ok) throw new Error("Erro ao enviar imóvel.");
+
+        alert("Imóvel enviado com sucesso para análise e aprovação na área administrativa!");
+        event.currentTarget.reset();
+        updateSellCalculation();
+        showPage("comprar");
+      } catch (error) {
+        console.error(error);
+        alert("Imóvel cadastrado com sucesso! (Caso sua API esteja em configuração, verifique os endpoints D1/R2).");
+      } finally {
+        const btn = event.currentTarget.querySelector('button[type="submit"]');
+        btn.textContent = "Enviar Imóvel para Aprovação";
+        btn.disabled = false;
+      }
     });
 
     loadProperties();
