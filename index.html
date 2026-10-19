@@ -787,7 +787,8 @@
   function propertyCard(item) {
     const title = text(item.titulo) || "Imóvel disponível";
     const type = text(item.tipo) || "Imóvel";
-    const image = resolveImageUrl(item.foto_url || item.image || item.foto);
+    const photos = getPropertyPhotos(item);
+    const image = photos[0] || "";
     const tag = isFeatured(item) ? "Destaque" : type;
     const details = propertyDetails(item);
 
@@ -962,18 +963,19 @@
 
   document.getElementById("financeForm").addEventListener("submit", event => {
     event.preventDefault();
-    const form = new FormData(event.currentTarget);
+    const form = new FormData(event.createElement || event.currentTarget); // fallback
+    const formData = new FormData(event.currentTarget);
 
     openWhatsApp([
       "Olá, Patricia! Solicitei uma simulação de financiamento Caixa.",
       "",
       "DADOS DA SIMULAÇÃO",
-      "Nome: " + form.get("nome"),
-      "Cidade: " + form.get("cidade"),
-      "Renda familiar: " + form.get("renda"),
-      "Objetivo: " + form.get("objetivo"),
-      "Telefone: " + form.get("telefone"),
-      "Observações: " + (form.get("observacoes") || "Nenhuma")
+      "Nome: " + formData.get("nome"),
+      "Cidade: " + formData.get("cidade"),
+      "Renda familiar: " + formData.get("renda"),
+      "Objetivo: " + formData.get("objetivo"),
+      "Telefone: " + formData.get("telefone"),
+      "Observações: " + (formData.get("observacoes") || "Nenhuma")
     ].join("\n"));
   });
 
