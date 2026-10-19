@@ -807,7 +807,7 @@
   function propertyCard(item) {
     const title = text(item.titulo) || "Imóvel disponível";
     const type = text(item.tipo) || "Imóvel";
-    const image = getPropertyPhotos(item)[0] || "";
+    const image = text(item.foto_url);
     const tag = isFeatured(item) ? "Destaque" : type;
     const details = propertyDetails(item);
 
