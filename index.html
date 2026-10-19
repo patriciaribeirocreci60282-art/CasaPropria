@@ -270,6 +270,7 @@
       color: var(--ink);
     }
 
+    /* CARDS DO PADRÃO CONSTRUTIVO EM GRADE */
     .standard-options {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -325,6 +326,7 @@
       line-height: 1.5;
     }
 
+    /* BLOCO DE BENEFÍCIOS DO FINANCIAMENTO CAIXA */
     .trust-badges {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -353,6 +355,7 @@
       color: var(--muted);
     }
 
+    /* UPLOAD DE FOTOS ESTILIZADO */
     .file-upload-box {
       position: relative;
       padding: 24px 16px;
@@ -721,34 +724,12 @@
       font-size: 14px;
     }
 
-    /* PÁGINA COMPLETA DE DETALHES DO IMÓVEL (ESTRUTURA ORIGINAL SOLICITADA)[cite: 3] */
+    /* DETALHES DO IMÓVEL (COM GALERIA VISUAL APRIMORADA) */
 
     .property-detail {
       width: 100%;
       max-width: 1180px;
       margin: 0 auto;
-    }
-
-    .property-detail .detail-header {
-      margin-bottom: 24px;
-    }
-
-    .property-detail .detail-header h1 {
-      margin: 8px 0;
-      font-size: clamp(28px, 4vw, 42px);
-      line-height: 1.2;
-    }
-
-    .property-detail .detail-location {
-      color: var(--muted);
-      font-size: 15px;
-    }
-
-    .property-detail .detail-price {
-      margin-top: 15px;
-      color: var(--orange-dark);
-      font-size: clamp(25px, 4vw, 34px);
-      font-weight: 700;
     }
 
     .detail-gallery {
@@ -758,55 +739,23 @@
     .detail-main-photo {
       position: relative;
       width: 100%;
-      height: clamp(300px, 55vw, 650px);
+      height: clamp(320px, 50vw, 550px);
       overflow: hidden;
       border-radius: 12px;
-      background: #E8E4DD;
+      background: #1a1a1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .detail-main-photo img {
       display: block;
-      width: 100%;
-      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
       object-fit: contain;
-      background: #242424;
-    }
-
-    .gallery-arrow {
-      position: absolute;
-      top: 50%;
-      z-index: 2;
-      display: flex;
-      width: 48px;
-      height: 48px;
-      align-items: center;
-      justify-content: center;
-      transform: translateY(-50%);
-      border: 1px solid rgba(255,255,255,.7);
-      border-radius: 50%;
-      background: rgba(0,0,0,.55);
-      color: white;
-      font-size: 30px;
-      line-height: 1;
-      cursor: pointer;
-    }
-
-    .gallery-arrow:hover {
-      background: var(--orange-dark);
-    }
-
-    .gallery-prev { left: 16px; }
-    .gallery-next { right: 16px; }
-
-    .gallery-counter {
-      position: absolute;
-      right: 15px;
-      bottom: 15px;
-      padding: 7px 12px;
-      border-radius: 5px;
-      background: rgba(0,0,0,.7);
-      color: white;
-      font-size: 13px;
+      margin: auto;
     }
 
     .detail-thumbnails {
@@ -815,11 +764,12 @@
       margin-top: 12px;
       padding: 4px 2px 10px;
       overflow-x: auto;
+      justify-content: center;
     }
 
     .detail-thumbnail {
-      flex: 0 0 105px;
-      height: 78px;
+      flex: 0 0 95px;
+      height: 70px;
       padding: 0;
       overflow: hidden;
       border: 2px solid transparent;
@@ -828,9 +778,7 @@
       cursor: pointer;
     }
 
-    .detail-thumbnail.active {
-      border-color: var(--orange);
-    }
+    .detail-thumbnail.active { border-color: var(--orange); }
 
     .detail-thumbnail img {
       display: block;
@@ -852,63 +800,40 @@
       border: 1px solid var(--line);
       border-radius: 10px;
       background: white;
+      box-shadow: 0 4px 20px rgba(0,0,0,.03);
     }
 
     .detail-section h2 {
-      margin: 0 0 20px;
-      font-size: 22px;
+      margin: 0 0 16px;
+      font-size: 20px;
       line-height: 1.35;
+      color: var(--ink);
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 10px;
     }
 
     .detail-description {
       color: var(--muted);
       line-height: 1.9;
-      overflow-wrap: anywhere;
-    }
-
-    .detail-features {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .detail-feature {
-      padding: 14px;
-      border-radius: 7px;
-      background: var(--cream);
-    }
-
-    .detail-feature span {
-      display: block;
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .detail-feature strong {
-      display: block;
-      margin-top: 4px;
       font-size: 15px;
       overflow-wrap: anywhere;
     }
 
-    .detail-contact {
+    .detail-contact-card {
       position: sticky;
       top: 20px;
+      padding: 25px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: white;
+      box-shadow: 0 8px 30px rgba(0,0,0,.06);
     }
 
-    .detail-contact .detail-price {
-      margin-top: 0;
-      margin-bottom: 20px;
-    }
-
-    .detail-contact .btn {
-      width: 100%;
-      text-align: center;
-    }
-
-    .detail-contact p {
-      color: var(--muted);
-      font-size: 13px;
+    .detail-price-tag {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--orange-dark);
+      margin-bottom: 15px;
     }
 
     /* RODAPÉ E WHATSAPP */
@@ -1001,7 +926,6 @@
       .property-grid { grid-template-columns: 1fr; gap: 20px; }
       .trust-badges { grid-template-columns: 1fr; gap: 16px; }
       .detail-layout { grid-template-columns: 1fr; }
-      .detail-contact { position: static; }
       .footer-inner { align-items: flex-start; flex-direction: column; }
       .internal-page { padding: 35px 0 55px; }
       .form-grid { grid-template-columns: 1fr; }
@@ -1159,7 +1083,7 @@
       </section>
     </div>
 
-    <!-- PÁGINA DE DETALHES DO IMÓVEL (ESTRUTURA ORIGINAL COMPLETA)[cite: 3] -->
+    <!-- DETALHES DO IMÓVEL -->
     <section class="internal-page" id="pageDetalhes" hidden>
       <div class="container">
         <a href="#comprar" class="back-link" data-page="comprar">← Voltar para os imóveis</a>
@@ -1397,6 +1321,18 @@
             </div>
 
             <div class="field full">
+              <label>Simulação do anúncio</label>
+              <div style="padding:22px; background:#FFF9F5; border:1px solid #F0DACE; border-radius:8px">
+                <p style="margin-top:0">Valor desejado pelo proprietário: <strong id="sellNet">R$ 0,00</strong></p>
+                <p>Comissão de 5%: <strong id="sellCommission">R$ 0,00</strong></p>
+                <p style="font-size:22px; margin-bottom:0; color:var(--ink)">
+                  Preço sugerido para anunciar:
+                  <strong id="sellGross" style="color:var(--orange-dark); font-size:26px">R$ 0,00</strong>
+                </p>
+              </div>
+            </div>
+
+            <div class="field full">
               <label>Fotos do imóvel (Até 5 fotos)</label>
               <div class="file-upload-box">
                 <span class="file-upload-icon">📷</span>
@@ -1559,27 +1495,16 @@
       return details.join("");
     }
 
-    function detailURL(item) {
-      const message = "Olá, Patricia! Gostaria de saber mais sobre o imóvel: " + text(item.titulo) + (item.id !== undefined ? " (código " + item.id + ")" : "");
-      return "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
-    }
-
-    /* FUNÇÕES DA GALERIA DETALHADA COM SETAS E CONTADOR */
-    let currentPhotos = [];
-    let currentPhotoIndex = 0;
-
     function openPropertyDetails(propertyId) {
       const item = properties.find(p => String(p.id) === String(propertyId));
       if (!item) { alert("Imóvel não encontrado."); return; }
 
       const content = document.getElementById("propertyDetailsContent");
       const fotosCadastradas = Array.isArray(item.fotos) ? item.fotos : [];
-      currentPhotos = [
+      const fotos = [
         item.foto_url,
         ...fotosCadastradas.map(foto => typeof foto === "string" ? foto : foto.url || foto.foto_url)
       ].filter(Boolean);
-
-      currentPhotoIndex = 0;
 
       const tituloImovel = escapeHTML(item.titulo || "Imóvel");
       const tipoImovel = escapeHTML(item.tipo || "Imóvel");
@@ -1587,76 +1512,40 @@
       const descricaoImovel = escapeHTML(item.descricao || "Descrição não informada.").replace(/\n/g, "<br>");
 
       content.innerHTML = `
-        <div class="detail-header">
+        <div class="internal-heading" style="margin-bottom: 20px;">
           <span class="section-kicker">${tipoImovel}</span>
           <h1>${tituloImovel}</h1>
-          <p class="detail-location">${escapeHTML(locationOf(item))}</p>
+          <p>${escapeHTML(locationOf(item))}</p>
         </div>
-
         <div class="detail-gallery">
           <div class="detail-main-photo">
-            ${currentPhotos.length ? `
-              <button class="gallery-arrow gallery-prev" onclick="navigateGallery(-1)" aria-label="Foto anterior">‹</button>
-              <img id="activeGalleryImage" src="${escapeHTML(currentPhotos[0])}" alt="${tituloImovel}">
-              <button class="gallery-arrow gallery-next" onclick="navigateGallery(1)" aria-label="Próxima foto">›</button>
-              <div class="gallery-counter"><span id="currentPhotoNum">1</span> / ${currentPhotos.length}</div>
-            ` : `<div class="property-placeholder" style="height:100%;">Sem imagem disponível</div>`}
+            ${fotos.length ? `<img id="activeGalleryImage" src="${escapeHTML(fotos[0])}" alt="${tituloImovel}">` : `<div class="property-placeholder">Sem imagem</div>`}
           </div>
-          ${currentPhotos.length > 1 ? `
+          ${fotos.length > 1 ? `
             <div class="detail-thumbnails">
-              ${currentPhotos.map((foto, index) => `
-                <button class="detail-thumbnail ${index === 0 ? 'active' : ''}" onclick="setGalleryIndex(${index})" data-index="${index}">
+              ${fotos.map((foto, index) => `
+                <button class="detail-thumbnail ${index === 0 ? 'active' : ''}" onclick="changeMainPhoto('${escapeHTML(foto)}', this)">
                   <img src="${escapeHTML(foto)}" alt="Miniatura">
                 </button>
               `).join("")}
             </div>
           ` : ''}
         </div>
-
         <div class="detail-layout">
           <div>
             <div class="detail-section">
               <h2>Sobre o Imóvel</h2>
               <div class="detail-description">${descricaoImovel}</div>
-            </div>
-
-            <div class="detail-section">
-              <h2>Detalhes e Características</h2>
-              <div class="detail-features">
-                <div class="detail-feature">
-                  <span>Tipo</span>
-                  <strong>${escapeHTML(item.tipo || "Não informado")}</strong>
-                </div>
-                <div class="detail-feature">
-                  <span>Quartos</span>
-                  <strong>${escapeHTML(item.quartos || "Não informado")}</strong>
-                </div>
-                <div class="detail-feature">
-                  <span>Banheiros</span>
-                  <strong>${escapeHTML(item.banheiros || "Não informado")}</strong>
-                </div>
-                <div class="detail-feature">
-                  <span>Vagas de Garagem</span>
-                  <strong>${escapeHTML(item.vagas || "Não informado")}</strong>
-                </div>
-                <div class="detail-feature">
-                  <span>Área Total</span>
-                  <strong>${item.area_m2 ? escapeHTML(item.area_m2) + " m²" : "Não informada"}</strong>
-                </div>
-                <div class="detail-feature">
-                  <span>Localização</span>
-                  <strong>${escapeHTML(locationOf(item))}</strong>
-                </div>
+              <div class="property-features" style="margin-top: 20px;">
+                ${propertyDetails(item)}
               </div>
             </div>
           </div>
-
           <div>
-            <div class="detail-section detail-contact">
-              <h2>Valor do Imóvel</h2>
-              <div class="detail-price">${precoImovel}</div>
-              <p style="margin-bottom: 20px;">Fale diretamente com a corretora Patricia Ribeiro para tirar suas dúvidas ou agendar uma visita.</p>
-              <a class="btn" href="${detailURL(item)}" target="_blank" rel="noopener noreferrer">Consultar pelo WhatsApp</a>
+            <div class="detail-contact-card">
+              <div class="detail-price-tag">${precoImovel}</div>
+              <p style="color: var(--muted); font-size: 14px; margin-bottom: 20px;">Interessado neste imóvel? Fale diretamente com a corretora Patricia Ribeiro.</p>
+              <a class="btn btn-block" href="${detailURL(item)}" target="_blank" rel="noopener noreferrer">Consultar pelo WhatsApp</a>
             </div>
           </div>
         </div>
@@ -1666,33 +1555,16 @@
       history.pushState({ page: "detalhes", propertyId: String(item.id) }, "", "#imovel-" + encodeURIComponent(String(item.id)));
     }
 
-    function setGalleryIndex(index) {
-      if (currentPhotos.length === 0) return;
-      currentPhotoIndex = (index + currentPhotos.length) % currentPhotos.length;
-      
-      const activeImg = document.getElementById("activeGalleryImage");
-      const counterNum = document.getElementById("currentPhotoNum");
-      
-      if (activeImg) activeImg.src = currentPhotos[currentPhotoIndex];
-      if (counterNum) counterNum.textContent = currentPhotoIndex + 1;
-
-      document.querySelectorAll(".detail-thumbnail").forEach((t, i) => {
-        if (i === currentPhotoIndex) {
-          t.classList.add("active");
-          t.scrollIntoView({ behavior: "smooth", inline: "nearest", block: "nearest" });
-        } else {
-          t.classList.remove("active");
-        }
-      });
-    }
-
-    function navigateGallery(direction) {
-      setGalleryIndex(currentPhotoIndex + direction);
-    }
-
     function detailURL(item) {
       const message = "Olá, Patricia! Gostaria de saber mais sobre o imóvel: " + text(item.titulo) + (item.id !== undefined ? " (código " + item.id + ")" : "");
       return "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
+    }
+
+    function changeMainPhoto(src, buttonElement) {
+      const activeImg = document.getElementById("activeGalleryImage");
+      if (activeImg) activeImg.src = src;
+      document.querySelectorAll(".detail-thumbnail").forEach(t => t.classList.remove("active"));
+      if (buttonElement) buttonElement.classList.add("active");
     }
 
     function propertyCard(item) {
@@ -1852,6 +1724,24 @@
         }
       });
     }
+
+    const sellDesiredPrice = document.getElementById("sellDesiredPrice");
+    const sellNet = document.getElementById("sellNet");
+    const sellCommission = document.getElementById("sellCommission");
+    const sellGross = document.getElementById("sellGross");
+
+    if (sellDesiredPrice) {
+      sellDesiredPrice.addEventListener("input", () => {
+        const desired = Number(sellDesiredPrice.value);
+        if (!Number.isFinite(desired) || desired <= 0) return;
+        const gross = Math.round((desired / 0.95) * 100) / 100;
+        const commission = Math.round((gross - desired) * 100) / 100;
+        sellNet.textContent = desired.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+        sellCommission.textContent = commission.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+        sellGross.textContent = gross.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+      });
+    }
+
     document.getElementById("sellForm").addEventListener("submit", async event => {
       event.preventDefault();
       const form = event.currentTarget;
@@ -1888,8 +1778,8 @@
           }
         }
 
-      const desired = Number(form.querySelector("#sellDesiredPrice").value);
-const grossPrice = desired;
+        const desired = Number(form.querySelector("#sellDesiredPrice").value);
+        const grossPrice = Math.round((desired / 0.95) * 100) / 100;
         const nomeProprietario = form.querySelector("#sellName").value;
         const telProprietario = form.querySelector("#sellPhone").value;
 
@@ -1901,7 +1791,8 @@ const grossPrice = desired;
           cidade: form.querySelector("#sellCity").value,
           bairro: form.querySelector("#sellNeighborhood").value,
           descricao: form.querySelector("#sellDescription").value,
-          anotacao_interna: `Proprietário: ${nomeProprietario} | Tel: ${telProprietario} | Valor informado pelo proprietário: R$ ${desired.toLocaleString('pt-BR')}`,
+          anotacao_interna: `Proprietário: ${nomeProprietario} | Tel: ${telProprietario} | Valor líquido desejado: R$ ${desired.toLocaleString('pt-BR')}`,
+          foto_url: fotoUrl,
           fotos: fotosArray,
           status: "Pendente"
         };
