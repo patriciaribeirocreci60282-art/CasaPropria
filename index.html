@@ -128,6 +128,13 @@
     .status-message { margin:20px 0; color:var(--muted); text-align:center; font-size:14px; }
 
     .property-detail { width:100%; max-width:1180px; margin:auto; }
+    .detail-gallery { margin:25px 0 35px; }
+    .detail-main-photo { position:relative; width:100%; height:clamp(320px,50vw,550px); overflow:hidden; border-radius:12px; background:#1a1a1a; display:flex; align-items:center; justify-content:center; }
+    .detail-main-photo img { display:block; max-width:100%; max-height:100%; object-fit:contain; }
+    .detail-thumbnails { display:flex; justify-content:center; gap:10px; margin-top:12px; padding:4px 2px 10px; overflow-x:auto; }
+    .detail-thumbnail { flex:0 0 95px; height:70px; padding:0; overflow:hidden; border:2px solid transparent; border-radius:6px; background:#E8E4DD; cursor:pointer; }
+    .detail-thumbnail.active { border-color:var(--orange); }
+    .detail-thumbnail img { width:100%; height:100%; object-fit:cover; }
     .detail-layout { display:grid; grid-template-columns:minmax(0,1.7fr) minmax(270px,.8fr); gap:25px; align-items:start; }
     .detail-section,.detail-contact-card { margin-bottom:24px; padding:25px; border:1px solid var(--line); border-radius:10px; background:white; box-shadow:0 4px 20px #00000008; }
     .detail-section h2 { margin:0 0 16px; padding-bottom:10px; border-bottom:1px solid var(--line); font-size:20px; }
@@ -531,6 +538,8 @@
   const ADMIN_API_URL = "/api/admin/imoveis";
   const WHATSAPP_NUMBER = "5548999372934";
 
+  const R2_PUBLIC_URL = "https://pub-0d961880c43e4ed59f5117c94ea18f93.r2.dev";
+
   const featuredList = document.getElementById("featuredList");
   const allList = document.getElementById("allList");
   const featuredEmpty = document.getElementById("featuredEmpty");
@@ -615,6 +624,33 @@
     })[char]);
   }
 
+  function resolveImageUrl(value) {
+    let image = text(value);
+    if (!image) return "";
+
+    if (typeof value === "object" && value !== null) {
+      image = text(value.url || value.foto_url || value.image || value.src || value.key);
+    }
+
+    if (!image) return "";
+
+    if (/^(https?:)?\/\//i.test(image) || image.startsWith("data:")) {
+      return image.startsWith("//") ? "https:" + image : image;
+    }
+
+    image = image.split(/[?#]/)[0].replace(/^\/+/, "");
+    image = image.replace(/^casapropria-fotos\//i, "");
+    image = image.replace(/^\/+/, "");
+
+    return R2_PUBLIC_URL + "/" +
+      image.split("/").map(part => encodeURIComponent(decodeURIComponentSafe(part))).join("/");
+  }
+
+  function decodeURIComponentSafe(value) {
+    try { return decodeURIComponent(value); }
+    catch { return value; }
+  }
+
   function money(value) {
     if (value === null || value === undefined || value === "") return "Consulte o valor";
     const number = Number(value);
@@ -646,6 +682,17 @@
     return details.join("");
   }
 
+  function getPropertyPhotos(item) {
+    const registered = Array.isArray(item.fotos) ? item.fotos : [];
+    const candidates = [
+      item.foto_url, item.image, item.foto,
+      ...registered
+    ];
+
+    const urls = candidates.map(resolveImageUrl).filter(Boolean);
+    return [...new Set(urls)];
+  }
+
   function detailURL(item) {
     const message = "Olá, Patricia! Gostaria de saber mais sobre o imóvel: " +
       text(item.titulo) + (item.id !== undefined ? " (código " + item.id + ")" : "");
@@ -660,14 +707,7 @@
     }
 
     const content = document.getElementById("propertyDetailsContent");
-    const fotosCadastradas = Array.isArray(item.fotos) ? item.fotos : [];
-    const fotos = [
-      item.foto_url,
-      ...fotosCadastradas.map(foto =>
-        typeof foto === "string" ? foto : foto.url || foto.foto_url
-      )
-    ].filter(Boolean);
-
+    const photos = getPropertyPhotos(item);
     const title = escapeHTML(item.titulo || "Imóvel");
     const type = escapeHTML(item.tipo || "Imóvel");
     const price = money(item.preco);
@@ -681,15 +721,22 @@
       </div>
 
       <div class="detail-gallery">
-        <div class="property-grid" style="margin-bottom:25px;">
-          ${fotos.length
-            ? fotos.map(foto => `
-                <div class="property-image" style="border-radius:8px; overflow:hidden; aspect-ratio:4/3;">
-                  <img src="${escapeHTML(foto)}" alt="${title}" loading="lazy">
-                </div>
-              `).join("")
+        <div class="detail-main-photo">
+          ${photos.length
+            ? `<img id="activeGalleryImage" src="${escapeHTML(photos[0])}" alt="${title}">`
             : `<div class="property-placeholder">Foto em breve</div>`}
         </div>
+
+        ${photos.length > 1 ? `
+          <div class="detail-thumbnails">
+            ${photos.map((photo, index) => `
+              <button type="button" class="detail-thumbnail ${index === 0 ? "active" : ""}"
+                data-photo-index="${index}" aria-label="Ver foto ${index + 1}">
+                <img src="${escapeHTML(photo)}" alt="Miniatura ${index + 1}" loading="lazy">
+              </button>
+            `).join("")}
+          </div>
+        ` : ""}
       </div>
 
       <div class="detail-layout">
@@ -716,6 +763,16 @@
       </div>
     `;
 
+    content.querySelectorAll("[data-photo-index]").forEach(button => {
+      button.addEventListener("click", () => {
+        const photo = photos[Number(button.dataset.photoIndex)];
+        const active = document.getElementById("activeGalleryImage");
+        if (active) active.src = photo;
+        content.querySelectorAll(".detail-thumbnail").forEach(el => el.classList.remove("active"));
+        button.classList.add("active");
+      });
+    });
+
     showPage("detalhes", false);
 
     if (updateHistory) {
@@ -730,13 +787,14 @@
   function propertyCard(item) {
     const title = text(item.titulo) || "Imóvel disponível";
     const type = text(item.tipo) || "Imóvel";
-    const image = text(item.foto_url);
+    const image = resolveImageUrl(item.foto_url || item.image || item.foto);
     const tag = isFeatured(item) ? "Destaque" : type;
     const details = propertyDetails(item);
 
     const imageHTML = image
       ? `<img src="${escapeHTML(image)}" alt="${escapeHTML(title)}" loading="lazy"
-           onerror="this.style.display='none'">`
+           onerror="this.hidden=true;this.nextElementSibling.hidden=false">
+         <div class="property-placeholder" hidden>Foto indisponível</div>`
       : `<div class="property-placeholder">Foto em breve</div>`;
 
     return `
@@ -838,8 +896,14 @@
           ...item,
           titulo: item.titulo ?? item.title,
           tipo: item.tipo ?? item.type,
-          foto_url: item.foto_url ?? item.image ?? item.foto ?? item.fotoUrl,
-          fotos: photos,
+          foto_url: resolveImageUrl(item.foto_url ?? item.image ?? item.foto ?? item.fotoUrl),
+          fotos: photos.map(photo => {
+            if (typeof photo === "string") return resolveImageUrl(photo);
+            return {
+              ...photo,
+              url: resolveImageUrl(photo.url ?? photo.foto_url ?? photo.image ?? photo.key)
+            };
+          }),
           destaque: item.destaque ?? item.featured,
           preco: item.preco ?? item.price,
           quartos: item.quartos ?? item.bedrooms,
@@ -987,7 +1051,7 @@
           throw new Error("O servidor não retornou a URL da foto enviada.");
         }
 
-        fotosArray.push(url);
+        fotosArray.push(resolveImageUrl(url));
       }
 
       const nome = document.getElementById("sellName").value.trim();
