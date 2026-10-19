@@ -558,9 +558,7 @@
   const ADMIN_API_URL = "/api/admin/imoveis";
   const WHATSAPP_NUMBER = "5548999372934";
 
-  // Domínio público do Cloudflare R2 informado.
-  const R2_PUBLIC_URL =
-    "https://pub-0d961880c43e4ed59f5117c94ea18f93.r2.dev";
+  const R2_PUBLIC_URL = "https://pub-0d961880c43e4ed59f5117c94ea18f93.r2.dev";
 
   const featuredList = document.getElementById("featuredList");
   const allList = document.getElementById("allList");
@@ -646,12 +644,10 @@
     })[char]);
   }
 
-  // Converte caminhos do R2 em URLs públicas e preserva URLs completas.
   function resolveImageUrl(value) {
     let image = text(value);
     if (!image) return "";
 
-    // Aceita objetos de imagem devolvidos pela API.
     if (typeof value === "object" && value !== null) {
       image = text(value.url || value.foto_url || value.image || value.src || value.key);
     }
@@ -663,8 +659,6 @@
     }
 
     image = image.split(/[?#]/)[0].replace(/^\/+/, "");
-
-    // O nome do bucket não faz parte do caminho público do domínio r2.dev.
     image = image.replace(/^casapropria-fotos\//i, "");
     image = image.replace(/^\/+/, "");
 
@@ -835,7 +829,7 @@
           <p class="location">${escapeHTML(locationOf(item))}</p>
           ${details ? `<div class="property-features">${details}</div>` : ""}
           <p class="property-price">${money(item.preco)}</p>
-          <a class="property-action" href="#imovel-${encodeURIComponent(item.id ?? "")}"
+          <a class="property-action" href="#imovel-${escapeURIComponent(item.id ?? "")}"
              data-property-id="${escapeHTML(item.id ?? "")}">
             Ver detalhes do imóvel <span>→</span>
           </a>
@@ -1087,8 +1081,6 @@
       const bairro = document.getElementById("sellNeighborhood").value.trim();
       const descricao = document.getElementById("sellDescription").value.trim();
 
-      // O preço enviado é exatamente o informado pelo proprietário.
-      // Não há cálculo de comissão nem acréscimo de 5%.
       const payload = {
         titulo: `Imóvel em ${cidade} (${tipo})`,
         tipo,
