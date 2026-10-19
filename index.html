@@ -1624,3 +1624,344 @@
         </form>
       </div>
     </section>
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>Patricia Ribeiro</strong>
+        <p>Corretora de Imóveis · CRECI/SC 60282-F</p>
+        <p>© <span id="year"></span> · Todos os direitos reservados.</p>
+      </div>
+
+      <div class="footer-links">
+        <a href="#comprar" data-page="comprar">Comprar</a>
+        <a href="#construir" data-page="construir">Construir</a>
+        <a href="#financiamento" data-page="financiamento">Financiamento</a>
+        <a href="https://wa.me/5548999372934"
+          target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      </div>
+    </div>
+  </footer>
+
+  <a class="whatsapp"
+    href="https://wa.me/5548999372934"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Fale comigo pelo WhatsApp">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M20.2 11.7a8.2 8.2 0 0 1-12.1 7.2L3 20l1.2-4.8a8.2 8.2 0 1 1 16-3.5Z"
+        stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+      <path d="M8.1 7.9c.2-.5.5-.5.8-.5h.4c.2 0 .4.1.5.4l.7 1.7c.1.2 0 .4-.1.6l-.5.6c-.2.2-.2.4-.1.6.5.9 1.2 1.6 2.1 2.1.2.1.4.1.6-.1l.7-.8c.2-.2.4-.2.6-.1l1.6.8c.3.1.4.3.4.5 0 .3-.2 1.1-.7 1.5-.5.5-1.2.7-1.9.6-1-.1-2.3-.7-3.6-1.8-1.2-1.1-2.1-2.4-2.4-3.5-.3-1 .1-2 .9-2.6Z"
+        fill="currentColor"/>
+    </svg>
+    Fale comigo
+  </a>
+
+  <script>
+    const API_URL = "/api/imoveis";
+    const WHATSAPP_NUMBER = "5548999372934";
+
+    const featuredList = document.getElementById("featuredList");
+    const allList = document.getElementById("allList");
+    const featuredEmpty = document.getElementById("featuredEmpty");
+    const allEmpty = document.getElementById("allEmpty");
+    const resultsCount = document.getElementById("resultsCount");
+    const statusMessage = document.getElementById("statusMessage");
+
+    let properties = [];
+    let hasSearched = false;
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    /* MENU E NAVEGAÇÃO ENTRE AS PÁGINAS */
+
+    const menuToggle = document.getElementById("menuToggle");
+    const mainNav = document.getElementById("mainNav");
+
+    function closeMenu() {
+      mainNav.classList.remove("open");
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-label", "Abrir menu");
+    }
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = mainNav.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute(
+        "aria-label",
+        isOpen ? "Fechar menu" : "Abrir menu"
+      );
+    });
+
+    function showPage(page, updateHistory = true) {
+      const pages = {
+        comprar: document.getElementById("pageComprar"),
+        construir: document.getElementById("pageConstruir"),
+        financiamento: document.getElementById("pageFinanciamento"),
+        vender: document.getElementById("pageVender"),
+        detalhes: document.getElementById("pageDetalhes")
+      };
+
+      if (!pages[page]) page = "comprar";
+
+      Object.entries(pages).forEach(([name, element]) => {
+        element.hidden = name !== page;
+      });
+
+      closeMenu();
+
+      if (updateHistory) {
+        const hash = page === "comprar" ? "#comprar" : "#" + page;
+        history.pushState({ page }, "", hash);
+      }
+
+      window.scrollTo({ top: 0, behavior: "auto" });
+    }
+
+    document.querySelectorAll("[data-page]").forEach(link => {
+      link.addEventListener("click", event => {
+        event.preventDefault();
+        showPage(link.dataset.page);
+      });
+    });
+
+    window.addEventListener("popstate", () => {
+      const page = location.hash.replace("#", "");
+      showPage(
+        ["comprar", "construir", "financiamento", "vender", "detalhes"]
+          .includes(page) ? page : "comprar",
+        false
+      );
+    });
+
+    const initialPage = location.hash.replace("#", "");
+    showPage(
+      ["comprar", "construir", "financiamento", "vender", "detalhes"]
+        .includes(initialPage) ? initialPage : "comprar",
+      false
+    );
+
+    /* FUNÇÕES DOS IMÓVEIS */
+
+    function text(value) {
+      return String(value ?? "").trim();
+    }
+
+    function escapeHTML(value) {
+      return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[char]);
+    }
+
+    function money(value) {
+      if (value === null || value === undefined || value === "") {
+        return "Consulte o valor";
+      }
+
+      const number = Number(value);
+      if (!Number.isFinite(number)) return "Consulte o valor";
+
+      return number.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+        maximumFractionDigits: 0
+      });
+    }
+
+    function isTrue(value) {
+      return value === true || value === 1 ||
+        value === "1" || value === "true";
+    }
+
+    function isFeatured(item) {
+      return isTrue(item.destaque);
+    }
+    <script>
+    const API_URL = "/api/imoveis";
+    const WHATSAPP_NUMBER = "5548999372934";
+
+    const featuredList = document.getElementById("featuredList");
+    const allList = document.getElementById("allList");
+    const featuredEmpty = document.getElementById("featuredEmpty");
+    const allEmpty = document.getElementById("allEmpty");
+    const resultsCount = document.getElementById("resultsCount");
+    const statusMessage = document.getElementById("statusMessage");
+
+    let properties = [];
+    let hasSearched = false;
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const menuToggle = document.getElementById("menuToggle");
+    const mainNav = document.getElementById("mainNav");
+
+    function closeMenu() {
+      mainNav.classList.remove("open");
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-label", "Abrir menu");
+    }
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = mainNav.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute("aria-label", isOpen ? "Fechar menu" : "Abrir menu");
+    });
+
+    function showPage(page, updateHistory = true) {
+      const pages = {
+        comprar: document.getElementById("pageComprar"),
+        construir: document.getElementById("pageConstruir"),
+        financiamento: document.getElementById("pageFinanciamento"),
+        vender: document.getElementById("pageVender"),
+        detalhes: document.getElementById("pageDetalhes")
+      };
+
+      if (!pages[page]) page = "comprar";
+
+      Object.entries(pages).forEach(([name, element]) => {
+        element.hidden = name !== page;
+      });
+
+      closeMenu();
+
+      if (updateHistory) {
+        const hash = page === "comprar" ? "#comprar" : "#" + page;
+        history.pushState({ page }, "", hash);
+      }
+
+      window.scrollTo({ top: 0, behavior: "auto" });
+    }
+
+    document.querySelectorAll("[data-page]").forEach(link => {
+      link.addEventListener("click", event => {
+        event.preventDefault();
+        showPage(link.dataset.page);
+      });
+    });
+
+    window.addEventListener("popstate", () => {
+      const page = location.hash.replace("#", "");
+      showPage(
+        ["comprar", "construir", "financiamento"].includes(page)
+          ? page : "comprar",
+        false
+      );
+    });
+
+    const initialPage = location.hash.replace("#", "");
+    showPage(
+      ["comprar", "construir", "financiamento"].includes(initialPage)
+        ? initialPage : "comprar",
+      false
+    );
+
+    function text(value) {
+      return String(value ?? "").trim();
+    }
+
+    function escapeHTML(value) {
+      return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;",
+        '"': "&quot;", "'": "&#39;"
+      })[char]);
+    }
+
+    function money(value) {
+      if (value === null || value === undefined || value === "") {
+        return "Consulte o valor";
+      }
+
+      const number = Number(value);
+      if (!Number.isFinite(number)) return "Consulte o valor";
+
+      return number.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+        maximumFractionDigits: 0
+      });
+    }
+
+    function isTrue(value) {
+      return value === true || value === 1 ||
+        value === "1" || value === "true";
+    }
+
+    function isFeatured(item) {
+      return isTrue(item.destaque);
+    }
+
+    function locationOf(item) {
+      return [item.bairro, item.cidade].map(text).filter(Boolean).join(", ")
+        || text(item.endereco) || "Consulte a localização";
+    }
+
+    function propertyDetails(item) {
+      const details = [];
+
+      if (Number(item.quartos) > 0)
+        details.push(`<span>${escapeHTML(item.quartos)} quartos</span>`);
+
+      if (Number(item.banheiros) > 0)
+        details.push(`<span>${escapeHTML(item.banheiros)} banheiros</span>`);
+
+      if (Number(item.vagas) > 0)
+        details.push(`<span>${escapeHTML(item.vagas)} vagas</span>`);
+
+      if (Number(item.area_m2) > 0)
+        details.push(`<span>${escapeHTML(item.area_m2)} m²</span>`);
+
+      return details.join("");
+    }
+
+    function detailURL(item) {
+      const message = "Olá, Patricia! Gostaria de saber mais sobre o imóvel: "
+        + text(item.titulo)
+        + (item.id !== undefined ? " (código " + item.id + ")" : "");
+
+      return "https://wa.me/" + WHATSAPP_NUMBER
+        + "?text=" + encodeURIComponent(message);
+    }
+
+    // A função openPropertyDetails, propertyCard, render e loadProperties
+    // devem permanecer conforme a versão completa do arquivo fornecido.
+
+    function openWhatsApp(message) {
+      const url = "https://wa.me/" + WHATSAPP_NUMBER
+        + "?text=" + encodeURIComponent(message);
+
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
+
+    loadProperties();
+</script>
+
+<datalist id="cidadesRegiao">
+  <option value="Criciúma"></option>
+  <option value="Içara"></option>
+  <option value="Forquilhinha"></option>
+  <option value="Nova Veneza"></option>
+  <option value="Siderópolis"></option>
+  <option value="Cocal do Sul"></option>
+  <option value="Morro da Fumaça"></option>
+  <option value="Urussanga"></option>
+  <option value="Orleans"></option>
+  <option value="Lauro Müller"></option>
+  <option value="Treviso"></option>
+  <option value="Balneário Rincão"></option>
+  <option value="Araranguá"></option>
+  <option value="Maracajá"></option>
+  <option value="Sangão"></option>
+  <option value="Jaguaruna"></option>
+  <option value="Tubarão"></option>
+  <option value="Turvo"></option>
+  <option value="Meleiro"></option>
+  <option value="Praia Grande"></option>
+  <option value="Sombrio"></option>
+</datalist>
+
+</body>
+</html>
