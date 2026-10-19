@@ -812,10 +812,9 @@
     const details = propertyDetails(item);
 
     const imageHTML = image
-      ? `<img src="${escapeHTML(image)}" alt="${escapeHTML(title)}" loading="lazy"
-           onerror="this.hidden=true;this.nextElementSibling.hidden=false">
-         <div class="property-placeholder" hidden>Foto indisponível</div>`
-      : `<div class="property-placeholder">Foto em breve</div>`;
+        ? `<img src="${escapeHTML(image)}" alt="${escapeHTML(title)}"
+             loading="lazy" onerror="this.style.display='none'">`
+        : `<div class="property-placeholder">Foto em breve</div>`;
 
     return `
       <article class="property-card">
