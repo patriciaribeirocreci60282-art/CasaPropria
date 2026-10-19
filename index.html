@@ -721,7 +721,7 @@
       font-size: 14px;
     }
 
-    /* PÁGINA COMPLETA DE DETALHES DO IMÓVEL (ESTRUTURA ORIGINAL SOLICITADA)[cite: 3] */
+    /* PÁGINA DE DETALHES DO IMÓVEL */
 
     .property-detail {
       width: 100%;
@@ -1159,7 +1159,7 @@
       </section>
     </div>
 
-    <!-- PÁGINA DE DETALHES DO IMÓVEL (ESTRUTURA ORIGINAL COMPLETA)[cite: 3] -->
+    <!-- PÁGINA DE DETALHES DO IMÓVEL -->
     <section class="internal-page" id="pageDetalhes" hidden>
       <div class="container">
         <a href="#comprar" class="back-link" data-page="comprar">← Voltar para os imóveis</a>
@@ -1392,20 +1392,8 @@
             </div>
 
             <div class="field full">
-              <label for="sellDesiredPrice">Quanto você quer receber pelo imóvel? (R$) *</label>
+              <label for="sellDesiredPrice">Preço de venda pretendido (R$) *</label>
               <input id="sellDesiredPrice" name="preco_desejado" type="number" min="1" step="0.01" required placeholder="Ex.: 300000">
-            </div>
-
-            <div class="field full">
-              <label>Simulação do anúncio</label>
-              <div style="padding:22px; background:#FFF9F5; border:1px solid #F0DACE; border-radius:8px">
-                <p style="margin-top:0">Valor desejado pelo proprietário: <strong id="sellNet">R$ 0,00</strong></p>
-                <p>Comissão de 5%: <strong id="sellCommission">R$ 0,00</strong></p>
-                <p style="font-size:22px; margin-bottom:0; color:var(--ink)">
-                  Preço sugerido para anunciar:
-                  <strong id="sellGross" style="color:var(--orange-dark); font-size:26px">R$ 0,00</strong>
-                </p>
-              </div>
             </div>
 
             <div class="field full">
@@ -1426,7 +1414,7 @@
             <div class="field full">
               <label style="display:flex;gap:10px;align-items:flex-start">
                 <input type="checkbox" id="sellTerms" required style="width:18px;min-height:18px;margin-top:4px;flex:0 0 auto; accent-color:var(--orange);">
-                <span>Li e aceito que a comissão de intermediação proposta é de 5% sobre o preço final de venda.</span>
+                <span>Concordo com os termos de intermediação e publicação do imóvel.</span>
               </label>
             </div>
           </div>
@@ -1569,11 +1557,6 @@
       if (Number(item.area_m2) > 0)
         details.push(`<span>${escapeHTML(item.area_m2)} m²</span>`);
       return details.join("");
-    }
-
-    function detailURL(item) {
-      const message = "Olá, Patricia! Gostaria de saber mais sobre o imóvel: " + text(item.titulo) + (item.id !== undefined ? " (código " + item.id + ")" : "");
-      return "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
     }
 
     /* FUNÇÕES DA GALERIA DETALHADA COM SETAS E CONTADOR */
@@ -1865,23 +1848,6 @@
       });
     }
 
-    const sellDesiredPrice = document.getElementById("sellDesiredPrice");
-    const sellNet = document.getElementById("sellNet");
-    const sellCommission = document.getElementById("sellCommission");
-    const sellGross = document.getElementById("sellGross");
-
-    if (sellDesiredPrice) {
-      sellDesiredPrice.addEventListener("input", () => {
-        const desired = Number(sellDesiredPrice.value);
-        if (!Number.isFinite(desired) || desired <= 0) return;
-        const gross = Math.round((desired / 0.95) * 100) / 100;
-        const commission = Math.round((gross - desired) * 100) / 100;
-        sellNet.textContent = desired.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-        sellCommission.textContent = commission.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-        sellGross.textContent = gross.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-      });
-    }
-
     document.getElementById("sellForm").addEventListener("submit", async event => {
       event.preventDefault();
       const form = event.currentTarget;
@@ -1918,8 +1884,7 @@
           }
         }
 
-        const desired = Number(form.querySelector("#sellDesiredPrice").value);
-        const grossPrice = Math.round((desired / 0.95) * 100) / 100;
+        const priceValue = Number(form.querySelector("#sellDesiredPrice").value);
         const nomeProprietario = form.querySelector("#sellName").value;
         const telProprietario = form.querySelector("#sellPhone").value;
 
@@ -1927,11 +1892,11 @@
           titulo: `Imóvel em ${form.querySelector("#sellCity").value} (${form.querySelector("#sellType").value})`,
           tipo: form.querySelector("#sellType").value,
           finalidade: "Venda",
-          preco: grossPrice,
+          preco: priceValue,
           cidade: form.querySelector("#sellCity").value,
           bairro: form.querySelector("#sellNeighborhood").value,
           descricao: form.querySelector("#sellDescription").value,
-          anotacao_interna: `Proprietário: ${nomeProprietario} | Tel: ${telProprietario} | Valor líquido desejado: R$ ${desired.toLocaleString('pt-BR')}`,
+          anotacao_interna: `Proprietário: ${nomeProprietario} | Tel: ${telProprietario} | Preço de venda: R$ ${priceValue.toLocaleString('pt-BR')}`,
           foto_url: fotoUrl,
           fotos: fotosArray,
           status: "Pendente"
