@@ -1,4 +1,3 @@
-
 export async function onRequestGet({ env }) {
   try {
     const { results = [] } = await env.DB.prepare(`
@@ -21,7 +20,7 @@ export async function onRequestGet({ env }) {
         status,
         data_cadastro
       FROM imoveis
-      WHERE status = 'Publicado'
+      WHERE LOWER(TRIM(COALESCE(status, ''))) = 'publicado'
       ORDER BY data_cadastro DESC
     `).all();
 
@@ -31,7 +30,9 @@ export async function onRequestGet({ env }) {
       type: item.tipo,
       purpose: item.finalidade,
       description: item.descricao,
-      location: [item.bairro, item.cidade].filter(Boolean).join(", "),
+      location: [item.bairro, item.cidade]
+        .filter(Boolean)
+        .join(", "),
       price: item.preco,
       area: item.area_m2,
       bedrooms: item.quartos,
@@ -40,16 +41,26 @@ export async function onRequestGet({ env }) {
       image: item.foto_url,
       featured: Boolean(item.destaque),
       launch: Boolean(item.lancamento),
+      status: item.status,
       publishedAt: item.data_cadastro
     }));
 
     return Response.json(
       { success: true, imoveis },
-      { headers: { "Cache-Control": "no-store" } }
+      {
+        headers: {
+          "Cache-Control": "no-store"
+        }
+      }
     );
   } catch (error) {
+    console.error("Erro ao consultar imóveis públicos:", error);
+
     return Response.json(
-      { success: false, error: "Erro ao consultar os imóveis." },
+      {
+        success: false,
+        error: "Erro ao consultar os imóveis."
+      },
       { status: 500 }
     );
   }
