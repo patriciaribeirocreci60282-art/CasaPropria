@@ -1247,7 +1247,7 @@
     <div class="internal-heading">
       <span class="section-kicker">Anuncie seu imóvel</span>
       <h1>Venda seu imóvel com a gente</h1>
-      <p>Informe quanto deseja receber e veja o preço sugerido para o anúncio, incluindo a comissão de 5%.</p>
+      <p>Informe seus dados e as informações do imóvel para solicitar uma avaliação e conversar sobre o anúncio.</p>
     </div>
 
     <form class="form-card" id="sellForm">
@@ -1297,49 +1297,20 @@
             placeholder="Ex.: 300000">
         </div>
 
-        <div class="field full">
-          <label>Simulação do anúncio</label>
-          <div style="padding:18px;background:#F7F5F1;border-radius:6px">
-            <p>Valor desejado pelo proprietário:
-              <strong id="sellNet">R$ 0,00</strong>
-            </p>
-            <p>Comissão de 5%:
-              <strong id="sellCommission">R$ 0,00</strong>
-            </p>
-            <p style="font-size:20px;margin-bottom:0">
-              Preço sugerido para anunciar:
-              <strong id="sellGross" style="color:#C94C19">
-                R$ 0,00
-              </strong>
-            </p>
-          </div>
-          <p class="form-help">
-            Simulação considerando comissão de 5% sobre o preço final de venda.
-          </p>
-        </div>
-
-        <div class="field full">
+                <div class="field full">
           <label for="sellDescription">Descrição do imóvel *</label>
           <textarea id="sellDescription" name="descricao"
             required placeholder="Descreva o imóvel, a metragem, os quartos e outras características."></textarea>
         </div>
 
-        <div class="field full">
-          <label style="display:flex;gap:10px;align-items:flex-start">
-            <input type="checkbox" id="sellTerms" required
-              style="width:18px;min-height:18px;margin-top:4px;flex:0 0 auto">
-            <span>
-              Li e aceito que a comissão de intermediação proposta é de 5%
-              sobre o preço final de venda, conforme as condições que
-              serão formalizadas no termo de intermediação.
-            </span>
-          </label>
-          <p class="form-help">
-            O envio desta solicitação não substitui o contrato de intermediação
-            nem significa publicação automática do imóvel.
-          </p>
-        </div>
-      </div>
+        <label style="display:flex;gap:10px;align-items:flex-start">
+  <input type="checkbox" id="sellTerms" required
+    style="width:18px;min-height:18px;margin-top:4px;flex:0 0 auto">
+  <span>
+    Autorizo o envio destas informações à Patricia Ribeiro
+    para avaliação do imóvel e contato sobre as condições de anúncio.
+  </span>
+</label>
 
       <button class="btn btn-block" type="submit">
         Enviar proposta pelo WhatsApp
@@ -2194,39 +2165,6 @@ render();
     });
 
     document.getElementById("sort").addEventListener("change", render);
-
-/* CÁLCULO DA COMISSÃO NA PÁGINA VENDER MEU IMÓVEL */
-
-const sellDesiredPrice = document.getElementById("sellDesiredPrice");
-const sellNet = document.getElementById("sellNet");
-const sellCommission = document.getElementById("sellCommission");
-const sellGross = document.getElementById("sellGross");
-
-function updateSellCalculation() {
-  const desired = Number(sellDesiredPrice.value);
-
-  if (!Number.isFinite(desired) || desired <= 0) {
-    sellNet.textContent = "R$ 0,00";
-    sellCommission.textContent = "R$ 0,00";
-    sellGross.textContent = "R$ 0,00";
-    return;
-  }
-
-  const gross = Math.round((desired / 0.95) * 100) / 100;
-  const commission = Math.round((gross - desired) * 100) / 100;
-
-  const formatBRL = value => value.toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL"
-  });
-
-  sellNet.textContent = formatBRL(desired);
-  sellCommission.textContent = formatBRL(commission);
-  sellGross.textContent = formatBRL(gross);
-}
-
-sellDesiredPrice.addEventListener("input", updateSellCalculation);
-updateSellCalculation();
 
     /* ENVIO DOS FORMULÁRIOS PARA O WHATSAPP */
 
