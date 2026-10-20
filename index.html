@@ -1163,37 +1163,49 @@ $("financeForm").addEventListener("submit", event => {
   openWhatsApp(message);
 });
 
-$("sellForm").addEventListener("submit", event => {
+
+$("sellForm").addEventListener("submit", async event => {
   event.preventDefault();
 
-  const form = new FormData(event.currentTarget);
+  const form = event.currentTarget;
+  const button = form.querySelector('button[type="submit"]');
 
-  const value = form.get("valor");
-  const formattedValue = value
-    ? Number(value).toLocaleString("pt-BR", {
-        style: "currency",
-        currency: "BRL"
-      })
-    : "Não informado";
+  if (!form.reportValidity()) return;
 
-  const message = [
-    "Olá, Patricia! Gostaria de solicitar uma avaliação do meu imóvel.",
-    "",
-    "*SOLICITAÇÃO DE ANÚNCIO DE IMÓVEL*",
-    "Nome: " + form.get("nome"),
-    "WhatsApp: " + form.get("telefone"),
-    "Cidade: " + form.get("cidade"),
-    "Bairro: " + (form.get("bairro") || "Não informado"),
-    "Tipo de imóvel: " + form.get("tipo"),
-    "Valor desejado: " + formattedValue,
-    "Descrição: " + form.get("descricao"),
-    "",
-    "Autorizo o contato para avaliação e conversa sobre as condições de anúncio."
-  ].join("\n");
+  button.disabled = true;
+  button.textContent = "Enviando proposta...";
 
-  openWhatsApp(message);
+  try {
+    const dados = Object.fromEntries(new FormData(form).entries());
+    delete dados.autorizacao;
+
+    const response = await fetch("/api/propostas", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(dados)
+    });
+
+    const resultado = await response.json();
+
+    if (!response.ok || resultado.success !== true) {
+      throw new Error(resultado.error || "Erro ao enviar proposta.");
+    }
+
+    alert("Proposta enviada! Aguarde a aprovação do administrador.");
+    form.reset();
+
+  } catch (error) {
+    console.error(error);
+    alert(error.message || "Não foi possível enviar a proposta.");
+
+  } finally {
+    button.disabled = false;
+    button.textContent = "Enviar imóvel pelo WhatsApp";
+  }
 });
-
 /* INICIALIZAÇÃO */
 showPage(normalizePage(location.hash), false);
 loadProperties();
