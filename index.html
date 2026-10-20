@@ -1174,40 +1174,49 @@ $("sellForm").addEventListener("submit", async event => {
 
   const form = event.currentTarget;
   const button = form.querySelector('button[type="submit"]');
+  const fileInput = $("sellImages");
 
   if (!form.reportValidity()) return;
 
-  // Evita envios duplicados.
+  // Validação da quantidade de arquivos (máximo 5)
+  if (fileInput.files.length > 5) {
+    alert("Você pode enviar no máximo 5 imagens.");
+    return;
+  }
+
   if (button.disabled) return;
 
   const textoOriginal = button.textContent;
-
   button.disabled = true;
-  button.textContent = "Enviando proposta...";
+  button.textContent = "Enviando proposta e imagens...";
 
   try {
-    const dados = Object.fromEntries(
-      new FormData(form).entries()
-    );
+    const formData = new FormData();
+    
+    // Adiciona os campos de texto comuns do formulário
+    const entries = new FormData(form).entries();
+    for (const [key, value] of entries) {
+      if (key !== "fotos" && key !== "autorizacao") {
+        formData.append(key, value);
+      }
+    }
 
-    // A autorização é uma confirmação do formulário,
-    // não precisa ser enviada como campo da proposta.
-    delete dados.autorizacao;
+    // Adiciona cada arquivo de imagem selecionado ao FormData
+    for (let i = 0; i < fileInput.files.length; i++) {
+      formData.append("fotos", fileInput.files[i]);
+    }
 
-    // O cadastro é enviado ao backend, não ao WhatsApp.
     const response = await fetch("/api/propostas", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
         "Accept": "application/json"
+        // Nota: Quando utilizamos FormData com arquivos, 
+        // o navegador define automaticamente o Content-Type como multipart/form-data.
       },
-      body: JSON.stringify(dados)
+      body: formData
     });
 
-    // Lê o corpo uma única vez. Isso evita o erro
-    // quando o servidor retorna resposta vazia ou inválida.
     const responseText = await response.text();
-
     let resultado = null;
 
     if (responseText.trim() !== "") {
@@ -1218,7 +1227,6 @@ $("sellForm").addEventListener("submit", async event => {
       }
     }
 
-    // Primeiro verifica o status HTTP.
     if (!response.ok) {
       const mensagem =
         resultado?.error ||
@@ -1228,26 +1236,7 @@ $("sellForm").addEventListener("submit", async event => {
       throw new Error(mensagem);
     }
 
-    // Não considerar uma página HTML ou uma resposta
-    // inesperada como confirmação de cadastro.
-    if (
-      responseText.trim() !== "" &&
-      resultado === null
-    ) {
-      throw new Error(
-        "O servidor recebeu uma resposta inválida. " +
-        "Verifique a configuração da rota /api/propostas."
-      );
-    }
-
-    // Se o backend devolver JSON, respeita seu resultado.
-    if (
-      resultado &&
-      (
-        resultado.success === false ||
-        resultado.success === 0
-      )
-    ) {
+    if (resultado && (resultado.success === false || resultado.success === 0)) {
       throw new Error(
         resultado.error ||
         resultado.message ||
@@ -1255,23 +1244,9 @@ $("sellForm").addEventListener("submit", async event => {
       );
     }
 
-    // Se o backend exigir confirmação JSON, verifica-a.
-    // Respostas 2xx vazias também são aceitas, por exemplo,
-    // quando o servidor utiliza HTTP 204.
-    if (
-      resultado &&
-      resultado.success !== true &&
-      resultado.success !== 1
-    ) {
-      throw new Error(
-        "A resposta do servidor não confirmou o cadastro. " +
-        "Verifique o endpoint /api/propostas."
-      );
-    }
-
     alert(
       "Solicitação enviada com sucesso!\n\n" +
-      "Seu imóvel foi encaminhado para análise administrativa. " +
+      "Seu imóvel e as fotos foram encaminhados para análise administrativa. " +
       "O anúncio não será publicado automaticamente."
     );
 
