@@ -744,9 +744,6 @@
       font-size: 14px;
     }
 
-
-
-
 /* PÁGINA COMPLETA DE DETALHES DO IMÓVEL */
 
 .property-detail {
@@ -1191,6 +1188,51 @@
         transition: none !important;
       }
     }
+    
+/* MENU HAMBÚRGUER QUANDO A TELA FICAR MENOR */
+@media (min-width: 761px) and (max-width: 1100px) {
+  .header-inner {
+    position: relative;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+  }
+
+  .nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: 12px 20px 20px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background: white;
+    border-bottom: 1px solid var(--line);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, .08);
+  }
+
+  .nav.open {
+    display: flex;
+  }
+
+  .nav a,
+  .nav button {
+    display: block;
+    width: 100%;
+    padding: 13px 8px;
+    text-align: left;
+    white-space: normal;
+  }
+
+  .nav .nav-login {
+    margin-top: 8px;
+    padding: 12px;
+    text-align: center;
+  }
+}
   </style>
 </head>
 
