@@ -1163,6 +1163,7 @@ $("financeForm").addEventListener("submit", event => {
   openWhatsApp(message);
 });
 
+/* CADASTRO DE IMÓVEL PARA ANÁLISE DO ADMINISTRADOR */
 
 $("sellForm").addEventListener("submit", async event => {
   event.preventDefault();
@@ -1172,13 +1173,24 @@ $("sellForm").addEventListener("submit", async event => {
 
   if (!form.reportValidity()) return;
 
+  // Evita envios duplicados.
+  if (button.disabled) return;
+
+  const textoOriginal = button.textContent;
+
   button.disabled = true;
   button.textContent = "Enviando proposta...";
 
   try {
-    const dados = Object.fromEntries(new FormData(form).entries());
+    const dados = Object.fromEntries(
+      new FormData(form).entries()
+    );
+
+    // A autorização é uma confirmação do formulário,
+    // não precisa ser enviada como campo da proposta.
     delete dados.autorizacao;
 
+    // O cadastro é enviado ao backend, não ao WhatsApp.
     const response = await fetch("/api/propostas", {
       method: "POST",
       headers: {
@@ -1188,24 +1200,93 @@ $("sellForm").addEventListener("submit", async event => {
       body: JSON.stringify(dados)
     });
 
-    const resultado = await response.json();
+    // Lê o corpo uma única vez. Isso evita o erro
+    // quando o servidor retorna resposta vazia ou inválida.
+    const responseText = await response.text();
 
-    if (!response.ok || resultado.success !== true) {
-      throw new Error(resultado.error || "Erro ao enviar proposta.");
+    let resultado = null;
+
+    if (responseText.trim() !== "") {
+      try {
+        resultado = JSON.parse(responseText);
+      } catch {
+        resultado = null;
+      }
     }
 
-    alert("Proposta enviada! Aguarde a aprovação do administrador.");
+    // Primeiro verifica o status HTTP.
+    if (!response.ok) {
+      const mensagem =
+        resultado?.error ||
+        resultado?.message ||
+        `O servidor recusou a solicitação (HTTP ${response.status}).`;
+
+      throw new Error(mensagem);
+    }
+
+    // Não considerar uma página HTML ou uma resposta
+    // inesperada como confirmação de cadastro.
+    if (
+      responseText.trim() !== "" &&
+      resultado === null
+    ) {
+      throw new Error(
+        "O servidor recebeu uma resposta inválida. " +
+        "Verifique a configuração da rota /api/propostas."
+      );
+    }
+
+    // Se o backend devolver JSON, respeita seu resultado.
+    if (
+      resultado &&
+      (
+        resultado.success === false ||
+        resultado.success === 0
+      )
+    ) {
+      throw new Error(
+        resultado.error ||
+        resultado.message ||
+        "Não foi possível registrar a proposta."
+      );
+    }
+
+    // Se o backend exigir confirmação JSON, verifica-a.
+    // Respostas 2xx vazias também são aceitas, por exemplo,
+    // quando o servidor utiliza HTTP 204.
+    if (
+      resultado &&
+      resultado.success !== true &&
+      resultado.success !== 1
+    ) {
+      throw new Error(
+        "A resposta do servidor não confirmou o cadastro. " +
+        "Verifique o endpoint /api/propostas."
+      );
+    }
+
+    alert(
+      "Solicitação enviada com sucesso!\n\n" +
+      "Seu imóvel foi encaminhado para análise administrativa. " +
+      "O anúncio não será publicado automaticamente."
+    );
+
     form.reset();
 
   } catch (error) {
-    console.error(error);
-    alert(error.message || "Não foi possível enviar a proposta.");
+    console.error("Erro ao cadastrar proposta:", error);
+
+    alert(
+      "Não foi possível confirmar o cadastro do imóvel.\n\n" +
+      (error.message || "Verifique sua conexão e tente novamente.")
+    );
 
   } finally {
     button.disabled = false;
-    button.textContent = "Enviar imóvel pelo WhatsApp";
+    button.textContent = textoOriginal;
   }
 });
+
 /* INICIALIZAÇÃO */
 showPage(normalizePage(location.hash), false);
 loadProperties();
