@@ -1177,109 +1177,77 @@ $("financeForm").addEventListener("submit", event => {
 /* CADASTRO DE IMÓVEL PARA ANÁLISE DO ADMINISTRADOR */
 
 $("sellForm").addEventListener("submit", async event => {
-  event.preventDefault();
+event.preventDefault();
 
-  const form = event.currentTarget;
-  const button = form.querySelector('button[type="submit"]');
-  const fileInput = $("sellImages");
+const form = event.currentTarget;
+const button = form.querySelector('button[type="submit"]');
+const fileInput = $("sellImages");
 
-  if (!form.reportValidity()) return;
+if (!form.reportValidity()) return;
 
-  // Validação da quantidade de arquivos (máximo 5)
-  if (fileInput.files.length > 5) {
-    alert("Você pode enviar no máximo 5 imagens.");
-    return;
-  }
-
-  if (button.disabled) return;
-
-  const textoOriginal = button.textContent;
-  button.disabled = true;
-  button.textContent = "Enviando proposta e imagens...";
-
-  try {
-    const formData = new FormData();
-
-    // Adiciona os campos de texto comuns do formulário
-    const entries = new FormData(form).entries();
-    for (const [key, value] of entries) {
-      if (key !== "fotos" && key !== "autorizacao") {
-        formData.append(key, value);
-      }
-    }
-
-    // Adiciona cada arquivo de imagem selecionado ao FormData
-    for (let i = 0; i < fileInput.files.length; i++) {
-      formData.append("fotos", fileInput.files[i]);
-    }
-
-const response = await fetch("/api/admin/imoveis", {
-  method: "POST",
-  headers: {
-    "Accept": "application/json",
-    "Content-Type": "application/json"
-  },
-  credentials: "same-origin",
-  body: JSON.stringify({
-    ...payload,
-    status: "Pendente"
-  })
-});
-
-const data = await response.json();
-
-if (!response.ok) {
-  throw new Error(data.error || `Erro HTTP ${response.status}`);
+if (fileInput.files.length > 5) {
+alert("Você pode enviar no máximo 5 imagens.");
+return;
 }
 
-    const responseText = await response.text();
-    let resultado = null;
+if (button.disabled) return;
 
-    if (responseText.trim() !== "") {
-      try {
-        resultado = JSON.parse(responseText);
-      } catch {
-        resultado = null;
-      }
-    }
+const textoOriginal = button.textContent;
+button.disabled = true;
+button.textContent = "Enviando proposta e imagens...";
 
-    if (!response.ok) {
-      const mensagem =
-        resultado?.error ||
-        resultado?.message ||
-        `O servidor recusou a solicitação (HTTP ${response.status}).`;
+try {
+const formData = new FormData(form);
 
-      throw new Error(mensagem);
-    }
+```
+// Mantém a autorização fora dos dados enviados.
+formData.delete("autorizacao");
 
-    if (resultado && (resultado.success === false || resultado.success === 0)) {
-      throw new Error(
-        resultado.error ||
-        resultado.message ||
-        "Não foi possível registrar a proposta."
-      );
-    }
+// O servidor define o status, não o formulário.
+formData.delete("status");
 
-    alert(
-      "Solicitação enviada com sucesso!\n\n" +
-      "Seu imóvel e as fotos foram encaminhados para análise administrativa. " +
-      "O anúncio não será publicado automaticamente."
-    );
+const response = await fetch("/api/propostas-imoveis", {
+  method: "POST",
+  headers: {
+    "Accept": "application/json"
+  },
+  body: formData,
+  credentials: "same-origin"
+});
 
-    form.reset();
+const resultado = await response.json();
 
-  } catch (error) {
-    console.error("Erro ao cadastrar proposta:", error);
+if (!response.ok || resultado.success !== true) {
+  throw new Error(
+    resultado.error ||
+    resultado.message ||
+    `Não foi possível cadastrar o imóvel (HTTP ${response.status}).`
+  );
+}
 
-    alert(
-      "Não foi possível confirmar o cadastro do imóvel.\n\n" +
-      (error.message || "Verifique sua conexão e tente novamente.")
-    );
+alert(
+  "Solicitação enviada com sucesso!\n\n" +
+  "Seu imóvel foi encaminhado para análise administrativa. " +
+  "O anúncio não será publicado automaticamente."
+);
 
-  } finally {
-    button.disabled = false;
-    button.textContent = textoOriginal;
-  }
+form.reset();
+```
+
+} catch (error) {
+console.error("Erro ao cadastrar proposta:", error);
+
+```
+alert(
+  "Não foi possível cadastrar o imóvel.\n\n" +
+  (error.message || "Verifique sua conexão e tente novamente.")
+);
+```
+
+} finally {
+button.disabled = false;
+button.textContent = textoOriginal;
+}
 });
 
 /* INICIALIZAÇÃO */
