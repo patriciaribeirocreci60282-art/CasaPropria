@@ -1216,10 +1216,21 @@ $("sellForm").addEventListener("submit", async event => {
 const response = await fetch("/api/admin/imoveis", {
   method: "POST",
   headers: {
-    "Accept": "application/json"
+    "Accept": "application/json",
+    "Content-Type": "application/json"
   },
-  body: formData
+  credentials: "same-origin",
+  body: JSON.stringify({
+    ...payload,
+    status: "Pendente"
+  })
 });
+
+const data = await response.json();
+
+if (!response.ok) {
+  throw new Error(data.error || `Erro HTTP ${response.status}`);
+}
 
     const responseText = await response.text();
     let resultado = null;
