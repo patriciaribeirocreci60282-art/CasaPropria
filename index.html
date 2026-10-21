@@ -1213,7 +1213,7 @@ $("sellForm").addEventListener("submit", async event => {
       formData.append("fotos", fileInput.files[i]);
     }
 
-    const response = await fetch("/api/propostas", {
+    const response = await fetch("/api/imoveis", {
       method: "POST",
       headers: {
         "Accept": "application/json"
