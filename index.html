@@ -649,8 +649,11 @@ function normalizePage(hash) {
     ? value : "comprar";
 }
 
+
 function showPage(page, updateHistory = true, propertyId = null) {
-  if (!pages[page]) page = "comprar";
+  if (!Object.prototype.hasOwnProperty.call(pages, page)) {
+    page = "comprar";
+  }
 
   Object.entries(pages).forEach(([name, element]) => {
     element.hidden = name !== page;
@@ -659,14 +662,15 @@ function showPage(page, updateHistory = true, propertyId = null) {
   closeMenu();
 
   if (updateHistory) {
-    let hash = page === "comprar" ? "#comprar" : "#" + page;
-
-    if (page === "detalhes" && propertyId !== null) {
-      hash = "#imovel-" + encodeURIComponent(String(propertyId));
-    }
+    const hash = page === "detalhes" && propertyId !== null
+      ? "#imovel-" + encodeURIComponent(String(propertyId))
+      : "#" + page;
 
     history.pushState(
-      { page, propertyId: propertyId === null ? null : String(propertyId) },
+      {
+        page,
+        propertyId: propertyId === null ? null : String(propertyId)
+      },
       "",
       hash
     );
@@ -678,7 +682,11 @@ function showPage(page, updateHistory = true, propertyId = null) {
 document.querySelectorAll("[data-page]").forEach(link => {
   link.addEventListener("click", event => {
     event.preventDefault();
-    showPage(link.dataset.page);
+
+    const page = link.dataset.page;
+    if (pages[page]) {
+      showPage(page);
+    }
   });
 });
 
@@ -686,16 +694,21 @@ function restoreFromLocation() {
   const page = normalizePage(location.hash);
 
   if (page === "detalhes") {
-    const id = decodeURIComponent(location.hash.replace(/^#imovel-/, ""));
-    const item = properties.find(p => String(p.id) === id);
+    const id = decodeURIComponent(
+      location.hash.replace(/^#imovel-/, "")
+    );
+
+    const item = properties.find(
+      property => String(property.id) === id
+    );
 
     if (item) {
       renderPropertyDetails(item);
       showPage("detalhes", false);
-      return;
+    } else {
+      showPage("comprar", false);
     }
 
-    showPage("comprar", false);
     return;
   }
 
@@ -703,78 +716,10 @@ function restoreFromLocation() {
 }
 
 window.addEventListener("popstate", restoreFromLocation);
-
-/* UTILITÁRIOS */
-function text(value) {
-  return String(value ?? "").trim();
-}
-
-function escapeHTML(value) {
-  return String(value ?? "").replace(/[&<>"']/g, char => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;"
-  })[char]);
-}
-
-function money(value) {
-  if (value === null || value === undefined || value === "") {
-    return "Consulte o valor";
-  }
-
-  const number = Number(value);
-  if (!Number.isFinite(number)) return "Consulte o valor";
-
-  return number.toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-    maximumFractionDigits: 0
-  });
-}
-
-function isTrue(value) {
-  return value === true || value === 1 ||
-    value === "1" || value === "true";
-}
-
-function isFeatured(item) {
-  return isTrue(item.destaque);
-}
-
-function locationOf(item) {
-  return [item.bairro, item.cidade].map(text).filter(Boolean).join(", ")
-    || text(item.endereco)
-    || "Consulte a localização";
-}
-
-function propertyDetails(item) {
-  const details = [];
-
-  if (Number(item.quartos) > 0)
-    details.push(`<span>${escapeHTML(item.quartos)} quartos</span>`);
-
-  if (Number(item.banheiros) > 0)
-    details.push(`<span>${escapeHTML(item.banheiros)} banheiros</span>`);
-
-  if (Number(item.vagas) > 0)
-    details.push(`<span>${escapeHTML(item.vagas)} vagas</span>`);
-
-  if (Number(item.area_m2) > 0)
-    details.push(`<span>${escapeHTML(item.area_m2)} m²</span>`);
-
-  return details.join("");
-}
-
-function detailURL(item) {
-  const message = "Olá, Patricia! Gostaria de saber mais sobre o imóvel: "
-    + text(item.titulo)
-    + (item.id !== undefined ? " (código " + item.id + ")" : "");
-
-  return "https://wa.me/" + WHATSAPP_NUMBER
-    + "?text=" + encodeURIComponent(message);
-}
+window.addEventListener("hashchange", () => {
+  // Não interfere na navegação dos detalhes dos imóveis.
+  // Os links internos de navegação são tratados por data-page.
+});
 
 /* CARTÕES DO CATÁLOGO */
 function propertyCard(item) {
@@ -1041,13 +986,21 @@ function render() {
 }
 
 /* CARREGAMENTO DA API */
+
 async function loadProperties() {
   $("resultsCount").textContent = "Carregando imóveis...";
 
   try {
-   const response = await fetch("/api/propostas", {
+    const response = await fetch(API_URL, {
+      method: "GET",
+      headers: { Accept: "application/json" },
+      credentials: "same-origin",
+      cache: "no-store"
+    });
 
-    if (!response.ok) throw new Error("HTTP " + response.status);
+    if (!response.ok) {
+      throw new Error("HTTP " + response.status);
+    }
 
     const data = await response.json();
 
@@ -1084,37 +1037,23 @@ async function loadProperties() {
   } catch (error) {
     console.error("Erro ao carregar imóveis:", error);
 
-    $("featuredList").innerHTML = "";
-    $("allList").innerHTML = "";
+    properties = [];
+    render();
 
     $("featuredEmpty").hidden = false;
     $("allEmpty").hidden = false;
 
     $("featuredEmpty").innerHTML =
-      "<strong>Não foi possível carregar os imóveis.</strong> Verifique a configuração da API de anúncios.";
+      "<strong>Não foi possível carregar os imóveis.</strong>" +
+      " Verifique a configuração da API de anúncios.";
 
     $("allEmpty").innerHTML =
-      "<strong>Catálogo temporariamente indisponível.</strong> Tente novamente mais tarde.";
+      "<strong>Catálogo temporariamente indisponível.</strong>" +
+      " Tente novamente mais tarde.";
 
     $("resultsCount").textContent = "Catálogo indisponível";
-    setStatus("Os anúncios dependem da disponibilidade da API.");
+    setStatus("Não foi possível consultar os anúncios.");
   }
-}
-
-$("searchForm").addEventListener("submit", event => {
-  event.preventDefault();
-  hasSearched = true;
-  render();
-
-  $("imoveis").scrollIntoView({ behavior: "smooth", block: "start" });
-});
-
-$("seeAllLink").addEventListener("click", event => {
-  event.preventDefault();
-  $("imoveis").scrollIntoView({ behavior: "smooth", block: "start" });
-});
-
-$("sort").addEventListener("change", render);
 
 /* ENVIO PARA WHATSAPP */
 function openWhatsApp(message) {
@@ -1172,106 +1111,89 @@ $("financeForm").addEventListener("submit", event => {
 
 /* CADASTRO DE IMÓVEL PARA ANÁLISE DO ADMINISTRADOR */
 
+
 $("sellForm").addEventListener("submit", async event => {
   event.preventDefault();
 
   const form = event.currentTarget;
   const button = form.querySelector('button[type="submit"]');
   const fileInput = $("sellImages");
+  const files = Array.from(fileInput.files);
 
   if (!form.reportValidity()) return;
 
-  // Validação da quantidade de arquivos (máximo 5)
-  if (fileInput.files.length > 5) {
-    alert("Você pode enviar no máximo 5 imagens.");
+  if (files.length < 1 || files.length > 5) {
+    alert("Selecione de 1 a 5 fotos do imóvel.");
     return;
+  }
+
+  const allowedTypes = ["image/jpeg", "image/png"];
+
+  for (const file of files) {
+    if (!allowedTypes.includes(file.type)) {
+      alert("Todas as fotos devem estar no formato JPG ou PNG.");
+      return;
+    }
+
+    if (file.size > 10 * 1024 * 1024) {
+      alert("Cada foto deve ter no máximo 10 MB.");
+      return;
+    }
   }
 
   if (button.disabled) return;
 
-  const textoOriginal = button.textContent;
+  const originalText = button.textContent;
   button.disabled = true;
-  button.textContent = "Enviando proposta e imagens...";
+  button.textContent = "Enviando proposta...";
 
   try {
-    const formData = new FormData();
-    
-    // Adiciona os campos de texto comuns do formulário
-    const entries = new FormData(form).entries();
-    for (const [key, value] of entries) {
-      if (key !== "fotos" && key !== "autorizacao") {
-        formData.append(key, value);
-      }
+    const formData = new FormData(form);
+
+    // Não enviar o campo de autorização como dado do imóvel.
+    formData.delete("autorizacao");
+    formData.delete("fotos");
+
+    for (const file of files) {
+      formData.append("fotos", file);
     }
 
-    // Adiciona cada arquivo de imagem selecionado ao FormData
-    for (let i = 0; i < fileInput.files.length; i++) {
-      formData.append("fotos", fileInput.files[i]);
-    }
-const response = await fetch("/api/admin/imoveis", {
-  method: "POST",
-  headers: {
-    Accept: "application/json"
-  },
-  credentials: "same-origin",
-  body: data
-});
+    const response = await fetch("/api/propostas", {
       method: "POST",
       headers: {
-        "Accept": "application/json"
-        // Nota: Quando utilizamos FormData com arquivos, 
-        // o navegador define automaticamente o Content-Type como multipart/form-data.
+        Accept: "application/json"
       },
+      credentials: "same-origin",
       body: formData
     });
 
-    const responseText = await response.text();
-    let resultado = null;
-
-    if (responseText.trim() !== "") {
-      try {
-        resultado = JSON.parse(responseText);
-      } catch {
-        resultado = null;
-      }
-    }
+    const result = await response.json().catch(() => ({}));
 
     if (!response.ok) {
-      const mensagem =
-        resultado?.error ||
-        resultado?.message ||
-        `O servidor recusou a solicitação (HTTP ${response.status}).`;
-
-      throw new Error(mensagem);
-    }
-
-    if (resultado && (resultado.success === false || resultado.success === 0)) {
       throw new Error(
-        resultado.error ||
-        resultado.message ||
-        "Não foi possível registrar a proposta."
+        result.error ||
+        result.message ||
+        `Falha no envio (HTTP ${response.status}).`
       );
     }
 
     alert(
-      "Solicitação enviada com sucesso!\n\n" +
-      "Seu imóvel e as fotos foram encaminhados para análise administrativa. " +
-      "O anúncio não será publicado automaticamente."
+      "Proposta enviada com sucesso!\n\n" +
+      "Seu imóvel foi encaminhado para análise administrativa. " +
+      "Ele não será publicado automaticamente."
     );
 
     form.reset();
-
   } catch (error) {
-    console.error("Erro ao cadastrar proposta:", error);
+    console.error("Erro ao enviar proposta:", error);
 
     alert(
-      "Não foi possível confirmar o cadastro do imóvel.\n\n" +
-      (error.message || "Verifique sua conexão e tente novamente.")
+      "Não foi possível enviar sua proposta.\n\n" +
+      (error.message || "Tente novamente mais tarde.")
     );
-
   } finally {
     button.disabled = false;
-    button.textContent = textoOriginal;
+    button.textContent = originalText;
   }
 });
 
