@@ -1045,11 +1045,7 @@ async function loadProperties() {
   $("resultsCount").textContent = "Carregando imóveis...";
 
   try {
-    const response = await fetch(API_URL, {
-      method: "GET",
-      headers: { Accept: "application/json" },
-      cache: "no-store"
-    });
+   const response = await fetch("/api/propostas", {
 
     if (!response.ok) throw new Error("HTTP " + response.status);
 
