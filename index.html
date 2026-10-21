@@ -221,6 +221,242 @@ img{max-width:100%}
   *,*:before,*:after{scroll-behavior:auto!important;transition:none!important}
 }
 
+/* ===== DETALHES DO IMÓVEL — IDENTIDADE VISUAL ===== */
+
+.property-detail {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.detail-header {
+  margin-bottom: 30px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+.detail-header .section-kicker {
+  display: inline-block;
+  margin-bottom: 12px;
+  color: var(--orange-dark);
+  letter-spacing: 1.8px;
+}
+
+.detail-header h1 {
+  margin: 8px 0 12px;
+  color: var(--ink);
+  font-size: clamp(30px, 4vw, 46px);
+  font-weight: 700;
+  line-height: 1.16;
+  letter-spacing: -1.2px;
+}
+
+.detail-location {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.detail-price {
+  margin-top: 16px;
+  color: var(--orange-dark);
+  font-size: clamp(26px, 4vw, 36px);
+  font-weight: 700;
+  letter-spacing: -0.8px;
+}
+
+.detail-gallery {
+  margin: 28px 0 38px;
+}
+
+.detail-main-photo {
+  position: relative;
+  width: 100%;
+  height: clamp(300px, 55vw, 650px);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--cream);
+}
+
+.detail-main-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.gallery-arrow {
+  width: 46px;
+  height: 46px;
+  border: 1px solid rgba(255,255,255,.75);
+  border-radius: 50%;
+  background: var(--orange);
+  color: var(--white);
+  box-shadow: 0 5px 18px rgba(38,40,35,.2);
+  font-size: 28px;
+  transition: background .2s, transform .2s;
+}
+
+.gallery-arrow:hover {
+  background: var(--orange-dark);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.gallery-counter {
+  padding: 8px 13px;
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 5px;
+  background: rgba(38,40,35,.88);
+  color: var(--white);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.detail-thumbnails {
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.detail-thumbnail {
+  flex-basis: 110px;
+  height: 80px;
+  border: 2px solid transparent;
+  border-radius: 7px;
+  background: var(--cream);
+  transition: border-color .2s, opacity .2s;
+}
+
+.detail-thumbnail:hover {
+  opacity: .85;
+}
+
+.detail-thumbnail.active {
+  border-color: var(--orange);
+}
+
+.detail-layout {
+  gap: 26px;
+}
+
+.detail-section {
+  margin-bottom: 24px;
+  padding: clamp(20px, 3vw, 30px);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--white);
+  box-shadow: 0 8px 26px rgba(38,40,35,.035);
+}
+
+.detail-section h2 {
+  margin: 0 0 22px;
+  color: var(--ink);
+  font-size: clamp(20px, 2.5vw, 25px);
+  font-weight: 700;
+  letter-spacing: -.5px;
+}
+
+.detail-description {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.9;
+  overflow-wrap: anywhere;
+}
+
+.detail-features {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.detail-feature {
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--cream);
+}
+
+.detail-feature span {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.detail-feature strong {
+  display: block;
+  margin-top: 6px;
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.detail-feature-rooms {
+  border-color: rgba(232,98,42,.35);
+  background: #FFF7F2;
+}
+
+.detail-feature-rooms span {
+  color: var(--orange-dark);
+}
+
+.detail-feature-rooms strong {
+  color: var(--orange-dark);
+  font-size: 20px;
+}
+
+.detail-contact {
+  border-top: 3px solid var(--orange);
+}
+
+.detail-contact .detail-price {
+  margin-top: 0;
+  overflow-wrap: anywhere;
+}
+
+.detail-contact p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.detail-contact .btn {
+  width: 100%;
+  min-height: 52px;
+  border-radius: 6px;
+  background: var(--orange);
+  color: var(--white);
+  font-weight: 700;
+}
+
+.detail-contact .btn:hover {
+  background: var(--orange-dark);
+}
+
+@media (max-width: 760px) {
+  .detail-header {
+    padding-bottom: 20px;
+  }
+
+  .detail-gallery {
+    margin: 22px 0 28px;
+  }
+
+  .detail-features {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .detail-feature {
+    padding: 13px;
+  }
+}
+
+@media (max-width: 380px) {
+  .detail-features {
+    grid-template-columns: 1fr;
+  }
+}
 </style>
 </head>
 
@@ -794,11 +1030,11 @@ function renderPropertyDetails(item) {
   const photos = getPhotos(item);
   const features = [
     ["Tipo de imóvel", item.tipo],
-    ["Cidade", item.cidade],
-    ["Bairro", item.bairro],
-    ["Quartos", item.quartos],
-    ["Banheiros", item.banheiros],
-    ["Vagas", item.vagas],
+    ["Cidade", text(item.cidade) || "—"],
+    ["Bairro", text(item.bairro) || "—"],
+    ["Quartos", text(item.quartos) || "—"],
+    ["Banheiros", text(item.banheiros) || "—"],
+    ["Vagas", text(item.vagas) || "—"],
     ["Área", item.area_m2 ? item.area_m2 + " m²" : ""]
   ].filter(([, value]) => text(value) !== "");
 
