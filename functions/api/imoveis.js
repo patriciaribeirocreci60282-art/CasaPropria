@@ -1,5 +1,13 @@
+
 export async function onRequestGet({ env }) {
   try {
+    if (!env.DB) {
+      return Response.json(
+        { success: false, error: "O banco de dados não está configurado." },
+        { status: 500 }
+      );
+    }
+
     const { results = [] } = await env.DB.prepare(`
       SELECT
         id,
@@ -9,6 +17,7 @@ export async function onRequestGet({ env }) {
         descricao,
         cidade,
         bairro,
+        endereco,
         preco,
         area_m2,
         quartos,
@@ -26,23 +35,23 @@ export async function onRequestGet({ env }) {
 
     const imoveis = results.map((item) => ({
       id: item.id,
-      title: item.titulo,
-      type: item.tipo,
-      purpose: item.finalidade,
-      description: item.descricao,
-      location: [item.bairro, item.cidade]
-        .filter(Boolean)
-        .join(", "),
-      price: item.preco,
-      area: item.area_m2,
-      bedrooms: item.quartos,
-      bathrooms: item.banheiros,
-      parking: item.vagas,
-      image: item.foto_url,
-      featured: Boolean(item.destaque),
-      launch: Boolean(item.lancamento),
+      titulo: item.titulo,
+      tipo: item.tipo,
+      finalidade: item.finalidade,
+      descricao: item.descricao,
+      cidade: item.cidade,
+      bairro: item.bairro,
+      endereco: item.endereco,
+      preco: item.preco,
+      area_m2: item.area_m2,
+      quartos: item.quartos,
+      banheiros: item.banheiros,
+      vagas: item.vagas,
+      foto_url: item.foto_url,
+      destaque: Boolean(item.destaque),
+      lancamento: Boolean(item.lancamento),
       status: item.status,
-      publishedAt: item.data_cadastro
+      data_cadastro: item.data_cadastro
     }));
 
     return Response.json(
