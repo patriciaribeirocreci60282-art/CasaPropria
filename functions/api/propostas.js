@@ -48,7 +48,6 @@ export async function onRequestPost({ request, env }) {
     let fotoUrl = "";
     const files = formData.getAll("fotos");
 
-    // Faz o upload das imagens para o R2 seguindo o mesmo padrão do painel admin
     if (files && files.length > 0 && env.FOTOS_BUCKET) {
       for (let i = 0; i < Math.min(files.length, 5); i++) {
         const file = files[i];
@@ -62,13 +61,12 @@ export async function onRequestPost({ request, env }) {
 
           const url = `https://${R2_PUBLIC_HOST}/${key}`;
           if (!fotoUrl) {
-            fotoUrl = url; // Define a primeira foto como a principal do imóvel
+            fotoUrl = url;
           }
         }
       }
     }
 
-    // Insere na tabela imoveis com status 'Pendente', igualzinho ao painel admin
     const result = await env.DB.prepare(`
       INSERT INTO imoveis (
         titulo, tipo, finalidade, descricao, cidade, bairro, 
