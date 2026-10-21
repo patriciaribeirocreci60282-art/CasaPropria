@@ -1213,50 +1213,18 @@ $("sellForm").addEventListener("submit", async event => {
       formData.append("fotos", fileInput.files[i]);
     }
 
-
-    const response = await fetch("/api/admin/imoveis", {
-      method: "POST",
-      headers: {
-        "Accept": "application/json"
-      },
-      credentials: "same-origin",
-      body: formData
-    });
-
-    let resultado = {};
-
-    try {
-      resultado = await response.json();
-    } catch {
-      resultado = {};
-    }
-
-    if (!response.ok) {
-      throw new Error(
-        resultado.error ||
-        resultado.message ||
-        `Erro HTTP ${response.status}`
-      );
-    }
-
-    if (
-      resultado.success === false ||
-      resultado.success === 0
-    ) {
-      throw new Error(
-        resultado.error ||
-        resultado.message ||
-        "Não foi possível registrar a proposta."
-      );
-    }
-
-    alert(
-      "Solicitação enviada com sucesso!\n\n" +
-      "Seu imóvel e as fotos foram encaminhados para análise administrativa. " +
-      "O anúncio não será publicado automaticamente."
-    );
-
-    form.reset();
+const response = await fetch("/api/admin/imoveis", {
+  method: "POST",
+  headers: {
+    "Accept": "application/json",
+    "Content-Type": "application/json"
+  },
+  credentials: "same-origin",
+  body: JSON.stringify({
+    ...payload,
+    status: "Pendente"
+  })
+});
 
 const data = await response.json();
 
