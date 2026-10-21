@@ -20,6 +20,10 @@ function numberOrNull(value) {
 
 export async function onRequestPost({ request, env }) {
   try {
+    if (!env.DB) {
+      return json({ error: "O vínculo DB (D1) não está configurado." }, 500);
+    }
+
     const contentType = request.headers.get("Content-Type") || "";
     if (!contentType.toLowerCase().includes("multipart/form-data")) {
       return json({ error: "Envio inválido. Use multipart/form-data." }, 400);
@@ -44,23 +48,27 @@ export async function onRequestPost({ request, env }) {
     let fotoUrl = "";
     const files = formData.getAll("fotos");
 
+    // Faz o upload das imagens para o R2 seguindo o mesmo padrão do painel admin
     if (files && files.length > 0 && env.FOTOS_BUCKET) {
       for (let i = 0; i < Math.min(files.length, 5); i++) {
         const file = files[i];
         if (file && typeof file === "object" && file.size > 0) {
           const ext = file.name.split(".").pop() || "jpg";
           const key = `imoveis/pendentes/${Date.now()}_${i}.${ext}`;
+          
           await env.FOTOS_BUCKET.put(key, file.stream(), {
             httpMetadata: { contentType: file.type || "image/jpeg" }
           });
+
           const url = `https://${R2_PUBLIC_HOST}/${key}`;
           if (!fotoUrl) {
-            fotoUrl = url;
+            fotoUrl = url; // Define a primeira foto como a principal do imóvel
           }
         }
       }
     }
 
+    // Insere na tabela imoveis com status 'Pendente', igualzinho ao painel admin
     const result = await env.DB.prepare(`
       INSERT INTO imoveis (
         titulo, tipo, finalidade, descricao, cidade, bairro, 
@@ -84,11 +92,12 @@ export async function onRequestPost({ request, env }) {
     return json({
       success: true,
       message: "Proposta enviada com sucesso para análise.",
-      id
+      id,
+      codigo: id
     }, 201);
 
   } catch (error) {
-    console.error("Erro ao processar proposta:", error);
-    return json({ error: "Erro ao salvar a proposta no servidor." }, 500);
+    console.error("Erro ao salvar proposta no banco D1:", error);
+    return json({ error: "Não foi possível salvar o imóvel no banco D1." }, 500);
   }
 }
