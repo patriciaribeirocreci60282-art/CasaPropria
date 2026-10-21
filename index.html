@@ -796,89 +796,117 @@ function renderPropertyDetails(item) {
   currentProperty = item;
   currentPhotoIndex = 0;
 
+function renderPropertyDetails(item) {
+  currentProperty = item;
+  currentPhotoIndex = 0;
+
   const photos = getPhotos(item);
-  const features = [
-    ["Tipo de imóvel", item.tipo],
-    ["Cidade", item.cidade],
-    ["Bairro", item.bairro],
-    ["Quartos", item.quartos],
-    ["Banheiros", item.banheiros],
-    ["Vagas", item.vagas],
-    ["Área", item.area_m2 ? item.area_m2 + " m²" : ""]
-  ].filter(([, value]) => text(value) !== "");
+
+  // Garante que todos os campos apareçam, mostrando "—" caso estejam vazios
+  const specs = [
+    { label: "Tipo", value: item.tipo },
+    { label: "Quartos", value: item.quartos },
+    { label: "Banheiros", value: item.banheiros },
+    { label: "Vagas", value: item.vagas },
+    { label: "Área Privativa", value: item.area_m2 ? item.area_m2 + " m²" : null },
+    { label: "Cidade", value: item.cidade },
+    { label: "Bairro", value: item.bairro }
+  ];
 
   $("propertyDetailsContent").innerHTML = `
     <div class="property-detail">
-      <div class="detail-header">
-        <span class="section-kicker">${escapeHTML(item.tipo || "Imóvel")}</span>
-        <h1>${escapeHTML(item.titulo || "Detalhes do imóvel")}</h1>
-        <div class="detail-location">${escapeHTML(locationOf(item))}</div>
-        <div class="detail-price">${money(item.preco)}</div>
+      <!-- CABEÇALHO DO IMÓVEL -->
+      <div class="detail-hero-card">
+        <div class="detail-badges">
+          <span class="badge-tag">📍 ${escapeHTML(item.cidade || "Região")}</span>
+          <span class="badge-tag">ID / Código: #${escapeHTML(item.id ?? "—")}</span>
+          ${isFeatured(item) ? '<span class="badge-tag" style="background: var(--orange); color: white;">★ Destaque</span>' : ''}
+        </div>
+        <h1 class="detail-title">${escapeHTML(item.titulo || "Imóvel Exclusivo")}</h1>
+        <div class="detail-location-text">
+          <span>${escapeHTML(locationOf(item))}</span>
+        </div>
+
+        <!-- GRID DE CARACTERÍSTICAS COM TRAÇOS SE VAZIO -->
+        <div class="detail-grid-specs">
+          ${specs.map(spec => `
+            <div class="spec-box">
+              <span>${spec.label}</span>
+              <strong>${escapeHTML(spec.value !== null && spec.value !== undefined && String(spec.value).trim() !== "" ? spec.value : "—")}</strong>
+            </div>
+          `).join("")}
+        </div>
       </div>
 
-      <div class="detail-gallery">
-        <div class="detail-main-photo">
-          ${
-            photos.length
-              ? `<img id="detailMainImage" src="${escapeHTML(photos[0])}" alt="${escapeHTML(item.titulo || "Foto do imóvel")}">`
-              : `<div class="property-placeholder">Este imóvel ainda não possui fotos disponíveis.</div>`
-          }
+      <!-- GALERIA DE FOTOS MODERNA -->
+      <div class="detail-box-card">
+        <div class="detail-gallery" style="margin: 0;">
+          <div class="detail-main-photo">
+            ${
+              photos.length
+                ? `<img id="detailMainImage" src="${escapeHTML(photos[0])}" alt="${escapeHTML(item.titulo || "Foto do imóvel")}">`
+                : `<div class="property-placeholder">Este imóvel ainda não possui fotos disponíveis.</div>`
+            }
+            ${
+              photos.length > 1
+                ? `
+                  <button type="button" class="gallery-arrow gallery-prev" id="galleryPrev" aria-label="Foto anterior">‹</button>
+                  <button type="button" class="gallery-arrow gallery-next" id="galleryNext" aria-label="Próxima foto">›</button>
+                  <span class="gallery-counter" id="galleryCounter">1 / ${photos.length}</span>
+                `
+                : ""
+            }
+          </div>
           ${
             photos.length > 1
-              ? `
-                <button type="button" class="gallery-arrow gallery-prev" id="galleryPrev" aria-label="Foto anterior">‹</button>
-                <button type="button" class="gallery-arrow gallery-next" id="galleryNext" aria-label="Próxima foto">›</button>
-                <span class="gallery-counter" id="galleryCounter">1 / ${photos.length}</span>
-              `
+              ? `<div class="detail-thumbnails">
+                  ${photos.map((photo, index) => `
+                    <button type="button" class="detail-thumbnail ${index === 0 ? "active" : ""}" data-photo-index="${index}" aria-label="Ver foto ${index + 1}">
+                      <img src="${escapeHTML(photo)}" alt="" loading="lazy">
+                    </button>
+                  `).join("")}
+                </div>`
               : ""
           }
         </div>
-        ${
-          photos.length > 1
-            ? `<div class="detail-thumbnails">
-                ${photos.map((photo, index) => `
-                  <button type="button" class="detail-thumbnail ${index === 0 ? "active" : ""}" data-photo-index="${index}" aria-label="Ver foto ${index + 1}">
-                    <img src="${escapeHTML(photo)}" alt="" loading="lazy">
-                  </button>
-                `).join("")}
-              </div>`
-            : ""
-        }
       </div>
 
-      <div class="detail-layout">
+      <!-- LAYOUT DE DUAS COLUNAS (DESCRIÇÃO + CARD LATERAL DE CONTATO) -->
+      <div class="detail-layout-pro">
         <div>
-          <section class="detail-section">
-            <h2>Descrição do imóvel</h2>
-            <div class="detail-description">${escapeHTML(item.descricao || "Descrição não informada.").replace(/\n/g, "<br>")}</div>
-          </section>
-
-          <section class="detail-section">
-            <h2>Características</h2>
-            <div class="detail-features">
-              ${
-                features.length
-                  ? features.map(([label, value]) => `
-                    <div class="detail-feature">
-                      <span>${escapeHTML(label)}</span>
-                      <strong>${escapeHTML(value)}</strong>
-                    </div>
-                  `).join("")
-                  : "<p>Características não informadas.</p>"
-              }
+          <div class="detail-box-card">
+            <h2>Sobre este imóvel</h2>
+            <div class="detail-description-text">
+              ${escapeHTML(item.descricao || "Descrição detalhada não informada pelo proprietário.").replace(/\n/g, "<br>")}
             </div>
-          </section>
+          </div>
         </div>
 
-        <aside class="detail-section detail-contact">
-          <div class="detail-price">${money(item.preco)}</div>
-          <p>Gostaria de saber mais sobre este imóvel? Entre em contato pelo WhatsApp.</p>
-          <a class="btn" href="${detailURL(item)}" target="_blank" rel="noopener noreferrer">Consultar pelo WhatsApp</a>
-        </aside>
+        <div>
+          <div class="detail-sidebar-card">
+            <div class="sidebar-price">${money(item.preco)}</div>
+            <p style="color: var(--muted); font-size: 14px; margin-bottom: 20px;">
+              Interessado neste imóvel? Fale diretamente com a corretora responsável para tirar dúvidas ou agendar uma visita.
+            </p>
+            
+            <div class="sidebar-consultant">
+              <div class="consultant-avatar">PR</div>
+              <div class="consultant-info">
+                <strong>Patricia Ribeiro</strong>
+                <span>CRECI/SC 60282-F</span>
+              </div>
+            </div>
+
+            <a class="btn" style="width: 100%; justify-content: center;" href="${detailURL(item)}" target="_blank" rel="noopener noreferrer">
+              Falar no WhatsApp
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   `;
 
+  // Eventos da galeria
   $("propertyDetailsContent").querySelectorAll("[data-photo-index]").forEach(button => {
     button.addEventListener("click", () => {
       currentPhotoIndex = Number(button.dataset.photoIndex);
