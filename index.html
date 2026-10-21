@@ -1185,6 +1185,7 @@ const fileInput = $("sellImages");
 
 if (!form.reportValidity()) return;
 
+// Limita o envio a cinco imagens.
 if (fileInput.files.length > 5) {
 alert("Você pode enviar no máximo 5 imagens.");
 return;
@@ -1197,13 +1198,14 @@ button.disabled = true;
 button.textContent = "Enviando proposta e imagens...";
 
 try {
+// Prepara os dados do formulário e as fotos.
 const formData = new FormData(form);
 
 ```
-// Mantém a autorização fora dos dados enviados.
+// A autorização não deve ser enviada como campo cadastral.
 formData.delete("autorizacao");
 
-// O servidor define o status, não o formulário.
+// O status será definido pelo servidor como Pendente.
 formData.delete("status");
 
 const response = await fetch("/api/propostas-imoveis", {
@@ -1211,17 +1213,18 @@ const response = await fetch("/api/propostas-imoveis", {
   headers: {
     "Accept": "application/json"
   },
-  body: formData,
-  credentials: "same-origin"
+  credentials: "same-origin",
+  body: formData
 });
 
+// Lê a resposta uma única vez.
 const resultado = await response.json();
 
 if (!response.ok || resultado.success !== true) {
   throw new Error(
     resultado.error ||
     resultado.message ||
-    `Não foi possível cadastrar o imóvel (HTTP ${response.status}).`
+    `Erro ao cadastrar imóvel (HTTP ${response.status}).`
   );
 }
 
