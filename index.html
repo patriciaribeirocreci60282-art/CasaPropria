@@ -1076,15 +1076,36 @@ function renderPropertyDetails(item) {
 
 function updateGallery() {
   if (!currentProperty) return;
+
   const photos = getPhotos(currentProperty);
   const image = $("detailMainImage");
+
   if (!image || !photos.length) return;
 
+  image.style.display = "";
   image.src = photos[currentPhotoIndex];
-  $("galleryCounter").textContent = `${currentPhotoIndex + 1} / ${photos.length}`;
 
-  document.querySelectorAll("#propertyDetailsContent [data-photo-index]").forEach(button => {
-    button.classList.toggle("active", Number(button.dataset.photoIndex) === currentPhotoIndex);
+  const placeholder = image.parentElement.querySelector(
+    ".property-placeholder"
+  );
+
+  if (placeholder) placeholder.hidden = true;
+
+  const counter = $("galleryCounter");
+
+  if (counter) {
+    counter.textContent =
+      `${currentPhotoIndex + 1} / ${photos.length}`;
+  }
+
+  document.querySelectorAll(
+    "#propertyDetailsContent [data-photo-index]"
+  ).forEach(button => {
+    const active =
+      Number(button.dataset.photoIndex) === currentPhotoIndex;
+
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-pressed", String(active));
   });
 }
 
