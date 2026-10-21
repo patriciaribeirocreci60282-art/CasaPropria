@@ -1213,15 +1213,13 @@ $("sellForm").addEventListener("submit", async event => {
       formData.append("fotos", fileInput.files[i]);
     }
 
-    const response = await fetch("/api/imoveis", {
-      method: "POST",
-      headers: {
-        "Accept": "application/json"
-        // Nota: Quando utilizamos FormData com arquivos, 
-        // o navegador define automaticamente o Content-Type como multipart/form-data.
-      },
-      body: formData
-    });
+   const response = await fetch("/api/imoveis", {
+  method: "POST",
+  headers: {
+    "Accept": "application/json"
+  },
+  body: formData
+});
 
     const responseText = await response.text();
     let resultado = null;
