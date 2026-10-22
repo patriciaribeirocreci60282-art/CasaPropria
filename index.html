@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -20,11 +21,11 @@
   --line:#E7E2DA;
   --cream:#F7F5F1;
   --white:#FFFFFF;
-  --shadow:0 16px 45px rgba(27,31,24,.14);
+  --shadow:0 16px 45px rgba(27,31,24,.12);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:20px}
-body{margin:0;color:var(--ink);background:#fff;font-family:Montserrat,sans-serif;font-size:16px;line-height:1.65}
+body{margin:0;color:var(--ink);background:#fff;font-family:Montserrat,sans-serif;font-size:15px;line-height:1.65}
 button,input,select,textarea{font:inherit}
 button,a{-webkit-tap-highlight-color:transparent}
 a{color:inherit;text-decoration:none}
@@ -41,38 +42,12 @@ img{max-width:100%}
 .brand-name{font-size:clamp(18px,2vw,24px);font-weight:600;letter-spacing:-.5px;line-height:1.2;white-space:nowrap}
 .brand-sub{color:var(--muted);font-size:13px;font-weight:500}
 .nav{display:flex;align-items:center;justify-content:flex-end;gap:clamp(12px,2vw,28px)}
-.nav a{padding:8px 0;font-size:13px;font-weight:700;white-space:nowrap}
+.nav a{padding:8px 0;font-size:12px;font-weight:700;white-space:nowrap}
 .nav a:hover{color:var(--orange-dark)}
 .nav .nav-login{padding:10px 18px;border-radius:5px;background:var(--orange);color:white}
 .nav .nav-login:hover{background:var(--orange-dark);color:white}
 .menu-toggle{display:none;width:44px;height:44px;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:6px;background:#fff}
 .menu-toggle svg{width:25px;height:25px}
-
-.internal-page{min-height:65vh;padding:58px 0 80px;background:var(--cream)}
-.internal-heading{max-width:760px;margin:0 auto 30px;text-align:center}
-.section-kicker{display:block;margin-bottom:8px;color:var(--orange-dark);font-size:13px;font-weight:700;letter-spacing:.7px;text-transform:uppercase}
-.internal-heading h1{margin:0;font-size:clamp(30px,5vw,44px);line-height:1.2;letter-spacing:-.8px}
-.internal-heading p{margin:14px 0 0;color:var(--muted)}
-.form-card{width:min(760px,100%);margin:0 auto;padding:clamp(20px,4vw,36px);border:1px solid var(--line);border-radius:10px;background:white;box-shadow:0 12px 36px rgba(0,0,0,.06)}
-.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
-.field{min-width:0}
-.field.full{grid-column:1/-1}
-.field label{display:block;margin-bottom:7px;font-size:14px;font-weight:700}
-.field input,.field select,.field textarea{display:block;width:100%;min-width:0;min-height:50px;padding:12px;border:1px solid #DCD7CF;border-radius:5px;outline:none;color:var(--ink);background:white;font-size:15px}
-.field textarea{min-height:100px;resize:vertical}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(232,98,42,.12)}
-.form-section-title{grid-column:1/-1;margin:12px 0 -4px;padding-bottom:9px;border-bottom:1px solid var(--line);font-size:17px;font-weight:700}
-.standard-options{display:grid;gap:12px}
-.standard-option{display:flex;align-items:flex-start;gap:12px;padding:16px;border:1px solid var(--line);border-radius:7px;cursor:pointer}
-.standard-option:has(input:checked){border-color:var(--orange);background:#FFF8F4}
-.standard-option input{flex:0 0 auto;width:18px;height:18px;margin-top:4px;accent-color:var(--orange)}
-.standard-option strong{display:block;margin-bottom:4px;font-size:14px}
-.standard-option span{display:block;color:var(--muted);font-size:13px;line-height:1.55}
-.btn{min-height:52px;display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:0 22px;border:0;border-radius:5px;background:var(--orange);color:white;font-size:15px;font-weight:700;transition:background .2s}
-.btn:hover{background:var(--orange-dark)}
-.btn-block{width:100%;margin-top:22px}
-.form-note{margin:15px 0 0;color:var(--muted);font-size:12px;text-align:center}
-.back-link{display:inline-flex;margin-bottom:25px;color:var(--orange-dark);font-size:14px;font-weight:700}
 
 .hero{position:relative;isolation:isolate;min-height:clamp(420px,48vw,650px);display:flex;align-items:center;justify-content:center;padding:60px 24px 110px;text-align:center;background:#454940}
 .hero:before{content:"";position:absolute;inset:0;z-index:-2;background:url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2400&q=90") center 55%/cover}
@@ -85,15 +60,24 @@ img{max-width:100%}
 .search-panel{padding:20px 22px;background:white;border:1px solid var(--line);border-radius:8px;box-shadow:0 18px 45px rgba(0,0,0,.16)}
 .search-title{margin:0 0 15px;font-size:19px;font-weight:700;line-height:1.3}
 .search-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr auto;gap:12px;align-items:end}
+.field{min-width:0}
+.field label{display:block;margin-bottom:7px;font-size:14px;font-weight:700}
+.field input,.field select,.field textarea{display:block;width:100%;min-width:0;min-height:50px;padding:12px;border:1px solid #DCD7CF;border-radius:5px;outline:none;color:var(--ink);background:white;font-size:14px}
+.field textarea{min-height:100px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(232,98,42,.12)}
 .search-grid .field label{font-size:12px;margin-bottom:5px}
-.search-grid .field input,.search-grid .field select{width:100%;height:44px;min-height:44px;padding:0 10px;font-size:13px}
+.search-grid .field input,.search-grid .field select{height:44px;min-height:44px;padding:0 10px;font-size:13px}
+.btn{min-height:52px;display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:0 22px;border:0;border-radius:5px;background:var(--orange);color:white;font-size:14px;font-weight:700;transition:background .2s}
+.btn:hover{background:var(--orange-dark)}
+.btn-block{width:100%;margin-top:22px}
 .search-grid .btn{min-height:44px;padding:0 16px;white-space:nowrap;font-size:13px}
 
 .section{padding:70px 0}
 .section.soft{background:var(--cream)}
 .section-heading{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:30px}
 .section h2{margin:0;font-size:clamp(27px,3vw,36px);font-weight:600;line-height:1.3}
-.section-desc{margin:10px 0 0;color:var(--muted);font-size:15px}
+.section-kicker{display:block;margin-bottom:8px;color:var(--orange-dark);font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.section-desc{margin:10px 0 0;color:var(--muted);font-size:14px}
 .text-link{color:var(--orange-dark);font-size:14px;font-weight:700}
 .listing-toolbar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:24px}
 .results-count{color:var(--muted);font-size:14px}
@@ -104,46 +88,96 @@ img{max-width:100%}
 .property-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
 .property-image{position:relative;aspect-ratio:4/3;overflow:hidden;background:#E8E4DD}
 .property-image img{display:block;width:100%;height:100%;object-fit:cover}
-.property-placeholder{height:100%;display:grid;place-items:center;color:var(--muted);font-size:14px}
+.property-placeholder{height:100%;min-height:140px;display:grid;place-items:center;padding:20px;color:var(--muted);font-size:14px;text-align:center}
 .tag{position:absolute;top:12px;left:12px;padding:7px 11px;border-radius:3px;background:white;color:var(--orange-dark);font-size:12px;font-weight:700}
 .property-body{padding:20px}
 .property-type{color:var(--orange-dark);font-size:12px;font-weight:700;text-transform:uppercase}
-.property-body h3{margin:8px 0;font-size:18px;font-weight:600;line-height:1.5}
+.property-body h3{margin:8px 0;font-size:17px;font-weight:600;line-height:1.5}
 .location{margin:0;color:var(--muted);font-size:13px}
-.property-features{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;font-size:13px}
+.property-features{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;color:var(--muted);font-size:12px}
 .property-price{margin:18px 0;font-size:21px;font-weight:700}
 .property-action{display:flex;justify-content:space-between;gap:12px;padding-top:15px;border-top:1px solid var(--line);color:var(--orange-dark);font-size:13px;font-weight:700}
 .empty-state{padding:30px 20px;border:1px dashed #D8D0C6;border-radius:8px;background:white;color:var(--muted);text-align:center;font-size:14px}
 .empty-state strong{display:block;margin-bottom:8px;color:var(--ink);font-size:18px}
 .status-message{margin:20px 0;color:var(--muted);text-align:center;font-size:14px}
 
+.internal-page{min-height:65vh;padding:58px 0 80px;background:var(--cream)}
+.internal-heading{max-width:760px;margin:0 auto 30px;text-align:center}
+.internal-heading h1{margin:0;font-size:clamp(30px,5vw,44px);line-height:1.2;letter-spacing:-.8px}
+.internal-heading p{margin:14px 0 0;color:var(--muted)}
+.form-card{width:min(760px,100%);margin:0 auto;padding:clamp(20px,4vw,36px);border:1px solid var(--line);border-radius:10px;background:white;box-shadow:0 12px 36px rgba(0,0,0,.06)}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.field.full,.form-section-title{grid-column:1/-1}
+.form-section-title{margin:12px 0 -4px;padding-bottom:9px;border-bottom:1px solid var(--line);font-size:17px;font-weight:700}
+.standard-options{display:grid;gap:12px}
+.standard-option{display:flex;align-items:flex-start;gap:12px;padding:16px;border:1px solid var(--line);border-radius:7px;cursor:pointer}
+.standard-option:has(input:checked){border-color:var(--orange);background:#FFF8F4}
+.standard-option input{flex:0 0 auto;width:18px;height:18px;margin-top:4px;accent-color:var(--orange)}
+.standard-option strong{display:block;margin-bottom:4px;font-size:14px}
+.standard-option span{display:block;color:var(--muted);font-size:13px;line-height:1.55}
+.form-note{margin:15px 0 0;color:var(--muted);font-size:12px;text-align:center}
+.back-link{display:inline-flex;margin-bottom:25px;color:var(--orange-dark);font-size:14px;font-weight:700}
+
+/* Detalhes do imóvel */
 .property-detail{max-width:1180px;margin:0 auto}
-.detail-header{margin-bottom:24px}
-.detail-header h1{margin:8px 0;font-size:clamp(28px,4vw,42px);line-height:1.2}
-.detail-location{color:var(--muted);font-size:15px}
-.detail-price{margin-top:15px;color:var(--orange-dark);font-size:clamp(25px,4vw,34px);font-weight:700}
-.detail-gallery{margin:25px 0 35px}
-.detail-main-photo{position:relative;width:100%;height:clamp(300px,55vw,650px);overflow:hidden;border-radius:12px;background:#242424}
+.detail-header{margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--line)}
+.detail-header h1{margin:8px 0 12px;color:var(--ink);font-size:clamp(30px,4vw,46px);font-weight:700;line-height:1.16;letter-spacing:-1.2px}
+.detail-location{display:flex;flex-wrap:wrap;gap:8px 16px;color:var(--muted);font-size:14px}
+.detail-location-item{display:inline-flex;align-items:center;gap:6px}
+.detail-price{margin-top:16px;color:var(--orange-dark);font-size:clamp(26px,4vw,36px);font-weight:700;letter-spacing:-.8px;overflow-wrap:anywhere}
+.detail-price-label{color:var(--muted);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.detail-code{display:inline-flex;align-items:center;margin-top:12px;padding:6px 10px;border:1px solid var(--line);border-radius:5px;background:white;color:var(--muted);font-size:12px;font-weight:600}
+.detail-gallery{margin:28px 0 32px}
+.detail-main-photo{position:relative;width:100%;height:clamp(300px,50vw,620px);overflow:hidden;border:1px solid var(--line);border-radius:12px;background:#F0EDE7}
 .detail-main-photo img{display:block;width:100%;height:100%;object-fit:contain}
-.gallery-arrow{position:absolute;top:50%;z-index:2;width:48px;height:48px;transform:translateY(-50%);border:1px solid rgba(255,255,255,.7);border-radius:50%;background:rgba(0,0,0,.55);color:white;font-size:30px}
-.gallery-prev{left:16px}
-.gallery-next{right:16px}
-.gallery-counter{position:absolute;right:15px;bottom:15px;padding:7px 12px;border-radius:5px;background:rgba(0,0,0,.7);color:white;font-size:13px}
-.detail-thumbnails{display:flex;gap:10px;margin-top:12px;padding:4px 2px 10px;overflow-x:auto}
-.detail-thumbnail{flex:0 0 105px;height:78px;padding:0;overflow:hidden;border:2px solid transparent;border-radius:6px;background:#E8E4DD}
+.gallery-arrow{position:absolute;top:50%;z-index:2;width:46px;height:46px;transform:translateY(-50%);border:1px solid rgba(255,255,255,.75);border-radius:50%;background:var(--orange);color:white;box-shadow:0 5px 18px rgba(38,40,35,.2);font-size:28px}
+.gallery-arrow:hover{background:var(--orange-dark)}
+.gallery-prev{left:15px}
+.gallery-next{right:15px}
+.gallery-counter{position:absolute;right:15px;bottom:15px;padding:8px 13px;border-radius:5px;background:rgba(38,40,35,.88);color:white;font-size:12px;font-weight:600}
+.detail-thumbnails{display:flex;gap:12px;margin-top:14px;padding:3px 2px 10px;overflow-x:auto}
+.detail-thumbnail{flex:0 0 110px;height:80px;padding:0;overflow:hidden;border:2px solid transparent;border-radius:7px;background:var(--cream)}
+.detail-thumbnail:hover{opacity:.85}
 .detail-thumbnail.active{border-color:var(--orange)}
 .detail-thumbnail img{width:100%;height:100%;object-fit:cover}
-.detail-layout{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(270px,.8fr);align-items:start;gap:25px}
-.detail-section{margin-bottom:24px;padding:25px;border:1px solid var(--line);border-radius:10px;background:white}
-.detail-section h2{margin:0 0 20px;font-size:22px}
-.detail-description{color:var(--muted);line-height:1.9;overflow-wrap:anywhere}
+.detail-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0 0 30px}
+.summary-item{display:flex;align-items:center;gap:12px;min-width:0;padding:17px;border:1px solid var(--line);border-radius:9px;background:white}
+.summary-icon{width:42px;height:42px;flex:0 0 42px;display:grid;place-items:center;border-radius:8px;background:#FFF0E8;color:var(--orange-dark);font-size:20px;font-weight:700}
+.summary-item span{display:block;color:var(--muted);font-size:11px;font-weight:600}
+.summary-item strong{display:block;margin-top:3px;font-size:15px;overflow-wrap:anywhere}
+.detail-layout{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(270px,.8fr);align-items:start;gap:26px}
+.detail-section{min-width:0;margin-bottom:24px;padding:clamp(20px,3vw,30px);border:1px solid var(--line);border-radius:10px;background:white;box-shadow:0 8px 26px rgba(38,40,35,.035)}
+.detail-section h2{margin:0 0 20px;color:var(--ink);font-size:clamp(20px,2.5vw,25px);font-weight:700;letter-spacing:-.5px}
+.detail-description{color:var(--muted);font-size:14px;line-height:1.95;overflow-wrap:anywhere}
 .detail-features{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.detail-feature{padding:14px;border-radius:7px;background:var(--cream)}
-.detail-feature span{display:block;color:var(--muted);font-size:12px}
-.detail-feature strong{display:block;margin-top:4px;font-size:15px;overflow-wrap:anywhere}
-.detail-contact{position:sticky;top:20px}
-.detail-contact .btn{width:100%}
-.detail-contact p{color:var(--muted);font-size:13px}
+.detail-feature{min-width:0;padding:15px;border:1px solid var(--line);border-radius:8px;background:var(--cream)}
+.detail-feature span{display:block;color:var(--muted);font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase}
+.detail-feature strong{display:block;margin-top:5px;color:var(--ink);font-size:15px;overflow-wrap:anywhere}
+.detail-feature-rooms{border-color:rgba(232,98,42,.35);background:#FFF7F2}
+.detail-feature-rooms span,.detail-feature-rooms strong{color:var(--orange-dark)}
+.amenity-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.amenity-item{display:flex;align-items:flex-start;gap:9px;padding:10px;border-radius:6px;background:var(--cream);font-size:13px;overflow-wrap:anywhere}
+.amenity-check{color:var(--orange-dark);font-weight:700}
+.detail-contact{position:sticky;top:20px;border-top:3px solid var(--orange)}
+.detail-contact .detail-price{margin-top:0}
+.detail-contact p{color:var(--muted);font-size:13px;line-height:1.8}
+.detail-contact .btn{width:100%;min-height:52px;margin-top:10px;border-radius:6px}
+.contact-identity{display:flex;align-items:center;gap:12px;margin:18px 0;padding:15px;border-radius:8px;background:var(--cream)}
+.contact-avatar{width:46px;height:46px;flex:0 0 46px;display:grid;place-items:center;border-radius:50%;background:#FFF0E8;color:var(--orange-dark);font-weight:700}
+.contact-identity strong{display:block;font-size:14px}
+.contact-identity span{display:block;color:var(--muted);font-size:11px}
+.detail-contact-note{margin-top:14px!important;font-size:11px!important}
+.detail-share{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:16px}
+.detail-share button,.detail-share a{min-height:42px;display:flex;align-items:center;justify-content:center;gap:7px;padding:8px;border:1px solid var(--line);border-radius:6px;background:white;color:var(--ink);font-size:11px;font-weight:700}
+.detail-share button:hover,.detail-share a:hover{border-color:var(--orange);color:var(--orange-dark)}
+.detail-map{height:340px;overflow:hidden;border:1px solid var(--line);border-radius:8px;background:var(--cream)}
+.detail-map iframe{display:block;width:100%;height:100%;border:0}
+.map-address{margin:12px 0;color:var(--muted);font-size:13px}
+.map-link{display:inline-flex;align-items:center;gap:7px;color:var(--orange-dark);font-size:13px;font-weight:700}
+.detail-empty{padding:18px;border-radius:7px;background:var(--cream);color:var(--muted);font-size:13px}
+.detail-section-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+.detail-section-actions .btn{min-height:44px;font-size:12px}
+.related-placeholder{color:var(--muted);font-size:13px}
 
 .footer{padding:35px 0;border-top:1px solid var(--line);background:white}
 .footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px}
@@ -158,21 +192,20 @@ img{max-width:100%}
 @media(max-width:1100px){
   .property-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .section{padding:55px 0}
-  .nav{gap:14px}
-  .nav a{font-size:12px}
   .menu-toggle{display:inline-flex}
   .header-inner{position:relative}
   .nav{display:none;position:absolute;top:100%;left:0;right:0;padding:12px 20px 20px;flex-direction:column;align-items:stretch;gap:0;background:white;border-bottom:1px solid var(--line);box-shadow:0 12px 20px rgba(0,0,0,.08)}
   .nav.open{display:flex}
   .nav a{display:block;width:100%;padding:13px 8px;white-space:normal}
   .nav .nav-login{margin-top:8px;padding:12px;text-align:center}
+  .detail-summary{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media(max-width:760px){
   .container{width:calc(100% - 28px)}
   .header-inner{min-height:66px;gap:8px}
   .brand{gap:7px;flex:1}
   .brand-name{font-size:18px;letter-spacing:-.4px}
-  .brand-sub{font-size:11px;line-height:1.25}
+  .brand-sub{font-size:11px}
   .hero{min-height:300px;padding:35px 14px 75px}
   .hero:before{background-position:58% center}
   .hero h1{font-size:clamp(30px,7vw,40px);letter-spacing:-.8px}
@@ -183,7 +216,7 @@ img{max-width:100%}
   .search-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
   .search-grid .field label{margin-bottom:4px;font-size:11px}
   .search-grid .field input,.search-grid .field select{height:40px;min-height:40px;padding:0 5px;font-size:11px}
-  .search-grid .btn{grid-column:1/-1;width:100%;min-height:42px;margin-top:2px;font-size:13px}
+  .search-grid .btn{grid-column:1/-1;width:100%;min-height:42px;margin-top:2px}
   .section{padding:45px 0}
   .section-heading{align-items:flex-start;flex-direction:column;gap:12px}
   .property-grid{grid-template-columns:1fr;gap:20px}
@@ -201,6 +234,11 @@ img{max-width:100%}
   .gallery-next{right:9px}
   .detail-section{padding:19px}
   .detail-contact{position:static}
+  .detail-summary{gap:8px}
+  .summary-item{align-items:flex-start;flex-direction:column;gap:7px;padding:12px}
+  .summary-icon{width:36px;height:36px;flex-basis:36px;font-size:17px}
+  .detail-features,.amenity-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .detail-map{height:280px}
   .whatsapp{right:12px;bottom:12px;min-height:50px;padding:10px 15px}
 }
 @media(max-width:380px){
@@ -215,253 +253,16 @@ img{max-width:100%}
   .search-grid{gap:6px}
   .search-grid .field select{font-size:10px}
   .detail-main-photo{height:270px}
-  .detail-features{grid-template-columns:1fr}
+  .detail-features,.amenity-list{grid-template-columns:1fr}
+  .detail-summary{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media(prefers-reduced-motion:reduce){
   *,*:before,*:after{scroll-behavior:auto!important;transition:none!important}
-}
-
-/* ===== DETALHES DO IMÓVEL — IDENTIDADE VISUAL ===== */
-
-.property-detail {
-  max-width: 1180px;
-  margin: 0 auto;
-}
-
-.detail-header {
-  margin-bottom: 30px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid var(--line);
-}
-
-.detail-header .section-kicker {
-  display: inline-block;
-  margin-bottom: 12px;
-  color: var(--orange-dark);
-  letter-spacing: 1.8px;
-}
-
-.detail-header h1 {
-  margin: 8px 0 12px;
-  color: var(--ink);
-  font-size: clamp(30px, 4vw, 46px);
-  font-weight: 700;
-  line-height: 1.16;
-  letter-spacing: -1.2px;
-}
-
-.detail-location {
-  color: var(--muted);
-  font-size: 14px;
-}
-
-.detail-price {
-  margin-top: 16px;
-  color: var(--orange-dark);
-  font-size: clamp(26px, 4vw, 36px);
-  font-weight: 700;
-  letter-spacing: -0.8px;
-}
-
-.detail-gallery {
-  margin: 28px 0 38px;
-}
-
-.detail-main-photo {
-  position: relative;
-  width: 100%;
-  height: clamp(300px, 55vw, 650px);
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: var(--cream);
-}
-
-.detail-main-photo img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-.gallery-arrow {
-  width: 46px;
-  height: 46px;
-  border: 1px solid rgba(255,255,255,.75);
-  border-radius: 50%;
-  background: var(--orange);
-  color: var(--white);
-  box-shadow: 0 5px 18px rgba(38,40,35,.2);
-  font-size: 28px;
-  transition: background .2s, transform .2s;
-}
-
-.gallery-arrow:hover {
-  background: var(--orange-dark);
-  transform: translateY(-50%) scale(1.05);
-}
-
-.gallery-counter {
-  padding: 8px 13px;
-  border: 1px solid rgba(255,255,255,.2);
-  border-radius: 5px;
-  background: rgba(38,40,35,.88);
-  color: var(--white);
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.detail-thumbnails {
-  gap: 12px;
-  margin-top: 14px;
-}
-
-.detail-thumbnail {
-  flex-basis: 110px;
-  height: 80px;
-  border: 2px solid transparent;
-  border-radius: 7px;
-  background: var(--cream);
-  transition: border-color .2s, opacity .2s;
-}
-
-.detail-thumbnail:hover {
-  opacity: .85;
-}
-
-.detail-thumbnail.active {
-  border-color: var(--orange);
-}
-
-.detail-layout {
-  gap: 26px;
-}
-
-.detail-section {
-  margin-bottom: 24px;
-  padding: clamp(20px, 3vw, 30px);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: var(--white);
-  box-shadow: 0 8px 26px rgba(38,40,35,.035);
-}
-
-.detail-section h2 {
-  margin: 0 0 22px;
-  color: var(--ink);
-  font-size: clamp(20px, 2.5vw, 25px);
-  font-weight: 700;
-  letter-spacing: -.5px;
-}
-
-.detail-description {
-  color: var(--muted);
-  font-size: 15px;
-  line-height: 1.9;
-  overflow-wrap: anywhere;
-}
-
-.detail-features {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.detail-feature {
-  padding: 16px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--cream);
-}
-
-.detail-feature span {
-  display: block;
-  color: var(--muted);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-.detail-feature strong {
-  display: block;
-  margin-top: 6px;
-  color: var(--ink);
-  font-size: 16px;
-  font-weight: 700;
-  overflow-wrap: anywhere;
-}
-
-.detail-feature-rooms {
-  border-color: rgba(232,98,42,.35);
-  background: #FFF7F2;
-}
-
-.detail-feature-rooms span {
-  color: var(--orange-dark);
-}
-
-.detail-feature-rooms strong {
-  color: var(--orange-dark);
-  font-size: 20px;
-}
-
-.detail-contact {
-  border-top: 3px solid var(--orange);
-}
-
-.detail-contact .detail-price {
-  margin-top: 0;
-  overflow-wrap: anywhere;
-}
-
-.detail-contact p {
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.8;
-}
-
-.detail-contact .btn {
-  width: 100%;
-  min-height: 52px;
-  border-radius: 6px;
-  background: var(--orange);
-  color: var(--white);
-  font-weight: 700;
-}
-
-.detail-contact .btn:hover {
-  background: var(--orange-dark);
-}
-
-@media (max-width: 760px) {
-  .detail-header {
-    padding-bottom: 20px;
-  }
-
-  .detail-gallery {
-    margin: 22px 0 28px;
-  }
-
-  .detail-features {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .detail-feature {
-    padding: 13px;
-  }
-}
-
-@media (max-width: 380px) {
-  .detail-features {
-    grid-template-columns: 1fr;
-  }
 }
 </style>
 </head>
 
 <body>
-
 <header class="header">
   <div class="container header-inner">
     <a class="brand" href="#comprar" data-page="comprar" aria-label="Página inicial CasaPrópria">
@@ -473,9 +274,7 @@ img{max-width:100%}
     </a>
 
     <button class="menu-toggle" id="menuToggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="mainNav">
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </svg>
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
     </button>
 
     <nav class="nav" id="mainNav" aria-label="Navegação principal">
@@ -489,7 +288,6 @@ img{max-width:100%}
 </header>
 
 <main>
-
   <div id="pageComprar">
     <section class="hero" aria-label="Encontre seu imóvel">
       <div class="hero-content">
@@ -506,28 +304,22 @@ img{max-width:100%}
             <label for="location">Cidade</label>
             <select id="location">
               <option value="">Todas as cidades</option>
-              <option>Criciúma</option><option>Içara</option>
-              <option>Forquilhinha</option><option>Nova Veneza</option>
-              <option>Siderópolis</option><option>Cocal do Sul</option>
-              <option>Morro da Fumaça</option><option>Urussanga</option>
-              <option>Orleans</option><option>Lauro Müller</option>
-              <option>Treviso</option><option>Treze de Maio</option>
-              <option>Sangão</option><option>Jaguaruna</option>
-              <option>Tubarão</option><option>Araranguá</option>
-              <option>Maracajá</option><option>Balneário Rincão</option>
-              <option>Sombrio</option><option>Turvo</option>
-              <option>Ermo</option><option>Meleiro</option>
-              <option>Jacinto Machado</option><option>Praia Grande</option>
-              <option>Santa Rosa do Sul</option><option>São João do Sul</option>
-              <option>Passo de Torres</option>
+              <option>Criciúma</option><option>Içara</option><option>Forquilhinha</option>
+              <option>Nova Veneza</option><option>Siderópolis</option><option>Cocal do Sul</option>
+              <option>Morro da Fumaça</option><option>Urussanga</option><option>Orleans</option>
+              <option>Lauro Müller</option><option>Treviso</option><option>Treze de Maio</option>
+              <option>Sangão</option><option>Jaguaruna</option><option>Tubarão</option>
+              <option>Araranguá</option><option>Maracajá</option><option>Balneário Rincão</option>
+              <option>Sombrio</option><option>Turvo</option><option>Ermo</option><option>Meleiro</option>
+              <option>Jacinto Machado</option><option>Praia Grande</option><option>Santa Rosa do Sul</option>
+              <option>São João do Sul</option><option>Passo de Torres</option>
             </select>
           </div>
           <div class="field">
             <label for="type">Tipo de imóvel</label>
             <select id="type">
               <option value="">Todos os tipos</option>
-              <option>Casa</option><option>Apartamento</option>
-              <option>Terreno</option><option>Empreendimento</option>
+              <option>Casa</option><option>Apartamento</option><option>Terreno</option><option>Empreendimento</option>
             </select>
           </div>
           <div class="field">
@@ -576,8 +368,7 @@ img{max-width:100%}
         </div>
         <div class="listing-toolbar">
           <span class="results-count" id="resultsCount">Carregando imóveis...</span>
-          <label class="sort-control" for="sort">
-            Ordenar por
+          <label class="sort-control" for="sort">Ordenar por
             <select id="sort">
               <option value="recentes">Mais recentes</option>
               <option value="menor">Menor preço</option>
@@ -603,68 +394,23 @@ img{max-width:100%}
         <h1>Vamos construir sua casa?</h1>
         <p>Conte um pouco sobre o que você deseja. Vou receber as informações pelo WhatsApp para conversarmos sobre seu projeto, sem compromisso.</p>
       </div>
-
       <form class="form-card" id="constructionForm">
         <div class="form-grid">
-          <div class="field">
-            <label for="buildName">Nome completo *</label>
-            <input id="buildName" name="nome" required autocomplete="name" placeholder="Como você se chama?">
-          </div>
-          <div class="field">
-            <label for="buildCity">Cidade *</label>
-            <input id="buildCity" name="cidade" required autocomplete="address-level2" placeholder="Cidade onde pretende construir">
-          </div>
-
+          <div class="field"><label for="buildName">Nome completo *</label><input id="buildName" name="nome" required autocomplete="name" placeholder="Como você se chama?"></div>
+          <div class="field"><label for="buildCity">Cidade *</label><input id="buildCity" name="cidade" required autocomplete="address-level2" placeholder="Cidade onde pretende construir"></div>
           <div class="form-section-title">Escolha o padrão da casa</div>
           <div class="field full">
             <div class="standard-options">
-              <label class="standard-option">
-                <input type="radio" name="padrao" value="Padrão PVC" required>
-                <span><strong>Opção 1 — Padrão PVC</strong>Alvenaria convencional, forro de PVC, telha aparente, materiais e mão de obra inclusos.</span>
-              </label>
-              <label class="standard-option">
-                <input type="radio" name="padrao" value="Padrão Laje e Telhado" required>
-                <span><strong>Opção 2 — Padrão Laje e Telhado</strong>Alvenaria convencional, laje reta, telhado com telha aparente, materiais e mão de obra inclusos.</span>
-              </label>
-              <label class="standard-option">
-                <input type="radio" name="padrao" value="Padrão Laje e Platibanda" required>
-                <span><strong>Opção 3 — Padrão Laje e Platibanda</strong>Alvenaria convencional, laje reta, telhado embutido com platibanda, materiais e mão de obra inclusos.</span>
-              </label>
+              <label class="standard-option"><input type="radio" name="padrao" value="Padrão PVC" required><span><strong>Opção 1 — Padrão PVC</strong>Alvenaria convencional, forro de PVC, telha aparente, materiais e mão de obra inclusos.</span></label>
+              <label class="standard-option"><input type="radio" name="padrao" value="Padrão Laje e Telhado" required><span><strong>Opção 2 — Padrão Laje e Telhado</strong>Alvenaria convencional, laje reta, telhado com telha aparente, materiais e mão de obra inclusos.</span></label>
+              <label class="standard-option"><input type="radio" name="padrao" value="Padrão Laje e Platibanda" required><span><strong>Opção 3 — Padrão Laje e Platibanda</strong>Alvenaria convencional, laje reta, telhado embutido com platibanda, materiais e mão de obra inclusos.</span></label>
             </div>
           </div>
-
-          <div class="field">
-            <label for="buildSize">Tamanho aproximado da casa *</label>
-            <select id="buildSize" name="tamanho" required>
-              <option value="">Selecione uma opção</option>
-              <option>Até 50 m²</option><option>51 a 70 m²</option>
-              <option>71 a 90 m²</option><option>91 a 120 m²</option>
-              <option>Acima de 120 m²</option><option>Ainda não sei</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="buildBedrooms">Número de quartos *</label>
-            <select id="buildBedrooms" name="quartos" required>
-              <option value="">Selecione</option><option>1 quarto</option>
-              <option>2 quartos</option><option>3 quartos</option>
-              <option>4 ou mais quartos</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="buildBathrooms">Número de banheiros *</label>
-            <select id="buildBathrooms" name="banheiros" required>
-              <option value="">Selecione</option><option>1 banheiro</option>
-              <option>2 banheiros</option><option>3 ou mais banheiros</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="buildPhone">Seu telefone (opcional)</label>
-            <input id="buildPhone" name="telefone" type="tel" autocomplete="tel" placeholder="(00) 00000-0000">
-          </div>
-          <div class="field full">
-            <label for="buildNotes">Informações adicionais (opcional)</label>
-            <textarea id="buildNotes" name="observacoes" placeholder="Já possui terreno? Tem uma previsão para começar?"></textarea>
-          </div>
+          <div class="field"><label for="buildSize">Tamanho aproximado da casa *</label><select id="buildSize" name="tamanho" required><option value="">Selecione uma opção</option><option>Até 50 m²</option><option>51 a 70 m²</option><option>71 a 90 m²</option><option>91 a 120 m²</option><option>Acima de 120 m²</option><option>Ainda não sei</option></select></div>
+          <div class="field"><label for="buildBedrooms">Número de quartos *</label><select id="buildBedrooms" name="quartos" required><option value="">Selecione</option><option>1 quarto</option><option>2 quartos</option><option>3 quartos</option><option>4 ou mais quartos</option></select></div>
+          <div class="field"><label for="buildBathrooms">Número de banheiros *</label><select id="buildBathrooms" name="banheiros" required><option value="">Selecione</option><option>1 banheiro</option><option>2 banheiros</option><option>3 ou mais banheiros</option></select></div>
+          <div class="field"><label for="buildPhone">Seu telefone (opcional)</label><input id="buildPhone" name="telefone" type="tel" autocomplete="tel" placeholder="(00) 00000-0000"></div>
+          <div class="field full"><label for="buildNotes">Informações adicionais (opcional)</label><textarea id="buildNotes" name="observacoes" placeholder="Já possui terreno? Tem uma previsão para começar?"></textarea></div>
         </div>
         <button class="btn btn-block" type="submit">Enviar projeto pelo WhatsApp</button>
         <p class="form-note">Solicitação gratuita e sem compromisso. Você poderá revisar a mensagem antes de enviá-la.</p>
@@ -680,43 +426,14 @@ img{max-width:100%}
         <h1>Vamos planejar seu financiamento?</h1>
         <p>Preencha os dados iniciais e receba atendimento personalizado. A simulação é gratuita e sem compromisso, sujeita à análise da instituição financeira.</p>
       </div>
-
       <form class="form-card" id="financeForm">
         <div class="form-grid">
-          <div class="field full">
-            <label for="financeName">Nome completo *</label>
-            <input id="financeName" name="nome" required autocomplete="name" placeholder="Digite seu nome">
-          </div>
-          <div class="field">
-            <label for="financeCity">Cidade onde pretende comprar ou construir *</label>
-            <input id="financeCity" name="cidade" required autocomplete="address-level2" placeholder="Sua cidade">
-          </div>
-          <div class="field">
-            <label for="financeIncome">Renda familiar mensal *</label>
-            <select id="financeIncome" name="renda" required>
-              <option value="">Selecione a faixa de renda</option>
-              <option>Até R$ 2.000</option><option>R$ 2.001 a R$ 3.000</option>
-              <option>R$ 3.001 a R$ 4.000</option><option>R$ 4.001 a R$ 6.000</option>
-              <option>R$ 6.001 a R$ 8.000</option><option>Acima de R$ 8.000</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="financeGoal">O que você deseja? *</label>
-            <select id="financeGoal" name="objetivo" required>
-              <option value="">Selecione</option>
-              <option>Comprar imóvel pronto</option>
-              <option>Construir minha casa</option>
-              <option>Comprar terreno e construir</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="financePhone">Telefone para contato (opcional)</label>
-            <input id="financePhone" name="telefone" type="tel" autocomplete="tel" placeholder="(00) 00000-0000">
-          </div>
-          <div class="field full">
-            <label for="financeNotes">Informações adicionais (opcional)</label>
-            <textarea id="financeNotes" name="observacoes" placeholder="Ex.: possui FGTS, tem entrada ou já escolheu um imóvel?"></textarea>
-          </div>
+          <div class="field full"><label for="financeName">Nome completo *</label><input id="financeName" name="nome" required autocomplete="name" placeholder="Digite seu nome"></div>
+          <div class="field"><label for="financeCity">Cidade onde pretende comprar ou construir *</label><input id="financeCity" name="cidade" required autocomplete="address-level2" placeholder="Sua cidade"></div>
+          <div class="field"><label for="financeIncome">Renda familiar mensal *</label><select id="financeIncome" name="renda" required><option value="">Selecione a faixa de renda</option><option>Até R$ 2.000</option><option>R$ 2.001 a R$ 3.000</option><option>R$ 3.001 a R$ 4.000</option><option>R$ 4.001 a R$ 6.000</option><option>R$ 6.001 a R$ 8.000</option><option>Acima de R$ 8.000</option></select></div>
+          <div class="field"><label for="financeGoal">O que você deseja? *</label><select id="financeGoal" name="objetivo" required><option value="">Selecione</option><option>Comprar imóvel pronto</option><option>Construir minha casa</option><option>Comprar terreno e construir</option></select></div>
+          <div class="field"><label for="financePhone">Telefone para contato (opcional)</label><input id="financePhone" name="telefone" type="tel" autocomplete="tel" placeholder="(00) 00000-0000"></div>
+          <div class="field full"><label for="financeNotes">Informações adicionais (opcional)</label><textarea id="financeNotes" name="observacoes" placeholder="Ex.: possui FGTS, tem entrada ou já escolheu um imóvel?"></textarea></div>
         </div>
         <button class="btn btn-block" type="submit">Solicitar simulação gratuita pelo WhatsApp</button>
         <p class="form-note">Não informe senhas, documentos ou dados bancários neste formulário.</p>
@@ -732,63 +449,20 @@ img{max-width:100%}
         <h1>Venda seu imóvel</h1>
         <p>Informe seus dados e as características do imóvel para solicitar uma avaliação e conversar sobre as condições do anúncio.</p>
       </div>
-
       <form class="form-card" id="sellForm">
         <div class="form-grid">
-          <div class="field full">
-            <label for="sellName">Nome completo *</label>
-            <input id="sellName" name="nome" required autocomplete="name" placeholder="Seu nome completo">
-          </div>
-          <div class="field">
-            <label for="sellPhone">WhatsApp para contato *</label>
-            <input id="sellPhone" name="telefone" type="tel" required autocomplete="tel" placeholder="(00) 00000-0000">
-          </div>
-          <div class="field">
-            <label for="sellCity">Cidade *</label>
-            <input id="sellCity" name="cidade" required placeholder="Cidade do imóvel">
-          </div>
-          <div class="field">
-            <label for="sellNeighborhood">Bairro</label>
-            <input id="sellNeighborhood" name="bairro" placeholder="Bairro do imóvel">
-          </div>
-          <div class="field">
-            <label for="sellType">Tipo de imóvel *</label>
-            <select id="sellType" name="tipo" required>
-              <option value="">Selecione</option>
-              <option>Casa</option><option>Apartamento</option>
-              <option>Terreno</option><option>Sítio ou chácara</option>
-              <option>Comercial</option><option>Empreendimento</option><option>Outro</option>
-            </select>
-          </div>
-          <div class="field full">
-            <label for="sellValue">Quanto deseja receber pelo imóvel? (R$) *</label>
-            <input id="sellValue" name="valor" type="number" min="1" step="0.01" required placeholder="Ex.: 300000">
-            <p class="form-note">Informe o valor desejado. Não será aplicado cálculo automático de comissão ou acréscimo.</p>
-          </div>
-          <div class="field full">
-            <label for="sellDescription">Descrição do imóvel *</label>
-            <textarea id="sellDescription" name="descricao" required placeholder="Informe área, quartos, estado do imóvel e outras características."></textarea>
-          </div>
-          <div class="field full">
-            <label class="standard-option">
-              <input type="checkbox" id="sellTerms" name="autorizacao" value="Sim" required>
-              <span>Autorizo o envio destas informações à Patricia Ribeiro para avaliação do imóvel e contato sobre as condições de anúncio.</span>
-            </label>
-          </div>
-          <div class="field full">
-            <label for="sellImages">Fotos do imóvel (máximo 5 imagens JPG ou PNG) *</label>
-            <input id="sellImages" name="fotos" type="file" accept=".jpg, .jpeg, .png" multiple required>
-            <p class="form-note">Selecione até 5 fotos do imóvel (formatos JPG ou PNG).</p>
-          </div>
+          <div class="field full"><label for="sellName">Nome completo *</label><input id="sellName" name="nome" required autocomplete="name" placeholder="Seu nome completo"></div>
+          <div class="field"><label for="sellPhone">WhatsApp para contato *</label><input id="sellPhone" name="telefone" type="tel" required autocomplete="tel" placeholder="(00) 00000-0000"></div>
+          <div class="field"><label for="sellCity">Cidade *</label><input id="sellCity" name="cidade" required placeholder="Cidade do imóvel"></div>
+          <div class="field"><label for="sellNeighborhood">Bairro</label><input id="sellNeighborhood" name="bairro" placeholder="Bairro do imóvel"></div>
+          <div class="field"><label for="sellType">Tipo de imóvel *</label><select id="sellType" name="tipo" required><option value="">Selecione</option><option>Casa</option><option>Apartamento</option><option>Terreno</option><option>Sítio ou chácara</option><option>Comercial</option><option>Empreendimento</option><option>Outro</option></select></div>
+          <div class="field full"><label for="sellValue">Quanto deseja receber pelo imóvel? (R$) *</label><input id="sellValue" name="valor" type="number" min="1" step="0.01" required placeholder="Ex.: 300000"><p class="form-note">Informe o valor desejado. Não será aplicado cálculo automático de comissão ou acréscimo.</p></div>
+          <div class="field full"><label for="sellDescription">Descrição do imóvel *</label><textarea id="sellDescription" name="descricao" required placeholder="Informe área, quartos, estado do imóvel e outras características."></textarea></div>
+          <div class="field full"><label class="standard-option"><input type="checkbox" id="sellTerms" name="autorizacao" value="Sim" required><span>Autorizo o envio destas informações à Patricia Ribeiro para avaliação do imóvel e contato sobre as condições de anúncio.</span></label></div>
+          <div class="field full"><label for="sellImages">Fotos do imóvel (máximo 5 imagens JPG ou PNG) *</label><input id="sellImages" name="fotos" type="file" accept=".jpg,.jpeg,.png" multiple required><p class="form-note">Selecione até 5 fotos do imóvel (formatos JPG ou PNG).</p></div>
         </div>
-        <button class="btn btn-block" type="submit">
-          Enviar para avaliação do administrador
-        </button>
-
-        <p class="form-note">
-          Sua solicitação será enviada diretamente para a análise administrativa.
-          O anúncio não será publicado automaticamente.
-        </p>
+        <button class="btn btn-block" type="submit">Enviar para avaliação do administrador</button>
+        <p class="form-note">Sua solicitação será enviada diretamente para a análise administrativa. O anúncio não será publicado automaticamente.</p>
       </form>
     </div>
   </section>
@@ -938,7 +612,11 @@ function money(value) {
   if (value === null || value === undefined || value === "") return "Consulte o valor";
   const number = Number(value);
   if (!Number.isFinite(number)) return "Consulte o valor";
-  return number.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
+  return number.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+    maximumFractionDigits: 0
+  });
 }
 
 function isTrue(value) {
@@ -949,21 +627,44 @@ function isFeatured(item) {
   return isTrue(item.destaque);
 }
 
+function firstValue(item, keys) {
+  for (const key of keys) {
+    const value = item?.[key];
+    if (value !== null && value !== undefined && text(value) !== "") return value;
+  }
+  return "";
+}
+
 function locationOf(item) {
-  return [item.bairro, item.cidade].map(text).filter(Boolean).join(", ") || text(item.endereco) || "Consulte a localização";
+  return [
+    text(firstValue(item, ["bairro", "neighborhood"])),
+    text(firstValue(item, ["cidade", "city"]))
+  ].filter(Boolean).join(", ") ||
+    text(firstValue(item, ["endereco", "address", "location"])) ||
+    "Consulte a localização";
 }
 
 function propertyDetails(item) {
   const details = [];
-  if (Number(item.quartos) > 0) details.push(`<span>${escapeHTML(item.quartos)} quartos</span>`);
-  if (Number(item.banheiros) > 0) details.push(`<span>${escapeHTML(item.banheiros)} banheiros</span>`);
-  if (Number(item.vagas) > 0) details.push(`<span>${escapeHTML(item.vagas)} vagas</span>`);
-  if (Number(item.area_m2) > 0) details.push(`<span>${escapeHTML(item.area_m2)} m²</span>`);
+  const quartos = firstValue(item, ["quartos", "bedrooms"]);
+  const suites = firstValue(item, ["suites", "suítes", "suites_count"]);
+  const banheiros = firstValue(item, ["banheiros", "bathrooms"]);
+  const vagas = firstValue(item, ["vagas", "parking"]);
+  const area = firstValue(item, ["area_m2", "area"]);
+
+  if (Number(quartos) > 0) details.push(`<span>${escapeHTML(quartos)} quartos</span>`);
+  if (Number(suites) > 0) details.push(`<span>${escapeHTML(suites)} suítes</span>`);
+  if (Number(banheiros) > 0) details.push(`<span>${escapeHTML(banheiros)} banheiros</span>`);
+  if (Number(vagas) > 0) details.push(`<span>${escapeHTML(vagas)} vagas</span>`);
+  if (Number(area) > 0) details.push(`<span>${escapeHTML(area)} m²</span>`);
+
   return details.join("");
 }
 
 function detailURL(item) {
-  const message = "Olá, Patricia! Gostaria de saber mais sobre o imóvel: " + text(item.titulo) + (item.id !== undefined ? " (código " + item.id + ")" : "");
+  const message = "Olá, Patricia! Gostaria de saber mais sobre o imóvel: " +
+    text(item.titulo) +
+    (item.id !== undefined ? " (código " + item.id + ")" : "");
   return "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
 }
 
@@ -1005,12 +706,15 @@ function handlePropertyClick(event) {
   const link = event.target.closest("[data-property-id]");
   if (!link) return;
   event.preventDefault();
+
   const id = link.dataset.propertyId;
   const item = properties.find(p => String(p.id) === String(id));
+
   if (!item) {
     alert("Não foi possível encontrar os detalhes deste imóvel.");
     return;
   }
+
   renderPropertyDetails(item);
   showPage("detalhes", true, item.id);
 }
@@ -1019,8 +723,124 @@ function getPhotos(item) {
   const registered = Array.isArray(item.fotos) ? item.fotos : [];
   return [
     item.foto_url,
-    ...registered.map(photo => typeof photo === "string" ? photo : photo.url || photo.foto_url)
-  ].filter(Boolean).map(String).filter((photo, index, array) => array.indexOf(photo) === index);
+    ...registered.map(photo =>
+      typeof photo === "string" ? photo : photo.url || photo.foto_url
+    )
+  ].filter(Boolean).map(String).filter((photo, index, array) =>
+    array.indexOf(photo) === index
+  );
+}
+
+/* Converte listas de características para um formato uniforme. */
+function getAmenities(item) {
+  const raw = firstValue(item, [
+    "caracteristicas", "amenities", "diferenciais", "features",
+    "infraestrutura", "comodidades"
+  ]);
+
+  if (Array.isArray(raw)) {
+    return raw.map(value => {
+      if (typeof value === "string") return value;
+      if (value && typeof value === "object") {
+        return value.nome || value.name || value.titulo || value.label || "";
+      }
+      return "";
+    }).map(text).filter(Boolean);
+  }
+
+  if (typeof raw === "string" && raw.trim()) {
+    try {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) return parsed.map(text).filter(Boolean);
+    } catch (_) {}
+
+    return raw.split(/\r?\n|[,;]+/).map(text).filter(Boolean);
+  }
+
+  return [];
+}
+
+function addFeature(list, label, value, highlight = false) {
+  if (value === null || value === undefined || text(value) === "") return;
+
+  list.push(`
+    <div class="detail-feature ${highlight ? "detail-feature-rooms" : ""}">
+      <span>${escapeHTML(label)}</span>
+      <strong>${escapeHTML(value)}</strong>
+    </div>
+  `);
+}
+
+function getPropertyAddress(item) {
+  const street = text(firstValue(item, [
+    "endereco", "address", "logradouro", "rua"
+  ]));
+  const number = text(firstValue(item, [
+    "numero", "number", "numero_endereco"
+  ]));
+  const complement = text(firstValue(item, [
+    "complemento", "complement"
+  ]));
+  const neighborhood = text(firstValue(item, [
+    "bairro", "neighborhood"
+  ]));
+  const city = text(firstValue(item, ["cidade", "city"]));
+  const state = text(firstValue(item, ["estado", "uf", "state"]));
+
+  return [
+    [street, number].filter(Boolean).join(", "),
+    complement,
+    neighborhood,
+    [city, state].filter(Boolean).join(" - ")
+  ].filter(Boolean).join(", ");
+}
+
+function getMapQuery(item) {
+  const latitude = firstValue(item, ["latitude", "lat"]);
+  const longitude = firstValue(item, ["longitude", "lng", "lon"]);
+
+  if (
+    latitude !== "" && longitude !== "" &&
+    Number.isFinite(Number(latitude)) &&
+    Number.isFinite(Number(longitude)) &&
+    Number(latitude) >= -90 && Number(latitude) <= 90 &&
+    Number(longitude) >= -180 && Number(longitude) <= 180
+  ) {
+    return `${latitude},${longitude}`;
+  }
+
+  return getPropertyAddress(item) || locationOf(item);
+}
+
+function buildMapSection(item) {
+  const address = getPropertyAddress(item);
+  const query = getMapQuery(item);
+
+  if (!query || query === "Consulte a localização") return "";
+
+  const mapURL = "https://www.google.com/maps?q=" +
+    encodeURIComponent(query) + "&output=embed";
+  const externalURL = "https://www.google.com/maps/search/?api=1&query=" +
+    encodeURIComponent(query);
+
+  return `
+    <section class="detail-section" id="detailLocation">
+      <h2>Localização</h2>
+      ${address ? `<p class="map-address">${escapeHTML(address)}</p>` :
+        `<p class="map-address">${escapeHTML(locationOf(item))}</p>`}
+      <div class="detail-map">
+        <iframe
+          title="Mapa de localização do imóvel"
+          src="${escapeHTML(mapURL)}"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <p><a class="map-link" href="${escapeHTML(externalURL)}" target="_blank" rel="noopener noreferrer">↗ Abrir localização no Google Maps</a></p>
+      <p class="form-note">O mapa indica a localização pesquisada e pode não representar a entrada exata do imóvel.</p>
+    </section>
+  `;
 }
 
 function renderPropertyDetails(item) {
@@ -1028,83 +848,167 @@ function renderPropertyDetails(item) {
   currentPhotoIndex = 0;
 
   const photos = getPhotos(item);
-  const features = [
-    ["Tipo de imóvel", item.tipo],
-    ["Cidade", text(item.cidade) || "—"],
-    ["Bairro", text(item.bairro) || "—"],
-    ["Quartos", text(item.quartos) || "—"],
-    ["Banheiros", text(item.banheiros) || "—"],
-    ["Vagas", text(item.vagas) || "—"],
-    ["Área", item.area_m2 ? item.area_m2 + " m²" : ""]
-  ].filter(([, value]) => text(value) !== "");
+  const title = text(item.titulo) || "Detalhes do imóvel";
+  const type = text(item.tipo) || "Imóvel";
+  const code = firstValue(item, ["codigo", "codigo_imovel", "ref", "referencia"]) || item.id;
+  const quartos = firstValue(item, ["quartos", "bedrooms"]);
+  const suites = firstValue(item, ["suites", "suítes", "suites_count"]);
+  const banheiros = firstValue(item, ["banheiros", "bathrooms"]);
+  const vagas = firstValue(item, ["vagas", "parking"]);
+
+  const featuresHTML = [];
+  addFeature(featuresHTML, "Tipo de imóvel", type);
+  addFeature(featuresHTML, "Cidade", firstValue(item, ["cidade", "city"]));
+  addFeature(featuresHTML, "Bairro", firstValue(item, ["bairro", "neighborhood"]));
+  addFeature(featuresHTML, "Quartos", quartos, Number(quartos) > 0);
+  addFeature(featuresHTML, "Suítes", suites);
+  addFeature(featuresHTML, "Banheiros", banheiros);
+  addFeature(featuresHTML, "Vagas de garagem", vagas);
+
+  addFeature(featuresHTML, "Área privativa",
+    firstValue(item, ["area_privativa", "area_privativa_m2"]) !== ""
+      ? firstValue(item, ["area_privativa", "area_privativa_m2"]) + " m²"
+      : "");
+
+  addFeature(featuresHTML, "Área construída",
+    firstValue(item, ["area_construida", "area_construida_m2"]) !== ""
+      ? firstValue(item, ["area_construida", "area_construida_m2"]) + " m²"
+      : "");
+
+  addFeature(featuresHTML, "Área total",
+    firstValue(item, ["area_total", "area_terreno", "area_total_m2"]) !== ""
+      ? firstValue(item, ["area_total", "area_terreno", "area_total_m2"]) + " m²"
+      : "");
+
+  if (featuresHTML.length === 0) {
+    featuresHTML.push('<div class="detail-empty">Características ainda não cadastradas.</div>');
+  }
+
+  const financialHTML = [];
+  const iptu = firstValue(item, ["iptu", "valor_iptu"]);
+  const condominium = firstValue(item, ["condominio", "condomínio", "valor_condominio"]);
+
+  if (iptu !== "") {
+    addFeature(financialHTML, "IPTU", typeof iptu === "number" || !isNaN(Number(iptu)) ? money(iptu) : iptu);
+  }
+
+  if (condominium !== "") {
+    addFeature(financialHTML, "Condomínio", typeof condominium === "number" || !isNaN(Number(condominium)) ? money(condominium) : condominium);
+  }
+
+  const amenities = getAmenities(item);
+  const shareURL = window.location.origin + window.location.pathname +
+    "#imovel-" + encodeURIComponent(String(item.id ?? ""));
+
+  const galleryHTML = photos.length
+    ? `
+      <div class="detail-main-photo">
+        <img id="detailMainImage" src="${escapeHTML(photos[0])}" alt="${escapeHTML(title)}" onerror="this.style.display='none';document.getElementById('detailPhotoError').hidden=false">
+        <div class="property-placeholder" id="detailPhotoError" hidden>Não foi possível carregar esta foto.</div>
+        ${photos.length > 1 ? `
+          <button type="button" class="gallery-arrow gallery-prev" id="galleryPrev" aria-label="Foto anterior">‹</button>
+          <button type="button" class="gallery-arrow gallery-next" id="galleryNext" aria-label="Próxima foto">›</button>
+          <span class="gallery-counter" id="galleryCounter">1 / ${photos.length}</span>
+        ` : ""}
+      </div>
+      ${photos.length > 1 ? `
+        <div class="detail-thumbnails" aria-label="Miniaturas das fotos">
+          ${photos.map((photo, index) => `
+            <button type="button" class="detail-thumbnail ${index === 0 ? "active" : ""}" data-photo-index="${index}" aria-label="Ver foto ${index + 1}" aria-pressed="${index === 0}">
+              <img src="${escapeHTML(photo)}" alt="" loading="lazy">
+            </button>
+          `).join("")}
+        </div>
+      ` : ""}
+    `
+    : `<div class="detail-main-photo"><div class="property-placeholder">Este imóvel ainda não possui fotos disponíveis.</div></div>`;
 
   $("propertyDetailsContent").innerHTML = `
     <div class="property-detail">
-      <div class="detail-header">
-        <span class="section-kicker">${escapeHTML(item.tipo || "Imóvel")}</span>
-        <h1>${escapeHTML(item.titulo || "Detalhes do imóvel")}</h1>
-        <div class="detail-location">${escapeHTML(locationOf(item))}</div>
-        <div class="detail-price">${money(item.preco)}</div>
-      </div>
-
-      <div class="detail-gallery">
-        <div class="detail-main-photo">
-          ${
-            photos.length
-              ? `<img id="detailMainImage" src="${escapeHTML(photos[0])}" alt="${escapeHTML(item.titulo || "Foto do imóvel")}">`
-              : `<div class="property-placeholder">Este imóvel ainda não possui fotos disponíveis.</div>`
-          }
-          ${
-            photos.length > 1
-              ? `
-                <button type="button" class="gallery-arrow gallery-prev" id="galleryPrev" aria-label="Foto anterior">‹</button>
-                <button type="button" class="gallery-arrow gallery-next" id="galleryNext" aria-label="Próxima foto">›</button>
-                <span class="gallery-counter" id="galleryCounter">1 / ${photos.length}</span>
-              `
-              : ""
-          }
+      <header class="detail-header">
+        <span class="section-kicker">${escapeHTML(type)}</span>
+        <h1>${escapeHTML(title)}</h1>
+        <div class="detail-location">
+          <span class="detail-location-item">⌖ ${escapeHTML(locationOf(item))}</span>
         </div>
-        ${
-          photos.length > 1
-            ? `<div class="detail-thumbnails">
-                ${photos.map((photo, index) => `
-                  <button type="button" class="detail-thumbnail ${index === 0 ? "active" : ""}" data-photo-index="${index}" aria-label="Ver foto ${index + 1}">
-                    <img src="${escapeHTML(photo)}" alt="" loading="lazy">
-                  </button>
-                `).join("")}
-              </div>`
-            : ""
-        }
+        ${code !== "" ? `<span class="detail-code">Código do imóvel: ${escapeHTML(code)}</span>` : ""}
+        <div class="detail-price">${money(item.preco)}</div>
+        <span class="detail-price-label">Valor de venda</span>
+      </header>
+
+      ${photos.length ? `
+        <section class="detail-gallery" aria-label="Fotos do imóvel">
+          ${galleryHTML}
+        </section>
+      ` : `
+        <section class="detail-gallery" aria-label="Fotos do imóvel">
+          ${galleryHTML}
+        </section>
+      `}
+
+      <div class="detail-summary">
+        ${Number(quartos) > 0 ? `<div class="summary-item"><div class="summary-icon">⌂</div><div><span>DORMITÓRIOS</span><strong>${escapeHTML(quartos)}</strong></div></div>` : ""}
+        ${Number(suites) > 0 ? `<div class="summary-item"><div class="summary-icon">✦</div><div><span>SUÍTES</span><strong>${escapeHTML(suites)}</strong></div></div>` : ""}
+        ${Number(banheiros) > 0 ? `<div class="summary-item"><div class="summary-icon">◈</div><div><span>BANHEIROS</span><strong>${escapeHTML(banheiros)}</strong></div></div>` : ""}
+        ${Number(vagas) > 0 ? `<div class="summary-item"><div class="summary-icon">▤</div><div><span>VAGAS</span><strong>${escapeHTML(vagas)}</strong></div></div>` : ""}
       </div>
 
       <div class="detail-layout">
         <div>
           <section class="detail-section">
             <h2>Descrição do imóvel</h2>
-            <div class="detail-description">${escapeHTML(item.descricao || "Descrição não informada.").replace(/\n/g, "<br>")}</div>
+            <div class="detail-description">${escapeHTML(item.descricao || "Descrição não informada.").replace(/\r?\n/g, "<br>")}</div>
           </section>
 
           <section class="detail-section">
-            <h2>Características</h2>
-            <div class="detail-features">
-              ${
-                features.length
-                  ? features.map(([label, value]) => `
-                    <div class="detail-feature">
-                      <span>${escapeHTML(label)}</span>
-                      <strong>${escapeHTML(value)}</strong>
-                    </div>
-                  `).join("")
-                  : "<p>Características não informadas.</p>"
-              }
-            </div>
+            <h2>Características do imóvel</h2>
+            <div class="detail-features">${featuresHTML.join("")}</div>
           </section>
+
+          ${financialHTML.length ? `
+            <section class="detail-section">
+              <h2>Custos e taxas</h2>
+              <div class="detail-features">${financialHTML.join("")}</div>
+              <p class="form-note">Consulte a corretora para confirmar os valores e a periodicidade das cobranças.</p>
+            </section>
+          ` : ""}
+
+          ${amenities.length ? `
+            <section class="detail-section">
+              <h2>Diferenciais e comodidades</h2>
+              <div class="amenity-list">
+                ${amenities.map(amenity => `
+                  <div class="amenity-item"><span class="amenity-check">✓</span><span>${escapeHTML(amenity)}</span></div>
+                `).join("")}
+              </div>
+            </section>
+          ` : ""}
+
+          ${buildMapSection(item)}
         </div>
 
         <aside class="detail-section detail-contact">
+          <span class="section-kicker">Entre em contato</span>
           <div class="detail-price">${money(item.preco)}</div>
-          <p>Gostaria de saber mais sobre este imóvel? Entre em contato pelo WhatsApp.</p>
-          <a class="btn" href="${detailURL(item)}" target="_blank" rel="noopener noreferrer">Consultar pelo WhatsApp</a>
+          <span class="detail-price-label">Valor anunciado</span>
+
+          <div class="contact-identity">
+            <div class="contact-avatar" aria-hidden="true">PR</div>
+            <div>
+              <strong>Patricia Ribeiro</strong>
+              <span>Corretora de Imóveis · CRECI/SC 60282-F</span>
+            </div>
+          </div>
+
+          <p>Gostou deste imóvel? Entre em contato para tirar dúvidas, consultar condições e combinar uma visita.</p>
+          <a class="btn" href="${escapeHTML(detailURL(item))}" target="_blank" rel="noopener noreferrer">Conversar pelo WhatsApp ↗</a>
+
+          <div class="detail-share">
+            <a href="https://wa.me/?text=${encodeURIComponent("Confira este imóvel: " + title + " — " + shareURL)}" target="_blank" rel="noopener noreferrer">Compartilhar ↗</a>
+            <button type="button" id="copyPropertyLink">Copiar link</button>
+          </div>
+          <p id="shareFeedback" class="detail-contact-note" role="status" aria-live="polite"></p>
+          <p class="detail-contact-note">Informe o código do imóvel ao entrar em contato para facilitar o atendimento.</p>
         </aside>
       </div>
     </div>
@@ -1129,6 +1033,36 @@ function renderPropertyDetails(item) {
     currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
     updateGallery();
   });
+
+  const copyButton = $("copyPropertyLink");
+
+  if (copyButton) {
+    copyButton.addEventListener("click", async () => {
+      const feedback = $("shareFeedback");
+
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(shareURL);
+        } else {
+          const temporary = document.createElement("textarea");
+          temporary.value = shareURL;
+          temporary.style.position = "fixed";
+          temporary.style.opacity = "0";
+          document.body.appendChild(temporary);
+          temporary.select();
+
+          const copied = document.execCommand("copy");
+          temporary.remove();
+
+          if (!copied) throw new Error("Cópia não disponível.");
+        }
+
+        feedback.textContent = "Link copiado. Você já pode compartilhar o anúncio.";
+      } catch (_) {
+        feedback.textContent = "Não foi possível copiar automaticamente. Copie o endereço da página pelo navegador.";
+      }
+    });
+  }
 }
 
 function updateGallery() {
@@ -1136,31 +1070,21 @@ function updateGallery() {
 
   const photos = getPhotos(currentProperty);
   const image = $("detailMainImage");
-
   if (!image || !photos.length) return;
 
   image.style.display = "";
   image.src = photos[currentPhotoIndex];
+  image.alt = (text(currentProperty.titulo) || "Foto do imóvel") +
+    " — foto " + (currentPhotoIndex + 1);
 
-  const placeholder = image.parentElement.querySelector(
-    ".property-placeholder"
-  );
-
-  if (placeholder) placeholder.hidden = true;
+  const photoError = $("detailPhotoError");
+  if (photoError) photoError.hidden = true;
 
   const counter = $("galleryCounter");
+  if (counter) counter.textContent = `${currentPhotoIndex + 1} / ${photos.length}`;
 
-  if (counter) {
-    counter.textContent =
-      `${currentPhotoIndex + 1} / ${photos.length}`;
-  }
-
-  document.querySelectorAll(
-    "#propertyDetailsContent [data-photo-index]"
-  ).forEach(button => {
-    const active =
-      Number(button.dataset.photoIndex) === currentPhotoIndex;
-
+  document.querySelectorAll("#propertyDetailsContent [data-photo-index]").forEach(button => {
+    const active = Number(button.dataset.photoIndex) === currentPhotoIndex;
     button.classList.toggle("active", active);
     button.setAttribute("aria-pressed", String(active));
   });
@@ -1173,11 +1097,14 @@ function filterProperties(list) {
   const maxPrice = priceValue ? Number(priceValue) : Infinity;
 
   return list.filter(item => {
-    const combinedLocation = [item.cidade, item.bairro, item.endereco].map(text).join(" ").toLocaleLowerCase("pt-BR");
+    const combinedLocation = [item.cidade, item.bairro, item.endereco]
+      .map(text).join(" ").toLocaleLowerCase("pt-BR");
     const matchesLocation = !location || combinedLocation.includes(location);
     const matchesType = !type || text(item.tipo).toLocaleLowerCase("pt-BR") === type;
     const itemPrice = Number(item.preco);
-    const matchesPrice = maxPrice === Infinity || (Number.isFinite(itemPrice) && itemPrice <= maxPrice);
+    const matchesPrice = maxPrice === Infinity ||
+      (Number.isFinite(itemPrice) && itemPrice <= maxPrice);
+
     return matchesLocation && matchesType && matchesPrice;
   });
 }
@@ -1195,8 +1122,12 @@ function sortProperties(list) {
       return mode === "menor" ? priceA - priceB : priceB - priceA;
     });
   } else {
-    result.sort((a, b) => (Date.parse(b.data_cadastro || "") || 0) - (Date.parse(a.data_cadastro || "") || 0));
+    result.sort((a, b) =>
+      (Date.parse(b.data_cadastro || "") || 0) -
+      (Date.parse(a.data_cadastro || "") || 0)
+    );
   }
+
   return result;
 }
 
@@ -1221,20 +1152,27 @@ function render() {
   $("featuredEmpty").hidden = featured.length > 0;
   $("allEmpty").hidden = sorted.length > 0;
 
-  $("resultsCount").textContent = sorted.length === 1 ? "1 imóvel encontrado" : `${sorted.length} imóveis encontrados`;
+  $("resultsCount").textContent = sorted.length === 1
+    ? "1 imóvel encontrado"
+    : `${sorted.length} imóveis encontrados`;
+
   setStatus(hasSearched ? "Resultados atualizados com os filtros selecionados." : "");
 }
 
 async function loadProperties() {
   $("resultsCount").textContent = "Carregando imóveis...";
+
   try {
     const response = await fetch(API_URL, {
       method: "GET",
       headers: { Accept: "application/json" },
       cache: "no-store"
     });
+
     if (!response.ok) throw new Error("HTTP " + response.status);
+
     const data = await response.json();
+
     if (Array.isArray(data)) {
       properties = data;
     } else if (data && Array.isArray(data.imoveis)) {
@@ -1258,9 +1196,9 @@ async function loadProperties() {
       area_m2: item.area_m2 ?? item.area,
       descricao: item.descricao ?? item.description,
       data_cadastro: item.data_cadastro ?? item.publishedAt,
-      cidade: item.cidade ?? "",
-      bairro: item.bairro ?? "",
-      endereco: item.endereco ?? item.location
+      cidade: item.cidade ?? item.city ?? "",
+      bairro: item.bairro ?? item.neighborhood ?? "",
+      endereco: item.endereco ?? item.address ?? item.location ?? ""
     }));
 
     render();
@@ -1300,6 +1238,7 @@ function openWhatsApp(message) {
 $("constructionForm").addEventListener("submit", event => {
   event.preventDefault();
   const form = new FormData(event.currentTarget);
+
   const message = [
     "Olá, Patricia! Gostaria de conversar sobre construir minha casa.",
     "",
@@ -1315,12 +1254,14 @@ $("constructionForm").addEventListener("submit", event => {
     "",
     "Gostaria de receber orientações sobre meu projeto, sem compromisso."
   ].join("\n");
+
   openWhatsApp(message);
 });
 
 $("financeForm").addEventListener("submit", event => {
   event.preventDefault();
   const form = new FormData(event.currentTarget);
+
   const message = [
     "Olá, Patricia! Gostaria de solicitar uma simulação gratuita e sem compromisso.",
     "",
@@ -1334,20 +1275,24 @@ $("financeForm").addEventListener("submit", event => {
     "",
     "Gostaria de saber quais possibilidades podem se encaixar no meu perfil."
   ].join("\n");
+
   openWhatsApp(message);
 });
 
 $("sellForm").addEventListener("submit", async event => {
   event.preventDefault();
+
   const form = event.currentTarget;
   const button = form.querySelector('button[type="submit"]');
   const fileInput = $("sellImages");
 
   if (!form.reportValidity()) return;
+
   if (fileInput.files.length > 5) {
     alert("Você pode enviar no máximo 5 imagens.");
     return;
   }
+
   if (button.disabled) return;
 
   const textoOriginal = button.textContent;
@@ -1357,6 +1302,7 @@ $("sellForm").addEventListener("submit", async event => {
   try {
     const formData = new FormData();
     const entries = new FormData(form).entries();
+
     for (const [key, value] of entries) {
       if (key !== "fotos" && key !== "autorizacao") {
         formData.append(key, value);
@@ -1367,6 +1313,7 @@ $("sellForm").addEventListener("submit", async event => {
       formData.append("fotos", fileInput.files[i]);
     }
 
+    /* Mantido o endpoint de salvamento original. */
     const response = await fetch("/api/propostas", {
       method: "POST",
       headers: { "Accept": "application/json" },
@@ -1375,23 +1322,31 @@ $("sellForm").addEventListener("submit", async event => {
 
     const responseText = await response.text();
     let resultado = null;
+
     if (responseText.trim() !== "") {
-      try { resultado = JSON.parse(responseText); } catch { resultado = null; }
+      try {
+        resultado = JSON.parse(responseText);
+      } catch (_) {
+        resultado = null;
+      }
     }
 
     if (!response.ok) {
-      throw new Error(resultado?.error || resultado?.message || `O servidor recusou a solicitação (HTTP ${response.status}).`);
+      throw new Error(resultado?.error || resultado?.message ||
+        `O servidor recusou a solicitação (HTTP ${response.status}).`);
     }
 
     if (resultado && (resultado.success === false || resultado.success === 0)) {
-      throw new Error(resultado.error || resultado.message || "Não foi possível registrar a proposta.");
+      throw new Error(resultado.error || resultado.message ||
+        "Não foi possível registrar a proposta.");
     }
 
     alert("Solicitação enviada com sucesso!\n\nSeu imóvel e as fotos foram encaminhados para análise administrativa. O anúncio não será publicado automaticamente.");
     form.reset();
   } catch (error) {
     console.error("Erro ao cadastrar proposta:", error);
-    alert("Não foi possível confirmar o cadastro do imóvel.\n\n" + (error.message || "Verifique sua conexão e tente novamente."));
+    alert("Não foi possível confirmar o cadastro do imóvel.\n\n" +
+      (error.message || "Verifique sua conexão e tente novamente."));
   } finally {
     button.disabled = false;
     button.textContent = textoOriginal;
@@ -1401,6 +1356,5 @@ $("sellForm").addEventListener("submit", async event => {
 showPage(normalizePage(location.hash), false);
 loadProperties();
 </script>
-
 </body>
 </html>
