@@ -667,36 +667,62 @@ function detailURL(item) {
   return "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
 }
 
+
 function propertyCard(item) {
   const title = text(item.titulo) || "Imóvel disponível";
   const type = text(item.tipo) || "Imóvel";
-  const image = text(item.foto_url);
-  const tag = isFeatured(item) ? "Destaque" : type;
+  const image = text(
+    item.foto_url ||
+    item.foto ||
+    item.imagem ||
+    item.image ||
+    (Array.isArray(item.fotos) ? item.fotos[0] : "")
+  );
+
   const details = propertyDetails(item);
+  const operation = text(item.finalidade || item.negocio || "VENDA");
 
   const imageHTML = image
-    ? `<img src="${escapeHTML(image)}" alt="${escapeHTML(title)}" loading="lazy" onerror="this.style.display='none'">`
-    : `<div class="property-placeholder">Foto em breve</div>`;
+    ? `<img src="${escapeHTML(image)}"
+        alt="${escapeHTML(title)}"
+        loading="lazy"
+        onerror="this.parentElement.classList.add('no-photo')">`
+    : `<div class="property-placeholder">
+         Foto não cadastrada
+       </div>`;
 
   return `
     <article class="property-card">
       <div class="property-image">
         ${imageHTML}
-        <span class="tag">${escapeHTML(tag)}</span>
+        <span class="tag">${escapeHTML(operation.toUpperCase())}</span>
+        <span class="property-type-tag">${escapeHTML(type.toUpperCase())}</span>
+        <span class="property-price-overlay">
+          ${escapeHTML(money(item.preco))}
+        </span>
       </div>
+
       <div class="property-body">
-        <span class="property-type">${escapeHTML(type)}</span>
         <h3>${escapeHTML(title)}</h3>
-        <p class="location">${escapeHTML(locationOf(item))}</p>
-        ${details ? `<div class="property-features">${details}</div>` : ""}
-        <p class="property-price">${money(item.preco)}</p>
-        <a class="property-action" href="#imovel-${encodeURIComponent(String(item.id ?? ""))}" data-property-id="${escapeHTML(item.id ?? "")}">
+
+        <p class="location">
+          ${escapeHTML(locationOf(item))}
+        </p>
+
+        <div class="property-features">
+          ${details || "<span>Consulte as características</span>"}
+        </div>
+
+        <a class="property-action"
+           href="#imovel-${encodeURIComponent(String(item.id ?? ""))}"
+           data-property-id="${escapeHTML(item.id ?? "")}">
           Ver detalhes do imóvel <span aria-hidden="true">→</span>
         </a>
       </div>
     </article>
   `;
 }
+
 
 $("allList").addEventListener("click", handlePropertyClick);
 $("featuredList").addEventListener("click", handlePropertyClick);
