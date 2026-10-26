@@ -97,7 +97,10 @@ img{max-width:100%}
 .location{margin:0;color:var(--muted);font-size:13px}
 .property-features{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;color:var(--muted);font-size:12px}
 .property-price{margin:18px 0;font-size:21px;font-weight:700}
-.property-action{display:flex;justify-content:space-between;gap:12px;padding-top:15px;border-top:1px solid var(--line);color:var(--orange-dark);font-size:13px;font-weight:700}
+.property-action{width:100%;min-height:48px;display:flex;align-items:center;justify-content:center;gap:10px;margin-top:18px;padding:12px 16px;border:0;border-radius:6px;background:var(--orange);color:var(--white);font-size:13px;font-weight:700;text-align:center;box-shadow:0 4px 10px rgba(232,98,42,.16);transition:background .2s,transform .2s,box-shadow .2s}
+.property-action:hover{background:var(--orange-dark);color:var(--white);transform:translateY(-1px);box-shadow:0 7px 16px rgba(201,76,25,.22)}
+.property-action:focus-visible{outline:3px solid rgba(232,98,42,.35);outline-offset:3px}
+.property-action span{font-size:18px;line-height:1}
 .empty-state{padding:30px 20px;border:1px dashed #D8D0C6;border-radius:8px;background:white;color:var(--muted);text-align:center;font-size:14px}
 .empty-state strong{display:block;margin-bottom:8px;color:var(--ink);font-size:18px}
 .status-message{margin:20px 0;color:var(--muted);text-align:center;font-size:14px}
@@ -757,7 +760,7 @@ ${imageHTML}
 <p class="location">${escapeHTML(locationOf(item))}</p>
 ${details ? `<div class="property-features">${details}</div>` : ""}
 <p class="property-price">${money(item.preco)}</p>
-<a class="property-action" href="#terreno-${encodeURIComponent(String(item.id ?? ""))}" data-property-id="${escapeHTML(item.id ?? "")}">
+<a class="property-action" href="#terreno-${encodeURIComponent(String(item.id ?? ""))}" data-property-id="${escapeHTML(item.id ?? "")}" aria-label="Ver detalhes do terreno: ${escapeHTML(title)}">
 Ver detalhes do terreno <span aria-hidden="true">→</span>
 </a>
 </div>
