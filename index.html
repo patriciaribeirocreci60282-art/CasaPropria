@@ -159,7 +159,17 @@ img { max-width:100%; }
 .detail-contact p { color:var(--muted); font-size:13px; line-height:1.8; }
 .detail-contact .btn { width:100%; min-height:52px; margin-top:10px; border-radius:6px; }
 .contact-identity { display:flex; align-items:center; gap:12px; margin:18px 0; padding:15px; border-radius:8px; background:var(--cream); }
-.contact-avatar { width:46px; height:46px; flex:0 0 46px; display:grid; place-items:center; border-radius:50%; background:#FFF0E8; color:var(--orange-dark); font-weight:700; }
+.contact-avatar {
+  width: 46px;
+  height: 46px;
+  flex: 0 0 46px;
+  display: block;
+  object-fit: contain;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: #fff;
+}
 .contact-identity strong { display:block; font-size:14px; }
 .contact-identity span { display:block; color:var(--muted); font-size:11px; }
 .detail-share { display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-top:16px; }
@@ -459,7 +469,12 @@ img { max-width:100%; }
 <section class="internal-page" id="pageDetalhes" hidden>
   <div class="container">
     <a href="#terrenos" class="back-link" data-page="terrenos">← Voltar para os terrenos</a>
-    <div id="propertyDetailsContent">"https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"</div>
+    <div id="propertyDetailsContent">
+  <div class="empty-state">
+    <strong>Selecione um terreno para visualizar os detalhes.</strong>
+    As informações do terreno serão exibidas aqui.
+  </div>
+</div>
   </div>
 </section>
 </main>
@@ -531,9 +546,26 @@ const pages = {
 };
 
 function normalizePage(hash) {
-  const value = decodeURIComponent((hash || "").replace(/^#/, ""));
-  if (value.startsWith("terreno-") || value.startsWith("imovel-")) return "detalhes";
-  return ["terrenos", "anunciar"].includes(value) ? value : "terrenos";
+  const raw = String(hash || "").replace(/^#/, "");
+
+  let value;
+
+  try {
+    value = decodeURIComponent(raw);
+  } catch (_) {
+    return "terrenos";
+  }
+
+  if (
+    value.startsWith("terreno-") ||
+    value.startsWith("imovel-")
+  ) {
+    return "detalhes";
+  }
+
+  return ["terrenos", "anunciar"].includes(value)
+    ? value
+    : "terrenos";
 }
 
 function showPage(page, updateHistory = true, propertyId = null) {
@@ -571,7 +603,7 @@ function restoreFromLocation() {
   const page = normalizePage(location.hash);
 
   if (page === "detalhes") {
-    const hash = decodeURIComponent(location.hash.replace(/^#/, ""));
+   const hash = location.hash.replace(/^#/, "");
     const id = hash.replace(/^(terreno-|imovel-)/, "");
     const item = properties.find(p => String(p.id) === id);
 
@@ -984,10 +1016,19 @@ function renderPropertyDetails(item) {
           <div class="detail-price">${money(item.preco)}</div>
           <span class="detail-price-label">Valor anunciado</span>
 
-          <div class="contact-identity">
-            <div class="contact-avatar" aria-hidden="true"></div>
-            <div><strong>Patricia Ribeiro</strong><span>Corretora de Imóveis · CRECI/SC 60282-F</span></div>
-          </div>
+         <div class="contact-identity">
+  <img
+    class="contact-avatar"
+    src="./Gemini_Generated_Image_9wawnj9wawnj9waw-removebg-preview%20(1).png"
+    alt="Logo Patricia Ribeiro"
+    width="46"
+    height="46"
+  >
+  <div>
+    <strong>Patricia Ribeiro</strong>
+    <span>Corretora de Imóveis · CRECI/SC 60282-F</span>
+  </div>
+</div>
 
           <p>Gostou deste terreno? Entre em contato para tirar dúvidas e consultar as condições.</p>
           <a class="btn" href="${escapeHTML(detailURL(item))}" target="_blank" rel="noopener noreferrer">Conversar pelo WhatsApp ↗</a>
