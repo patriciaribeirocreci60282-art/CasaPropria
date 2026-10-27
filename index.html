@@ -91,7 +91,6 @@ img { max-width:100%; }
 .property-image { position:relative; aspect-ratio:4/3; overflow:hidden; background:#E8E4DD; }
 .property-image img { display:block; width:100%; height:100%; object-fit:cover; object-position:center; }
 .property-placeholder { width:100%; height:100%; min-height:140px; display:grid; place-items:center; padding:20px; color:var(--muted); font-size:14px; text-align:center; }
-.tag { position:absolute; top:14px; left:14px; max-width:calc(100% - 28px); padding:7px 11px; overflow:hidden; border-radius:5px; background:white; color:var(--orange-dark); font-size:11px; font-weight:700; text-overflow:ellipsis; white-space:nowrap; box-shadow:0 2px 8px rgba(0,0,0,.08); }
 .property-body { flex:1; display:flex; flex-direction:column; padding:22px 20px 20px; }
 .property-type { color:var(--orange-dark); font-size:11px; font-weight:700; letter-spacing:.6px; text-transform:uppercase; }
 .property-body h3 { margin:8px 0 10px; font-size:17px; font-weight:600; line-height:1.45; letter-spacing:-.2px; overflow-wrap:anywhere; }
@@ -738,12 +737,11 @@ function propertyCard(item) {
     ? `<div class="property-features">${areaHTML}${classificationHTML}</div>`
     : "";
 
-  return `
-    <article class="property-card">
-      <div class="property-image">
-        ${imageHTML}
-        <span class="tag">${escapeHTML(tag)}</span>
-      </div>
+ return `
+<article class="property-card">
+<div class="property-image">
+${imageHTML}
+</div>
       <div class="property-body">
         <span class="property-type">Terreno</span>
         <h3>${escapeHTML(title)}</h3>
