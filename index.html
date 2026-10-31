@@ -9,14 +9,14 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --orange:#E8622A;
-  --orange-dark:#C94C19;
-  --ink:#262823;
-  --muted:#625F59;
+  --orange:#f26522;
+  --orange-dark:#d95316;
+  --ink:#4c5661;
+  --muted:#8a94a0;
   --line:#E7E2DA;
   --cream:#F7F5F1;
   --white:#FFFFFF;
@@ -24,7 +24,7 @@
 }
 * { box-sizing:border-box; }
 html { scroll-behavior:smooth; scroll-padding-top:20px; }
-body { margin:0; color:var(--ink); background:#fff; font-family:Montserrat,sans-serif; font-size:15px; line-height:1.65; }
+body { margin:0; color:var(--ink); background:#fff; font-family:Inter,Montserrat,sans-serif; font-size:15px; line-height:1.65; }
 button,input,select,textarea { font:inherit; }
 button,a { -webkit-tap-highlight-color:transparent; }
 a { color:inherit; text-decoration:none; }
@@ -63,7 +63,7 @@ img { max-width:100%; }
 .field label { display:block; margin-bottom:7px; font-size:14px; font-weight:700; }
 .field input,.field select,.field textarea { display:block; width:100%; min-width:0; min-height:50px; padding:12px; border:1px solid #DCD7CF; border-radius:5px; outline:none; color:var(--ink); background:white; font-size:14px; }
 .field textarea { min-height:100px; resize:vertical; }
-.field input:focus,.field select:focus,.field textarea:focus { border-color:var(--orange); box-shadow:0 0 0 3px rgba(232,98,42,.12); }
+.field input:focus,.field select:focus,.field textarea:focus { border-color:var(--orange); box-shadow:0 0 0 3px rgba(242,101,34,.12); }
 .search-grid .field label { font-size:12px; margin-bottom:5px; }
 .search-grid .field input,.search-grid .field select { height:44px; min-height:44px; padding:0 10px; font-size:13px; }
 .btn { min-height:52px; display:inline-flex; align-items:center; justify-content:center; gap:9px; padding:0 22px; border:0; border-radius:5px; background:var(--orange); color:white; font-size:14px; font-weight:700; transition:background .2s; }
@@ -84,125 +84,136 @@ img { max-width:100%; }
 .sort-control { display:flex; align-items:center; gap:12px; font-size:14px; font-weight:600; }
 .sort-control select { min-height:44px; padding:0 12px; border:1px solid var(--line); border-radius:5px; background:white; font-size:14px; }
 
-/* CARDS DE TERRENOS — hierarquia inspirada no modelo enviado */
+/* NOVO DESIGN DO CARD — IDÊNTICO AO MODELO SOLICITADO */
 .property-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; align-items:stretch; }
+.property-card {
+  background:#ffffff;
+  border-radius:28px;
+  box-shadow:0 10px 30px rgba(0,0,0,.06);
+  border:1px solid #f1f5f9;
+  padding:12px;
+  display:flex;
+  flex-direction:column;
+  transition:transform .3s ease;
+}
+.property-card:hover {
+  transform:translateY(-4px);
+}
+.property-image {
+  position:relative;
+  width:100%;
+  height:250px;
+  border-radius:22px;
+  overflow:hidden;
+  background:#f1f5f9;
+}
+.property-image img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform .5s ease;
+}
+.property-card:hover .property-image img {
+  transform:scale(1.04);
+}
+.property-placeholder {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:100%;
+  color:var(--muted);
+  font-size:14px;
+}
+.fav-btn {
+  position:absolute;
+  top:12px;
+  right:12px;
+  width:36px;
+  height:36px;
+  background:rgba(0,0,0,.2);
+  backdrop-filter:blur(6px);
+  border-radius:50%;
+  border:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  transition:background .2s;
+}
+.fav-btn:hover { background:rgba(0,0,0,.4); }
+
 .property-body {
   flex:1;
   display:flex;
   flex-direction:column;
-  align-items:stretch;
-  padding:18px 12px 12px;
-}
-
-.property-type {
-  order:1;
-  display:block;
-  margin:0 0 5px;
-  color:var(--orange-dark);
-  font-size:15px;
-  font-weight:800;
-  letter-spacing:.5px;
-  text-transform:uppercase;
-}
-
-.property-body h3 {
-  order:2;
-  width:100%;
-  margin:0 0 9px;
-  color:var(--ink);
-  font-size:18px;
-  font-weight:700;
-  line-height:1.35;
-  overflow-wrap:anywhere;
+  padding:16px 8px 8px;
 }
 
 .location {
-  order:3;
-  display:block;
-  width:100%;
-  margin:0 0 10px;
+  margin:0 0 4px;
   color:var(--muted);
-  font-size:13px;
-  line-height:1.5;
+  font-size:14px;
+  line-height:1.3;
+  font-weight:400;
+}
+
+.property-body h3 {
+  margin:0 0 12px;
+  color:var(--orange);
+  font-size:20px;
+  font-weight:700;
+  line-height:1.25;
+  letter-spacing:-.3px;
 }
 
 .property-features {
-  order:4;
   display:flex;
-  flex-wrap:wrap;
   align-items:center;
-  gap:7px 12px;
-  width:100%;
-  margin:0 0 10px;
-  color:var(--muted);
-  font-size:13px;
+  gap:8px;
+  margin:0 0 16px;
+  color:var(--orange);
 }
-
-.property-classification {
-  order:5;
-  align-self:flex-start;
-  margin:0 0 14px;
-  padding:4px 8px;
-  border-radius:5px;
-  background:#FFF3EC;
-  color:var(--orange-dark);
-  font-size:11px;
-  font-weight:600;
+.property-feature-icon {
+  display:flex;
+  align-items:center;
+}
+.property-feature-text {
+  font-size:18px;
+  font-weight:700;
+  color:var(--orange);
 }
 
 .property-price {
-  order:6;
-  width:100%;
-  min-height:52px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  margin:0 0 10px;
-  padding:10px 12px;
-  border-radius:8px;
-  background:var(--orange);
-  color:#fff;
-  font-size:21px;
-  font-weight:800;
-  line-height:1.3;
-  text-align:center;
-  overflow-wrap:anywhere;
-}
-
-.property-action {
-  order:7;
-  width:100%;
-  min-height:52px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  margin-top:auto;
-  padding:12px 15px;
-  border:0;
+  align-self:flex-start;
+  margin:0 0 20px;
+  padding:6px 14px;
   border-radius:8px;
   background:var(--ink);
   color:#fff;
-  font-size:13px;
+  font-size:16px;
+  font-weight:700;
+  line-height:1.3;
+}
+
+.property-action {
+  width:100%;
+  min-height:50px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-top:auto;
+  padding:12px 20px;
+  border:0;
+  border-radius:50px;
+  background:var(--orange);
+  color:#fff;
+  font-size:16px;
   font-weight:700;
   text-align:center;
-  transition:background .2s,transform .2s;
+  transition:background .2s, transform .1s;
 }
-
 .property-action:hover {
-  transform:translateY(-1px);
   background:var(--orange-dark);
-  color:#fff;
-}
-
-.property-action:focus-visible {
-  outline:3px solid rgba(232,98,42,.35);
-  outline-offset:3px;
-}
-
-.property-action span {
-  font-size:18px;
-  line-height:1;
 }
 
 .empty-state { padding:30px 20px; border:1px dashed #D8D0C6; border-radius:8px; background:white; color:var(--muted); text-align:center; font-size:14px; }
@@ -319,13 +330,6 @@ img { max-width:100%; }
   .section { padding:45px 0; }
   .section-heading { align-items:flex-start; flex-direction:column; gap:12px; }
   .property-grid { grid-template-columns:1fr; gap:20px; }
-  .property-card { border-radius:20px; }
-  .property-image { aspect-ratio:4/3; }
-  .property-body { padding:17px 12px 12px; }
-  .property-body h3 { font-size:19px; }
-  .property-card { border-radius:20px; }
-  .property-image { aspect-ratio:4/3; }
-  .property-body { padding:17px 12px 12px; }
   .listing-toolbar { align-items:stretch; flex-direction:column; }
   .sort-control { align-items:flex-start; flex-direction:column; }
   .sort-control select { width:100%; }
@@ -346,8 +350,6 @@ img { max-width:100%; }
   .detail-features,.amenity-list { grid-template-columns:repeat(2,minmax(0,1fr)); }
   .detail-map { height:280px; }
   .whatsapp { right:12px; bottom:12px; min-height:50px; padding:10px 15px; }
-  .property-body { padding:19px 17px 17px; }
-  .property-price { font-size:22px; }
 }
 @media(max-width:380px) {
   .brand-name { font-size:16px; }
@@ -829,10 +831,9 @@ function detailURL(item) {
   return "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
 }
 
-/* Card de terreno: localização > título > metragem > preço > ação */
+/* Card de terreno ajustado para a hierarquia e visual do modelo */
 function propertyCard(item) {
   const title = text(item.titulo) || "Terreno disponível";
-  const classification = text(classificationOf(item));
   const image = text(item.foto_url);
   const area = propertyArea(item);
   const location = locationOf(item);
@@ -843,39 +844,42 @@ function propertyCard(item) {
 
   const areaHTML = Number(area) > 0
     ? `<div class="property-features">
-         <span class="property-feature">
-           <span class="property-feature-icon" aria-hidden="true">▱</span>
-           ${escapeHTML(area)} m² de terreno
-         </span>
+         <div class="property-feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="3" y="3" width="18" height="18" rx="1" stroke="#f26522" stroke-width="2" stroke-dasharray="2 2"/>
+              <circle cx="4" cy="4" r="2" fill="#f26522"/>
+              <circle cx="20" cy="4" r="2" fill="#f26522"/>
+              <circle cx="4" cy="20" r="2" fill="#f26522"/>
+              <circle cx="20" cy="20" r="2" fill="#f26522"/>
+            </svg>
+         </div>
+         <span class="property-feature-text">${escapeHTML(area)} m²</span>
        </div>`
-    : "";
-
-  const classificationHTML = classification
-    ? `<span class="property-classification">${escapeHTML(classification)}</span>`
     : "";
 
   return `
     <article class="property-card">
-      <div class="property-image">${imageHTML}</div>
+      <div class="property-image">
+        ${imageHTML}
+        <button type="button" class="fav-btn" aria-label="Favoritar" onclick="this.querySelector('svg').classList.toggle('fill-white')">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.684a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+        </button>
+      </div>
 
       <div class="property-body">
-        <span class="property-type">TERRENO</span>
+        <p class="location">${escapeHTML(location)}</p>
 
         <h3>${escapeHTML(title)}</h3>
 
-        <p class="location">${escapeHTML(location)}</p>
-
         ${areaHTML}
 
-        ${classificationHTML}
-
-        <p class="property-price">${money(item.preco)}</p>
+        <div class="property-price">${money(item.preco)}</div>
 
         <a class="property-action"
            href="#terreno-${encodeURIComponent(String(item.id ?? ""))}"
            data-property-id="${escapeHTML(item.id ?? "")}"
            aria-label="Conhecer imóvel: ${escapeHTML(title)}">
-          CONHECER IMÓVEL <span aria-hidden="true">→</span>
+          Conhecer Imóvel
         </a>
       </div>
     </article>`;
