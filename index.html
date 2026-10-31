@@ -375,6 +375,110 @@ img { max-width:100%; }
     transition-duration:.01ms!important;
   }
 }
+  
+/* Card de terreno: informações compactas */
+.property-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #EEEAE4;
+  border-radius: 20px;
+  background: #FFFFFF;
+  box-shadow: 0 5px 20px rgba(38, 40, 35, 0.07);
+}
+
+.property-image {
+  position: relative;
+  width: calc(100% - 10px);
+  aspect-ratio: 1.45 / 1;
+  margin: 5px;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.property-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.property-body {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 16px 18px 20px;
+}
+
+.property-type {
+  color: #C94C19;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.property-body h3 {
+  margin: 4px 0 8px;
+  color: #C94C19;
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+.location {
+  margin: 0;
+  color: #77736D;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.property-features {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  color: #625F59;
+  font-size: 13px;
+}
+
+.property-features span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.property-price {
+  align-self: flex-start;
+  margin: 12px 0 0;
+  padding: 5px 10px;
+  border-radius: 6px;
+  background: #262823;
+  color: #FFFFFF;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.property-action {
+  width: 100%;
+  min-height: 48px;
+  margin-top: 20px;
+  border: 0;
+  border-radius: 50px;
+  background: #E8622A;
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 5px 12px rgba(232, 98, 42, .2);
+}
+
+.property-action:hover {
+  background: #C94C19;
+  color: #FFFFFF;
+}
+
 </style>
 </head>
 
@@ -1025,9 +1129,18 @@ function buildMapSection(item) {
     </section>`;
 }
 
-function renderPropertyDetails(item) {
-  currentProperty = item;
-  currentPhotoIndex = 0;
+
+function propertyDetails(item) {
+  const area = propertyArea(item);
+
+  if (!(Number(area) > 0)) return "";
+
+  return `
+    <span>
+      ${escapeHTML(area)} m² de terreno
+    </span>
+  `;
+}
 
   const photos = getPhotos(item);
   const title = text(item.titulo) || "Detalhes do terreno";
