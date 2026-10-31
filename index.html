@@ -258,6 +258,7 @@ img { max-width:100%; }
 .detail-section h2 { margin:0 0 20px; font-size:clamp(20px,2.5vw,25px); font-weight:700; letter-spacing:-.5px; }
 .detail-description { color:var(--muted); font-size:14px; line-height:1.95; overflow-wrap:anywhere; }
 .detail-features { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+.detail-feature.full { grid-column: 1 / -1; }
 .detail-feature { min-width:0; padding:15px; border:1px solid var(--line); border-radius:8px; background:var(--cream); }
 .detail-feature span { display:block; color:var(--muted); font-size:11px; font-weight:700; letter-spacing:.6px; text-transform:uppercase; }
 .detail-feature strong { display:block; margin-top:5px; font-size:15px; overflow-wrap:anywhere; }
@@ -1025,7 +1026,14 @@ function renderPropertyDetails(item) {
   addFeature(featuresHTML, "Cidade", firstValue(item, ["cidade", "city"]));
   addFeature(featuresHTML, "Bairro", firstValue(item, ["bairro", "neighborhood"]));
   if (area !== "") addFeature(featuresHTML, "Área do terreno", area + " m²");
-  addFeature(featuresHTML, "Endereço", getPropertyAddress(item));
+  const address = getPropertyAddress(item);
+if (address !== "") {
+  featuresHTML.push(`
+    <div class="detail-feature full">
+      <span>ENDEREÇO</span>
+      <strong>${escapeHTML(address)}</strong>
+    </div>`);
+}
 
   if (featuresHTML.length === 0) {
     featuresHTML.push('<div class="detail-empty">Características ainda não cadastradas.</div>');
