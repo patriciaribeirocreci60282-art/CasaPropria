@@ -745,10 +745,11 @@ img {
         <span class="results-count" id="resultsCount">Carregando terrenos...</span>
         <label class="sort-control" for="sort">Ordenar por
           <select id="sort">
-            <option value="recentes">Mais recentes</option>
-            <option value="menor">Menor preço</option>
-            <option value="maior">Maior preço</option>
-          </select>
+  <option value="recentes">Mais recentes</option>
+  <option value="menor">Menor preço</option>
+  <option value="maior">Maior preço</option>
+  <option value="favoritos">Meus favoritos ❤️</option>
+</select>
         </label>
       </div>
       <div class="property-grid" id="allList"></div>
@@ -1621,13 +1622,22 @@ function sortProperties(list) {
   const mode = $("sort").value;
   const result = [...list];
 
+  // Mostrar somente os terrenos favoritados
+  if (mode === "favoritos") {
+    return result.filter(item => isFavorite(item.id));
+  }
+
   if (mode === "menor" || mode === "maior") {
     result.sort((a, b) => {
       const priceA = Number(a.preco);
       const priceB = Number(b.preco);
+
       if (!Number.isFinite(priceA)) return 1;
       if (!Number.isFinite(priceB)) return -1;
-      return mode === "menor" ? priceA - priceB : priceB - priceA;
+
+      return mode === "menor"
+        ? priceA - priceB
+        : priceB - priceA;
     });
   } else {
     result.sort((a, b) =>
