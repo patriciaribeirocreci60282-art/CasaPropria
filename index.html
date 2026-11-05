@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<style>
+<style>   
 :root {
   --orange:#f26522;
   --orange-dark:#d95316;
@@ -634,6 +634,31 @@ img {
     padding: 12px;
   }
 }
+    /* Classificação do terreno */
+.property-classification {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  margin: 0 0 14px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: #fff0e8;
+  color: var(--orange-dark);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* Descrição do terreno */
+.property-description {
+  display: -webkit-box;
+  margin: 0 0 18px;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
 </style>
 </head>
 
@@ -1143,11 +1168,13 @@ function detailURL(item) {
 
 /* Card de terreno ajustado para a hierarquia e visual do modelo */
 function propertyCard(item) {
-  const title = text(item.titulo) || "Terreno disponível";
-  const image = text(item.foto_url);
-  const area = propertyArea(item);
-  const location = locationOf(item);
-  const favorite = isFavorite(item.id);
+ const title = text(item.titulo) || "Terreno disponível";
+const image = text(item.foto_url);
+const area = propertyArea(item);
+const location = locationOf(item);
+const favorite = isFavorite(item.id);
+const classification = classificationOf(item);
+const description = text(item.descricao);
 
   const imageHTML = image
     ? `<img src="${escapeHTML(image)}"
@@ -1209,12 +1236,24 @@ function propertyCard(item) {
       <div class="property-body">
 
         <p class="location">
-          ${escapeHTML(location)}
-        </p>
+  ${escapeHTML(location)}
+</p>
 
-        <h3>${escapeHTML(title)}</h3>
+<h3>${escapeHTML(title)}</h3>
 
-        ${areaHTML}
+${classification ? `
+  <span class="property-classification">
+    ${escapeHTML(classification)}
+  </span>
+` : ""}
+
+${areaHTML}
+
+${description ? `
+  <p class="property-description">
+    ${escapeHTML(description)}
+  </p>
+` : ""}
 
         <div class="property-price">
           ${money(item.preco)}
