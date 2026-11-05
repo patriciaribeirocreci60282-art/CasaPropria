@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<style>   
+<style>
 :root {
   --orange:#f26522;
   --orange-dark:#d95316;
@@ -84,7 +84,41 @@ img { max-width:100%; }
 .sort-control { display:flex; align-items:center; gap:12px; font-size:14px; font-weight:600; }
 .sort-control select { min-height:44px; padding:0 12px; border:1px solid var(--line); border-radius:5px; background:white; font-size:14px; }
 
-/* NOVO DESIGN DO CARD — IDÊNTICO AO MODELO SOLICITADO */
+/* IDENTIFICAÇÃO E CLASSIFICAÇÃO DO TERRENO */
+
+.property-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 12px;
+}
+
+.property-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 11px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .4px;
+  line-height: 1.3;
+}
+
+.property-badge.sale {
+  background: #fff0e8;
+  color: #d95316;
+}
+
+.property-badge.ready {
+  background: #e9f5ed;
+  color: #267344;
+}
+
+.property-badge.launch {
+  background: #edf1ff;
+  color: #4059a6;
+}
+  /* NOVO DESIGN DO CARD — IDÊNTICO AO MODELO SOLICITADO */
 .property-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; align-items:stretch; }
 .property-card {
   background:#ffffff;
@@ -634,31 +668,6 @@ img {
     padding: 12px;
   }
 }
-    /* Classificação do terreno */
-.property-classification {
-  display: inline-flex;
-  align-self: flex-start;
-  align-items: center;
-  margin: 0 0 14px;
-  padding: 6px 12px;
-  border-radius: 20px;
-  background: #fff0e8;
-  color: var(--orange-dark);
-  font-size: 12px;
-  font-weight: 700;
-}
-
-/* Descrição do terreno */
-.property-description {
-  display: -webkit-box;
-  margin: 0 0 18px;
-  overflow: hidden;
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.6;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-}
 </style>
 </head>
 
@@ -1168,13 +1177,26 @@ function detailURL(item) {
 
 /* Card de terreno ajustado para a hierarquia e visual do modelo */
 function propertyCard(item) {
- const title = text(item.titulo) || "Terreno disponível";
-const image = text(item.foto_url);
-const area = propertyArea(item);
-const location = locationOf(item);
-const favorite = isFavorite(item.id);
-const classification = classificationOf(item);
-const description = text(item.descricao);
+  const title = text(item.titulo) || "Terreno disponível";
+  const image = text(item.foto_url);
+  const area = propertyArea(item);
+  const location = locationOf(item);
+  const favorite = isFavorite(item.id);
+
+  const classification = normalizeClassification(
+    classificationOf(item)
+  );
+
+  let classificationLabel = "";
+  let classificationClass = "";
+
+  if (classification === "pronto") {
+    classificationLabel = "PRONTO PARA CONSTRUIR";
+    classificationClass = "ready";
+  } else if (classification === "lancamento") {
+    classificationLabel = "LANÇAMENTO";
+    classificationClass = "launch";
+  }
 
   const imageHTML = image
     ? `<img src="${escapeHTML(image)}"
@@ -1186,11 +1208,11 @@ const description = text(item.descricao);
   const areaHTML = Number(area) > 0
     ? `<div class="property-features">
          <div class="property-feature-icon">
-           <svg width="24" height="24" viewBox="0 0 24 24"
-             fill="none">
-             <rect x="3" y="3" width="18" height="18" rx="1"
-               stroke="#f26522" stroke-width="2"
-               stroke-dasharray="2 2"/>
+           <svg width="24" height="24"
+             viewBox="0 0 24 24" fill="none">
+             <rect x="3" y="3" width="18" height="18"
+               rx="1" stroke="#f26522"
+               stroke-width="2" stroke-dasharray="2 2"/>
              <circle cx="4" cy="4" r="2" fill="#f26522"/>
              <circle cx="20" cy="4" r="2" fill="#f26522"/>
              <circle cx="4" cy="20" r="2" fill="#f26522"/>
@@ -1225,35 +1247,35 @@ const description = text(item.descricao);
             stroke-width="2.5"
             stroke-linecap="round"
             stroke-linejoin="round">
-
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
           </svg>
 
         </button>
-
       </div>
 
       <div class="property-body">
 
+        <div class="property-badges">
+
+          <span class="property-badge sale">
+            TERRENO À VENDA
+          </span>
+
+          ${classificationLabel ? `
+            <span class="property-badge ${classificationClass}">
+              ${classificationLabel}
+            </span>
+          ` : ""}
+
+        </div>
+
         <p class="location">
-  ${escapeHTML(location)}
-</p>
+          ${escapeHTML(location)}
+        </p>
 
-<h3>${escapeHTML(title)}</h3>
+        <h3>${escapeHTML(title)}</h3>
 
-${classification ? `
-  <span class="property-classification">
-    ${escapeHTML(classification)}
-  </span>
-` : ""}
-
-${areaHTML}
-
-${description ? `
-  <p class="property-description">
-    ${escapeHTML(description)}
-  </p>
-` : ""}
+        ${areaHTML}
 
         <div class="property-price">
           ${money(item.preco)}
@@ -1262,7 +1284,7 @@ ${description ? `
         <a class="property-action"
           href="#terreno-${encodeURIComponent(String(item.id ?? ""))}"
           data-property-id="${escapeHTML(item.id ?? "")}"
-          aria-label="Conhecer imóvel: ${escapeHTML(title)}">
+          aria-label="Conhecer terreno: ${escapeHTML(title)}">
 
           Conhecer Imóvel
 
@@ -1271,9 +1293,6 @@ ${description ? `
       </div>
     </article>`;
 }
-$("allList").addEventListener("click", handleCardClick);
-$("featuredList").addEventListener("click", handleCardClick);
-
 function handleCardClick(event) {
 
   const favoriteButton = event.target.closest("[data-favorite-id]");
