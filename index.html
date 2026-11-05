@@ -165,17 +165,6 @@ img { max-width:100%; }
   line-height:1.25;
   letter-spacing:-.3px;
 }
-  .property-classification {
-  display: inline-flex;
-  align-self: flex-start;
-  margin: 0 0 10px;
-  padding: 5px 12px;
-  border-radius: 20px;
-  background: #fff0e8;
-  color: #d95316;
-  font-size: 12px;
-  font-weight: 700;
-}
 
 .property-features {
   display:flex;
@@ -1096,23 +1085,16 @@ function normalizeClassification(value) {
   const normalized = text(value)
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase()
+    .toLocaleLowerCase("pt-BR")
     .replace(/[_-]+/g, " ")
     .replace(/\s+/g, " ")
     .trim();
 
-  if (
-    normalized.includes("lancamento") ||
-    normalized.includes("na planta")
-  ) {
+  if (normalized.includes("lancamento") || normalized.includes("na planta")) {
     return "lancamento";
   }
 
-  if (
-    normalized.includes("pronto") ||
-    normalized.includes("construir") ||
-    normalized.includes("disponivel")
-  ) {
+  if (normalized.includes("pronto") || normalized.includes("construir") || normalized.includes("disponivel")) {
     return "pronto";
   }
 
@@ -1121,14 +1103,9 @@ function normalizeClassification(value) {
 
 function classificationOf(item) {
   return firstValue(item, [
-    "classificacao",
-    "classificação",
-    "classificacao_terreno",
-    "tipo_terreno",
-    "categoria_terreno",
-    "situacao_terreno",
-    "status_terreno",
-    "tipoClassificacao"
+    "classificacao", "classificação",
+    "tipo_terreno", "categoria_terreno",
+    "situacao_terreno", "status_terreno"
   ]);
 }
 
