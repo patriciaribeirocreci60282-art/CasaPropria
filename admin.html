@@ -1,1118 +1,1423 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#FFFFFF">
-<title>Painel Administrativo | CasaPrópria</title>
+<meta name="description" content="Encontre terrenos para construir ou investir com Patricia Ribeiro. Anuncie seu terreno e consulte oportunidades.">
+<title>Terrenos | Patricia Ribeiro</title>
+ 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+ 
 <style>
 :root {
-  --orange: #E8622A;
-  --dark: #C94C19;
-  --ink: #262823;
-  --muted: #625F59;
-  --line: #E7E2DA;
-  --cream: #F7F5F1;
-  --green: #247547;
-  --red: #B42318;
-  --blue: #1D63B8;
+  --orange:#f26522;
+  --orange-dark:#d95316;
+  --ink:#4c5661;
+  --muted:#8a94a0;
+  --line:#E7E2DA;
+  --cream:#F7F5F1;
+  --white:#FFFFFF;
+  --shadow:0 16px 45px rgba(27,31,24,.12);
 }
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  background: var(--cream);
-  color: var(--ink);
-  font: 15px/1.6 Montserrat, sans-serif;
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; scroll-padding-top:20px; }
+html, body { width:100%; max-width:100%; overflow-x:hidden; }
+body { margin:0; color:var(--ink); background:#fff; font-family:Inter,Montserrat,sans-serif; font-size:15px; line-height:1.65; }
+button,input,select,textarea { font:inherit; }
+button,a { -webkit-tap-highlight-color:transparent; }
+a { color:inherit; text-decoration:none; }
+button { cursor:pointer; }
+img { max-width:100%; }
+[hidden] { display:none!important; }
+.container { width:min(1440px,calc(100% - 48px)); margin-inline:auto; }
+ 
+.header { position:relative; z-index:20; background:#fff; border-bottom:1px solid var(--line); }
+.header-inner { min-height:72px; display:flex; align-items:center; justify-content:space-between; gap:22px; }
+.brand { display:flex; align-items:center; gap:8px; min-width:0; }
+.brand-logo { display:block; width:45px; height:45px; flex:0 0 45px; object-fit:contain; }
+.brand-text { display:flex; flex-direction:column; min-width:0; }
+.brand-name { font-size:clamp(18px,2vw,24px); font-weight:600; letter-spacing:-.5px; line-height:1.2; white-space:nowrap; }
+.brand-sub { color:var(--muted); font-size:13px; font-weight:500; }
+.nav { display:flex; align-items:center; justify-content:flex-end; gap:clamp(12px,2vw,28px); }
+.nav a { padding:8px 0; font-size:12px; font-weight:700; white-space:nowrap; }
+.nav a:hover { color:var(--orange-dark); }
+.nav .nav-login { padding:10px 18px; border-radius:5px; background:var(--orange); color:white; }
+.nav .nav-login:hover { background:var(--orange-dark); color:white; }
+.menu-toggle { display:none; width:44px; height:44px; align-items:center; justify-content:center; border:1px solid var(--line); border-radius:6px; background:#fff; }
+.menu-toggle svg { width:25px; height:25px; }
+ 
+.hero { position:relative; isolation:isolate; min-height:clamp(420px,48vw,650px); display:flex; align-items:center; justify-content:center; padding:60px 24px 110px; text-align:center; background:#454940; }
+.hero:before { content:""; position:absolute; inset:0; z-index:-2; background:url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2400&q=90") center 55%/cover; }
+.hero:after { content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(90deg,rgba(25,30,25,.65),rgba(25,30,25,.35),rgba(25,30,25,.42)); }
+.hero-content { width:100%; max-width:1250px; margin:auto; }
+.hero h1 { margin:0; color:white; font-size:clamp(38px,5.5vw,72px); font-weight:600; line-height:1.18; letter-spacing:-1.5px; text-shadow:0 3px 24px rgba(0,0,0,.7); }
+.hero p { max-width:680px; margin:18px auto 0; color:white; font-size:clamp(15px,2vw,19px); text-shadow:0 2px 12px rgba(0,0,0,.65); }
+ 
+.search-wrap { position:relative; z-index:3; width:min(1200px,calc(100% - 48px)); margin:-65px auto 0; }
+.search-panel { padding:20px 22px; background:white; border:1px solid var(--line); border-radius:8px; box-shadow:0 18px 45px rgba(0,0,0,.16); }
+.search-title { margin:0 0 15px; font-size:19px; font-weight:700; line-height:1.3; }
+.search-grid { display:grid; grid-template-columns:1.2fr 1fr 1fr auto; gap:12px; align-items:end; }
+.field { min-width:0; }
+.field label { display:block; margin-bottom:7px; font-size:14px; font-weight:700; }
+.field input,.field select,.field textarea { display:block; width:100%; min-width:0; min-height:50px; padding:12px; border:1px solid #DCD7CF; border-radius:5px; outline:none; color:var(--ink); background:white; font-size:14px; }
+.field textarea { min-height:100px; resize:vertical; }
+.field input:focus,.field select:focus,.field textarea:focus { border-color:var(--orange); box-shadow:0 0 0 3px rgba(242,101,34,.12); }
+.search-grid .field label { font-size:12px; margin-bottom:5px; }
+.search-grid .field input,.search-grid .field select { height:44px; min-height:44px; padding:0 10px; font-size:13px; }
+.btn { min-height:52px; display:inline-flex; align-items:center; justify-content:center; gap:9px; padding:0 22px; border:0; border-radius:5px; background:var(--orange); color:white; font-size:14px; font-weight:700; transition:background .2s; }
+.btn:hover { background:var(--orange-dark); }
+.btn:disabled { opacity:.65; cursor:wait; }
+.btn-block { width:100%; margin-top:22px; }
+.search-grid .btn { min-height:44px; padding:0 16px; white-space:nowrap; font-size:13px; }
+ 
+.section { padding:70px 0; }
+.section.soft { background:var(--cream); }
+.section-heading { display:flex; align-items:end; justify-content:space-between; gap:24px; margin-bottom:30px; }
+.section h2 { margin:0; font-size:clamp(27px,3vw,36px); font-weight:600; line-height:1.3; }
+.section-kicker { display:block; margin-bottom:8px; color:var(--orange-dark); font-size:12px; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
+.section-desc { margin:10px 0 0; color:var(--muted); font-size:14px; }
+.text-link { color:var(--orange-dark); font-size:14px; font-weight:700; }
+.listing-toolbar { display:flex; align-items:center; justify-content:space-between; gap:18px; margin-bottom:24px; }
+.results-count { color:var(--muted); font-size:14px; }
+.sort-control { display:flex; align-items:center; gap:12px; font-size:14px; font-weight:600; }
+.sort-control select { min-height:44px; padding:0 12px; border:1px solid var(--line); border-radius:5px; background:white; font-size:14px; }
+ 
+/* Selos do card */
+.property-badges { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:12px; }
+.property-badge { display:inline-flex; align-items:center; padding:6px 11px; border-radius:6px; font-size:10px; font-weight:800; letter-spacing:.4px; line-height:1.3; }
+.property-badge.sale { background:#fff0e8; color:#d95316; }
+.property-badge.ready { background:#e9f5ed; color:#267344; }
+.property-badge.launch { background:#edf1ff; color:#4059a6; }
+ 
+/* Cards */
+.property-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; align-items:stretch; }
+.property-card { background:#fff; border-radius:28px; box-shadow:0 10px 30px rgba(0,0,0,.06); border:1px solid #f1f5f9; padding:12px; display:flex; flex-direction:column; transition:transform .3s ease; }
+.property-card:hover { transform:translateY(-4px); }
+.property-image { position:relative; width:100%; height:250px; border-radius:22px; overflow:hidden; background:#f1f5f9; }
+.property-image img { width:100%; height:100%; object-fit:cover; transition:transform .5s ease; }
+.property-card:hover .property-image img { transform:scale(1.04); }
+.property-placeholder { display:flex; align-items:center; justify-content:center; height:100%; color:var(--muted); font-size:14px; }
+ 
+.fav-btn { position:absolute; top:12px; right:12px; z-index:5; width:36px; height:36px; background:rgba(0,0,0,.28); backdrop-filter:blur(6px); border-radius:50%; border:0; display:flex; align-items:center; justify-content:center; color:#fff; transition:background .2s; }
+.fav-btn:hover { background:rgba(0,0,0,.45); }
+.fav-btn svg { pointer-events:none; transition:transform .2s ease, fill .2s ease; }
+.fav-btn.is-favorite { background:var(--orange); color:#fff; }
+.fav-btn.is-favorite svg { fill:#fff; stroke:#fff; }
+.fav-btn:active svg { transform:scale(.85); }
+ 
+.property-body { flex:1; display:flex; flex-direction:column; padding:16px 8px 8px; }
+.location { margin:0 0 4px; color:var(--muted); font-size:14px; line-height:1.3; font-weight:400; }
+.property-body h3 { margin:0 0 12px; color:var(--orange); font-size:20px; font-weight:700; line-height:1.25; letter-spacing:-.3px; }
+.property-features { display:flex; align-items:center; gap:8px; margin:0 0 16px; color:var(--orange); }
+.property-feature-icon { display:flex; align-items:center; }
+.property-feature-text { font-size:18px; font-weight:700; color:var(--orange); }
+.property-price { align-self:flex-start; margin:0 0 20px; padding:6px 14px; border-radius:8px; background:var(--ink); color:#fff; font-size:16px; font-weight:700; line-height:1.3; }
+.property-action { width:100%; min-height:50px; display:flex; align-items:center; justify-content:center; margin-top:auto; padding:12px 20px; border:0; border-radius:50px; background:var(--orange); color:#fff; font-size:16px; font-weight:700; text-align:center; transition:background .2s, transform .1s; }
+.property-action:hover { background:var(--orange-dark); }
+ 
+.empty-state { padding:30px 20px; border:1px dashed #D8D0C6; border-radius:8px; background:white; color:var(--muted); text-align:center; font-size:14px; }
+.empty-state strong { display:block; margin-bottom:8px; color:var(--ink); font-size:18px; }
+.status-message { margin:20px 0; color:var(--muted); text-align:center; font-size:14px; }
+ 
+.internal-page { min-height:65vh; padding:58px 0 80px; background:var(--cream); }
+.internal-heading { max-width:760px; margin:0 auto 30px; text-align:center; }
+.internal-heading h1 { margin:0; font-size:clamp(30px,5vw,44px); line-height:1.2; letter-spacing:-.8px; }
+.internal-heading p { margin:14px 0 0; color:var(--muted); }
+.form-card { width:min(760px,100%); margin:0 auto; padding:clamp(20px,4vw,36px); border:1px solid var(--line); border-radius:10px; background:white; box-shadow:0 12px 36px rgba(0,0,0,.06); }
+.form-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+.field.full { grid-column:1/-1; }
+.form-note { margin:15px 0 0; color:var(--muted); font-size:12px; text-align:center; }
+.back-link { display:inline-flex; margin-bottom:25px; color:var(--orange-dark); font-size:14px; font-weight:700; }
+ 
+.property-detail { max-width:1180px; margin:0 auto; }
+.detail-header { margin-bottom:24px; padding-bottom:24px; border-bottom:1px solid var(--line); }
+.detail-header h1 { margin:8px 0 12px; font-size:clamp(30px,4vw,46px); font-weight:700; line-height:1.16; letter-spacing:-1.2px; }
+.detail-location { display:flex; flex-wrap:wrap; gap:8px 16px; color:var(--muted); font-size:14px; }
+.detail-price { margin-top:16px; color:var(--orange-dark); font-size:clamp(26px,4vw,36px); font-weight:700; letter-spacing:-.8px; overflow-wrap:anywhere; }
+.detail-price-label { color:var(--muted); font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
+.detail-code { display:inline-flex; align-items:center; margin-top:12px; padding:6px 10px; border:1px solid var(--line); border-radius:5px; background:white; color:var(--muted); font-size:12px; font-weight:600; }
+.detail-gallery { margin:28px 0 32px; }
+.detail-main-photo { position:relative; width:100%; height:clamp(300px,50vw,620px); overflow:hidden; border:1px solid var(--line); border-radius:12px; background:#F0EDE7; }
+.detail-main-photo img { display:block; width:100%; height:100%; object-fit:contain; }
+.gallery-arrow { position:absolute; top:50%; z-index:2; width:46px; height:46px; transform:translateY(-50%); border:1px solid rgba(255,255,255,.75); border-radius:50%; background:var(--orange); color:white; box-shadow:0 5px 18px rgba(38,40,35,.2); font-size:28px; }
+.gallery-prev { left:15px; }
+.gallery-next { right:15px; }
+.gallery-counter { position:absolute; right:15px; bottom:15px; padding:8px 13px; border-radius:5px; background:rgba(38,40,35,.88); color:white; font-size:12px; font-weight:600; }
+.detail-thumbnails { display:flex; gap:12px; margin-top:14px; padding:3px 2px 10px; overflow-x:auto; }
+.detail-thumbnail { flex:0 0 110px; height:80px; padding:0; overflow:hidden; border:2px solid transparent; border-radius:7px; background:var(--cream); }
+.detail-thumbnail.active { border-color:var(--orange); }
+.detail-thumbnail img { width:100%; height:100%; object-fit:cover; }
+.detail-summary { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin:0 0 30px; }
+.summary-item { display:flex; align-items:center; gap:12px; min-width:0; padding:17px; border:1px solid var(--line); border-radius:9px; background:white; }
+.summary-icon { width:42px; height:42px; flex:0 0 42px; display:grid; place-items:center; border-radius:8px; background:#FFF0E8; color:var(--orange-dark); font-size:20px; font-weight:700; }
+.summary-item span { display:block; color:var(--muted); font-size:11px; font-weight:600; }
+.summary-item strong { display:block; margin-top:3px; font-size:15px; overflow-wrap:anywhere; }
+.detail-layout { display:grid; grid-template-columns:minmax(0,1.7fr) minmax(270px,.8fr); align-items:start; gap:26px; }
+.detail-section { min-width:0; margin-bottom:24px; padding:clamp(20px,3vw,30px); border:1px solid var(--line); border-radius:10px; background:white; box-shadow:0 8px 26px rgba(38,40,35,.035); }
+.detail-section h2 { margin:0 0 20px; font-size:clamp(20px,2.5vw,25px); font-weight:700; letter-spacing:-.5px; }
+.detail-description { color:var(--muted); font-size:14px; line-height:1.95; overflow-wrap:anywhere; }
+.detail-features { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+.detail-feature.full { grid-column:1/-1; }
+.detail-feature { min-width:0; padding:15px; border:1px solid var(--line); border-radius:8px; background:var(--cream); }
+.detail-feature span { display:block; color:var(--muted); font-size:11px; font-weight:700; letter-spacing:.6px; text-transform:uppercase; }
+.detail-feature strong { display:block; margin-top:5px; font-size:15px; overflow-wrap:anywhere; }
+.amenity-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+.amenity-item { display:flex; align-items:flex-start; gap:9px; padding:10px; border-radius:6px; background:var(--cream); font-size:13px; overflow-wrap:anywhere; }
+.detail-contact { position:sticky; top:20px; border-top:3px solid var(--orange); }
+.detail-contact .detail-price { margin-top:0; }
+.detail-contact p { color:var(--muted); font-size:13px; line-height:1.8; }
+.detail-contact .btn { width:100%; min-height:52px; margin-top:10px; border-radius:6px; }
+.contact-identity { display:flex; align-items:center; gap:12px; margin:18px 0; padding:15px; border-radius:8px; background:var(--cream); }
+.contact-avatar { width:46px; height:46px; flex:0 0 46px; display:block; object-fit:contain; padding:3px; border:1px solid var(--line); border-radius:50%; background:#fff; }
+.contact-identity strong { display:block; font-size:14px; }
+.contact-identity span { display:block; color:var(--muted); font-size:11px; }
+.detail-share { display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-top:16px; }
+.detail-share button,.detail-share a { min-height:42px; display:flex; align-items:center; justify-content:center; gap:7px; padding:8px; border:1px solid var(--line); border-radius:6px; background:white; color:var(--ink); font-size:11px; font-weight:700; }
+.detail-map { height:340px; overflow:hidden; border:1px solid var(--line); border-radius:8px; background:var(--cream); }
+.detail-map iframe { display:block; width:100%; height:100%; border:0; }
+.map-address { margin:12px 0; color:var(--muted); font-size:13px; }
+.map-link { display:inline-flex; align-items:center; gap:7px; color:var(--orange-dark); font-size:13px; font-weight:700; }
+.detail-empty { padding:18px; border-radius:7px; background:var(--cream); color:var(--muted); font-size:13px; }
+ 
+.footer { padding:35px 0; border-top:1px solid var(--line); background:white; }
+.footer-inner { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px; }
+.footer strong { font-size:18px; font-weight:600; }
+.footer p { margin:6px 0; color:var(--muted); font-size:13px; }
+.footer-links { display:flex; flex-wrap:wrap; gap:18px; }
+.footer-links a { font-size:13px; font-weight:600; }
+.whatsapp { position:fixed; right:22px; bottom:22px; z-index:30; display:flex; align-items:center; justify-content:center; gap:10px; min-height:54px; padding:12px 20px; border:2px solid rgba(255,255,255,.35); border-radius:50px; background:var(--orange); color:white; box-shadow:0 8px 28px rgba(100,43,17,.28); font-size:14px; font-weight:700; }
+.whatsapp:hover { background:var(--orange-dark); }
+.whatsapp svg { width:23px; height:23px; flex:0 0 23px; }
+ 
+@media(max-width:1100px) {
+  .property-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .section { padding:55px 0; }
+  .menu-toggle { display:inline-flex; }
+  .header-inner { position:relative; }
+  .nav { display:none; position:absolute; top:100%; left:0; right:0; padding:12px 20px 20px; flex-direction:column; align-items:stretch; gap:0; background:white; border-bottom:1px solid var(--line); box-shadow:0 12px 20px rgba(0,0,0,.08); }
+  .nav.open { display:flex; }
+  .nav a { display:block; width:100%; padding:13px 8px; white-space:normal; }
+  .nav .nav-login { margin-top:8px; padding:12px; text-align:center; }
+  .detail-summary { grid-template-columns:repeat(2,minmax(0,1fr)); }
 }
-button, input, select, textarea { font: inherit; }
-button { cursor: pointer; }
-[hidden] { display: none !important; }
-
-header {
-  background: white;
-  border-bottom: 1px solid var(--line);
+@media(max-width:760px) {
+  .container { width:calc(100% - 28px); }
+  .header-inner { min-height:64px; gap:8px; }
+  .brand { gap:7px; flex:1; }
+  .brand-logo { width:40px; height:40px; flex-basis:40px; }
+  .brand-name { font-size:18px; letter-spacing:-.4px; }
+  .brand-sub { font-size:11px; }
+  .hero { min-height:300px; padding:40px 16px 75px; }
+  .hero:before { background-position:58% center; }
+  .hero h1 { font-size:clamp(30px,8vw,40px); line-height:1.15; letter-spacing:-.8px; }
+  .hero p { margin-top:10px; font-size:14px; line-height:1.6; }
+  .search-wrap { width:calc(100% - 24px); margin-top:-45px; }
+  .search-panel { padding:16px; border-radius:12px; }
+  .search-title { margin-bottom:10px; font-size:16px; }
+  .search-grid { grid-template-columns:1fr; gap:12px; }
+  .search-grid .field label { font-size:13px; margin-bottom:4px; }
+  .search-grid .field input,.search-grid .field select { width:100%; height:46px; min-height:46px; padding:0 12px; font-size:14px; }
+  .search-grid .btn { width:100%; min-height:48px; grid-column:1; font-size:14px; }
+  .section { padding:40px 0; }
+  .section-heading { align-items:flex-start; flex-direction:column; gap:12px; margin-bottom:22px; }
+  .section h2 { font-size:27px; }
+  .property-grid { grid-template-columns:minmax(0,1fr); justify-items:center; gap:20px; }
+  .property-card { width:100%; max-width:480px; padding:10px; border-radius:22px; }
+  .property-image { height:clamp(190px,62vw,270px); border-radius:17px; }
+  .property-body { padding:15px 7px 7px; }
+  .location { font-size:13px; }
+  .property-body h3 { font-size:19px; line-height:1.3; }
+  .property-features { margin-bottom:13px; }
+  .property-feature-text { font-size:17px; }
+  .property-price { font-size:16px; margin-bottom:16px; }
+  .property-action { min-height:50px; font-size:15px; }
+  .fav-btn { width:42px; height:42px; }
+  .fav-btn svg { width:22px; height:22px; }
+  .listing-toolbar { align-items:stretch; flex-direction:column; gap:12px; }
+  .sort-control { align-items:flex-start; flex-direction:column; }
+  .sort-control select { width:100%; min-height:46px; }
+  .footer-inner { align-items:flex-start; flex-direction:column; }
+  .internal-page { padding:35px 0 55px; }
+  .form-card { padding:20px 15px; }
+  .form-grid { grid-template-columns:1fr; }
+  .field.full { grid-column:1; }
+  .field input,.field select,.field textarea { font-size:16px; }
+  .detail-layout { grid-template-columns:1fr; }
+  .detail-main-photo { height:clamp(250px,75vw,380px); border-radius:8px; }
+  .gallery-arrow { width:40px; height:40px; font-size:25px; }
+  .gallery-prev { left:9px; }
+  .gallery-next { right:9px; }
+  .detail-section { padding:19px; }
+  .detail-contact { position:static; }
+  .detail-summary { gap:8px; }
+  .summary-item { align-items:flex-start; flex-direction:column; gap:7px; padding:12px; }
+  .summary-icon { width:36px; height:36px; flex-basis:36px; font-size:17px; }
+  .detail-features,.amenity-list { grid-template-columns:1fr; }
+  .detail-map { height:280px; }
+  .whatsapp { right:12px; bottom:12px; min-height:50px; padding:10px 17px; box-shadow:0 5px 20px rgba(0,0,0,.2); }
 }
-.header-inner {
-  width: min(1200px, calc(100% - 32px));
-  min-height: 72px;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+@media(max-width:380px) {
+  .brand-name { font-size:16px; }
+  .brand-sub { font-size:10px; }
+  .brand { gap:5px; }
+  .header-inner { gap:5px; }
+  .menu-toggle { width:40px; height:40px; }
+  .search-wrap { width:calc(100% - 20px); }
+  .search-panel { padding:12px; }
+  .search-title { font-size:15px; }
+  .property-card { padding:8px; }
+  .property-image { height:210px; }
+  .property-body h3 { font-size:18px; }
+  .detail-main-photo { height:270px; }
+  .detail-summary { grid-template-columns:1fr 1fr; }
 }
-.brand {
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--ink);
-  text-decoration: none;
-}
-.brand span { color: var(--dark); }
-
-main {
-  width: min(1200px, calc(100% - 32px));
-  margin: 30px auto 55px;
-}
-h1 { font-size: clamp(25px, 4vw, 34px); margin: 0 0 8px; }
-h2 { font-size: 21px; margin: 0 0 18px; }
-p { color: var(--muted); }
-
-.panel {
-  padding: 24px;
-  margin-bottom: 22px;
-  background: white;
-  border: 1px solid var(--line);
-  border-radius: 9px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.03);
-}
-.login-wrap { max-width: 440px; margin: 50px auto; }
-
-.field-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
-}
-.field { min-width: 0; }
-.field.full { grid-column: 1 / -1; }
-label {
-  display: block;
-  margin-bottom: 6px;
-  font-weight: 700;
-  font-size: 13px;
-}
-input, select, textarea {
-  display: block;
-  width: 100%;
-  min-height: 46px;
-  padding: 10px 12px;
-  border: 1px solid #DCD7CF;
-  border-radius: 5px;
-  background: white;
-  color: var(--ink);
-}
-textarea { min-height: 110px; resize: vertical; }
-input:focus, select:focus, textarea:focus {
-  outline: 2px solid rgba(232,98,42,0.2);
-  border-color: var(--orange);
-}
-
-.btn {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  gap: 6px;
-  min-height: 43px;
-  padding: 9px 15px;
-  border: 0;
-  border-radius: 5px;
-  background: var(--orange);
-  color: white;
-  font-weight: 700;
-  text-decoration: none;
-}
-.btn:hover { background: var(--dark); }
-.btn:disabled { opacity: .6; cursor: wait; }
-.btn-secondary {
-  background: white;
-  color: var(--ink);
-  border: 1px solid var(--line);
-}
-.btn-secondary:hover { background: var(--cream); }
-.btn-success { background: var(--green); }
-.btn-success:hover { background: #1B5835; }
-.btn-danger { background: var(--red); }
-.btn-danger:hover { background: #8E1B13; }
-
-.top-actions, .actions {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-.message {
-  padding: 11px 13px;
-  margin: 14px 0;
-  border-radius: 5px;
-  background: #F0F0F0;
-  overflow-wrap: anywhere;
-}
-.message.error { background: #FDECEC; color: var(--red); }
-.message.success { background: #E9F6ED; color: var(--green); }
-
-.check-row {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  margin: 18px 0;
-}
-.check-row label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  font-weight: 500;
-}
-.check-row input {
-  width: 18px;
-  min-height: 18px;
-  height: 18px;
-  accent-color: var(--orange);
-}
-
-.help {
-  display: block;
-  color: var(--muted);
-  font-size: 12px;
-  margin-top: 5px;
-}
-.preview { margin-top: 12px; max-width: 340px; }
-.preview img {
-  display: block;
-  max-width: 100%;
-  max-height: 220px;
-  object-fit: contain;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-}
-
-.filter-tabs {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 18px;
-  flex-wrap: wrap;
-}
-.tab-btn {
-  padding: 8px 14px;
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  background: white;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--muted);
-}
-.tab-btn.active {
-  background: var(--ink);
-  color: white;
-  border-color: var(--ink);
-}
-.tab-badge {
-  display: inline-block;
-  padding: 2px 7px;
-  margin-left: 6px;
-  border-radius: 10px;
-  background: var(--orange);
-  color: white;
-  font-size: 11px;
-}
-
-.toolbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-bottom: 16px;
-}
-.property-list { display: grid; gap: 12px; }
-.property {
-  padding: 16px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 14px;
-  background: white;
-}
-.property-info { min-width: 0; }
-.property h3 {
-  margin: 0 0 4px;
-  font-size: 16px;
-  overflow-wrap: anywhere;
-}
-.property p { margin: 4px 0; font-size: 13px; }
-.property-code {
-  display: inline-block;
-  padding: 3px 8px;
-  margin-bottom: 5px;
-  border-radius: 4px;
-  background: #FFF0E8;
-  color: var(--dark);
-  font-weight: 700;
-  font-size: 12px;
-}
-.price { color: var(--dark); font-weight: 700; }
-.status {
-  display: inline-block;
-  padding: 3px 8px;
-  border-radius: 4px;
-  background: #E9F6ED;
-  color: var(--green);
-  font-size: 11px;
-  font-weight: 700;
-}
-.status.draft { background: #FFF0D9; color: #875400; }
-.status.pending { background: #E6F4EA; color: #137333; }
-.status.sold { background: #E8F0FE; color: var(--blue); }
-
-.private-note {
-  margin-top: 6px;
-  padding: 8px 10px;
-  background: #F7F5F1;
-  border-left: 3px solid var(--dark);
-  font-size: 12px;
-  color: var(--ink);
-  border-radius: 0 4px 4px 0;
-}
-
-.property-actions {
-  display: flex;
-  gap: 7px;
-  flex-wrap: wrap;
-  flex-shrink: 0;
-}
-.property-actions .btn {
-  font-size: 12px;
-  padding: 7px 10px;
-  min-height: 36px;
-}
-.empty {
-  padding: 22px;
-  text-align: center;
-  border: 1px dashed #D8D0C6;
-  border-radius: 7px;
-  color: var(--muted);
-}
-
-footer {
-  padding: 24px 16px;
-  border-top: 1px solid var(--line);
-  text-align: center;
-  color: var(--muted);
-  font-size: 12px;
-}
-
-@media(max-width: 680px) {
-  main { margin-top: 20px; }
-  .panel { padding: 17px; }
-  .field-grid { grid-template-columns: 1fr; }
-  .field.full { grid-column: auto; }
-  .header-inner { min-height: 64px; }
-  .brand { font-size: 19px; }
-  .property { align-items: stretch; flex-direction: column; }
-  .property-actions .btn { flex: 1; }
-  .top-actions .btn { padding: 8px 10px; font-size: 12px; }
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after { scroll-behavior:auto!important; animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; }
 }
 </style>
 </head>
-
+ 
 <body>
-<header>
-  <div class="header-inner">
-    <a class="brand" href="index.html">Casa<span>Própria</span></a>
-    <div class="top-actions">
-      <a class="btn btn-secondary" href="index.html" target="_blank">Ver site</a>
-      <button class="btn btn-secondary" id="logoutButton" type="button" hidden>Sair</button>
-    </div>
+<header class="header">
+  <div class="container header-inner">
+    <a class="brand" href="#terrenos" data-page="terrenos" aria-label="Página inicial de terrenos">
+      <img class="brand-logo" src="./Gemini_Generated_Image_9wawnj9wawnj9waw-removebg-preview%20(1).png" alt="Logo" width="45" height="45">
+      <span class="brand-text">
+        <span class="brand-name">Patricia Ribeiro</span>
+        <span class="brand-sub">Corretora de Imóveis</span>
+      </span>
+    </a>
+    <button class="menu-toggle" id="menuToggle" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="mainNav">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    <nav class="nav" id="mainNav" aria-label="Navegação principal">
+      <a href="#terrenos" data-page="terrenos">TERRENOS DISPONÍVEIS</a>
+      <a href="#anunciar" data-page="anunciar">ANUNCIAR MEU TERRENO</a>
+      <a href="/admin.html" class="nav-login" id="adminLink">ENTRAR</a>
+    </nav>
   </div>
 </header>
-
+ 
 <main>
-  <section id="loginSection" class="login-wrap panel">
-    <h1>Área administrativa</h1>
-    <p>Entre para gerenciar os imóveis da CasaPrópria.</p>
-    <form id="loginForm">
-      <label for="password">Senha administrativa</label>
-      <input id="password" type="password" autocomplete="current-password"
-        required maxlength="1024" placeholder="Digite sua senha">
-      <button class="btn" id="loginButton" type="submit"
-        style="width:100%;margin-top:16px">Entrar no painel</button>
-    </form>
-    <div id="loginMessage" class="message" role="status" aria-live="polite" hidden></div>
-  </section>
-
-  <section id="adminSection" hidden>
-    <div style="margin-bottom:22px">
-      <h1>Painel de Gestão e Moderação</h1>
-      <p>Gerencie seus imóveis, modere propostas recebidas do site e controle suas vendas.</p>
+<div id="pageTerrenos">
+  <section class="hero" aria-label="Encontre seu terreno">
+    <div class="hero-content">
+      <h1>Encontre seu terreno</h1>
+      <p>O primeiro passo para conquistar sua casa própria começa aqui.</p>
     </div>
-
-    <!-- PROPOSTAS PENDENTES DE APROVAÇÃO -->
-    <section class="panel" id="pendingPanel" style="border-left: 4px solid var(--orange);">
-      <div class="toolbar">
-        <div>
-          <h2 style="margin-bottom:4px; color: var(--dark);">Propostas Pendentes de Aprovação</h2>
-          <p style="margin:0">Imóveis enviados por proprietários na aba "Vender meu Imóvel".</p>
-        </div>
-      </div>
-      <div id="pendingList" class="property-list" style="margin-top: 15px;"></div>
-      <div id="emptyPending" class="empty" style="margin-top: 10px;">Nenhuma proposta pendente no momento.</div>
-    </section>
-
-    <!-- FORMULÁRIO DE CADASTRO E EDIÇÃO -->
-    <section class="panel" id="editorPanel">
-      <h2 id="formTitle">Cadastrar novo imóvel</h2>
-      <p id="editNotice" hidden>
-        Você está editando um imóvel existente. Salve as alterações ou cancele a edição.
-      </p>
-
-      <form id="propertyForm">
-        <input type="hidden" id="editingId">
-
-        <div class="field-grid">
-          <div class="field">
-            <label for="titulo">Título do imóvel *</label>
-            <input id="titulo" required maxlength="150"
-              placeholder="Ex.: Casa com 3 quartos em Criciúma">
-          </div>
-
-          <div class="field">
-            <label for="tipo">Tipo de imóvel *</label>
-            <select id="tipo" required>
-              <option value="">Selecione</option>
-              <option value="Casa">Casa</option>
-              <option value="Apartamento">Apartamento</option>
-              <option value="Terreno">Terreno</option>
-              <option value="Empreendimento">Empreendimento</option>
-              <option value="Comercial">Comercial</option>
-              <option value="Outro">Outro</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="finalidade">Finalidade</label>
-            <select id="finalidade">
-              <option value="Venda">Venda</option>
-              <option value="Lançamento">Lançamento</option>
-              <option value="Aluguel">Aluguel</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="preco">Preço de anúncio (R$)</label>
-            <input id="preco" type="number" min="0" step="0.01"
-              placeholder="Ex.: 350000">
-          </div>
-
-          <div class="field">
-            <label for="cidade">Cidade *</label>
-            <input id="cidade" required maxlength="100" placeholder="Ex.: Criciúma, Içara, Nova Veneza...">
-          </div>
-
-          <div class="field">
-            <label for="bairro">Bairro</label>
-            <input id="bairro" maxlength="100" placeholder="Ex.: Centro, Próspera...">
-          </div>
-
-          <div class="field full">
-            <label for="endereco">Endereço completo (opcional)</label>
-            <input id="endereco" maxlength="250" placeholder="Ex.: Rua, número, complemento">
-          </div>
-
-          <div class="field">
-            <label for="area_m2">Área privativa (m²)</label>
-            <input id="area_m2" type="number" min="0" step="0.01" placeholder="Ex.: 95">
-          </div>
-
-          <div class="field">
-            <label for="quartos">Número de quartos</label>
-            <input id="quartos" type="number" min="0" step="1">
-          </div>
-
-          <div class="field">
-            <label for="banheiros">Número de banheiros</label>
-            <input id="banheiros" type="number" min="0" step="1">
-          </div>
-
-          <div class="field">
-            <label for="vagas">Vagas de garagem</label>
-            <input id="vagas" type="number" min="0" step="1">
-          </div>
-
-          <div class="field full">
-            <label for="fotoArquivo">Enviar foto principal (PNG, JPG ou JPEG)</label>
-            <input id="fotoArquivo" type="file" accept="image/png,image/jpeg">
-            <small class="help">
-              A imagem será salva e armazenada no servidor/R2.
-            </small>
-            <div id="fotoPreview" class="preview" hidden>
-              <img id="fotoPreviewImg" alt="Pré-visualização da foto">
-            </div>
-          </div>
-
-          <div class="field full">
-            <label for="foto_url">Ou URL da foto principal</label>
-            <input id="foto_url" type="url" maxlength="2000" placeholder="https://...">
-          </div>
-
-          <div class="field full">
-            <label for="descricao">Descrição pública (Aparece no site)</label>
-            <textarea id="descricao" maxlength="5000"
-              placeholder="Descreva as características do imóvel..."></textarea>
-          </div>
-
-          <!-- ANOTAÇÃO INTERNA PRIVADA -->
-          <div class="field full" style="padding:16px; background:#F7F5F1; border-radius:6px; border:1px solid var(--line);">
-            <label for="anotacaoInterna" style="color:var(--dark);">Anotação Interna / Contato do Proprietário (NÃO aparece no site)</label>
-            <textarea id="anotacaoInterna" style="min-height:70px; background:white;"
-              placeholder="Ex.: Proprietário: João Silva (48 99999-0000). Comissão combinada: 5%. Valor líquido desejado: R$ 300.000."></textarea>
-            <small class="help">Guardado de forma privada no painel admin para seu controle.</small>
-          </div>
-        </div>
-
-        <div class="check-row">
-          <label><input id="destaque" type="checkbox"> Mostrar em Destaque na Home</label>
-          <label><input id="lancamento" type="checkbox"> Marcar como Lançamento</label>
-        </div>
-
-        <div class="field" style="max-width:360px;margin-bottom:18px">
-          <label for="status">Status de Publicação *</label>
-          <select id="status" required>
-            <option value="Publicado">🟢 Publicado (Visível no site)</option>
-            <option value="Pendente">🟡 Pendente (Aguardando aprovação)</option>
-            <option value="Vendido">🔴 Vendido (Exibe selo/desativado)</option>
-            <option value="Rascunho">⚪ Rascunho / Oculto</option>
+  </section>
+ 
+  <div class="search-wrap">
+    <form class="search-panel" id="searchForm">
+      <h2 class="search-title">Encontre o terreno ideal para você</h2>
+      <div class="search-grid">
+        <div class="field">
+          <label for="location">Cidade</label>
+          <select id="location" name="cidade">
+            <option value="">Todas as cidades</option>
+            <option>Criciúma</option><option>Içara</option><option>Forquilhinha</option>
+            <option>Nova Veneza</option><option>Siderópolis</option><option>Cocal do Sul</option>
+            <option>Morro da Fumaça</option><option>Urussanga</option><option>Orleans</option>
+            <option>Lauro Müller</option><option>Treviso</option><option>Treze de Maio</option>
+            <option>Sangão</option><option>Jaguaruna</option><option>Tubarão</option>
+            <option>Araranguá</option><option>Maracajá</option><option>Balneário Rincão</option>
+            <option>Sombrio</option><option>Turvo</option><option>Ermo</option><option>Meleiro</option>
+            <option>Jacinto Machado</option><option>Praia Grande</option><option>Santa Rosa do Sul</option>
+            <option>São João do Sul</option><option>Passo de Torres</option>
           </select>
         </div>
-
-        <div class="actions">
-          <button class="btn" id="saveButton" type="submit">Cadastrar imóvel</button>
-          <button class="btn btn-secondary" id="cancelEditButton" type="button" hidden>Cancelar edição</button>
-          <button class="btn btn-secondary" id="clearButton" type="button">Limpar formulário</button>
+        <div class="field">
+          <label for="type">Tipo de terreno</label>
+          <select id="type" name="classificacao">
+            <option value="">Todos os tipos</option>
+            <option value="pronto">Pronto para construir</option>
+            <option value="lancamento">Lançamento</option>
+          </select>
         </div>
-
-        <div id="formMessage" class="message" role="status" aria-live="polite" hidden></div>
-      </form>
-    </section>
-
-    <!-- LISTA DE IMÓVEIS -->
-    <section class="panel">
-      <div class="toolbar">
+        <div class="field">
+          <label for="price">Preço máximo</label>
+          <select id="price" name="preco_maximo">
+            <option value="">Qualquer valor</option>
+            <option value="50000">Até R$ 50 mil</option>
+            <option value="100000">Até R$ 100 mil</option>
+            <option value="150000">Até R$ 150 mil</option>
+            <option value="200000">Até R$ 200 mil</option>
+            <option value="300000">Até R$ 300 mil</option>
+            <option value="500000">Até R$ 500 mil</option>
+            <option value="800000">Até R$ 800 mil</option>
+            <option value="1000000">Até R$ 1 milhão</option>
+            <option value="2000000">Até R$ 2 milhões</option>
+          </select>
+        </div>
+        <button class="btn" type="submit">⌕ Buscar terrenos</button>
+      </div>
+    </form>
+  </div>
+ 
+  <section class="section" id="destaques">
+    <div class="container">
+      <div class="section-heading">
         <div>
-          <h2 style="margin-bottom:4px">Todos os Imóveis</h2>
-          <p id="propertyCount" style="margin:0">Carregando...</p>
+          <span class="section-kicker">Selecionados para você</span>
+          <h2>Oportunidades em destaque</h2>
+          <p class="section-desc">Encontre o lugar ideal para construir ou investir.</p>
         </div>
-        <button class="btn btn-secondary" id="refreshButton" type="button">
-          Atualizar lista
-        </button>
+        <a class="text-link" href="#disponiveis" id="seeAllLink">Ver todos →</a>
       </div>
-
-      <!-- TABS DE FILTRO -->
-      <div class="filter-tabs">
-        <button class="tab-btn active" data-filter="todos" id="tabTodos">Todos</button>
-        <button class="tab-btn" data-filter="Publicado" id="tabPublicados">Publicados</button>
-        <button class="tab-btn" data-filter="Pendente" id="tabPendentes">Pendentes <span class="tab-badge" id="pendingBadge" hidden>0</span></button>
-        <button class="tab-btn" data-filter="Vendido" id="tabVendidos">Vendidos</button>
-        <button class="tab-btn" data-filter="Rascunho" id="tabRascunhos">Rascunhos</button>
+      <div class="property-grid" id="featuredList"></div>
+      <div class="empty-state" id="featuredEmpty" hidden>
+        <strong>Nenhum terreno em destaque no momento.</strong>
+        Confira os terrenos disponíveis abaixo.
       </div>
-
-      <div class="field" style="margin-bottom:15px">
-        <input id="filterProperties" type="search"
-          placeholder="Buscar imóvel por código, título, cidade ou bairro...">
-      </div>
-
-      <div id="listMessage" class="message" role="status" aria-live="polite" hidden></div>
-      <div id="propertyList" class="property-list"></div>
-      <div id="emptyList" class="empty" hidden>Nenhum imóvel encontrado.</div>
-    </section>
+    </div>
   </section>
+ 
+  <section class="section soft" id="disponiveis">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <span class="section-kicker">Encontre seu lugar</span>
+          <h2>Terrenos disponíveis</h2>
+          <p class="section-desc">Explore terrenos para construir ou investir.</p>
+        </div>
+      </div>
+      <div class="listing-toolbar">
+        <span class="results-count" id="resultsCount">Carregando terrenos...</span>
+        <label class="sort-control" for="sort">Ordenar por
+          <select id="sort">
+            <option value="recentes">Mais recentes</option>
+            <option value="menor">Menor preço</option>
+            <option value="maior">Maior preço</option>
+            <option value="favoritos">Meus favoritos ❤️</option>
+          </select>
+        </label>
+      </div>
+      <div class="property-grid" id="allList"></div>
+      <div class="empty-state" id="allEmpty" hidden>
+        <strong>Nenhum terreno encontrado.</strong>
+        Altere os filtros ou entre em contato para consultar outras oportunidades.
+      </div>
+      <p class="status-message" id="statusMessage" role="status" hidden></p>
+    </div>
+  </section>
+</div>
+ 
+<section class="internal-page" id="pageAnunciar" hidden>
+  <div class="container">
+    <a href="#terrenos" class="back-link" data-page="terrenos">← VOLTAR</a>
+    <div class="internal-heading">
+      <span class="section-kicker">Anuncie seu terreno</span>
+      <h1>Anunciar meu terreno</h1>
+      <p>Preencha as informações do terreno para solicitar uma avaliação. A proposta será encaminhada para análise e não será publicada automaticamente.</p>
+    </div>
+    <form class="form-card" id="sellForm">
+      <div class="form-grid">
+        <div class="field full">
+          <label for="sellName">Nome completo do proprietário *</label>
+          <input id="sellName" name="nome" required autocomplete="name" placeholder="Seu nome completo">
+        </div>
+        <div class="field">
+          <label for="sellPhone">WhatsApp para contato *</label>
+          <input id="sellPhone" name="telefone" type="tel" required autocomplete="tel" placeholder="(00) 00000-0000">
+        </div>
+        <div class="field">
+          <label for="sellEmail">E-mail (opcional)</label>
+          <input id="sellEmail" name="email" type="email" autocomplete="email" placeholder="voce@exemplo.com">
+        </div>
+        <div class="field">
+          <label for="sellCity">Cidade do terreno *</label>
+          <input id="sellCity" name="cidade" required autocomplete="address-level2" placeholder="Cidade">
+        </div>
+        <div class="field">
+          <label for="sellNeighborhood">Bairro ou loteamento *</label>
+          <input id="sellNeighborhood" name="bairro" required placeholder="Bairro ou loteamento">
+        </div>
+        <div class="field">
+          <label for="sellArea">Área do terreno (m²) *</label>
+          <input id="sellArea" name="area" type="number" min="1" step="0.01" required placeholder="Ex.: 360">
+        </div>
+        <div class="field">
+          <label for="sellValue">Preço pretendido (R$) *</label>
+          <input id="sellValue" name="valor" type="number" min="1" step="0.01" required placeholder="Ex.: 120000">
+        </div>
+        <div class="field full">
+          <label for="sellClassification">Classificação do terreno *</label>
+          <select id="sellClassification" name="classificacao" required>
+            <option value="">Selecione a classificação</option>
+            <option value="Pronto para construir">Pronto para construir</option>
+            <option value="Lançamento">Lançamento</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label for="sellAddress">Endereço ou localização (opcional)</label>
+          <input id="sellAddress" name="endereco" placeholder="Rua, referência ou nome do loteamento">
+        </div>
+        <div class="field full">
+          <label for="sellDescription">Descrição do terreno *</label>
+          <textarea id="sellDescription" name="descricao" required placeholder="Informe as medidas, topografia, infraestrutura, documentação e outras características relevantes."></textarea>
+        </div>
+        <div class="field full">
+          <label for="sellImages">Fotos do terreno (até 5 imagens JPG ou PNG) *</label>
+          <input id="sellImages" name="fotos" type="file" accept=".jpg,.jpeg,.png,image/jpeg,image/png" multiple required>
+          <p class="form-note">Selecione de 1 a 5 fotos. Confira se os arquivos mostram o terreno anunciado.</p>
+        </div>
+        <div class="field full">
+          <label style="display:flex;align-items:flex-start;gap:10px;font-weight:500">
+            <input type="checkbox" id="sellTerms" name="autorizacao" value="Sim" required style="width:18px;min-height:18px;flex:0 0 18px;margin-top:4px">
+            <span>Autorizo o envio dessas informações para avaliação do terreno e contato sobre as condições do anúncio.</span>
+          </label>
+        </div>
+      </div>
+      <button class="btn btn-block" type="submit">Enviar terreno para avaliação</button>
+      <p class="form-note">O envio não garante a publicação. As informações e fotos serão submetidas à análise administrativa.</p>
+      <p class="form-note" id="sellStatus" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+ 
+<section class="internal-page" id="pageDetalhes" hidden>
+  <div class="container">
+    <a href="#terrenos" class="back-link" data-page="terrenos">← VOLTAR</a>
+    <div id="propertyDetailsContent">
+      <div class="empty-state">
+        <strong>Selecione um terreno para visualizar os detalhes.</strong>
+        As informações do terreno serão exibidas aqui.
+      </div>
+    </div>
+  </div>
+</section>
 </main>
-
-<footer>CasaPrópria · Patricia Ribeiro · CRECI/SC 60282-F</footer>
-
+ 
+<footer class="footer">
+  <div class="container footer-inner">
+    <div>
+      <strong>Patricia Ribeiro</strong>
+      <p>Corretora de Imóveis · CRECI/SC 60282-F</p>
+      <p>© <span id="year"></span> · Todos os direitos reservados.</p>
+    </div>
+    <div class="footer-links">
+      <a href="#terrenos" data-page="terrenos">Terrenos</a>
+      <a href="#anunciar" data-page="anunciar">Anunciar meu terreno</a>
+      <a href="/admin.html">Entrar</a>
+      <a href="https://wa.me/5548999372934" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+    </div>
+  </div>
+</footer>
+ 
+<a class="whatsapp" href="https://wa.me/5548999372934" target="_blank" rel="noopener noreferrer" aria-label="Fale com Patricia Ribeiro pelo WhatsApp">
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M20.2 11.7a8.2 8.2 0 0 1-12.1 7.2L3 20l1.2-4.8a8.2 8.2 0 1 1 16-3.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+    <path d="M8.1 7.9c.2-.5.5-.5.8-.5h.4c.2 0 .4.1.5.4l.7 1.7c.1.2 0 .4-.1.6l-.5.6c-.2.2-.2.4-.1.6.5.9 1.2 1.6 2.1 2.1.2.1.4.1.6-.1l.7-.8c.2-.2.4-.2.6-.1l1.6.8c.3.1.4.3.4.5 0 .3-.2 1.1-.7 1.5-.5.5-1.2.7-1.9.6-1-.1-2.3-.7-3.6-1.8-1.2-1.1-2.1-2.4-2.4-3.5-.3-1 .1-2 .9-2.6Z" fill="currentColor"/>
+  </svg>
+  Fale comigo
+</a>
+ 
 <script>
 "use strict";
-  
-const API = {
-  login: "/api/admin/login",
-  session: "/api/admin/session",
-  logout: "/api/admin/logout",
-  properties: "/api/admin/imoveis",
-  upload: "/api/admin/fotos"
-};
-
+ 
+const API_URL = "/api/imoveis";
+const PROPOSALS_URL = "/api/propostas";
+const WHATSAPP_NUMBER = "5548999372934";
+ 
 const $ = id => document.getElementById(id);
-
+ 
 let properties = [];
-let currentFilter = "todos";
-let previewObjectUrl = null;
-
-function showMessage(id, message, type = "") {
-  const el = $(id);
-  el.textContent = message;
-  el.className = "message" + (type ? " " + type : "");
-  el.hidden = !message;
-}
-
-async function apiRequest(url, options = {}) {
-  const headers = {
-    Accept: "application/json",
-    ...(options.body && !(options.body instanceof FormData)
-      ? { "Content-Type": "application/json" }
-      : {}),
-    ...options.headers
-  };
-
-  const response = await fetch(url, {
-    credentials: "same-origin",
-    cache: "no-store",
-    ...options,
-    headers
-  });
-
-  let data = {};
+let hasSearched = false;
+let currentProperty = null;
+let currentPhotoIndex = 0;
+ 
+/* ===== FAVORITOS ===== */
+const FAVORITES_KEY = "patricia_ribeiro_terrenos_favoritos";
+ 
+function loadFavorites() {
   try {
-    data = await response.json();
-  } catch {
-    data = {};
+    const saved = JSON.parse(localStorage.getItem(FAVORITES_KEY) || "[]");
+    return new Set(Array.isArray(saved) ? saved.map(String) : []);
+  } catch (error) {
+    return new Set();
   }
-
-  if (!response.ok) {
-    if (response.status === 401 || response.status === 403) {
-      throw new Error(data.error || "Sessão expirada. Entre novamente.");
+}
+ 
+let favoriteProperties = loadFavorites();
+ 
+function saveFavorites() {
+  try {
+    localStorage.setItem(FAVORITES_KEY, JSON.stringify([...favoriteProperties]));
+  } catch (error) {
+    console.error("Não foi possível salvar os favoritos:", error);
+  }
+}
+ 
+function isFavorite(id) {
+  return favoriteProperties.has(String(id));
+}
+ 
+function toggleFavorite(id) {
+  const propertyId = String(id);
+  if (favoriteProperties.has(propertyId)) {
+    favoriteProperties.delete(propertyId);
+  } else {
+    favoriteProperties.add(propertyId);
+  }
+  saveFavorites();
+  render();
+  return favoriteProperties.has(propertyId);
+}
+ 
+$("year").textContent = new Date().getFullYear();
+ 
+/* ===== MENU E NAVEGAÇÃO ===== */
+const menuToggle = $("menuToggle");
+const mainNav = $("mainNav");
+ 
+function closeMenu() {
+  mainNav.classList.remove("open");
+  menuToggle.setAttribute("aria-expanded", "false");
+  menuToggle.setAttribute("aria-label", "Abrir menu");
+}
+ 
+menuToggle.addEventListener("click", () => {
+  const opened = mainNav.classList.toggle("open");
+  menuToggle.setAttribute("aria-expanded", String(opened));
+  menuToggle.setAttribute("aria-label", opened ? "Fechar menu" : "Abrir menu");
+});
+ 
+$("adminLink").addEventListener("click", event => {
+  event.preventDefault();
+  window.location.assign("/admin.html");
+});
+ 
+const pages = {
+  terrenos: $("pageTerrenos"),
+  anunciar: $("pageAnunciar"),
+  detalhes: $("pageDetalhes")
+};
+ 
+function normalizePage(hash) {
+  const raw = String(hash || "").replace(/^#/, "");
+  let value;
+  try {
+    value = decodeURIComponent(raw);
+  } catch (_) {
+    return "terrenos";
+  }
+  if (value.startsWith("terreno-") || value.startsWith("imovel-")) return "detalhes";
+  return ["terrenos", "anunciar"].includes(value) ? value : "terrenos";
+}
+ 
+function showPage(page, updateHistory = true, propertyId = null) {
+  if (!pages[page]) page = "terrenos";
+ 
+  Object.entries(pages).forEach(([name, element]) => {
+    element.hidden = name !== page;
+  });
+ 
+  closeMenu();
+ 
+  if (updateHistory) {
+    let hash = page === "terrenos" ? "#terrenos" : "#" + page;
+    if (page === "detalhes" && propertyId !== null) {
+      hash = "#terreno-" + encodeURIComponent(String(propertyId));
     }
-    throw new Error(data.error || `Erro HTTP ${response.status}`);
+    history.pushState(
+      { page, propertyId: propertyId === null ? null : String(propertyId) },
+      "",
+      hash
+    );
   }
-
-  return data;
+ 
+  window.scrollTo({ top: 0, behavior: "auto" });
 }
-
-function showAdmin() {
-  $("loginSection").hidden = true;
-  $("adminSection").hidden = false;
-  $("logoutButton").hidden = false;
+ 
+document.querySelectorAll("[data-page]").forEach(link => {
+  link.addEventListener("click", event => {
+    event.preventDefault();
+    showPage(link.dataset.page);
+  });
+});
+ 
+function restoreFromLocation() {
+  const page = normalizePage(location.hash);
+ 
+  if (page === "detalhes") {
+    const hash = location.hash.replace(/^#/, "");
+    const id = decodeURIComponent(hash.replace(/^(terreno-|imovel-)/, ""));
+    const item = properties.find(p => String(p.id) === id);
+ 
+    if (item) {
+      renderPropertyDetails(item);
+      showPage("detalhes", false);
+      return;
+    }
+    showPage("terrenos", false);
+    return;
+  }
+ 
+  showPage(page, false);
 }
-
-function showLogin() {
-  $("loginSection").hidden = false;
-  $("adminSection").hidden = true;
-  $("logoutButton").hidden = true;
-}
-
-function money(value) {
-  if (value === null || value === undefined || value === "") return "Consulte o valor";
-  const n = Number(value);
-  if (!Number.isFinite(n)) return "Consulte o valor";
-  return n.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
-}
-
-function safeText(value) {
+ 
+window.addEventListener("popstate", restoreFromLocation);
+ 
+/* ===== UTILITÁRIOS ===== */
+function text(value) {
   return String(value ?? "").trim();
 }
-
-function normalizeStatus(rawStatus) {
-  const st = safeText(rawStatus).toLowerCase();
-  if (st === "publicado") return "Publicado";
-  if (st === "pendente") return "Pendente";
-  if (st === "vendido") return "Vendido";
-  if (st === "rascunho") return "Rascunho";
-  return "Publicado";
+ 
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  })[char]);
 }
-
-function displayCode(item) {
-  return item.id === null || item.id === undefined ? "Sem código" : `Código ${item.id}`;
+ 
+function money(value) {
+  if (value === null || value === undefined || value === "") return "Consulte o valor";
+  const number = Number(value);
+  if (!Number.isFinite(number)) return "Consulte o valor";
+  return number.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
 }
-
-function renderProperties(items) {
-  // 1. Renderiza lista de propostas pendentes
-  const pendingItems = items.filter(i => normalizeStatus(i.status) === "Pendente");
-  const pendingList = $("pendingList");
-  const emptyPending = $("emptyPending");
-  const pendingBadge = $("pendingBadge");
-
-  if (pendingBadge) {
-    if (pendingItems.length > 0) {
-      pendingBadge.textContent = pendingItems.length;
-      pendingBadge.hidden = false;
-    } else {
-      pendingBadge.hidden = true;
-    }
-  }
-
-  if (pendingList) {
-    pendingList.replaceChildren();
-    emptyPending.hidden = pendingItems.length !== 0;
-
-    for (const item of pendingItems) {
-      const article = document.createElement("article");
-      article.className = "property";
-      article.style.background = "#FFF8F4";
-      article.style.borderLeft = "4px solid var(--orange)";
-
-      const info = document.createElement("div");
-      info.className = "property-info";
-
-      const code = document.createElement("div");
-      code.className = "property-code";
-      code.textContent = displayCode(item) + " · Proposta do Site";
-
-      const title = document.createElement("h3");
-      title.textContent = safeText(item.titulo) || "Imóvel sem título";
-
-      const details = document.createElement("p");
-      details.textContent = [
-        safeText(item.tipo),
-        safeText(item.cidade),
-        safeText(item.bairro)
-      ].filter(Boolean).join(" · ");
-
-      const price = document.createElement("p");
-      price.className = "price";
-      price.textContent = money(item.preco);
-
-      info.append(code, title, details, price);
-
-      const noteContent = safeText(item.anotacao_interna || item.anotacao_privada || item.descricao);
-      if (noteContent) {
-        const note = document.createElement("div");
-        note.className = "private-note";
-        note.textContent = "Contato / Info: " + noteContent;
-        info.append(note);
-      }
-
-      const actions = document.createElement("div");
-      actions.className = "property-actions";
-
-      const approveBtn = document.createElement("button");
-      approveBtn.className = "btn btn-success";
-      approveBtn.type = "button";
-      approveBtn.textContent = "Aprovar e Publicar";
-      approveBtn.addEventListener("click", () => updateStatus(item, "Publicado"));
-
-      const editBtn = document.createElement("button");
-      editBtn.className = "btn btn-secondary";
-      editBtn.type = "button";
-      editBtn.textContent = "Editar";
-      editBtn.addEventListener("click", () => startEdit(item));
-
-      const removeBtn = document.createElement("button");
-      removeBtn.className = "btn btn-danger";
-      removeBtn.type = "button";
-      removeBtn.textContent = "Recusar";
-      removeBtn.addEventListener("click", () => deleteProperty(item));
-
-      actions.append(approveBtn, editBtn, removeBtn);
-      article.append(info, actions);
-      pendingList.append(article);
-    }
-  }
-
-  // 2. Renderiza lista geral
-  const list = $("propertyList");
-  list.replaceChildren();
-
-  const query = $("filterProperties").value.trim().toLocaleLowerCase("pt-BR");
-
-  const filtered = items.filter(item => {
-    const statusText = normalizeStatus(item.status);
-
-    if (currentFilter !== "todos" && statusText.toLowerCase() !== currentFilter.toLowerCase()) {
-      return false;
-    }
-
-    const searchable = [
-      item.id,
-      item.titulo,
-      item.tipo,
-      item.cidade,
-      item.bairro,
-      item.anotacao_interna
-    ].map(safeText).join(" ").toLocaleLowerCase("pt-BR");
-
-    return searchable.includes(query);
-  });
-
-  $("propertyCount").textContent =
-    `${filtered.length} ${filtered.length === 1 ? "imóvel exibido" : "imóveis exibidos"} de ${items.length}`;
-
-  $("emptyList").hidden = filtered.length !== 0;
-
-  for (const item of filtered) {
-    const article = document.createElement("article");
-    article.className = "property";
-
-    const info = document.createElement("div");
-    info.className = "property-info";
-
-    const code = document.createElement("div");
-    code.className = "property-code";
-    code.textContent = displayCode(item);
-
-    const title = document.createElement("h3");
-    title.textContent = safeText(item.titulo) || "Imóvel sem título";
-
-    const details = document.createElement("p");
-    details.textContent = [
-      safeText(item.tipo),
-      safeText(item.cidade),
-      safeText(item.bairro)
-    ].filter(Boolean).join(" · ");
-
-    const price = document.createElement("p");
-    price.className = "price";
-    price.textContent = money(item.preco);
-
-    const statusText = normalizeStatus(item.status);
-    const status = document.createElement("span");
-    status.className = "status" + (
-      statusText === "Rascunho" ? " draft" : 
-      statusText === "Pendente" ? " pending" : 
-      statusText === "Vendido" ? " sold" : ""
-    );
-    status.textContent = statusText;
-
-    info.append(code, title, details, price, status);
-
-    if (item.anotacao_interna) {
-      const note = document.createElement("div");
-      note.className = "private-note";
-      note.textContent = "Obs: " + safeText(item.anotacao_interna);
-      info.append(note);
-    }
-
-    const actions = document.createElement("div");
-    actions.className = "property-actions";
-
-    if (statusText !== "Vendido") {
-      const soldBtn = document.createElement("button");
-      soldBtn.className = "btn btn-secondary";
-      soldBtn.type = "button";
-      soldBtn.textContent = "Marcar Vendido";
-      soldBtn.addEventListener("click", () => updateStatus(item, "Vendido"));
-      actions.append(soldBtn);
-    } else {
-      const publishBtn = document.createElement("button");
-      publishBtn.className = "btn btn-secondary";
-      publishBtn.type = "button";
-      publishBtn.textContent = "Reativar";
-      publishBtn.addEventListener("click", () => updateStatus(item, "Publicado"));
-      actions.append(publishBtn);
-    }
-
-    const edit = document.createElement("button");
-    edit.className = "btn";
-    edit.type = "button";
-    edit.textContent = "Editar";
-    edit.addEventListener("click", () => startEdit(item));
-
-    const remove = document.createElement("button");
-    remove.className = "btn btn-danger";
-    remove.type = "button";
-    remove.textContent = "Excluir";
-    remove.addEventListener("click", () => deleteProperty(item));
-
-    actions.append(edit, remove);
-    article.append(info, actions);
-    list.append(article);
-  }
+ 
+function isTrue(value) {
+  return value === true || value === 1 || value === "1" || value === "true";
 }
-
-async function loadProperties() {
-  $("refreshButton").disabled = true;
-  $("propertyCount").textContent = "Carregando...";
-  showMessage("listMessage", "");
-
-  try {
-    const data = await apiRequest(API.properties);
-    if (!Array.isArray(data.imoveis)) {
-      throw new Error("A API não retornou a lista de imóveis.");
-    }
-    properties = data.imoveis;
-    renderProperties(properties);
-  } catch (error) {
-    $("propertyCount").textContent = "Erro ao carregar";
-    showMessage("listMessage", error.message, "error");
-  } finally {
-    $("refreshButton").disabled = false;
-  }
+ 
+function isFeatured(item) {
+  return isTrue(item.destaque);
 }
-
-async function updateStatus(item, newStatus) {
-  try {
-    const payload = { ...item, status: newStatus };
-    await apiRequest(`${API.properties}?id=${encodeURIComponent(item.id)}`, {
-      method: "PUT",
-      body: JSON.stringify(payload)
+ 
+function firstValue(item, keys) {
+  for (const key of keys) {
+    const value = item?.[key];
+    if (value !== null && value !== undefined && text(value) !== "") return value;
+  }
+  return "";
+}
+ 
+function stripAccents(value) {
+  return text(value).normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+ 
+function normalizeClassification(value) {
+  const normalized = stripAccents(value)
+    .toLocaleLowerCase("pt-BR")
+    .replace(/[_-]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+ 
+  if (normalized.includes("lancamento") || normalized.includes("na planta")) return "lancamento";
+  if (normalized.includes("pronto") || normalized.includes("construir") || normalized.includes("disponivel")) return "pronto";
+  return "";
+}
+ 
+const CLASS_KEYS = [
+  "classificacao", "classificação", "tipo_terreno",
+  "categoria_terreno", "situacao_terreno", "status_terreno"
+];
+ 
+function explicitClassification(item) {
+  return firstValue(item, CLASS_KEYS);
+}
+ 
+/* Usa o campo de classificação; se não existir (terrenos cadastrados pelo admin),
+   deduz por "lancamento"/"finalidade". Sem nenhuma informação = Pronto para construir. */
+function classificationOf(item) {
+  const explicit = explicitClassification(item);
+  if (explicit && normalizeClassification(explicit)) return explicit;
+ 
+  const finalidade = stripAccents(item.finalidade).toLowerCase();
+  if (isTrue(item.lancamento) || finalidade.includes("lancamento")) return "Lançamento";
+  return "Pronto para construir";
+}
+ 
+function isLand(item) {
+  const type = stripAccents(firstValue(item, [
+    "tipo", "type", "categoria", "category", "tipo_imovel"
+  ])).toLowerCase();
+  return type.includes("terreno") || Boolean(explicitClassification(item));
+}
+ 
+function locationOf(item) {
+  return [
+    text(firstValue(item, ["bairro", "neighborhood"])),
+    text(firstValue(item, ["cidade", "city"]))
+  ].filter(Boolean).join(", ") ||
+  text(firstValue(item, ["endereco", "address", "location"])) ||
+  "Consulte a localização";
+}
+ 
+function propertyArea(item) {
+  return firstValue(item, [
+    "area", "area_m2", "area_terreno", "area_total",
+    "area_total_m2", "metragem", "tamanho"
+  ]);
+}
+ 
+function detailURL(item) {
+  const message = "Olá, Patricia! Gostaria de saber mais sobre o terreno: " +
+    text(item.titulo) +
+    (item.id !== undefined ? " (código " + item.id + ")" : "");
+  return "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
+}
+ 
+/* ===== CARD ===== */
+function propertyCard(item) {
+  const title = text(item.titulo) || "Terreno disponível";
+  const image = text(item.foto_url);
+  const area = propertyArea(item);
+  const location = locationOf(item);
+  const favorite = isFavorite(item.id);
+ 
+  const classification = normalizeClassification(classificationOf(item));
+  const classificationLabel = classification === "lancamento" ? "LANÇAMENTO" : "PRONTO PARA CONSTRUIR";
+  const classificationClass = classification === "lancamento" ? "launch" : "ready";
+ 
+  const imageHTML = image
+    ? `<img src="${escapeHTML(image)}" alt="${escapeHTML(title)}" loading="lazy" onerror="this.style.display='none'">`
+    : `<div class="property-placeholder">Foto em breve</div>`;
+ 
+  const areaHTML = Number(area) > 0
+    ? `<div class="property-features">
+         <div class="property-feature-icon">
+           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+             <rect x="3" y="3" width="18" height="18" rx="1" stroke="#f26522" stroke-width="2" stroke-dasharray="2 2"/>
+             <circle cx="4" cy="4" r="2" fill="#f26522"/>
+             <circle cx="20" cy="4" r="2" fill="#f26522"/>
+             <circle cx="4" cy="20" r="2" fill="#f26522"/>
+             <circle cx="20" cy="20" r="2" fill="#f26522"/>
+           </svg>
+         </div>
+         <span class="property-feature-text">${escapeHTML(area)} m²</span>
+       </div>`
+    : "";
+ 
+  return `
+    <article class="property-card">
+      <div class="property-image">
+        ${imageHTML}
+        <button type="button"
+          class="fav-btn ${favorite ? "is-favorite" : ""}"
+          data-favorite-id="${escapeHTML(item.id)}"
+          aria-label="${favorite ? "Remover dos favoritos" : "Adicionar aos favoritos"}"
+          aria-pressed="${favorite}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+        </button>
+      </div>
+ 
+      <div class="property-body">
+        <div class="property-badges">
+          <span class="property-badge sale">TERRENO À VENDA</span>
+          <span class="property-badge ${classificationClass}">${classificationLabel}</span>
+        </div>
+ 
+        <p class="location">${escapeHTML(location)}</p>
+        <h3>${escapeHTML(title)}</h3>
+        ${areaHTML}
+        <div class="property-price">${money(item.preco)}</div>
+ 
+        <a class="property-action"
+          href="#terreno-${encodeURIComponent(String(item.id ?? ""))}"
+          data-property-id="${escapeHTML(item.id ?? "")}"
+          aria-label="Conhecer terreno: ${escapeHTML(title)}">
+          Conhecer Terreno
+        </a>
+      </div>
+    </article>`;
+}
+ 
+function handleCardClick(event) {
+  const favoriteButton = event.target.closest("[data-favorite-id]");
+ 
+  if (favoriteButton) {
+    event.preventDefault();
+    event.stopPropagation();
+    toggleFavorite(favoriteButton.dataset.favoriteId); // já redesenha as listas
+    return;
+  }
+ 
+  handlePropertyClick(event);
+}
+ 
+function handlePropertyClick(event) {
+  const link = event.target.closest("[data-property-id]");
+  if (!link) return;
+ 
+  event.preventDefault();
+  const id = link.dataset.propertyId;
+  const item = properties.find(p => String(p.id) === String(id));
+ 
+  if (!item) {
+    alert("Não foi possível encontrar os detalhes deste terreno.");
+    return;
+  }
+ 
+  renderPropertyDetails(item);
+  showPage("detalhes", true, item.id);
+}
+ 
+/* ===== DETALHES ===== */
+function getPhotos(item) {
+  const registered = Array.isArray(item.fotos) ? item.fotos : [];
+ 
+  return [
+    item.foto_url,
+    ...registered.map(photo => typeof photo === "string" ? photo : photo.url || photo.foto_url)
+  ].filter(Boolean).map(String).filter((photo, index, array) => array.indexOf(photo) === index);
+}
+ 
+function getAmenities(item) {
+  const raw = firstValue(item, [
+    "caracteristicas", "amenities", "diferenciais", "features",
+    "infraestrutura", "comodidades"
+  ]);
+ 
+  if (Array.isArray(raw)) {
+    return raw.map(value => {
+      if (typeof value === "string") return value;
+      if (value && typeof value === "object") return value.nome || value.name || value.titulo || value.label || "";
+      return "";
+    }).map(text).filter(Boolean);
+  }
+ 
+  if (typeof raw === "string" && raw.trim()) {
+    try {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) return parsed.map(text).filter(Boolean);
+    } catch (_) {}
+    return raw.split(/\r?\n|[,;]+/).map(text).filter(Boolean);
+  }
+ 
+  return [];
+}
+ 
+function addFeature(list, label, value) {
+  if (value === null || value === undefined || text(value) === "") return;
+  list.push(`
+    <div class="detail-feature">
+      <span>${escapeHTML(label)}</span>
+      <strong>${escapeHTML(value)}</strong>
+    </div>`);
+}
+ 
+function getPropertyAddress(item) {
+  const street = text(firstValue(item, ["endereco", "address", "logradouro", "rua"]));
+  const number = text(firstValue(item, ["numero", "number", "numero_endereco"]));
+  const complement = text(firstValue(item, ["complemento", "complement"]));
+  const neighborhood = text(firstValue(item, ["bairro", "neighborhood"]));
+  const city = text(firstValue(item, ["cidade", "city"]));
+  const state = text(firstValue(item, ["estado", "uf", "state"]));
+ 
+  return [
+    [street, number].filter(Boolean).join(", "),
+    complement,
+    neighborhood,
+    [city, state].filter(Boolean).join(" - ")
+  ].filter(Boolean).join(", ");
+}
+ 
+function getMapQuery(item) {
+  const latitude = firstValue(item, ["latitude", "lat"]);
+  const longitude = firstValue(item, ["longitude", "lng", "lon"]);
+ 
+  if (
+    latitude !== "" && longitude !== "" &&
+    Number.isFinite(Number(latitude)) && Number.isFinite(Number(longitude)) &&
+    Number(latitude) >= -90 && Number(latitude) <= 90 &&
+    Number(longitude) >= -180 && Number(longitude) <= 180
+  ) {
+    return `${latitude},${longitude}`;
+  }
+ 
+  return getPropertyAddress(item) || locationOf(item);
+}
+ 
+function buildMapSection(item) {
+  const address = getPropertyAddress(item);
+  const query = getMapQuery(item);
+ 
+  if (!query || query === "Consulte a localização") return "";
+ 
+  const mapURL = "https://www.google.com/maps?q=" + encodeURIComponent(query) + "&output=embed";
+  const externalURL = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(query);
+ 
+  return `
+    <section class="detail-section">
+      <h2>Localização</h2>
+      <p class="map-address">${escapeHTML(address || locationOf(item))}</p>
+      <div class="detail-map">
+        <iframe title="Mapa de localização do terreno" src="${escapeHTML(mapURL)}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      </div>
+      <p><a class="map-link" href="${escapeHTML(externalURL)}" target="_blank" rel="noopener noreferrer">↗ Abrir no Google Maps</a></p>
+      <p class="form-note">O mapa indica a localização pesquisada e pode não representar a entrada exata do terreno.</p>
+    </section>`;
+}
+ 
+function renderPropertyDetails(item) {
+  currentProperty = item;
+  currentPhotoIndex = 0;
+ 
+  const photos = getPhotos(item);
+  const title = text(item.titulo) || "Detalhes do terreno";
+  const code = firstValue(item, ["codigo", "codigo_imovel", "ref", "referencia"]) || item.id;
+  const area = propertyArea(item);
+  const classification = classificationOf(item);
+ 
+  const featuresHTML = [];
+  addFeature(featuresHTML, "Tipo", "Terreno");
+  addFeature(featuresHTML, "Classificação", classification);
+  addFeature(featuresHTML, "Cidade", firstValue(item, ["cidade", "city"]));
+  addFeature(featuresHTML, "Bairro", firstValue(item, ["bairro", "neighborhood"]));
+  if (area !== "") addFeature(featuresHTML, "Área do terreno", area + " m²");
+ 
+  const address = getPropertyAddress(item);
+  if (address !== "") {
+    featuresHTML.push(`
+      <div class="detail-feature full">
+        <span>ENDEREÇO</span>
+        <strong>${escapeHTML(address)}</strong>
+      </div>`);
+  }
+ 
+  if (featuresHTML.length === 0) {
+    featuresHTML.push('<div class="detail-empty">Características ainda não cadastradas.</div>');
+  }
+ 
+  const amenities = getAmenities(item);
+  const shareURL = window.location.origin + window.location.pathname + "#terreno-" + encodeURIComponent(String(item.id ?? ""));
+ 
+  const galleryHTML = photos.length
+    ? `
+      <div class="detail-main-photo">
+        <img id="detailMainImage" src="${escapeHTML(photos[0])}" alt="${escapeHTML(title)}" onerror="this.style.display='none';document.getElementById('detailPhotoError').hidden=false">
+        <div class="property-placeholder" id="detailPhotoError" hidden>Não foi possível carregar esta foto.</div>
+        ${photos.length > 1 ? `
+          <button type="button" class="gallery-arrow gallery-prev" id="galleryPrev" aria-label="Foto anterior">‹</button>
+          <button type="button" class="gallery-arrow gallery-next" id="galleryNext" aria-label="Próxima foto">›</button>
+          <span class="gallery-counter" id="galleryCounter">1 / ${photos.length}</span>
+        ` : ""}
+      </div>
+      ${photos.length > 1 ? `
+        <div class="detail-thumbnails" aria-label="Miniaturas das fotos">
+          ${photos.map((photo, index) => `
+            <button type="button" class="detail-thumbnail ${index === 0 ? "active" : ""}" data-photo-index="${index}" aria-label="Ver foto ${index + 1}" aria-pressed="${index === 0}">
+              <img src="${escapeHTML(photo)}" alt="" loading="lazy">
+            </button>
+          `).join("")}
+        </div>
+      ` : ""}`
+    : `<div class="detail-main-photo"><div class="property-placeholder">Este terreno ainda não possui fotos disponíveis.</div></div>`;
+ 
+  $("propertyDetailsContent").innerHTML = `
+    <div class="property-detail">
+      <header class="detail-header">
+        <span class="section-kicker">Terreno à venda · ${escapeHTML(classification)}</span>
+        <h1>${escapeHTML(title)}</h1>
+        <div class="detail-location"><span>⌖ ${escapeHTML(locationOf(item))}</span></div>
+        ${code !== "" ? `<span class="detail-code">Código do terreno: ${escapeHTML(code)}</span>` : ""}
+        <div class="detail-price">${money(item.preco)}</div>
+        <span class="detail-price-label">Valor anunciado</span>
+      </header>
+ 
+      <section class="detail-gallery" aria-label="Fotos do terreno">${galleryHTML}</section>
+ 
+      ${area !== "" ? `
+        <div class="detail-summary">
+          <div class="summary-item">
+            <div class="summary-icon">▱</div>
+            <div><span>ÁREA DO TERRENO</span><strong>${escapeHTML(area)} m²</strong></div>
+          </div>
+          <div class="summary-item">
+            <div class="summary-icon">⌖</div>
+            <div><span>CIDADE</span><strong>${escapeHTML(firstValue(item, ["cidade", "city"]) || "Consulte")}</strong></div>
+          </div>
+        </div>` : ""}
+ 
+      <div class="detail-layout">
+        <div>
+          <section class="detail-section">
+            <h2>Descrição do terreno</h2>
+            <div class="detail-description">${escapeHTML(item.descricao || "Descrição não informada.").replace(/\r?\n/g, "<br>")}</div>
+          </section>
+ 
+          <section class="detail-section">
+            <h2>Características do terreno</h2>
+            <div class="detail-features">${featuresHTML.join("")}</div>
+          </section>
+ 
+          ${amenities.length ? `
+            <section class="detail-section">
+              <h2>Diferenciais e infraestrutura</h2>
+              <div class="amenity-list">
+                ${amenities.map(amenity => `<div class="amenity-item"><span>✓</span><span>${escapeHTML(amenity)}</span></div>`).join("")}
+              </div>
+            </section>` : ""}
+ 
+          ${buildMapSection(item)}
+        </div>
+ 
+        <aside class="detail-section detail-contact">
+          <span class="section-kicker">Entre em contato</span>
+          <div class="detail-price">${money(item.preco)}</div>
+          <span class="detail-price-label">Valor anunciado</span>
+ 
+          <div class="contact-identity">
+            <img class="contact-avatar" src="./Gemini_Generated_Image_9wawnj9wawnj9waw-removebg-preview%20(1).png" alt="Logo Patricia Ribeiro" width="46" height="46">
+            <div>
+              <strong>Patricia Ribeiro</strong>
+              <span>Corretora de Imóveis · CRECI/SC 60282-F</span>
+            </div>
+          </div>
+ 
+          <p>Gostou deste terreno? Entre em contato para tirar dúvidas e consultar as condições.</p>
+          <a class="btn" href="${escapeHTML(detailURL(item))}" target="_blank" rel="noopener noreferrer">Saiba mais</a>
+ 
+          <div class="detail-share">
+            <a href="https://wa.me/?text=${encodeURIComponent("Confira este terreno: " + title + " — " + shareURL)}" target="_blank" rel="noopener noreferrer">Compartilhar ↗</a>
+            <button type="button" id="copyPropertyLink">Copiar link</button>
+          </div>
+          <p id="shareFeedback" class="form-note" role="status" aria-live="polite"></p>
+        </aside>
+      </div>
+    </div>`;
+ 
+  $("propertyDetailsContent").querySelectorAll("[data-photo-index]").forEach(button => {
+    button.addEventListener("click", () => {
+      currentPhotoIndex = Number(button.dataset.photoIndex);
+      updateGallery();
     });
-    showMessage("listMessage", `${displayCode(item)} atualizado para "${newStatus}" com sucesso!`, "success");
-    await loadProperties();
-  } catch (error) {
-    showMessage("listMessage", "Erro ao atualizar status: " + error.message, "error");
+  });
+ 
+  const previous = $("galleryPrev");
+  const next = $("galleryNext");
+ 
+  if (previous) previous.addEventListener("click", () => {
+    currentPhotoIndex = (currentPhotoIndex - 1 + photos.length) % photos.length;
+    updateGallery();
+  });
+ 
+  if (next) next.addEventListener("click", () => {
+    currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+    updateGallery();
+  });
+ 
+  const copyButton = $("copyPropertyLink");
+ 
+  if (copyButton) {
+    copyButton.addEventListener("click", async () => {
+      const feedback = $("shareFeedback");
+ 
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(shareURL);
+        } else {
+          const temporary = document.createElement("textarea");
+          temporary.value = shareURL;
+          temporary.style.position = "fixed";
+          temporary.style.opacity = "0";
+          document.body.appendChild(temporary);
+          temporary.select();
+          const copied = document.execCommand("copy");
+          temporary.remove();
+          if (!copied) throw new Error("Cópia não disponível.");
+        }
+        feedback.textContent = "Link copiado. Você já pode compartilhar o terreno.";
+      } catch (_) {
+        feedback.textContent = "Não foi possível copiar automaticamente. Copie o endereço da página pelo navegador.";
+      }
+    });
   }
 }
-
-function setPhotoPreview(url) {
-  if (previewObjectUrl) {
-    URL.revokeObjectURL(previewObjectUrl);
-    previewObjectUrl = null;
+ 
+function updateGallery() {
+  if (!currentProperty) return;
+ 
+  const photos = getPhotos(currentProperty);
+  const image = $("detailMainImage");
+  if (!image || !photos.length) return;
+ 
+  image.style.display = "";
+  image.src = photos[currentPhotoIndex];
+  image.alt = (text(currentProperty.titulo) || "Foto do terreno") + " — foto " + (currentPhotoIndex + 1);
+ 
+  const photoError = $("detailPhotoError");
+  if (photoError) photoError.hidden = true;
+ 
+  const counter = $("galleryCounter");
+  if (counter) counter.textContent = `${currentPhotoIndex + 1} / ${photos.length}`;
+ 
+  document.querySelectorAll("#propertyDetailsContent [data-photo-index]").forEach(button => {
+    const active = Number(button.dataset.photoIndex) === currentPhotoIndex;
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
+}
+ 
+/* ===== FILTROS E ORDENAÇÃO ===== */
+function filterProperties(list) {
+  const city = text($("location").value).toLocaleLowerCase("pt-BR");
+  const classification = $("type").value;
+  const priceValue = $("price").value;
+  const maxPrice = priceValue ? Number(priceValue) : Infinity;
+ 
+  return list.filter(item => {
+    const combinedLocation = [
+      item.cidade, item.bairro, item.endereco, item.location
+    ].map(text).join(" ").toLocaleLowerCase("pt-BR");
+ 
+    const matchesCity = !city || combinedLocation.includes(city);
+    const itemClassification = normalizeClassification(classificationOf(item));
+    const matchesClassification = !classification || itemClassification === classification;
+    const itemPrice = Number(item.preco);
+    const matchesPrice = maxPrice === Infinity ||
+      (Number.isFinite(itemPrice) && itemPrice >= 0 && itemPrice <= maxPrice);
+ 
+    return matchesCity && matchesClassification && matchesPrice;
+  });
+}
+ 
+function sortProperties(list) {
+  const mode = $("sort").value;
+  const result = [...list];
+ 
+  if (mode === "favoritos") {
+    return result.filter(item => isFavorite(item.id));
   }
-  if (url) {
-    $("fotoPreviewImg").src = url;
-    $("fotoPreview").hidden = false;
+ 
+  if (mode === "menor" || mode === "maior") {
+    result.sort((a, b) => {
+      const priceA = Number(a.preco);
+      const priceB = Number(b.preco);
+      if (!Number.isFinite(priceA)) return 1;
+      if (!Number.isFinite(priceB)) return -1;
+      return mode === "menor" ? priceA - priceB : priceB - priceA;
+    });
   } else {
-    $("fotoPreviewImg").removeAttribute("src");
-    $("fotoPreview").hidden = true;
-  }
-}
-
-$("fotoArquivo").addEventListener("change", () => {
-  const file = $("fotoArquivo").files[0];
-  if (!file) {
-    setPhotoPreview($("foto_url").value.trim());
-    return;
-  }
-  if (!["image/png", "image/jpeg"].includes(file.type)) {
-    $("fotoArquivo").value = "";
-    setPhotoPreview($("foto_url").value.trim());
-    showMessage("formMessage", "Escolha uma imagem PNG ou JPG/JPEG.", "error");
-    return;
-  }
-  if (file.size > 10 * 1024 * 1024) {
-    $("fotoArquivo").value = "";
-    setPhotoPreview($("foto_url").value.trim());
-    showMessage("formMessage", "A imagem deve ter no máximo 10 MB.", "error");
-    return;
-  }
-  showMessage("formMessage", "");
-  setPhotoPreview("");
-  previewObjectUrl = URL.createObjectURL(file);
-  $("fotoPreviewImg").src = previewObjectUrl;
-  $("fotoPreview").hidden = false;
-});
-
-$("foto_url").addEventListener("input", () => {
-  if (!$("fotoArquivo").files.length) {
-    setPhotoPreview($("foto_url").value.trim());
-  }
-});
-
-function startEdit(item) {
-  $("editingId").value = String(item.id);
-  $("formTitle").textContent = `Editar imóvel — ${displayCode(item)}`;
-  $("editNotice").hidden = false;
-  $("saveButton").textContent = "Salvar alterações";
-  $("cancelEditButton").hidden = false;
-
-  for (const field of [
-    "titulo", "tipo", "finalidade", "preco", "cidade", "bairro",
-    "endereco", "area_m2", "quartos", "banheiros", "vagas",
-    "foto_url", "descricao"
-  ]) {
-    if ($(field)) {$(field).value = item[field] ?? "";
-    }
-  }
-
-  if ($("anotacaoInterna")) {
-    $("anotacaoInterna").value = item.anotacao_interna || item.anotacao_privada || "";
-  }
-
-  if ($("status")) {
-    $("status").value = normalizeStatus(item.status);
-  }
-
-  $("destaque").checked = item.destaque === true || item.destaque === 1 || item.destaque === "1";
-  $("lancamento").checked = item.lancamento === true || item.lancamento === 1 || item.lancamento === "1";
-
-  $("fotoArquivo").value = "";
-  setPhotoPreview(item.foto_url || "");
-  showMessage("formMessage", `Editando ${displayCode(item)}. Faça as alterações e salve.`, "success");
-
-  $("editorPanel").scrollIntoView({ behavior: "smooth", block: "start" });
-}
-
-function resetEditor() {
-  $("propertyForm").reset();
-  $("editingId").value = "";
-  $("formTitle").textContent = "Cadastrar novo imóvel";
-  $("editNotice").hidden = true;
-  $("saveButton").textContent = "Cadastrar imóvel";
-  $("cancelEditButton").hidden = true;
-  setPhotoPreview("");
-  showMessage("formMessage", "");
-}
-
-async function deleteProperty(item) {
-  if (item.id === null || item.id === undefined) {
-    showMessage("listMessage", "Este imóvel não possui código válido.", "error");
-    return;
-  }
-  const confirmed = confirm(`Deseja realmente excluir ${displayCode(item)} — ${safeText(item.titulo)}?\n\nEssa ação é permanente.`);
-  if (!confirmed) return;
-
-  try {
-    await apiRequest(`${API.properties}?id=${encodeURIComponent(item.id)}`, { method: "DELETE" });
-    if ($("editingId").value === String(item.id)) {
-      resetEditor();
-    }
-    showMessage("listMessage", `${displayCode(item)} excluído com sucesso.`, "success");
-    await loadProperties();
-  } catch (error) {
-    showMessage("listMessage", error.message, "error");
-  }
-}
-
-async function uploadPhoto(file) {
-  const formData = new FormData();
-  formData.append("file", file);
-
-  const response = await fetch(API.upload, {
-    method: "POST",
-    credentials: "same-origin",
-    cache: "no-store",
-    headers: { Accept: "application/json" },
-    body: formData
-  });
-
-  let data = {};
-  try {
-    data = await response.json();
-  } catch {
-    data = {};
-  }
-
-  if (!response.ok) {
-    throw new Error(data.error || `Falha no envio da foto (HTTP ${response.status}).`);
-  }
-  if (!data.url || typeof data.url !== "string") {
-    throw new Error("O servidor respondeu sem a URL da foto.");
-  }
-  return data.url;
-}
-
-$("propertyForm").addEventListener("submit", async event => {
-  event.preventDefault();
-  const button = $("saveButton");
-  if (button.disabled) return;
-
-  button.disabled = true;
-  button.textContent = "Salvando...";
-  showMessage("formMessage", "");
-
-  const numberValue = id => {
-    const value = $(id).value;
-    return value === "" ? null : Number(value);
-  };
-
-  try {
-    let photoUrl = $("foto_url").value.trim();
-    const file = $("fotoArquivo").files[0];
-
-    if (file) {
-      button.textContent = "Enviando foto...";
-      photoUrl = await uploadPhoto(file);
-    }
-
-    const payload = {
-      titulo: $("titulo").value.trim(),
-      tipo: $("tipo").value,
-      finalidade: $("finalidade").value,
-      preco: numberValue("preco"),
-      cidade: $("cidade").value.trim(),
-      bairro: $("bairro").value.trim(),
-      endereco: $("endereco").value.trim(),
-      area_m2: numberValue("area_m2"),
-      quartos: numberValue("quartos"),
-      banheiros: numberValue("banheiros"),
-      vagas: numberValue("vagas"),
-      foto_url: photoUrl,
-      descricao: $("descricao").value.trim(),
-      anotacao_interna: $("anotacaoInterna") ? $("anotacaoInterna").value.trim() : "",
-      destaque: $("destaque").checked,
-      lancamento: $("lancamento").checked,
-      status: $("status").value
-    };
-
-    const id = $("editingId").value;
-    if (id) {
-      payload.id = Number(id);
-    }
-
-    const result = await apiRequest(
-      id ? `${API.properties}?id=${encodeURIComponent(id)}` : API.properties,
-      {
-        method: id ? "PUT" : "POST",
-        body: JSON.stringify(payload)
-      }
+    result.sort((a, b) =>
+      (Date.parse(b.data_cadastro || "") || 0) - (Date.parse(a.data_cadastro || "") || 0)
     );
-
-    const message = id
-      ? `${displayCode({ id })} atualizado com sucesso!`
-      : `${result.message || "Imóvel cadastrado com sucesso."}${result.id != null ? " Código: " + result.id : ""}`;
-
-    resetEditor();
-    showMessage("formMessage", message, "success");
-    await loadProperties();
-  } catch (error) {
-    showMessage("formMessage", error.message, "error");
-  } finally {
-    button.disabled = false;
-    button.textContent = $("editingId").value ? "Salvar alterações" : "Cadastrar imóvel";
   }
-});
-
-// EVENTOS DE TAB DE FILTRO
-document.querySelectorAll(".tab-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    currentFilter = btn.dataset.filter;
-    renderProperties(properties);
+ 
+  return result;
+}
+ 
+function setStatus(message) {
+  $("statusMessage").textContent = message;
+  $("statusMessage").hidden = !message;
+}
+ 
+function render() {
+  const published = properties.filter(item => {
+    const status = text(item.status).toLocaleLowerCase("pt-BR");
+    return (!status || status === "publicado") && isLand(item);
   });
-});
-
-$("clearButton").addEventListener("click", resetEditor);
-$("cancelEditButton").addEventListener("click", resetEditor);
-$("refreshButton").addEventListener("click", loadProperties);
-
-$("filterProperties").addEventListener("input", () => {
-  renderProperties(properties);
-});
-
-$("loginForm").addEventListener("submit", async event => {
-  event.preventDefault();
-  const button = $("loginButton");
-  button.disabled = true;
-  button.textContent = "Verificando...";
-  showMessage("loginMessage", "");
-
+ 
+  const active = hasSearched ? filterProperties(published) : published;
+  const featured = active.filter(isFeatured);
+  const sorted = sortProperties(active);
+ 
+  $("featuredList").innerHTML = featured.map(propertyCard).join("");
+  $("allList").innerHTML = sorted.map(propertyCard).join("");
+ 
+  $("featuredEmpty").hidden = featured.length > 0;
+  $("allEmpty").hidden = sorted.length > 0;
+ 
+  $("resultsCount").textContent = sorted.length === 1
+    ? "1 terreno encontrado"
+    : `${sorted.length} terrenos encontrados`;
+ 
+  setStatus(hasSearched ? "Resultados atualizados com os filtros selecionados." : "");
+}
+ 
+async function loadProperties() {
+  $("resultsCount").textContent = "Carregando terrenos...";
+ 
   try {
-    await apiRequest(API.login, {
-      method: "POST",
-      body: JSON.stringify({ password: $("password").value })
+    const response = await fetch(API_URL, {
+      method: "GET",
+      headers: { Accept: "application/json" },
+      cache: "no-store"
     });
-    $("password").value = "";
-    showAdmin();
-    await loadProperties();
+ 
+    if (!response.ok) throw new Error("HTTP " + response.status);
+ 
+    const data = await response.json();
+ 
+    if (Array.isArray(data)) {
+      properties = data;
+    } else if (data && Array.isArray(data.imoveis)) {
+      properties = data.imoveis;
+    } else {
+      throw new Error("Formato da API não reconhecido.");
+    }
+ 
+    properties = properties.map(item => ({
+      ...item,
+      id: item.id,
+      titulo: item.titulo ?? item.title,
+      tipo: item.tipo ?? item.type ?? item.categoria ?? item.category,
+      classificacao: item.classificacao ?? item.classificação ??
+        item.tipo_terreno ?? item.categoria_terreno ??
+        item.situacao_terreno ?? item.status_terreno ?? "",
+      foto_url: item.foto_url ?? item.image,
+      fotos: item.fotos ?? item.photos ?? [],
+      destaque: item.destaque ?? item.featured,
+      preco: item.preco ?? item.price ?? item.valor,
+      area: item.area ?? item.area_m2 ?? item.area_terreno ??
+        item.area_total ?? item.area_total_m2 ?? item.metragem ?? "",
+      descricao: item.descricao ?? item.description,
+      data_cadastro: item.data_cadastro ?? item.publishedAt,
+      cidade: item.cidade ?? item.city ?? "",
+      bairro: item.bairro ?? item.neighborhood ?? "",
+      endereco: item.endereco ?? item.address ?? item.location ?? ""
+    }));
+ 
+    render();
+    restoreFromLocation();
   } catch (error) {
-    showMessage("loginMessage", error.message, "error");
-  } finally {
-    button.disabled = false;
-    button.textContent = "Entrar no painel";
-  }
-});
-
-$("logoutButton").addEventListener("click", async () => {
-  try {
-    await apiRequest(API.logout, { method: "POST" });
-  } catch (error) {
-    showMessage("listMessage", error.message, "error");
-  }
-  showLogin();
-});
-
-async function checkSession() {
-  try {
-    await apiRequest(API.session);
-    showAdmin();
-    await loadProperties();
-  } catch {
-    showLogin();
+    console.error("Erro ao carregar terrenos:", error);
+    $("featuredList").innerHTML = "";
+    $("allList").innerHTML = "";
+    $("featuredEmpty").hidden = false;
+    $("allEmpty").hidden = false;
+    $("featuredEmpty").innerHTML = "<strong>Não foi possível carregar os terrenos.</strong> Verifique a configuração da API.";
+    $("allEmpty").innerHTML = "<strong>Catálogo temporariamente indisponível.</strong> Tente novamente mais tarde.";
+    $("resultsCount").textContent = "Catálogo indisponível";
+    setStatus("Os anúncios dependem da disponibilidade da API.");
   }
 }
-
-checkSession();
+ 
+/* ===== EVENTOS ===== */
+$("featuredList").addEventListener("click", handleCardClick);
+$("allList").addEventListener("click", handleCardClick);
+ 
+$("searchForm").addEventListener("submit", event => {
+  event.preventDefault();
+  hasSearched = true;
+  render();
+  $("disponiveis").scrollIntoView({ behavior: "smooth", block: "start" });
+});
+ 
+/* Os filtros agora funcionam assim que o visitante muda a opção */
+["location", "type", "price"].forEach(id =>
+  $(id).addEventListener("change", () => {
+    hasSearched = true;
+    render();
+  })
+);
+ 
+$("seeAllLink").addEventListener("click", event => {
+  event.preventDefault();
+  $("disponiveis").scrollIntoView({ behavior: "smooth", block: "start" });
+});
+ 
+$("sort").addEventListener("change", render);
+ 
+/* ===== FORMULÁRIO DE ANÚNCIO ===== */
+$("sellForm").addEventListener("submit", async event => {
+  event.preventDefault();
+ 
+  const form = event.currentTarget;
+  const button = form.querySelector('button[type="submit"]');
+  const fileInput = $("sellImages");
+  const status = $("sellStatus");
+ 
+  if (!form.reportValidity()) return;
+ 
+  if (!fileInput.files.length) {
+    alert("Selecione pelo menos uma foto do terreno.");
+    return;
+  }
+ 
+  if (fileInput.files.length > 5) {
+    alert("Você pode enviar no máximo 5 imagens.");
+    return;
+  }
+ 
+  const allowedTypes = ["image/jpeg", "image/png"];
+ 
+  for (const file of fileInput.files) {
+    if (!allowedTypes.includes(file.type)) {
+      alert("Envie somente imagens JPG ou PNG.");
+      return;
+    }
+  }
+ 
+  if (button.disabled) return;
+ 
+  const originalText = button.textContent;
+  button.disabled = true;
+  button.textContent = "Enviando terreno...";
+  status.textContent = "";
+ 
+  try {
+    const formData = new FormData(form);
+    const isLaunch = $("sellClassification").value === "Lançamento";
+ 
+    formData.set("tipo", "Terreno");
+    formData.set("categoria", "Terreno");
+    formData.set("classificacao", $("sellClassification").value);
+    formData.set("finalidade", isLaunch ? "Lançamento" : "Venda");
+    formData.set("lancamento", isLaunch ? "1" : "0");
+    formData.set("status", "Pendente");
+    formData.set("area", $("sellArea").value);
+    formData.set("valor", $("sellValue").value);
+    formData.delete("autorizacao");
+ 
+    const response = await fetch(PROPOSALS_URL, {
+      method: "POST",
+      headers: { Accept: "application/json" },
+      body: formData
+    });
+ 
+    const responseText = await response.text();
+    let result = null;
+ 
+    if (responseText.trim()) {
+      try {
+        result = JSON.parse(responseText);
+      } catch (_) {
+        result = null;
+      }
+    }
+ 
+    if (!response.ok) {
+      throw new Error(
+        result?.error || result?.message ||
+        `O servidor recusou a solicitação (HTTP ${response.status}).`
+      );
+    }
+ 
+    if (result && (result.success === false || result.success === 0 || result.error)) {
+      throw new Error(result.error || result.message || "Não foi possível registrar a proposta.");
+    }
+ 
+    status.textContent = "Solicitação enviada. O terreno aguarda análise administrativa.";
+    alert(
+      "Solicitação enviada!\n\n" +
+      "O terreno e as fotos foram encaminhados ao servidor para análise. " +
+      "A publicação depende da confirmação do cadastro e da aprovação administrativa."
+    );
+    form.reset();
+  } catch (error) {
+    console.error("Erro ao enviar terreno:", error);
+    status.textContent = "Não foi possível confirmar o envio. Verifique a configuração do servidor.";
+    alert(
+      "Não foi possível confirmar o cadastro do terreno.\n\n" +
+      (error.message || "Verifique sua conexão e tente novamente.")
+    );
+  } finally {
+    button.disabled = false;
+    button.textContent = originalText;
+  }
+});
+ 
+showPage(normalizePage(location.hash), false);
+loadProperties();
 </script>
 </body>
 </html>
+ 
