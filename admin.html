@@ -557,21 +557,33 @@ function isFavorite(id) {
  
 function toggleFavorite(id) {
   const propertyId = String(id);
+
   if (favoriteProperties.has(propertyId)) {
     favoriteProperties.delete(propertyId);
   } else {
     favoriteProperties.add(propertyId);
   }
+
   saveFavorites();
-  render();
-  return favoriteProperties.has(propertyId);
-}
- 
-$("year").textContent = new Date().getFullYear();
- 
-/* ===== MENU E NAVEGAÇÃO ===== */
-const menuToggle = $("menuToggle");
-const mainNav = $("mainNav");
+
+  // Atualiza os corações sem perder o estado dos favoritos
+  document.querySelectorAll("[data-favorite-id]").forEach(button => {
+    if (button.dataset.favoriteId === propertyId) {
+      const active = favoriteProperties.has(propertyId);
+
+      button.classList.toggle("is-favorite", active);
+      button.setAttribute("aria-pressed", String(active));
+      button.setAttribute(
+        "aria-label",
+        active ? "Remover dos favoritos" : "Adicionar aos favoritos"
+      );
+    }
+  });
+
+  // Atualiza a listagem se estiver na opção Meus favoritos
+  if ($("sort").value === "favoritos") {
+    render();
+  }
  
 function closeMenu() {
   mainNav.classList.remove("open");
@@ -705,37 +717,66 @@ function normalizeClassification(value) {
     .replace(/[_-]+/g, " ")
     .replace(/\s+/g, " ")
     .trim();
- 
-  if (normalized.includes("lancamento") || normalized.includes("na planta")) return "lancamento";
-  if (normalized.includes("pronto") || normalized.includes("construir") || normalized.includes("disponivel")) return "pronto";
+
+  // Lançamentos
+  if (
+    normalized.includes("lancamento") ||
+    normalized.includes("na planta") ||
+    normalized === "launch"
+  ) {
+    return "lancamento";
+  }
+
+  // Prontos para construir
+  if (
+    normalized.includes("pronto") ||
+    normalized.includes("construir") ||
+    normalized.includes("disponivel") ||
+    normalized === "ready"
+  ) {
+    return "pronto";
+  }
+
   return "";
 }
  
 const CLASS_KEYS = [
-  "classificacao", "classificação", "tipo_terreno",
-  "categoria_terreno", "situacao_terreno", "status_terreno"
+  "classificacao",
+  "classificação",
+  "classificacao_terreno",
+  "tipo_terreno",
+  "categoria_terreno",
+  "situacao_terreno",
+  "status_terreno"
 ];
- 
+
 function explicitClassification(item) {
   return firstValue(item, CLASS_KEYS);
 }
- 
-/* Usa o campo de classificação; se não existir (terrenos cadastrados pelo admin),
-   deduz por "lancamento"/"finalidade". Sem nenhuma informação = Pronto para construir. */
 function classificationOf(item) {
   const explicit = explicitClassification(item);
-  if (explicit && normalizeClassification(explicit)) return explicit;
- 
-  const finalidade = stripAccents(item.finalidade).toLowerCase();
-  if (isTrue(item.lancamento) || finalidade.includes("lancamento")) return "Lançamento";
+
+  if (explicit && normalizeClassification(explicit)) {
+    return explicit;
+  }
+
+  const finalidade = stripAccents(
+    item.finalidade || ""
+  ).toLocaleLowerCase("pt-BR");
+
+  const tipo = stripAccents(
+    item.tipo || item.type || ""
+  ).toLocaleLowerCase("pt-BR");
+
+  if (
+    isTrue(item.lancamento) ||
+    finalidade.includes("lancamento") ||
+    tipo.includes("lancamento")
+  ) {
+    return "Lançamento";
+  }
+
   return "Pronto para construir";
-}
- 
-function isLand(item) {
-  const type = stripAccents(firstValue(item, [
-    "tipo", "type", "categoria", "category", "tipo_imovel"
-  ])).toLowerCase();
-  return type.includes("terreno") || Boolean(explicitClassification(item));
 }
  
 function locationOf(item) {
@@ -830,14 +871,15 @@ function propertyCard(item) {
  
 function handleCardClick(event) {
   const favoriteButton = event.target.closest("[data-favorite-id]");
- 
+
   if (favoriteButton) {
     event.preventDefault();
     event.stopPropagation();
-    toggleFavorite(favoriteButton.dataset.favoriteId); // já redesenha as listas
+
+    toggleFavorite(favoriteButton.dataset.favoriteId);
     return;
   }
- 
+
   handlePropertyClick(event);
 }
  
